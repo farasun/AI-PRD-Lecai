@@ -1,0 +1,21 @@
+# IDE & Environment
+.gemini/
+.agent/
+.vscode/
+.idea/
+
+# Build & Dist
+dist/
+build/
+out/
+
+# Assets & Temp
+page-screenshot/
+*.log
+tmp/
+temp/
+
+# OS Files
+.DS_Store
+Thumbs.db
+desktop.ini

@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CC-5 社团活动详情 - 线框图迭代 (ChatD v1.4)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f9fafb;
+        }
+
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50 min-h-screen flex justify-center p-12 overflow-x-auto">
+
+    <div id="artboard" class="flex flex-row items-start gap-24">
+
+        <!-- ============================================================
+             区域 A：主视图 (CC-5 社团活动详情 - 迭代版)
+        ============================================================= -->
+        <div class="flex flex-col">
+            <h2 class="text-xl font-bold text-gray-900 mb-4">CC-5 社团活动详情 (状态 I：正常态)</h2>
+
+            <div
+                class="w-[375px] h-auto bg-white shadow-xl border border-gray-200 relative p-0 overflow-hidden rounded-none flex flex-col">
+
+                <!-- 顶部导航 (h-16) -->
+                <div
+                    class="h-16 flex items-center justify-between px-4 border-b border-gray-100 bg-white sticky top-0 z-50">
+                    <div class="flex items-center gap-1 text-gray-900">
+                        <i class="ri-arrow-left-s-line text-2xl"></i>
+                        <span class="text-lg">返回社团</span>
+                    </div>
+                    <span class="text-xl font-bold text-gray-900">活动</span>
+                    <div class="w-8 flex justify-end">
+                        <i class="ri-more-fill text-2xl text-gray-900"></i>
+                    </div>
+                </div>
+
+                <!-- 活动标题区与数据/控件 (极简留白, 靠左对齐) -->
+                <div class="bg-white px-4 py-6 border-b border-gray-100">
+                    <h1 class="text-2xl font-bold text-gray-900">2026年1月23日塔川行</h1>
+
+                    <!-- 改进：按照原版式呈现 [作品 XX] [获赞 XX] 的标签 -->
+                    <div class="flex items-center gap-2 mt-3">
+                        <div
+                            class="px-3 py-1 border border-gray-300 rounded-lg bg-white text-gray-700 text-sm font-normal">
+                            作品14
+                        </div>
+                        <div
+                            class="px-3 py-1 border border-gray-300 rounded-lg bg-white text-gray-700 text-sm font-normal">
+                            获赞22
+                        </div>
+                    </div>
+
+                    <!-- 补充：搜索与筛选控件 (同步截图文案) -->
+                    <div class="flex items-center gap-3 mt-6">
+                        <div
+                            class="flex-1 h-12 bg-gray-50 border border-transparent rounded-full flex items-center px-4 text-gray-400">
+                            <i class="ri-search-line mr-2 text-lg"></i>
+                            <span class="text-base font-normal">按作品名、作者名搜索</span>
+                        </div>
+                        <div class="flex items-center gap-1 text-gray-900">
+                            <span class="text-base font-normal">最新发布</span>
+                            <i class="ri-filter-3-line text-xl"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 瀑布流内容区 (浅灰底色突出卡片) -->
+                <div class="bg-gray-50 p-4 min-h-[600px] flex gap-4">
+
+                    <!-- 左列 -->
+                    <div class="flex-1 flex flex-col gap-4">
+                        <!-- 卡片 1: 含标题 -->
+                        <div
+                            class="bg-white border border-gray-200 rounded-none overflow-hidden flex flex-col shadow-sm">
+                            <div class="h-48 bg-gray-100 flex items-center justify-center text-gray-300">
+                                <i class="ri-image-2-line text-4xl font-normal"></i>
+                            </div>
+                            <div class="p-4">
+                                <div class="text-lg font-bold text-gray-900 mb-2">冰 鱼</div>
+                                <div class="flex items-center justify-between">
+                                    <span
+                                        class="text-base text-gray-700 font-normal truncate max-w-[80px]">法拉孙Fara</span>
+                                    <div class="flex items-center gap-1 text-gray-900">
+                                        <i class="ri-thumb-up-line text-lg"></i>
+                                        <span class="text-base font-bold">2</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 卡片 2: 无标题(直接折叠) -->
+                        <div
+                            class="bg-white border border-gray-200 rounded-none overflow-hidden flex flex-col shadow-sm">
+                            <div class="h-64 bg-gray-100 flex items-center justify-center text-gray-300">
+                                <i class="ri-image-2-line text-4xl font-normal"></i>
+                            </div>
+                            <div class="p-4">
+                                <div class="flex items-center justify-between">
+                                    <span class="text-base text-gray-700 font-normal truncate max-w-[80px]">长者摄影家</span>
+                                    <div class="flex items-center gap-1 text-gray-900">
+                                        <i class="ri-thumb-up-line text-lg"></i>
+                                        <span class="text-base font-bold">15</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 右列 -->
+                    <div class="flex-1 flex flex-col gap-4">
+                        <!-- 卡片 3: 无标题(直接折叠) -->
+                        <div
+                            class="bg-white border border-gray-200 rounded-none overflow-hidden flex flex-col shadow-sm">
+                            <div class="h-40 bg-gray-100 flex items-center justify-center text-gray-300">
+                                <i class="ri-image-2-line text-4xl font-normal"></i>
+                            </div>
+                            <div class="p-4">
+                                <div class="flex items-center justify-between">
+                                    <span class="text-base text-gray-700 font-normal truncate max-w-[80px]">张建国</span>
+                                    <div class="flex items-center gap-1 text-gray-900">
+                                        <i class="ri-thumb-up-line text-lg"></i>
+                                        <span class="text-base font-bold">8</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 卡片 4: 含标题 -->
+                        <div
+                            class="bg-white border border-gray-200 rounded-none overflow-hidden flex flex-col shadow-sm">
+                            <div class="h-56 bg-gray-100 flex items-center justify-center text-gray-300">
+                                <i class="ri-image-2-line text-4xl font-normal"></i>
+                            </div>
+                            <div class="p-4">
+                                <div class="text-lg font-bold text-gray-900 mb-2">塔川秋意浓</div>
+                                <div class="flex items-center justify-between">
+                                    <span class="text-base text-gray-700 font-normal truncate max-w-[80px]">李阿姨摄影</span>
+                                    <div class="flex items-center gap-1 text-gray-900">
+                                        <i class="ri-thumb-up-line text-lg"></i>
+                                        <span class="text-base font-bold">24</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 底部占位 (防止按钮遮挡内容) -->
+                <div class="h-24 bg-gray-50"></div>
+
+                <!-- 底部操作栏 (维持原比例) -->
+                <div
+                    class="absolute bottom-0 w-full p-4 bg-white border-t border-gray-100 flex items-center justify-center z-[60] pb-8">
+                    <div
+                        class="w-full h-14 bg-gray-900 rounded-full flex items-center justify-center text-white gap-2 shadow-xl">
+                        <i class="ri-add-line text-2xl mt-0.5"></i>
+                        <span class="text-xl font-medium">上传照片/视频</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================
+             区域 B：组件变体集
+        ============================================================= -->
+        <div class="flex flex-col gap-10 w-[360px]">
+            <h2 class="text-xl font-bold text-gray-900">多状态展示</h2>
+
+            <!-- 变体 1：空状态 -->
+            <div class="flex flex-col">
+                <h3 class="text-lg font-bold text-gray-700 mb-4 pl-3 border-l-4 border-gray-900">CC-5 社团活动详情 (状态 II：空状态)
+                </h3>
+                <div class="bg-white p-6 border border-dashed border-gray-300 rounded-none">
+                    <div class="h-80 flex flex-col items-center justify-center text-center">
+                        <div class="w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center mb-6">
+                            <i class="ri-image-line text-5xl text-gray-300"></i>
+                        </div>
+                        <p class="text-lg text-gray-700 font-normal mb-8">这里还在虚位以待，<br />请您来开个头吧！</p>
+                        <div
+                            class="px-8 h-14 bg-gray-900 rounded-full flex items-center justify-center text-white font-medium text-lg">
+                            第一个发布作品
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 变体 2：前置类型选择弹窗 (Action Sheet) -->
+            <div class="flex flex-col">
+                <h3 class="text-lg font-bold text-gray-700 mb-4 pl-3 border-l-4 border-gray-900">CC-5 社团活动详情 (状态
+                    III：类型选择弹窗)</h3>
+                <div
+                    class="bg-gray-200 p-0 border border-dashed border-gray-300 rounded-none relative overflow-hidden h-[400px]">
+                    <!-- 模拟背景主界面 (模糊/调暗意会) -->
+                    <div class="absolute inset-0 bg-gray-400 opacity-20"></div>
+
+                    <!-- 底部半屏弹窗 -->
+                    <div class="absolute bottom-0 w-full bg-white border-t border-gray-200 p-6 flex flex-col gap-4">
+                        <div class="flex flex-col border border-gray-200 rounded-2xl overflow-hidden">
+                            <!-- 照片选项 -->
+                            <div
+                                class="h-16 flex items-center justify-center border-b border-gray-100 active:bg-gray-50">
+                                <span class="text-xl font-normal text-gray-900">上传照片 (最多9张)</span>
+                            </div>
+                            <!-- 视频选项 -->
+                            <div class="h-16 flex items-center justify-center active:bg-gray-50">
+                                <span class="text-xl font-normal text-gray-900">上传视频 (1个，100MB以内)</span>
+                            </div>
+                        </div>
+                        <!-- 取消按钮 -->
+                        <div
+                            class="h-14 bg-white border border-gray-300 rounded-2xl flex items-center justify-center text-lg font-bold text-gray-900 shadow-sm">
+                            取消
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 变体 3：系统原生相册 (OS Native Picker) -->
+            <div class="flex flex-col">
+                <h3 class="text-lg font-bold text-gray-700 mb-4 pl-3 border-l-4 border-gray-900">CC-5 社团活动详情 (状态
+                    IV：原生相册选择)</h3>
+                <div class="bg-white p-0 border border-dashed border-gray-300 rounded-none h-[400px] flex flex-col">
+                    <!-- 模拟原生顶部 -->
+                    <div class="h-16 flex items-center justify-between px-4 border-b border-gray-200 bg-gray-50">
+                        <span class="text-gray-900 text-lg font-normal">取消</span>
+                        <div class="flex items-center gap-1 font-bold">
+                            <span class="text-lg">最近项目</span>
+                            <i class="ri-arrow-down-s-line"></i>
+                        </div>
+                        <div class="bg-gray-900 text-white px-4 h-10 rounded-lg flex items-center text-base">添加 (2)
+                        </div>
+                    </div>
+
+                    <!-- 模拟网格 -->
+                    <div class="flex-1 grid grid-cols-3 gap-1 p-1 overflow-y-auto">
+                        <div class="aspect-square bg-gray-100 relative">
+                            <div
+                                class="absolute top-2 right-2 w-6 h-6 bg-gray-900 border-2 border-white rounded-full flex items-center justify-center text-white text-xs">
+                                1</div>
+                        </div>
+                        <div class="aspect-square bg-gray-100 flex items-center justify-center">
+                            <i class="ri-film-line text-gray-300 text-3xl"></i>
+                        </div>
+                        <div class="aspect-square bg-gray-100 relative">
+                            <div
+                                class="absolute top-2 right-2 w-6 h-6 bg-gray-900 border-2 border-white rounded-full flex items-center justify-center text-white text-xs">
+                                2</div>
+                        </div>
+                        <div class="aspect-square bg-gray-100"></div>
+                        <div class="aspect-square bg-gray-200"></div>
+                        <div class="aspect-square bg-gray-100"></div>
+                    </div>
+
+                    <!-- 原生提示栏 -->
+                    <div
+                        class="h-12 border-t border-gray-100 bg-gray-50 flex items-center justify-center text-gray-400 gap-1 italic">
+                        <i class="ri-information-line"></i>
+                        <span class="text-base">由操作系统托管的媒体选择器</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>

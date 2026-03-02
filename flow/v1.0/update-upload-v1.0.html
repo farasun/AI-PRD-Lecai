@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>迭代后用户操作流程 - 全景线框图 (V1.0 - 大图先导版)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <style>
+        /* 强制隐藏滚动条以求极致纯净，但保留滚动功能 */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        /* 纯净工程网格背景 */
+        .bg-grid {
+            background-size: 20px 20px;
+            background-image: radial-gradient(circle, #cbd5e1 1px, transparent 1px);
+        }
+    </style>
+</head>
+
+<body class="m-0 p-0 no-scrollbar">
+
+    <div
+        class="relative bg-gray-50 bg-grid w-[3000px] h-[1600px] overflow-scroll font-sans text-gray-900 selection:bg-gray-200">
+
+        <!-- 连线与逻辑层 -->
+        <svg class="absolute inset-0 w-full h-full pointer-events-none z-0">
+            <defs>
+                <marker id="arrow-gray" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                    <path d="M0,0 L0,6 L9,3 z" fill="#94a3b8" />
+                </marker>
+            </defs>
+
+            <!-- P1: CC-5 到 底部选择面板 -->
+            <path d="M 344 414 C 470 414, 470 414, 598 414" stroke="#94a3b8" stroke-width="2" fill="none"
+                marker-end="url(#arrow-gray)" />
+            <rect x="400" y="399" width="130" height="30" fill="#f8fafc" rx="4" />
+            <text x="465" y="419" fill="#64748b" font-size="14" font-weight="500"
+                text-anchor="middle">点击[上传照片/视频]</text>
+
+            <!-- P1.3: 底部选择面板 到 原生相册 -->
+            <path d="M 844 414 C 970 414, 970 414, 1098 414" stroke="#94a3b8" stroke-width="2" fill="none"
+                marker-end="url(#arrow-gray)" />
+            <rect x="890" y="399" width="140" height="30" fill="#f8fafc" rx="4" />
+            <text x="960" y="419" fill="#64748b" font-size="14" font-weight="500" text-anchor="middle">唤起原生界面</text>
+
+            <!-- P1.6: 原生相册 到 CC-7 -->
+            <path d="M 1344 414 C 1470 414, 1470 414, 1598 414" stroke="#94a3b8" stroke-width="2" fill="none"
+                marker-end="url(#arrow-gray)" />
+            <rect x="1390" y="399" width="140" height="30" fill="#f8fafc" rx="4" />
+            <text x="1460" y="419" fill="#64748b" font-size="14" font-weight="500" text-anchor="middle">确认照片并上传</text>
+
+            <!-- P2: CC-7 返回 CC-5 (自动弹出成功层) -->
+            <path d="M 1722 678 C 1722 730, 222 730, 222 780" stroke="#94a3b8" stroke-dasharray="5 5" stroke-width="2"
+                fill="none" marker-end="url(#arrow-gray)" />
+            <rect x="830" y="715" width="280" height="30" fill="#f8fafc" rx="4" />
+            <text x="970" y="735" fill="#64748b" font-size="14" font-weight="500"
+                text-anchor="middle">发布并返回列表，弹出成功反馈</text>
+
+            <!-- P3: CC-5 到 CC-6 -->
+            <path d="M 344 250 C 1300 250, 1400 150, 2198 150" stroke="#94a3b8" stroke-width="2" fill="none"
+                marker-end="url(#arrow-gray)" />
+            <rect x="1350" y="185" width="100" height="30" fill="#f8fafc" rx="4" />
+            <text x="1400" y="205" fill="#64748b" font-size="14" font-weight="500" text-anchor="middle">点击列表卡片</text>
+
+        </svg>
+
+        <!-- ==========================================
+             节点 1：CC-5 活动主页 (入站口 & 发布按钮)
+        =========================================== -->
+        <div class="absolute" style="left: 100px; top: 150px;">
+            <div class="absolute -top-10 left-0 bg-gray-900 text-white text-sm px-3 py-1 rounded shadow-sm z-10">CC-5 ·
+                社团活动详情 (列表与上传入口)</div>
+            <div
+                class="w-[375px] h-[812px] bg-white border border-gray-200 rounded-[40px] shadow-xl overflow-hidden transform scale-[0.65] origin-top-left flex flex-col relative">
+
+                <!-- 顶导 -->
+                <div class="h-14 flex items-center justify-between px-4 border-b border-gray-100">
+                    <div class="flex items-center text-gray-900">
+                        <i class="ri-arrow-left-s-line text-2xl mr-1"></i>
+                        <span class="font-normal text-sm">返回社团</span>
+                    </div>
+                    <span class="font-bold text-lg">活动</span>
+                    <i class="ri-more-2-fill text-xl"></i>
+                </div>
+
+                <!-- 成功弹层 (居中强提示，覆盖在列表之上) -->
+                <!-- 注意：在真实UI中，这是在提交后短暂出现的遮罩层 -->
+                <div class="absolute inset-0 bg-black bg-opacity-40 z-50 flex items-center justify-center hidden">
+                    <div
+                        class="w-48 bg-white rounded-2xl flex flex-col items-center justify-center py-6 px-4 shadow-2xl">
+                        <div class="w-16 h-16 bg-green-50 rounded-full flex items-center justify-center mb-4">
+                            <i class="ri-check-line text-4xl text-green-500"></i>
+                        </div>
+                        <span class="font-bold text-gray-900 text-lg">上传成功</span>
+                    </div>
+                </div>
+
+                <!-- 活动头 (简化示意) -->
+                <div class="p-4 border-b border-gray-100 flex flex-col items-center">
+                    <div class="w-16 h-16 bg-gray-100 rounded-2xl flex items-center justify-center mb-3">
+                        <i class="ri-camera-lens-line text-3xl text-gray-400"></i>
+                    </div>
+                    <h1 class="text-xl font-bold mb-3">2026年1月23日塔川行</h1>
+                </div>
+
+                <!-- 瀑布流 -->
+                <div class="p-3 flex-1 overflow-hidden grid grid-cols-2 gap-3 bg-gray-50 pb-24">
+                    <!-- 卡片 1 (新上传的) -->
+                    <div class="bg-white rounded-lg border border-gray-200 overflow-hidden flex flex-col relative">
+                        <div
+                            class="absolute top-2 right-2 bg-black bg-opacity-50 text-white text-[10px] px-1.5 py-0.5 rounded flex items-center">
+                            <i class="ri-image-2-line mr-1 text-[10px]"></i> 9
+                        </div>
+                        <div class="h-32 bg-gray-200 flex items-center justify-center">
+                            <i class="ri-image-line text-gray-400 text-2xl"></i>
+                        </div>
+                        <div class="p-2">
+                            <p class="font-bold text-sm truncate mb-1">冰 鱼</p>
+                            <div class="flex items-center justify-between mt-2">
+                                <span class="text-xs text-gray-500 font-normal truncate">法拉孙...</span>
+                                <span class="flex items-center text-gray-400 text-xs font-normal"><i
+                                        class="ri-thumb-up-line mr-1"></i>2</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 底部操作：明确的宽按钮 -->
+                <div class="absolute bottom-0 w-full p-4 bg-white border-t border-gray-100 pb-8 z-40">
+                    <div
+                        class="h-12 bg-gray-900 rounded-full flex items-center justify-center text-white font-medium shadow-md">
+                        <i class="ri-add-line mr-1 text-lg"></i> 上传照片/视频
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- ==========================================
+             节点 1.5：Action Sheet 类型选择
+        =========================================== -->
+        <div class="absolute" style="left: 600px; top: 150px;">
+            <div class="absolute -top-10 left-0 bg-gray-900 text-white text-sm px-3 py-1 rounded shadow-sm z-10">前置类型选择
+                (规避混合媒体兼容性问题)</div>
+            <div
+                class="w-[375px] h-[812px] bg-gray-100 border border-gray-200 rounded-[40px] shadow-xl overflow-hidden transform scale-[0.65] origin-top-left flex flex-col relative">
+
+                <div class="absolute inset-0 bg-black bg-opacity-40 z-10"></div>
+
+                <div class="absolute inset-0 z-0 bg-white">
+                    <div class="h-14 flex items-center justify-between px-4 border-b border-gray-100">
+                        <div class="flex items-center text-gray-900">
+                            <i class="ri-arrow-left-s-line text-2xl mr-1"></i>
+                            <span class="font-normal text-sm">返回社团</span>
+                        </div>
+                        <span class="font-bold text-lg">活动</span>
+                    </div>
+                </div>
+
+                <!-- 底部弹出面板 -->
+                <div class="absolute bottom-6 left-4 right-4 z-20 space-y-3">
+                    <div class="bg-white rounded-3xl flex flex-col overflow-hidden">
+                        <div
+                            class="h-14 flex items-center justify-center border-b border-gray-100 text-gray-900 font-normal text-lg bg-gray-50 active:bg-gray-200">
+                            <i class="ri-image-line mr-2 text-indigo-500"></i> 照片 (最多9张)
+                        </div>
+                        <div
+                            class="h-14 flex items-center justify-center text-gray-900 font-normal text-lg bg-gray-50 active:bg-gray-200">
+                            <i class="ri-film-line mr-2 text-indigo-500"></i> 视频 (限1个短视频)
+                        </div>
+                    </div>
+                    <div
+                        class="h-14 bg-white rounded-3xl flex items-center justify-center text-gray-900 font-bold text-lg shadow-sm">
+                        取消
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==========================================
+             节点 1.8：原生相册/文件选择器
+        =========================================== -->
+        <div class="absolute" style="left: 1100px; top: 150px;">
+            <div class="absolute -top-10 left-0 bg-gray-900 text-white text-sm px-3 py-1 rounded shadow-sm z-10">系统原生相册
+                (OS Native Picker)</div>
+            <div
+                class="w-[375px] h-[812px] bg-white border border-gray-200 rounded-[40px] shadow-xl overflow-hidden transform scale-[0.65] origin-top-left flex flex-col relative">
+
+                <!-- 模拟原生顶部 -->
+                <div class="h-14 flex items-center justify-between px-4 border-b border-gray-100 bg-gray-50">
+                    <span class="text-blue-500 font-normal">取消</span>
+                    <span class="font-bold text-lg text-gray-900">最近项目</span>
+                    <span class="bg-blue-500 text-white px-3 py-1 text-sm rounded">添加 (2)</span>
+                </div>
+
+                <!-- 模拟图库网格 -->
+                <div class="flex-1 grid grid-cols-3 gap-1 p-1 bg-white">
+                    <div class="aspect-square bg-gray-100 relative">
+                        <div
+                            class="absolute top-1 right-1 w-6 h-6 bg-blue-500 border-2 border-white rounded-full flex items-center justify-center text-white text-sm font-bold">
+                            1</div>
+                        <i
+                            class="ri-image-fill absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-gray-300 text-3xl"></i>
+                    </div>
+                    <div class="aspect-square bg-gray-100 relative">
+                        <div
+                            class="absolute top-1 right-1 w-6 h-6 border-2 border-white bg-black bg-opacity-20 rounded-full">
+                        </div>
+                        <i
+                            class="ri-film-line absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-gray-300 text-3xl"></i>
+                    </div>
+                    <div class="aspect-square bg-gray-100 relative">
+                        <div
+                            class="absolute top-1 right-1 w-6 h-6 bg-blue-500 border-2 border-white rounded-full flex items-center justify-center text-white text-sm font-bold">
+                            2</div>
+                        <i
+                            class="ri-image-fill absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-gray-300 text-3xl"></i>
+                    </div>
+                    <div class="aspect-square bg-gray-100 relative"></div>
+                    <div class="aspect-square bg-gray-100 relative"></div>
+                    <div class="aspect-square bg-gray-100 relative"></div>
+                </div>
+
+                <!-- 底部说明区域 -->
+                <div
+                    class="h-14 bg-gray-100 flex items-center justify-center text-gray-500 text-sm border-t border-gray-200 border-dashed">
+                    <i class="ri-information-line mr-1"></i> 唤起系统层原生组件，视手机不同而异
+                </div>
+            </div>
+        </div>
+
+        <!-- ==========================================
+             节点 2：CC-7 极简上传页
+        =========================================== -->
+        <div class="absolute" style="left: 1600px; top: 150px;">
+            <div class="absolute -top-10 left-0 bg-gray-900 text-white text-sm px-3 py-1 rounded shadow-sm z-10">CC-7 ·
+                社团提交作品表单 (上传极简版)</div>
+            <div
+                class="w-[375px] h-[812px] bg-white border border-gray-200 rounded-[40px] shadow-xl overflow-hidden transform scale-[0.65] origin-top-left flex flex-col relative">
+
+                <!-- 顶导 -->
+                <div class="h-14 flex items-center justify-between px-4 border-b border-gray-100">
+                    <div class="flex items-center text-gray-900">
+                        <i class="ri-arrow-left-s-line text-2xl mr-1"></i>
+                        <span class="font-normal text-sm text-gray-500">取消</span>
+                    </div>
+                </div>
+
+                <div class="flex-1 bg-white">
+
+                    <!-- 媒体横向预览区 -->
+                    <div class="p-4 flex space-x-2 overflow-x-auto no-scrollbar border-b border-gray-50">
+                        <!-- 图1 -->
+                        <div
+                            class="w-24 h-24 bg-gray-200 rounded-lg flex-shrink-0 relative flex items-center justify-center">
+                            <span
+                                class="absolute top-1 left-1 bg-black bg-opacity-50 text-white text-[10px] px-1 rounded">封面</span>
+                            <div
+                                class="absolute -top-1 -right-1 w-5 h-5 bg-white rounded-full shadow border border-gray-200 flex items-center justify-center">
+                                <i class="ri-close-line text-gray-500 text-[10px]"></i>
+                            </div>
+                            <i class="ri-image-fill text-gray-400 text-xl"></i>
+                        </div>
+                        <!-- 图2 -->
+                        <div
+                            class="w-24 h-24 bg-gray-200 rounded-lg flex-shrink-0 relative flex items-center justify-center">
+                            <div
+                                class="absolute -top-1 -right-1 w-5 h-5 bg-white rounded-full shadow border border-gray-200 flex items-center justify-center">
+                                <i class="ri-close-line text-gray-500 text-[10px]"></i>
+                            </div>
+                            <i class="ri-image-fill text-gray-400 text-xl"></i>
+                        </div>
+                        <!-- 继续添加按钮 -->
+                        <div
+                            class="w-24 h-24 border-2 border-dashed border-gray-200 bg-gray-50 rounded-lg flex-shrink-0 flex items-center justify-center text-gray-400">
+                            <i class="ri-add-line text-3xl"></i>
+                        </div>
+                    </div>
+
+                    <!-- 文本输入区：完全自由，无诱导 -->
+                    <div class="p-4">
+                        <textarea class="w-full text-lg font-bold placeholder-gray-300 resize-none outline-none"
+                            rows="1" placeholder="添加标题 (选填)"></textarea>
+
+                        <div class="my-3 border-t border-gray-100"></div>
+
+                        <textarea
+                            class="w-full text-sm font-normal text-gray-700 placeholder-gray-300 resize-none outline-none mt-2"
+                            rows="6" placeholder="添加文字说明 (选填)"></textarea>
+                    </div>
+
+                    <!-- 系统带入锁定信息 (放到底部，不干扰创作) -->
+                    <div class="mt-8 px-4">
+                        <div class="bg-gray-50 rounded-xl p-3 flex justify-between items-center border border-gray-100">
+                            <div class="flex items-center">
+                                <i class="ri-bookmark-fill text-gray-400 mr-2"></i>
+                                <span class="text-sm font-normal text-gray-600">所属活动：2026年1月23日塔川行</span>
+                            </div>
+                            <i class="ri-lock-2-line text-gray-400"></i>
+                        </div>
+                        <p class="text-[10px] text-gray-400 font-normal mt-2 ml-1">参与活动的作品将自动归入此活动下，不可修改。</p>
+                    </div>
+
+                </div>
+
+                <!-- 底部操作：大字大按钮，醒目 -->
+                <div class="absolute bottom-0 w-full p-4 bg-white border-t border-gray-100 pb-8 z-40">
+                    <div
+                        class="h-14 bg-gray-900 rounded-full flex items-center justify-center text-white text-lg font-bold shadow-xl">
+                        发布
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- ==========================================
+             节点 3：CC-6 作品详情页 (大图先导，文字下置)
+        =========================================== -->
+        <div class="absolute" style="left: 2200px; top: -50px;">
+            <div class="absolute -top-10 left-0 bg-gray-900 text-white text-sm px-3 py-1 rounded shadow-sm z-10">CC-6 ·
+                社团作品详情 (大图视觉优先)</div>
+            <div
+                class="w-[375px] h-[812px] bg-white border border-gray-200 rounded-[40px] shadow-xl overflow-hidden transform scale-[0.65] origin-top-left flex flex-col relative">
+
+                <!-- 顶导 (带品牌色渐变) -->
+                <div
+                    class="h-14 bg-gradient-to-r from-blue-500 to-indigo-500 text-white flex items-center justify-between px-4">
+                    <i class="ri-arrow-left-s-line text-2xl"></i>
+                    <span class="font-normal text-base">作品详情</span>
+                    <div class="flex space-x-3 items-center">
+                        <div
+                            class="bg-indigo-600 bg-opacity-50 px-2 py-1 rounded-full text-xs flex items-center border border-indigo-400">
+                            <i class="ri-more-fill"></i>
+                            <div class="mx-1 border-l border-indigo-400 h-3"></div>
+                            <i class="ri-record-circle-line"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 社团导航栏 (紧贴顶导) -->
+                <div
+                    class="h-12 bg-white flex items-center justify-between px-4 border-b border-gray-100 relative z-10">
+                    <div class="flex items-center text-sm font-normal text-gray-900">
+                        <div class="w-6 h-6 bg-gray-800 rounded-full mr-2"></div> 相望于疆湖
+                    </div>
+                    <span class="text-indigo-500 text-sm font-normal">进入社团 <i class="ri-arrow-right-s-line"></i></span>
+                </div>
+
+                <div class="flex-1 overflow-y-auto no-scrollbar bg-gray-50">
+
+                    <!-- !!! 照片轮播立刻呈现 !!! -->
+                    <div class="h-[300px] bg-black flex items-center justify-center relative">
+                        <i class="ri-image-2-line text-4xl text-gray-600"></i>
+                        <!-- 滑动指示器 -->
+                        <div class="absolute bottom-4 flex space-x-1.5">
+                            <div class="w-1.5 h-1.5 rounded-full bg-white opacity-100"></div>
+                            <div class="w-1.5 h-1.5 rounded-full bg-white opacity-40"></div>
+                            <div class="w-1.5 h-1.5 rounded-full bg-white opacity-40"></div>
+                        </div>
+                    </div>
+
+                    <!-- 下沉：作者 与 关联活动 -->
+                    <div class="bg-white p-4">
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="flex items-center">
+                                <div class="w-10 h-10 bg-gray-300 rounded-full mr-3"></div>
+                                <div>
+                                    <div class="font-bold text-sm text-gray-900">法拉孙Fara</div>
+                                    <div class="text-[10px] text-gray-400 font-normal mt-0.5">2026-02-06 11:15:29</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 极简活动标签 -->
+                        <div class="border border-gray-200 rounded-lg px-3 py-3 flex items-center justify-between mb-4">
+                            <div class="flex items-center text-sm text-gray-800 font-medium">
+                                <i class="ri-bookmark-fill text-indigo-500 mr-2 text-lg"></i>
+                                <span>所属的活动</span>
+                            </div>
+                            <i class="ri-arrow-right-line text-gray-400"></i>
+                        </div>
+
+                        <!-- 下沉：合并后的文字阅读区 -->
+                        <div>
+                            <h2 class="text-xl font-bold text-gray-900 mb-2">冰 鱼</h2>
+                            <p class="text-sm text-gray-600 leading-relaxed font-normal mb-1">
+                                今天雾气蒙蒙，但是红叶十分鲜亮，拍了几张给大家欣赏。池塘里的冰鱼非常有生机。</p>
+                            <div class="text-right text-xs text-indigo-500 font-normal mt-1">收起 <i
+                                    class="ri-arrow-up-s-line"></i></div>
+                        </div>
+                    </div>
+
+                    <!-- 互动数据与评论 -->
+                    <div class="bg-white mt-2 p-4 pb-20">
+                        <div class="flex space-x-4 border-b border-gray-100 pb-4 mb-4">
+                            <div
+                                class="flex-1 h-10 bg-gray-50 border border-gray-200 rounded flex items-center justify-center text-sm font-normal text-gray-700">
+                                <i class="ri-thumb-up-line mx-1"></i> 点赞 2
+                            </div>
+                            <div
+                                class="flex-1 h-10 bg-gray-50 border border-gray-200 rounded flex items-center justify-center text-sm font-normal text-gray-700">
+                                <i class="ri-share-forward-line mx-1"></i> 分享 0
+                            </div>
+                        </div>
+
+                        <div class="font-bold text-sm text-gray-900 mb-4">全部评论 (0)</div>
+                        <div class="text-center text-gray-400 text-xs py-8">已经到底啦</div>
+                    </div>
+
+                </div>
+
+                <!-- 评论悬浮框 -->
+                <div class="absolute bottom-0 w-full p-3 bg-white border-t border-gray-100 z-20">
+                    <div class="h-9 bg-gray-100 rounded-full px-4 flex items-center">
+                        <span class="text-gray-400 text-sm font-normal">请输入你的评论</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- ==========================================
+             节点 A(反馈状态)：CC-5 活动主页 (上传成功)
+        =========================================== -->
+        <div class="absolute" style="left: 100px; top: 780px;">
+            <div class="absolute -top-10 left-0 bg-gray-900 text-white text-sm px-3 py-1 rounded shadow-sm z-10">CC-5 ·
+                社团活动详情 (发布成功状态)</div>
+            <div
+                class="w-[375px] h-[812px] bg-white border border-gray-200 rounded-[40px] shadow-xl overflow-hidden transform scale-[0.65] origin-top-left flex flex-col relative opacity-90">
+
+                <!-- 顶导 -->
+                <div class="h-14 flex items-center justify-between px-4 border-b border-gray-100">
+                    <div class="flex items-center text-gray-900">
+                        <i class="ri-arrow-left-s-line text-2xl mr-1"></i>
+                        <span class="font-normal text-sm">返回社团</span>
+                    </div>
+                    <span class="font-bold text-lg">活动</span>
+                    <i class="ri-more-2-fill text-xl"></i>
+                </div>
+
+                <!-- 成功弹层 (居中强提示) -->
+                <div class="absolute inset-0 bg-black bg-opacity-40 z-50 flex items-center justify-center">
+                    <div
+                        class="w-48 bg-white rounded-2xl flex flex-col items-center justify-center py-6 px-4 shadow-2xl">
+                        <div class="w-16 h-16 bg-green-50 rounded-full flex items-center justify-center mb-4">
+                            <i class="ri-check-line text-4xl text-green-500"></i>
+                        </div>
+                        <span class="font-bold text-gray-900 text-lg">上传成功</span>
+                    </div>
+                </div>
+
+                <!-- 活动头 (简化示意) -->
+                <div class="p-4 border-b border-gray-100 flex flex-col items-center">
+                    <div class="w-16 h-16 bg-gray-100 rounded-2xl flex items-center justify-center mb-3">
+                        <i class="ri-camera-lens-line text-3xl text-gray-400"></i>
+                    </div>
+                    <h1 class="text-xl font-bold mb-3">2026年1月23日塔川行</h1>
+                </div>
+
+                <!-- 瀑布流 -->
+                <div class="p-3 flex-1 overflow-hidden grid grid-cols-2 gap-3 bg-gray-50 pb-24">
+                    <!-- 卡片 1 (新上传的) -->
+                    <div class="bg-white rounded-lg border border-gray-200 overflow-hidden flex flex-col relative">
+                        <div
+                            class="absolute top-2 right-2 bg-black bg-opacity-50 text-white text-[10px] px-1.5 py-0.5 rounded flex items-center">
+                            <i class="ri-image-2-line mr-1 text-[10px]"></i> 9
+                        </div>
+                        <div class="h-32 bg-gray-200 flex items-center justify-center">
+                            <i class="ri-image-line text-gray-400 text-2xl"></i>
+                        </div>
+                        <div class="p-2">
+                            <p class="font-bold text-sm truncate mb-1">冰 鱼</p>
+                            <div class="flex items-center justify-between mt-2">
+                                <span class="text-xs text-gray-500 font-normal truncate">法拉孙...</span>
+                                <span class="flex items-center text-gray-400 text-xs font-normal"><i
+                                        class="ri-thumb-up-line mr-1"></i>2</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 底部操作：明确的宽按钮 -->
+                <div class="absolute bottom-0 w-full p-4 bg-white border-t border-gray-100 pb-8 z-40">
+                    <div
+                        class="h-12 bg-gray-900 rounded-full flex items-center justify-center text-white font-medium shadow-md">
+                        <i class="ri-add-line mr-1 text-lg"></i> 上传照片/视频
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- ==========================================
+             节点 4：CC-6 (兜底情况演示：没写标题和正文)
+        =========================================== -->
+        <div class="absolute" style="left: 2200px; top: 780px;">
+            <div class="absolute -top-10 left-0 bg-gray-900 text-white text-sm px-3 py-1 rounded shadow-sm z-10">CC-6 ·
+                社团作品详情 (空状态参考)</div>
+            <div
+                class="w-[375px] h-[812px] bg-white border border-gray-200 rounded-[40px] shadow-xl overflow-hidden transform scale-[0.65] origin-top-left flex flex-col relative opacity-90">
+
+                <div
+                    class="h-14 bg-gradient-to-r from-blue-500 to-indigo-500 text-white flex items-center justify-between px-4">
+                    <i class="ri-arrow-left-s-line text-2xl"></i>
+                    <span class="font-normal text-base">作品详情</span>
+                    <div class="flex space-x-3 items-center">
+                        <div
+                            class="bg-indigo-600 bg-opacity-50 px-2 py-1 rounded-full text-xs flex items-center border border-indigo-400">
+                            <i class="ri-more-fill"></i>
+                            <div class="mx-1 border-l border-indigo-400 h-3"></div>
+                            <i class="ri-record-circle-line"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div
+                    class="h-12 bg-white flex items-center justify-between px-4 border-b border-gray-100 relative z-10">
+                    <div class="flex items-center text-sm font-normal text-gray-900">
+                        <div class="w-6 h-6 bg-gray-800 rounded-full mr-2"></div> 相望于疆湖
+                    </div>
+                    <span class="text-indigo-500 text-sm font-normal">进入社团 <i class="ri-arrow-right-s-line"></i></span>
+                </div>
+
+                <div class="flex-1 overflow-y-auto no-scrollbar bg-gray-50">
+
+                    <div class="h-[300px] bg-black flex items-center justify-center relative">
+                        <i class="ri-image-2-line text-4xl text-gray-600"></i>
+                    </div>
+
+                    <div class="bg-white p-4 pb-2"> <!-- 减少底边距 -->
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="flex items-center">
+                                <div class="w-10 h-10 bg-gray-300 rounded-full mr-3"></div>
+                                <div>
+                                    <div class="font-bold text-sm text-gray-900">法拉孙Fara</div>
+                                    <div class="text-[10px] text-gray-400 font-normal mt-0.5">2026-02-06 11:15:29</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="border border-gray-200 rounded-lg px-3 py-3 flex items-center justify-between">
+                            <div class="flex items-center text-sm text-gray-800 font-medium">
+                                <i class="ri-bookmark-fill text-indigo-500 mr-2 text-lg"></i>
+                                <span>所属的活动</span>
+                            </div>
+                            <i class="ri-arrow-right-line text-gray-400"></i>
+                        </div>
+
+                        <!-- 注意：文字区完全消失，自然平滑过渡到下面的互动区 -->
+                    </div>
+
+                    <div class="bg-white mt-0 p-4 pb-20"> <!-- 紧贴上部区域 -->
+                        <div class="flex space-x-4 border-b border-gray-100 pb-4 mb-4">
+                            <div
+                                class="flex-1 h-10 bg-gray-50 border border-gray-200 rounded flex items-center justify-center text-sm font-normal text-gray-700">
+                                <i class="ri-thumb-up-line mx-1"></i> 点赞 1
+                            </div>
+                            <div
+                                class="flex-1 h-10 bg-gray-50 border border-gray-200 rounded flex items-center justify-center text-sm font-normal text-gray-700">
+                                <i class="ri-share-forward-line mx-1"></i> 分享 0
+                            </div>
+                        </div>
+
+                        <div class="font-bold text-sm text-gray-900 mb-4">全部评论 (0)</div>
+                        <div class="text-center text-gray-400 text-xs py-8">已经到底啦</div>
+                    </div>
+
+                </div>
+
+                <!-- 评论悬浮框 -->
+                <div class="absolute bottom-0 w-full p-3 bg-white border-t border-gray-100 z-20">
+                    <div class="h-9 bg-gray-100 rounded-full px-4 flex items-center">
+                        <span class="text-gray-400 text-sm font-normal">请输入你的评论</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+</body>
+
+</html>
