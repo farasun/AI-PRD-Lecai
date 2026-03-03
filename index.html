@@ -535,51 +535,71 @@
         // ========================================
         function scanNodes(fr) {
             try {
+                const doc = fr.contentDocument;
+                if (!doc) return;
                 const ids = new Set(S.gen.map(p => p.id));
                 const isFlowMode = S.curId === null; // 流程图模式
-                const walker = fr.contentDocument.createTreeWalker(fr.contentDocument.body, NodeFilter.SHOW_TEXT);
-                let n; while (n = walker.nextNode()) {
-                    [...n.textContent.matchAll(/((?:CC|CH|AC)-\d+(?:-\d+)?)/g)].forEach(m => {
-                        const pid = m[0], p = n.parentElement;
-                        if (ids.has(pid) && pid !== S.curId && p && !p.dataset.linked) {
-                            p.dataset.linked = '1';
 
-                            // 极高辨识度的交互视觉强化
-                            p.style.cursor = 'pointer';
-                            p.style.backgroundColor = '#4f46e5'; // 靓丽的靛蓝色
-                            p.style.color = '#ffffff';
-                            p.style.boxShadow = '0 4px 12px rgba(79, 70, 229, 0.4)'; // 按钮发光感
-                            p.style.border = '2px solid #e0e7ff';
-                            p.style.transition = 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)';
+                // 统一增强样式的函数
+                const enrich = (el, pid) => {
+                    if (el.dataset.linked) return;
+                    el.dataset.linked = '1';
 
-                            // 动态悬浮反馈 (放大 + 提亮)
-                            p.onmouseenter = () => {
-                                p.style.transform = 'translateY(-2px) scale(1.03)';
-                                p.style.backgroundColor = '#6366f1';
-                                p.style.boxShadow = '0 6px 16px rgba(79, 70, 229, 0.5)';
-                            };
-                            p.onmouseleave = () => {
-                                p.style.transform = 'none';
-                                p.style.backgroundColor = '#4f46e5';
-                                p.style.boxShadow = '0 4px 12px rgba(79, 70, 229, 0.4)';
-                            };
+                    // 强行覆盖原有样式
+                    el.style.setProperty('cursor', 'pointer', 'important');
+                    el.style.setProperty('background-color', '#4f46e5', 'important');
+                    el.style.setProperty('color', '#ffffff', 'important');
+                    el.style.setProperty('box-shadow', '0 4px 12px rgba(79, 70, 229, 0.4)', 'important');
+                    el.style.setProperty('border', '2px solid #e0e7ff', 'important');
+                    el.style.setProperty('transition', 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)', 'important');
 
-                            // 插入代表"跳转预览"的图标
-                            p.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline; margin-right:4px; margin-bottom:2px;"><path d="M15 3h6v6M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M10 14L21 3"/></svg>${p.innerHTML}`;
+                    el.onmouseenter = () => {
+                        el.style.transform = 'translateY(-2px) scale(1.03)';
+                        el.style.backgroundColor = '#6366f1';
+                    };
+                    el.onmouseleave = () => {
+                        el.style.transform = 'none';
+                        el.style.backgroundColor = '#4f46e5';
+                    };
 
-                            p.title = isFlowMode ? `预览 ${pid}` : `跳转 ${pid}`;
-                            p.addEventListener('click', e => {
-                                e.stopPropagation();
-                                if (isFlowMode) {
-                                    openDrawer(pid);
-                                } else {
-                                    window.parent.selPage(pid);
-                                }
-                            });
-                        }
-                    });
+                    // 插入图标 (不破坏原有 innerHTML)
+                    const ico = doc.createElementNS("http://www.w3.org/2000/svg", "svg");
+                    ico.setAttribute("width", "14");
+                    ico.setAttribute("height", "14");
+                    ico.setAttribute("viewBox", "0 0 24 24");
+                    ico.setAttribute("fill", "none");
+                    ico.setAttribute("stroke", "currentColor");
+                    ico.setAttribute("stroke-width", "2");
+                    ico.style.display = "inline";
+                    ico.style.marginRight = "4px";
+                    ico.style.verticalAlign = "text-bottom";
+                    ico.innerHTML = '<path d="M15 3h6v6M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M10 14L21 3"/>';
+                    el.prepend(ico);
+
+                    el.title = isFlowMode ? `预览 ${pid}` : `跳转 ${pid}`;
+                    el.onclick = (e) => {
+                        e.stopPropagation();
+                        if (isFlowMode) openDrawer(pid);
+                        else window.parent.selPage(pid);
+                    };
+                };
+
+                // 模式 1：基于 ID 锚点直接匹配 (高可靠)
+                doc.querySelectorAll('[id]').forEach(el => {
+                    if (ids.has(el.id)) enrich(el, el.id);
+                });
+
+                // 模式 2：基于文本内容匹配 (兼容旧版)
+                const walker = doc.createTreeWalker(doc.body, NodeFilter.SHOW_TEXT);
+                let n;
+                while (n = walker.nextNode()) {
+                    const match = n.textContent.match(/((?:CC|CH|AC)-\d+(?:-\d+)?)/);
+                    if (match) {
+                        const pid = match[1], p = n.parentElement;
+                        if (ids.has(pid) && pid !== S.curId) enrich(p, pid);
+                    }
                 }
-            } catch (e) { }
+            } catch (e) { console.error('scanNodes error:', e); }
         }
 
         // ========================================

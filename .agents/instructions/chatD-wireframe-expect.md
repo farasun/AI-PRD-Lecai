@@ -82,17 +82,18 @@ description: wireframe-ui-creator-expect
 * ✅ **必须**：`div`, `span`, `px/rem`, `<i class="ri-...">`。
 
 ## 6. 视觉容器 (Visual Container) - [全景画板]
-* **根画布 (`body`)**：`bg-gray-50 min-h-screen flex justify-center p-12 overflow-x-auto`。
+* **根画布 (`body`)**：`bg-gray-200 min-h-screen flex justify-center p-12 overflow-x-auto`。(注意：为了提供真实的“画板”质感，根背景必须使用较深的 **bg-gray-200**。严禁使用 bg-gray-50/100 或添加会导致白茫茫一片的 `<style>` 内联背景代码，确保页面主体及其中的占位灰块能够清晰可见)。
 * **画板容器 (`#artboard`)**：`flex flex-row items-start gap-24`。
 
 ## 7. 布局与状态展示协议 (Layout & State Protocol)
 请严格按照 **“左侧全量平铺 + 右侧组件集”** 的横向画板结构输出 HTML。
 
-### 7.1 页面命名真理 (Single Source of Truth for Page Names) [绝对规则]
-* **真理文件**：你必须主动读取 `doc/PageList.md`，它被视为所有页面编号和名称的**唯一真理**。
-* **静默覆盖**：当用户的描述（如“跳转至 CC-7 媒体上传页”）与 `doc/PageList.md` 中的定义（如“CC-7 发布图文/视频”）存在差异时，**在产出物 (HTML 文件) 中必须严格静默替换为 `doc/PageList.md` 中的版本**。
-* **偏差提醒**：如果在生成过程中发生了此类替换，请在交付产出物时，**在给用户的对话回复中口头提示偏差**（例如：“注：已将原需求的‘媒体上传页’自动修正为字典表中的‘发布图文/视频’”）。
-* **弹性兜底**：若在项目中找不到此文件，或当前页面不存在于字典中，则按用户输入的名称定义。
+### 7.1 术语锚定原则 (Terminology Anchor) [绝对规则]
+*   **页面命名真理**：你必须主动读取 `doc/PageList.md`，它被视为所有页面编号和名称的**唯一真理**。
+*   **业务术语对齐**：在 UI 标注（Label）、模块标题中，必须优先引用 `doc/lecai-club-overview-v1.4.md` 中的标准术语（如：社团主、Small B 等）。
+*   **静默覆盖**：当用户的描述与 `doc/PageList.md` 中的定义存在差异时，**在产出物 (HTML 文件) 中必须严格静默替换为字典表中的版本**。
+*   **偏差提醒**：如果在生成过程中发生了此类替换，请在交付产出物时，**在给用户的对话回复中口头提示偏差**（例如：“注：已将原需求的‘媒体上传页’自动修正为字典表中的‘发布图文/视频’”）。
+*   **弹性兜底**：若在项目中找不到参考文件，或当前术语不存在于字典中，则按用户输入进行简洁的产品文档化处理，禁绝黑话与文学化词汇。
 
 ### 7.2 状态命名一致性准则 (State Naming Consistency)
 * **严格镜像**：所有视图（主视图及变体）的标题必须严格引用输入文本中定义的状态编号与名称。
@@ -109,7 +110,7 @@ description: wireframe-ui-creator-expect
 * **长图容器样式**：
     * 宽度：`w-[375px]` (固定宽度)。
     * 高度：`h-auto` (高度自适应，随内容撑开)。
-    * 容器规则：`bg-white shadow-xl border border-gray-200 relative p-0 overflow-hidden rounded-none` (**外层强制直角**)。
+    * 容器规则：`bg-white shadow-2xl border border-gray-200 relative p-0 overflow-hidden rounded-none` (**外层强制直角，使用超大投影强化悬浮感**)。
 * **内容要求**：渲染页面的默认状态 UI，全量平铺展示所有列表项和底部内容。
 
 ### 7.3 区域 B：组件变体集 (Right Column - Component Variants)
@@ -117,7 +118,7 @@ description: wireframe-ui-creator-expect
 * **整体容器**：`flex flex-col gap-10 w-[360px]`。
 * **变体标题**：在顶部显示 **“多状态展示”** (作为区域总标题)。
 * **变体卡片规则**：
-    1.  **独立容器**：每个变体放入独立卡片，样式为 `bg-white p-6 border border-dashed border-gray-300 rounded-none` (**外层强制直角**)。
+    1.  **独立容器**：每个变体放入独立卡片，样式为 `bg-white p-6 border border-gray-200 solid shadow-md rounded-none` (**强制实线边框 + 投影，确保在灰色背景上清晰可见**)。
     2.  **文字标题**：在每个卡片上方，按照 [7.1 准则] 严格透传输入端定义的 **状态编号 + 状态名称**。
         * 样式：`text-lg font-bold text-gray-700 mb-4 pl-3 border-l-4 border-gray-900`。
     3.  **提取差异**：**仅渲染发生变化的局部模块**（例如：仅渲染一个“空状态卡片”或“弹窗内容”），严禁重复渲染完整的页面框架。

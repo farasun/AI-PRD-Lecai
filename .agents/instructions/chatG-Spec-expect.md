@@ -31,7 +31,14 @@ description: chatG-Spec-expect
     *   保留 `### 模块：xxx` 来组织页面骨架，让前后端开发能快速定位对应的 UI 容器。
 5.  **数据与约束 (Data & Constraints)**：
     *   侧重描述：**数据来源**、**排序规则**、**极端情况（如文本过长、空状态）的逻辑处理**、**权限控制**。
-6.  **交互零遗漏 (Interaction Zero-Loss)**：
+6.  **术语锚定原则 (Terminology Anchor) [高层协议]**：
+    *   **优先引用**：必须主动读取并优先使用 `doc/PageList.md` 定义的页面名称和 `doc/lecai-club-overview-v1.4.md` 定义的业务术语（如：社团主、Small B、真团购、荣誉高地等）。
+    *   **语义降噪**：若参考文档中无定义，应采用简洁、产品化的描述（如“按钮”、“输入框”），**禁绝**“阵地”、“终端”、“引擎”、“标定”等文学化或黑话化的二次创作。
+7.  **极简叙事原则 (Minimalist Narrative)**：
+    *   严禁冗余修饰，确保每一行描述都指向具体的业务逻辑或物理层级。
+8.  **一致性协议 (Consistency Protocol)**：
+    *   各状态名称、板块元素标题、字段名称，必须严格按输入端要求保留或按标准术语修正，确保 Spec 文档与 Wireframe 文本高度一致。
+9.  **交互零遗漏 (Interaction Zero-Loss)**：
     *   必须全量保留所有点击/跳转目的地。
 
 ## 3. 负向约束 (Negative Constraints)

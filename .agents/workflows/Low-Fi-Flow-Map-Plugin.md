@@ -11,8 +11,9 @@ description: Low-Fi-Flow-Map-Plugin
 
 1.  **画布与环境 (The Engineering Canvas)**：
     * **基调**：纯净工程风。使用 `bg-gray-50` (浅灰) + 细微点阵/网格背景。
-    * **布局**：创建一个超大画布 (e.g., `3000px * 1500px`)，采用 `position: absolute` 手动计算节点坐标。
+    * **布局**：创建一个超大画布 (e.g., `3000px * 1600px` 或更大)，采用 `position: absolute` 手动计算节点坐标。
     * **间距**：节点间保持宽松呼吸感（水平间距 > 400px），杜绝拥挤。
+    * **坐标安全域 (Coordinate Safety Bound) [防裁剪规则]**：**绝对禁止为元素的 `top` 或 `left` 设置负值（严禁 `<div style="top: -50px">`）**！由于外层画布拥有 `overflow-scroll` 属性，处于负坐标系的任何元素会被永久裁剪，无法滚动查看。特别是对于带有负向上偏移标签 (`-top-10`) 的节点，其容器的 `top` 必须**至少大于等于 150px**，`left` **至少大于等于 100px**，以确保所有内容完全可见。
 
 2.  **连线逻辑 (The Logic Links)**：
     * **风格**：深灰色 (`#94a3b8`, Slate-400) 的贝塞尔曲线。
@@ -45,6 +46,11 @@ description: Low-Fi-Flow-Map-Plugin
         * **静默覆盖**：当用户输入与 `doc/PageList.md` 不一致时，在产出物中静默替换为官方版本。
         * **偏差提醒**：如果发生替换，在对话回复中口头提示偏差。
         * **弹性兜底**：若找不到 `doc/PageList.md`，或页面不在字典中，则按用户输入定义。
+    * **锚点暴露原则 (Anchor Exposure) [底层交互契约]**：
+        * 对于属于 `PageList` 中的真实页面，其顶部标签容器 `<div>` **必须显式添加 `id="[页面编号]"` 属性**。
+        * 这是外部原型阅读器识别并绑定侧滑抽屉预览功能的唯一挂载点。
+        * *正确示例*：`<div id="CC-5" class="absolute -top-10 left-0 bg-gray-900...">CC-5 · 社团活动详情</div>`
+        * *错误示例*：`<div class="absolute -top-10 left-0 bg-gray-900...">CC-5 · 社团活动详情</div>` (缺失 ID 将导致点击无反应)
 
 **[输入示例参考]**
 [START_CODE_BLOCK]
@@ -66,7 +72,8 @@ A[登录页] --> B[手机号验证]
     </svg>
 
     <div class="absolute" style="left: 50px; top: 150px;">
-        <div class="absolute -top-10 left-0 bg-gray-900 text-white text-sm px-3 py-1 rounded shadow-sm z-10">A · 登录页</div>
+        <!-- 注意此处的 id="A" 为锚点定位示例 (真实产出应为如 id="CC-5" 的格式) -->
+        <div id="A" class="absolute -top-10 left-0 bg-gray-900 text-white text-sm px-3 py-1 rounded shadow-sm z-10">A · 登录页</div>
         <div class="w-[375px] h-[812px] bg-white border border-gray-200 rounded-[40px] shadow-2xl overflow-hidden transform scale-[0.65] origin-top-left flex flex-col">
             <div class="h-16 flex items-center px-6 border-b border-gray-100">
                 <i class="ri-close-line text-2xl text-gray-900"></i>

@@ -8,10 +8,6 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
     <style>
-        body {
-            background-color: #f9fafb;
-        }
-
         .no-scrollbar::-webkit-scrollbar {
             display: none;
         }
@@ -20,132 +16,111 @@
             -ms-overflow-style: none;
             scrollbar-width: none;
         }
+
+        /* 模拟拖拽交互感 */
+        .draggable-item {
+            cursor: grab;
+        }
+
+        .draggable-item:active {
+            cursor: grabbing;
+            opacity: 0.7;
+        }
     </style>
 </head>
 
-<body class="bg-gray-50 min-h-screen flex justify-center p-12 overflow-x-auto">
+<body class="bg-gray-200 min-h-screen flex justify-center p-12 overflow-x-auto">
 
-    <div id="artboard" class="flex flex-row items-start gap-24">
+    <div id="artboard" class="flex flex-row items-start justify-center w-full py-12">
 
         <!-- ============================================================
-             区域 A：主视图 (CC-7 社团提交作品表单)
+             主视图：CC-7 社团提交作品表单 (状态 I：只读锁定态)
         ============================================================= -->
         <div class="flex flex-col">
-            <h2 class="text-xl font-bold text-gray-900 mb-4">CC-7 社团提交作品表单 (状态 I：正常态)</h2>
+            <h2 class="text-xl font-bold text-gray-900 mb-4 text-center">CC-7 社团提交作品表单 (状态 I：待发布)</h2>
 
             <div
-                class="w-[375px] h-auto min-h-[812px] bg-white shadow-xl border border-gray-200 relative p-0 overflow-hidden rounded-none flex flex-col">
+                class="w-[375px] h-auto min-h-[812px] bg-white shadow-2xl border border-gray-200 relative p-0 overflow-hidden rounded-none flex flex-col">
 
                 <!-- 顶部导航 (h-16) -->
                 <div
                     class="h-16 flex items-center justify-between px-4 border-b border-gray-100 bg-white sticky top-0 z-50">
-                    <div class="flex items-center gap-1 text-gray-900 w-16">
+                    <div class="flex items-center gap-1 text-gray-900 w-20">
                         <i class="ri-arrow-left-s-line text-2xl"></i>
-                        <span class="text-lg">取消</span>
+                        <span class="text-lg font-normal">返回</span>
                     </div>
-                    <span class="text-xl font-bold text-gray-900 relative right-2">提交作品</span>
-                    <div class="w-16"></div>
+                    <span class="text-xl font-bold text-gray-900">发布作品</span>
+                    <div class="w-20 text-right font-medium text-gray-400">确认</div>
                 </div>
 
                 <div class="flex-1 flex flex-col">
-                    <!-- 模块 1：画作/动态展示区 (Media Preview) -->
-                    <div class="p-6 flex gap-4 overflow-x-auto no-scrollbar border-b border-gray-100">
-                        <!-- 图1 (封面) -->
+                    <!-- 模块：待审核媒体陈列区 (统一方形阵列) -->
+                    <div class="p-6 grid grid-cols-3 gap-3 border-b border-gray-100 bg-gray-50/30">
+                        <!-- 已选媒体 1 (自动封面) -->
                         <div
-                            class="w-28 h-28 bg-gray-100 rounded-2xl flex-shrink-0 relative flex items-center justify-center border border-gray-200">
-                            <i class="ri-image-2-line text-3xl text-gray-300"></i>
-                            <div class="absolute top-2 left-2 bg-gray-900 text-white text-xs px-2 py-0.5 rounded-lg">封面
-                            </div>
-                            <div
-                                class="absolute -top-2 -right-2 w-8 h-8 bg-white border border-gray-200 rounded-full flex items-center justify-center shadow-sm">
-                                <i class="ri-close-line text-xl text-gray-900"></i>
-                            </div>
-                        </div>
-                        <!-- 图2 -->
-                        <div
-                            class="w-28 h-28 bg-gray-100 rounded-2xl flex-shrink-0 relative flex items-center justify-center border border-gray-200">
+                            class="aspect-square bg-white border border-gray-900 rounded-xl relative flex items-center justify-center overflow-hidden shadow-sm">
                             <i class="ri-image-2-line text-3xl text-gray-300"></i>
                             <div
-                                class="absolute -top-2 -right-2 w-8 h-8 bg-white border border-gray-200 rounded-full flex items-center justify-center shadow-sm">
-                                <i class="ri-close-line text-xl text-gray-900"></i>
+                                class="absolute top-0 left-0 bg-gray-900 text-white text-[10px] px-2 py-0.5 rounded-br-lg font-medium tracking-tighter">
+                                封面</div>
+                            <!-- 删除按钮 -->
+                            <div
+                                class="absolute top-1 right-1 w-5 h-5 bg-white border border-gray-200 rounded-full flex items-center justify-center shadow-sm">
+                                <i class="ri-close-line text-sm text-gray-900"></i>
                             </div>
                         </div>
-                        <!-- 继续添加按钮 -->
+
+                        <!-- 已选媒体 2 -->
                         <div
-                            class="w-28 h-28 border border-dashed border-gray-300 bg-gray-50 rounded-2xl flex-shrink-0 flex flex-col items-center justify-center gap-1 text-gray-400">
+                            class="aspect-square bg-white border border-gray-200 rounded-xl relative flex items-center justify-center overflow-hidden shadow-sm">
+                            <i class="ri-image-2-line text-3xl text-gray-300"></i>
+                            <div
+                                class="absolute top-1 right-1 w-5 h-5 bg-white border border-gray-200 rounded-full flex items-center justify-center shadow-sm">
+                                <i class="ri-close-line text-sm text-gray-900"></i>
+                            </div>
+                        </div>
+
+                        <!-- 继续追加入口 -->
+                        <div
+                            class="aspect-square border border-dashed border-gray-300 bg-white rounded-xl flex flex-col items-center justify-center text-gray-400">
                             <i class="ri-add-line text-3xl"></i>
-                            <span class="text-base">继续添加</span>
                         </div>
                     </div>
 
-                    <!-- 模块 2：表达与命名区 (Creation Input) -->
-                    <div class="p-6 flex flex-col gap-5 flex-1">
-                        <!-- 作品名称 -->
+                    <!-- 模块：表单录入区 (极简叙事) -->
+                    <div class="p-6 flex flex-col gap-6">
+                        <!-- 作品标题 -->
+                        <input type="text"
+                            class="w-full h-14 bg-white border border-gray-900 rounded-xl px-4 text-lg font-normal text-gray-900 placeholder-gray-300 outline-none"
+                            placeholder="给作品起个名字 (选填)">
+
+                        <!-- 作品正文 -->
+                        <textarea
+                            class="w-full text-lg font-normal text-gray-700 placeholder-gray-300 bg-white border border-gray-200 rounded-xl p-4 resize-none outline-none min-h-[160px]"
+                            placeholder="这一刻的心情 or 故事..."></textarea>
+                    </div>
+
+                    <!-- 模块：归属活动 (锁定态) -->
+                    <div class="p-6 mt-auto">
                         <div class="flex flex-col gap-2">
-                            <input type="text"
-                                class="w-full text-xl font-bold text-gray-900 placeholder-gray-300 outline-none border-none py-1"
-                                placeholder="给您的作品起个好听的名字 (选填)">
-                            <div class="h-px bg-gray-100 w-full"></div>
+                            <span class="text-base text-gray-400 pl-1">发布到活动</span>
+                            <div
+                                class="w-full h-14 bg-gray-50 border border-gray-100 rounded-xl px-4 flex items-center justify-between">
+                                <span class="text-lg font-bold text-gray-900">2026年1月23日 塔川行</span>
+                                <i class="ri-lock-2-line text-gray-300 text-xl"></i>
+                            </div>
                         </div>
-
-                        <!-- 作品故事 -->
-                        <div class="flex flex-col">
-                            <textarea
-                                class="w-full text-lg font-normal text-gray-700 placeholder-gray-300 resize-none outline-none leading-relaxed"
-                                rows="2" placeholder="老同学，写写您的作品故事或心得吧 (选填)"></textarea>
-                        </div>
-                    </div>
-
-                    <!-- 模块 3：荣誉归属证明 (Activity Attribution) -->
-                    <div class="px-6 py-6 bg-gray-50 border-t border-gray-100 flex flex-col gap-2">
-                        <div class="flex items-center gap-2 text-gray-400">
-                            <i class="ri-lock-2-line text-lg"></i>
-                            <span class="text-base">本次作品将自动收录至：</span>
-                        </div>
-                        <div class="text-lg font-bold text-gray-900 ml-7">2026年1月23日塔川行</div>
                     </div>
                 </div>
 
-                <!-- 底部占位 -->
-                <div class="h-24 bg-gray-50"></div>
-
-                <!-- 模块 4：确认步入展台 (Global Action) -->
-                <div
-                    class="absolute bottom-0 w-full p-6 bg-white border-t border-gray-100 flex items-center justify-center z-[60] pb-10">
+                <!-- 底部提交指令 -->
+                <div class="p-6 bg-white border-t border-gray-100 pb-10">
                     <button
-                        class="w-full h-16 bg-gray-900 rounded-full flex items-center justify-center text-white text-xl font-bold shadow-xl active:bg-gray-800">
-                        确认发布
+                        class="w-full h-14 bg-gray-900 rounded-2xl flex items-center justify-center text-white text-lg font-bold shadow-xl">
+                        立即发布
                     </button>
                 </div>
             </div>
-        </div>
-
-        <!-- ============================================================
-             区域 B：组件变体集
-        ============================================================= -->
-        <div class="flex flex-col gap-10 w-[360px]">
-            <h2 class="text-xl font-bold text-gray-900">多状态展示</h2>
-
-            <!-- 变体 1：视频预览态 -->
-            <div class="flex flex-col">
-                <h3 class="text-lg font-bold text-gray-700 mb-4 pl-3 border-l-4 border-gray-900">CC-7 社团提交作品表单 (状态
-                    II：视频预览)</h3>
-                <div class="bg-white p-6 border border-dashed border-gray-300 rounded-none">
-                    <div
-                        class="w-full h-48 bg-gray-900 rounded-2xl flex items-center justify-center relative overflow-hidden">
-                        <i class="ri-film-line text-gray-400 text-5xl"></i>
-                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-20">
-                            <i class="ri-play-circle-line text-white text-5xl"></i>
-                        </div>
-                        <div
-                            class="absolute -top-2 -right-2 w-8 h-8 bg-white border border-gray-200 rounded-full flex items-center justify-center shadow-sm z-10">
-                            <i class="ri-close-line text-xl text-gray-900"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 注：作为极简版表单，核心差异在于展示区的媒体类型。 -->
         </div>
 
     </div>
