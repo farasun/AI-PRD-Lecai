@@ -1,6 +1,7 @@
-# Antilecai 原型阅读器
+# Antilecai 原型阅读器 & PRD 资产库
 
-> 一站式原型预览工具：线框图 + 功能规格 + 流程图，支持一键打包为单文件分享。
+> **乐才成果平台 (AI-PRD-Lecai)**：基于行政背书的银发社团社交与“真团购”服务平台。
+> 本项目是一站式原型与规格管理工具，整合了**低保真线框图 + 结构化规格 (Spec) + 业务流程图**，支持全链路术语对齐与一键离线打包。
 
 ---
 
@@ -8,108 +9,80 @@
 
 ```
 Antilecai/
-├── index.html              ← 本地开发阅读器（需启动本地服务器）
+├── index.html              ← 本地开发阅读器（支持 Markdown 渲染与原型嵌入）
 ├── README.md               ← 本文件
+├── .agents/instructions/    ← 核心角色指令库（Chat A/D/G 宪法）
 ├── doc/
-│   └── PageList.md          ← 页面清单（命名唯一真理）
-├── wireframe/               ← 线框原型（按版本管理）
+│   ├── PageList.md          ← 页面清单（命名唯一真理，Single Source of Truth）
+│   └── lecai-club-overview  ← 业务概况与标准术语表
+├── wireframe/               ← 线框原型（黑白灰、适老化、高对比度）
+│   └── v1.0/                ← 当前活跃版本
+├── Spec/                    ← 功能规格（极简叙事、无幻觉协议）
 │   └── v1.0/
-│       └── CC-5.html
-├── Spec/                    ← 功能规格（按版本管理）
-│   └── v1.0/
-│       └── CC-5.md
-├── flow/                    ← 流程图（按版本管理）
-│   └── v1.0/
-│       ├── old-upload.html
-│       ├── update-upload-v0.5.html
-│       └── update-upload-v1.0.html
+├── flow/                    ← 业务流程图（Low-Fi 风格）
 ├── scripts/
-│   └── bundle.js            ← 打包脚本
-└── dist/                    ← 打包输出（可分享的单文件）
-    └── Antilecai-v1.0.html
+│   └── bundle.js            ← 单文件打包核心脚本
+└── dist/                    ← 离线分发包（Antilecai-v1.0.html）
 ```
 
 ---
 
-## 🚀 本地预览
+## ⚖️ 核心原则 (Core Principles)
 
+### 1. 术语锚定原则 (Terminology Anchor)
+项目所有参与者（ChatA, ChatD, ChatG）必须遵循：
+- **页面命名**：强制对齐 `doc/PageList.md`，禁止自造编号。
+- **业务词汇**：强制对齐 `doc/lecai-club-overview.md`。禁绝“阵地”、“引擎”等文学化表达，使用“社团”、“上传”等确定性产品语言。
+
+### 2. 线框视觉宪法 (Visual Constitution)
+- **极简黑白灰**：禁止使用任何品牌色，依靠灰度 (`bg-gray-200`) 与投影 (`shadow-2xl`) 区分层级。
+- **适老化标准**：强制大间距、1px 细线、常规字重（不加粗），移除所有非核心视觉噪音。
+- **画板感**：原型以白色画布悬浮在深灰色背景上，提供极佳的对比度。
+
+### 3. 修订与“无变化”协议 (No-Change Protocol)
+在执行增量修订时：
+- 若模块标记为 `*(本次无变化)*`，ChatG 仅保留标题并输出一行“本次无变化”，杜绝幻觉补全。
+
+---
+
+## 🚀 开发者指南
+
+### 本地预览 (Dev Mode)
 ```bash
-# 在项目根目录执行
+# 启动本地服务
 npx -y serve . -l 3000
-
-# 浏览器访问
+# 访问阅读器
 http://localhost:3000
 ```
 
----
-
-## 📦 打包分享
-
-将指定版本的所有内容打包为**单个 HTML 文件**，可直接通过微信/钉钉/邮件发送给同事双击打开：
-
+### 生产打包 (Bundle)
+将当前版本的所有资产（线框、规格、流程）压缩为单个 HTML，便于分发：
 ```bash
 node scripts/bundle.js v1.0
-# 输出 → dist/Antilecai-v1.0.html
-```
-
-### 注意事项
-
-- **需要联网**：打包版保留 CDN 引用（Tailwind CSS / Remix Icon / marked.js），打开时需联网加载样式
-- 打开文件时会弹出联网提示，确认后即可正常浏览
-- 线框图、规格文档、流程图等**内容数据**已完全内嵌，无需额外文件
-
----
-
-## 🔄 版本迭代
-
-创建新版本时，在 `wireframe/`、`Spec/`、`flow/` 下新建子目录：
-
-```bash
-mkdir wireframe/v2.0
-mkdir Spec/v2.0
-mkdir flow/v2.0
-```
-
-修改 `index.html` 中的路径配置指向新版本：
-```javascript
-const C = { wire: '/wireframe/v2.0/', spec: '/Spec/v2.0/', flow: '/flow/v2.0/', ... };
-```
-
-打包时指定对应版本号：
-```bash
-node scripts/bundle.js v2.0
+# 输出路径: dist/Antilecai-v1.0.html
 ```
 
 ---
 
-## 🛠️ 内容生成工作流
+## 🛠️ 内容生成工作流 (Agent Roles)
 
-### 1. 生成线框原型
-
-使用 `/chatD-wireframe-expect` 工作流（Chat D - 低保真原型工程师）。
-
-> 生成后将 HTML 文件放入 `wireframe/{版本号}/` 目录，文件名为 `{页面编号}.html`（如 `CC-5.html`）。
-
-*（待核实：工作流的具体触发方式和参数）*
-
-### 2. 生成功能规格
-
-使用 `/chatG-Spec-expect` 工作流（原型批注专家）。
-
-> 生成后将 MD 文件放入 `Spec/{版本号}/` 目录，文件名为 `{页面编号}.md`（如 `CC-5.md`）。
-
-*（待核实：工作流的具体触发方式和参数）*
-
-### 3. 生成流程图
-
-使用 `/Low-Fi-Flow-Map-Plugin` 工作流。
-
-> 生成后将 HTML 文件放入 `flow/{版本号}/` 目录。
+| 角色 | 指令文件 | 核心职责 |
+| :--- | :--- | :--- |
+| **Chat A (产品专家)** | `chatA-ProductMgr-expect.md` | 定义功能骨架与交互逻辑，锚定业务术语。 |
+| **Chat D (线框助手)** | `chatD-wireframe-expect.md` | 将 A 的描述转化为符合视觉宪法的 HTML 线框图。 |
+| **Chat G (规格专家)** | `chatG-Spec-expect.md` | 生成标准化的 Spec 笔记，执行“无变化”过滤。 |
 
 ---
 
-## 📋 PageList 命名规范
+## 🔄 当前进度 (Status: v1.0)
 
-`doc/PageList.md` 是页面编号和名称的**唯一真理来源**。
+- [x] **基础设施**：完成集成阅读器开发与一键打包脚本。
+- [x] **视觉规范**：确立高对比度、适老化的低保真设计语言。
+- [x] **CC-5 (活动详情)**：完成瀑布流重构与上传流程补录。
+- [x] **CC-6 (作品详情)**：完成沉浸式阅读区与规格精简。
+- [x] **CC-7 (提交表单)**：实现单视频/多图排他性发布逻辑，同步只读态与编辑态。
+- [ ] **流程图更新**：待同步最新的上传/审核业务流。
 
-所有生成工作流中，节点/页面的命名必须严格遵循此文件中的 `页面编号 + 页面名称` 格式（如 `CC-5 · 社团活动详情`），禁止使用 A/B/C 或 A-1/A-2 等自创编号。
+---
+
+> **Tip**: 修改 `.agents/instructions/` 下的指令文件时，务必在 Chat 窗口中执行同步更新，以维持 Agent 认知的实时性。
