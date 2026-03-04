@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>原型阅读器 · Antilecai</title>
+    <title>原型阅读器 (v1.1) · Antilecai</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
@@ -171,7 +171,7 @@
     <header class="h-11 bg-gray-900 flex items-center justify-between px-4 flex-shrink-0 border-b border-gray-800">
         <div class="flex items-center gap-3">
             <i class="ri-layout-masonry-line text-indigo-400 text-lg"></i>
-            <span class="text-white font-semibold text-sm">原型阅读器</span>
+            <span class="text-white font-semibold text-sm">原型阅读器 <span class="text-indigo-300 ml-1">v1.1</span></span>
             <span class="text-gray-500 text-xs ml-1">Antilecai</span>
         </div>
         <button onclick="toggleSpec()" class="text-gray-400 hover:text-white p-1.5 rounded hover:bg-gray-800"
@@ -187,7 +187,7 @@
         <aside class="w-56 bg-gray-900 text-gray-300 flex-shrink-0 flex flex-col border-r border-gray-800">
             <div class="px-3 py-2.5 border-b border-gray-800">
                 <div class="flex items-center gap-2 text-[10px] text-gray-500 uppercase tracking-widest font-semibold">
-                    <i class="ri-folder-chart-line"></i> 项目导航
+                    <i class="ri-folder-chart-line"></i> v1.1 迭代导航
                 </div>
             </div>
             <div id="tree" class="flex-1 overflow-y-auto custom-sb py-1">
@@ -249,7 +249,7 @@
         // CONFIG & STATE
         // ========================================
         const BUNDLE = typeof __BUNDLE_MODE__ !== 'undefined';
-        const C = { wire: '/wireframe/v1.0/', spec: '/Spec/v1.0/', flow: '/flow/v1.0/', pl: '/doc/PageList.md' };
+        const C = { wire: './wireframe/', spec: './spec/', flow: './flow/', pl: './PageList.md' };
         const S = { pages: [], gen: [], pend: [], flows: [], curId: null, specVis: true };
 
         // ========================================
@@ -322,8 +322,8 @@
         function buildTree() {
             const el = document.getElementById('tree'); el.innerHTML = '';
             if (S.flows.length) el.appendChild(mkGroup('流程图', 'ri-route-line', S.flows.map(name => ({ id: name, lbl: name, tp: 'flow' })), false));
-            el.appendChild(mkGroup(`已生成页面 (${S.gen.length})`, 'ri-checkbox-circle-line', S.gen.map(p => ({ id: p.id, lbl: p.label, tp: 'wire' })), false));
-            if (S.pend.length) el.appendChild(mkGroup(`待生成页面 (${S.pend.length})`, 'ri-time-line', S.pend.map(p => ({ id: p.id, lbl: p.label, tp: 'pend' })), true));
+            el.appendChild(mkGroup(`本次已更新 (${S.gen.length})`, 'ri-checkbox-circle-line', S.gen.map(p => ({ id: p.id, lbl: p.label, tp: 'wire' })), false));
+            if (S.pend.length) el.appendChild(mkGroup(`本次涉及待生成 (${S.pend.length})`, 'ri-time-line', S.pend.map(p => ({ id: p.id, lbl: p.label, tp: 'pend' })), true));
         }
 
         function mkGroup(title, ico, items, collapsed) {
@@ -462,8 +462,8 @@
             const k1 = getStatusKey(t1), k2 = getStatusKey(t2);
             if (k1 && k2 && k1 === k2) return true;
             // 兜底：模糊包含匹配 (去掉前缀)
-            const s1 = t1.replace(/^(变体|模块|CC-5|CH-1|AC-1)[:：\s]*/, '').trim();
-            const s2 = t2.replace(/^(变体|模块|CC-5|CH-1|AC-1)[:：\s]*/, '').trim();
+            const s1 = t1.replace(/^(变体|模块|CC-5|CH-1|AC-1|PT-1|PT-2)[:：\s]*/, '').trim();
+            const s2 = t2.replace(/^(变体|模块|CC-5|CH-1|AC-1|PT-1|PT-2)[:：\s]*/, '').trim();
             return s1.includes(s2) || s2.includes(s1);
         }
 
@@ -500,8 +500,8 @@
             function isMatch(t1, t2) {
                 const k1 = getStatusKey(t1), k2 = getStatusKey(t2);
                 if (k1 && k2 && k1 === k2) return true;
-                const s1 = t1.replace(/^(变体|模块|CC-5|CH-1|AC-1)[:：\\s]*/, '').trim();
-                const s2 = t2.replace(/^(变体|模块|CC-5|CH-1|AC-1)[:：\\s]*/, '').trim();
+                const s1 = t1.replace(/^(变体|模块|CC-5|CH-1|AC-1|PT-1|PT-2)[:：\\s]*/, '').trim();
+                const s2 = t2.replace(/^(变体|模块|CC-5|CH-1|AC-1|PT-1|PT-2)[:：\\s]*/, '').trim();
                 return s1.includes(s2) || s2.includes(s1);
             }
             window.addEventListener('message', e => {
