@@ -278,7 +278,7 @@
             for (const line of text.split('\n')) {
                 const cols = line.split('|').map(c => c.trim()).filter(Boolean);
                 if (cols.length < 2 || cols[0] === '页面编号' || cols[0].startsWith('---')) continue;
-                const m = cols[0].match(/((?:CC|CH|AC)-[\d]+-?\d*)/);
+                const m = cols[0].match(/((?:CC|CH|AC|PT)-[\d]+-?\d*)/);
                 if (m) S.pages.push({ id: m[1], name: cols[1], label: `${m[1]} ${cols[1]}` });
             }
         }
