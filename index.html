@@ -249,7 +249,7 @@
         // CONFIG & STATE
         // ========================================
         const BUNDLE = typeof __BUNDLE_MODE__ !== 'undefined';
-        const C = { wire: '/wireframe/v1.0/', spec: '/Spec/v1.0/', flow: '/flow/v1.0/', pl: '/doc/PageList.md' };
+        const C = { wire: '/v1.1/wireframe/', spec: '/v1.1/spec/', flow: '/v1.1/flow/', pl: '/doc/PageList.md' };
         const S = { pages: [], gen: [], pend: [], flows: [], curId: null, specVis: true };
 
         // ========================================
@@ -278,7 +278,7 @@
             for (const line of text.split('\n')) {
                 const cols = line.split('|').map(c => c.trim()).filter(Boolean);
                 if (cols.length < 2 || cols[0] === '页面编号' || cols[0].startsWith('---')) continue;
-                const m = cols[0].match(/((?:CC|CH|AC)-[\d]+-?\d*)/);
+                const m = cols[0].match(/((?:CC|CH|AC|PT)-[\d]+-?\d*)/);
                 if (m) S.pages.push({ id: m[1], name: cols[1], label: `${m[1]} ${cols[1]}` });
             }
         }

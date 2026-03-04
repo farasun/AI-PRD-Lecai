@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PT-2 每日签到</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet" />
+</head>
+<body class="bg-gray-200 min-h-screen flex justify-center p-12 overflow-x-auto">
+
+  <!-- Artboard -->
+  <div class="flex flex-row items-start gap-24">
+
+    <!-- 主视图（左栏）：状态 I 未签到态 -->
+    <div>
+      <!-- 页面标题（artboard 区域显示，非页面内容） -->
+      <p class="text-xl font-bold text-gray-900 mb-4">PT-2 每日签到 (状态 I：未签到态)</p>
+
+      <!-- 手机画板 -->
+      <div class="w-[375px] bg-white shadow-2xl border border-gray-200 relative overflow-hidden rounded-none" style="min-height: 812px;">
+
+        <!-- Navbar -->
+        <div class="h-16 flex items-center justify-between px-4 border-b border-gray-100">
+          <i class="ri-arrow-left-s-line text-2xl text-gray-900"></i>
+          <span class="text-xl font-bold text-gray-900">每日签到</span>
+          <div class="w-6"></div>
+        </div>
+
+        <!-- 主体内容区 -->
+        <div class="flex flex-col items-center justify-center px-8 py-16 gap-6 min-h-[calc(100vh-128px)]" style="min-height: 680px;">
+
+          <!-- 大图标 -->
+          <i class="ri-calendar-check-line text-[80px] text-gray-200"></i>
+
+          <!-- 状态标题 -->
+          <p class="text-2xl font-bold text-gray-900 text-center">今日还未签到</p>
+
+          <!-- 积分说明 -->
+          <p class="text-lg font-normal text-gray-500 text-center">每日签到可获得 3 积分</p>
+
+          <!-- 签到按钮 -->
+          <button class="h-14 bg-gray-900 text-white font-medium rounded-2xl w-full text-lg">立即签到</button>
+
+          <!-- 连续天数 -->
+          <p class="text-base text-gray-400 text-center">已连续签到 · 7 天</p>
+
+        </div>
+
+      </div>
+    </div>
+
+    <!-- 组件变体集（右栏） -->
+    <div class="flex flex-col gap-10 w-[360px]">
+
+      <!-- 右栏区域标题 -->
+      <p class="text-lg font-bold text-gray-700 mb-2">多状态展示</p>
+
+      <!-- 变体卡片 1：状态 II 已签到态 -->
+      <div class="bg-white p-6 border border-gray-200 shadow-md rounded-none">
+        <p class="text-lg font-bold text-gray-700 mb-4 pl-3 border-l-4 border-gray-900">状态 II：已签到态</p>
+
+        <div class="flex flex-col items-center gap-4">
+          <!-- 图标 -->
+          <i class="ri-checkbox-circle-fill text-[64px] text-gray-900"></i>
+
+          <!-- 状态标题 -->
+          <p class="text-xl font-bold text-gray-900 text-center">今日已签到</p>
+
+          <!-- 说明 -->
+          <p class="text-lg font-normal text-gray-500 text-center">今日已获得 3 积分，明天再来</p>
+
+          <!-- 禁用按钮 -->
+          <button class="h-14 bg-white border border-gray-200 text-gray-400 rounded-2xl w-full text-lg" disabled>已签到 ✓</button>
+
+          <!-- 连续天数 -->
+          <p class="text-base text-gray-400 text-center">已连续签到 · 8 天</p>
+        </div>
+      </div>
+
+      <!-- 变体卡片 2：状态 III 积分到账 Toast（签到动效态） -->
+      <div class="bg-white p-6 border border-gray-200 shadow-md rounded-none">
+        <p class="text-lg font-bold text-gray-700 mb-4 pl-3 border-l-4 border-gray-900">状态 III：签到成功反馈</p>
+
+        <div class="relative flex flex-col items-center">
+          <!-- Toast 条 -->
+          <div class="bg-gray-900 text-white text-base text-center py-3 px-4 rounded-xl mb-4 w-full">
+            今日签到成功，获得 3 积分！
+          </div>
+
+          <!-- 图标 -->
+          <i class="ri-checkbox-circle-fill text-[64px] text-gray-900"></i>
+
+          <!-- 说明 -->
+          <p class="text-base text-gray-500 text-center mt-2">积分 2 秒后自动到账提示消失</p>
+        </div>
+      </div>
+
+    </div>
+    <!-- /组件变体集 -->
+
+  </div>
+  <!-- /Artboard -->
+
+</body>
+</html>

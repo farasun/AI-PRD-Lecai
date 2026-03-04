@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PT-1 我的积分</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet" />
+</head>
+<body class="bg-gray-200 min-h-screen flex justify-center p-12 overflow-x-auto">
+
+  <div class="flex flex-row items-start gap-24">
+
+    <!-- 主视图（左栏）：状态 I 有记录态 -->
+    <div>
+      <p class="text-xl font-bold text-gray-900 mb-4">PT-1 我的积分 (状态 I：有记录态)</p>
+      <div class="w-[375px] bg-white shadow-2xl border border-gray-200 relative overflow-hidden rounded-none">
+
+        <!-- Navbar -->
+        <div class="h-16 flex items-center justify-between px-4 border-b border-gray-100">
+          <i class="ri-arrow-left-s-line text-2xl text-gray-900"></i>
+          <span class="text-xl font-bold text-gray-900">我的积分</span>
+          <div class="w-6"></div>
+        </div>
+
+        <!-- 余额展示区 -->
+        <div class="px-6 py-8 border-b border-gray-100 text-center flex flex-col items-center gap-1">
+          <span class="text-base text-gray-400">当前积分</span>
+          <span class="text-5xl font-bold text-gray-900">128</span>
+          <span class="text-base text-gray-400">积分</span>
+        </div>
+
+        <!-- 积分记录列表标题 -->
+        <div class="px-4 py-3 border-b border-gray-100">
+          <span class="text-base text-gray-400">积分记录</span>
+        </div>
+
+        <!-- 积分记录列表 -->
+        <div class="divide-y divide-gray-100">
+          <div class="px-4 py-4 flex items-center justify-between">
+            <div>
+              <div class="text-lg font-normal text-gray-700">每日签到</div>
+              <div class="text-base text-gray-400">03-04</div>
+            </div>
+            <div class="text-lg font-normal text-gray-900">+3</div>
+          </div>
+          <div class="px-4 py-4 flex items-center justify-between">
+            <div>
+              <div class="text-lg font-normal text-gray-700">上传作品至「春日摄影展」</div>
+              <div class="text-base text-gray-400">03-03</div>
+            </div>
+            <div class="text-lg font-normal text-gray-900">+10</div>
+          </div>
+          <div class="px-4 py-4 flex items-center justify-between">
+            <div>
+              <div class="text-lg font-normal text-gray-700">首次发布作品（新手奖励）</div>
+              <div class="text-base text-gray-400">03-03</div>
+            </div>
+            <div class="text-lg font-normal text-gray-900">+20</div>
+          </div>
+          <div class="px-4 py-4 flex items-center justify-between">
+            <div>
+              <div class="text-lg font-normal text-gray-700">加入社团</div>
+              <div class="text-base text-gray-400">03-02</div>
+            </div>
+            <div class="text-lg font-normal text-gray-900">+5</div>
+          </div>
+          <div class="px-4 py-4 flex items-center justify-between">
+            <div>
+              <div class="text-lg font-normal text-gray-700">首次加入社团（新手奖励）</div>
+              <div class="text-base text-gray-400">03-02</div>
+            </div>
+            <div class="text-lg font-normal text-gray-900">+15</div>
+          </div>
+          <div class="px-4 py-4 flex items-center justify-between">
+            <div>
+              <div class="text-lg font-normal text-gray-700">每日签到</div>
+              <div class="text-base text-gray-400">03-01</div>
+            </div>
+            <div class="text-lg font-normal text-gray-900">+3</div>
+          </div>
+        </div>
+
+        <!-- 底部「如何赚积分」入口 -->
+        <div class="border-t border-gray-100 py-4 flex justify-center">
+          <button class="text-lg font-normal text-gray-500 flex items-center gap-1">
+            如何赚积分
+            <i class="ri-arrow-down-s-line"></i>
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- 组件变体集（右栏） -->
+    <div class="flex flex-col gap-10 w-[360px]">
+
+      <p class="text-xl font-bold text-gray-900 mb-0">多状态展示</p>
+
+      <!-- 变体卡片 1：状态 II 空记录态 -->
+      <div class="bg-white p-6 border border-gray-200 shadow-md rounded-none">
+        <div class="text-lg font-bold text-gray-700 mb-4 pl-3 border-l-4 border-gray-900">状态 II：空记录态</div>
+        <div class="flex flex-col items-center gap-4 py-4">
+          <i class="ri-inbox-line text-[56px] text-gray-200"></i>
+          <span class="text-lg font-normal text-gray-400 text-center">还没有积分记录</span>
+          <span class="text-base text-gray-400 text-center">去签到或上传作品开始累积吧！</span>
+          <button class="h-14 bg-gray-900 text-white font-medium rounded-2xl w-full text-lg text-center flex items-center justify-center">
+            去签到
+          </button>
+        </div>
+      </div>
+
+      <!-- 变体卡片 2：「如何赚积分」规则弹层 -->
+      <div class="bg-white p-6 border border-gray-200 shadow-md rounded-none">
+        <div class="text-lg font-bold text-gray-700 mb-4 pl-3 border-l-4 border-gray-900">规则弹层（折叠态）</div>
+
+        <!-- 弹层标题行 -->
+        <div class="flex justify-between items-center mb-4">
+          <span class="text-lg font-bold text-gray-900">如何赚积分</span>
+          <i class="ri-close-line text-xl text-gray-400"></i>
+        </div>
+
+        <!-- 三条核心规则 -->
+        <div class="space-y-4">
+          <div class="flex items-start gap-3">
+            <i class="ri-calendar-check-line text-xl text-gray-900 mt-0.5 flex-shrink-0"></i>
+            <span class="text-lg font-normal text-gray-700">每天打卡签到，可获得 3 积分</span>
+          </div>
+          <div class="flex items-start gap-3">
+            <i class="ri-image-line text-xl text-gray-900 mt-0.5 flex-shrink-0"></i>
+            <span class="text-lg font-normal text-gray-700">上传作品到社团活动，可获得积分</span>
+          </div>
+          <div class="flex items-start gap-3">
+            <i class="ri-team-line text-xl text-gray-900 mt-0.5 flex-shrink-0"></i>
+            <span class="text-lg font-normal text-gray-700">加入一个社团，可获得 5 积分</span>
+          </div>
+        </div>
+
+        <!-- 展开入口 -->
+        <div class="border-t border-gray-100 mt-4 pt-4 text-center">
+          <button class="text-base text-gray-400 flex items-center gap-1 mx-auto">
+            查看更多获积方式
+            <i class="ri-arrow-down-s-line"></i>
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+</body>
+</html>
