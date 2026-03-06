@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Low-Fi Flow Map · 流程A · 每日签到得积分</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <style>
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .bg-dot-grid {
+            background-image: radial-gradient(circle, #cbd5e1 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+    </style>
+</head>
+
+<body class="m-0 p-0 bg-gray-200 no-scrollbar">
+
+    <!-- 悬浮标题板 -->
+    <div
+        style="position:fixed;top:24px;left:24px;z-index:50;background:rgba(17,24,39,0.85);backdrop-filter:blur(8px);border-radius:12px;padding:12px 20px;">
+        <div style="font-size:16px;font-weight:700;color:#fff;">积分流程A · 每日签到得积分</div>
+        <div style="font-size:12px;color:#9ca3af;margin-top:4px;">v1.1 · Low-Fi Flow Map · 2026-03-04</div>
+    </div>
+
+    <!-- 画布 -->
+    <div class="relative bg-dot-grid w-[2200px] h-[1000px] no-scrollbar font-sans text-gray-900">
+
+        <!-- SVG 连线层 -->
+        <svg class="absolute inset-0 w-full h-full pointer-events-none z-0">
+            <defs>
+                <marker id="arrow-gray" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                    <path d="M0,0 L0,6 L9,3 z" fill="#94a3b8" />
+                </marker>
+            </defs>
+
+            <!-- A1 → A2 -->
+            <path d="M 344 414 C 470 414, 470 414, 598 414" stroke="#94a3b8" stroke-width="2" fill="none"
+                marker-end="url(#arrow-gray)" />
+            <rect x="380" y="399" width="150" height="28" fill="#f8fafc" rx="4" />
+            <text x="455" y="418" fill="#64748b" font-size="13" font-weight="500" text-anchor="middle">点击[签到入口]</text>
+
+            <!-- A2 → A3 -->
+            <path d="M 844 414 C 970 414, 970 414, 1098 414" stroke="#94a3b8" stroke-width="2" fill="none"
+                marker-end="url(#arrow-gray)" />
+            <rect x="880" y="399" width="150" height="28" fill="#f8fafc" rx="4" />
+            <text x="955" y="418" fill="#64748b" font-size="13" font-weight="500" text-anchor="middle">点击[立即签到]</text>
+
+            <!-- A3 → A1 return (dashed) -->
+            <path d="M 1222 678 C 1222 760, 222 760, 222 678" stroke="#94a3b8" stroke-dasharray="5 5" stroke-width="2"
+                fill="none" marker-end="url(#arrow-gray)" />
+            <rect x="570" y="745" width="200" height="28" fill="#f8fafc" rx="4" />
+            <text x="670" y="764" fill="#64748b" font-size="13" font-weight="500" text-anchor="middle">积分到账，自动返回</text>
+        </svg>
+
+        <!-- Node A1: CC-3 主导航-我的 -->
+        <div class="absolute" style="left: 100px; top: 150px;">
+            <div id="CC-3"
+                class="absolute -top-10 left-0 bg-gray-900 text-white text-sm px-3 py-1 rounded shadow-sm z-10">CC-3 ·
+                主导航-我的</div>
+            <div
+                class="w-[375px] h-[812px] bg-white border border-gray-200 rounded-[40px] shadow-2xl overflow-hidden transform scale-[0.65] origin-top-left flex flex-col relative">
+                <!-- Navbar -->
+                <div class="h-14 flex items-center justify-between px-4 border-b border-gray-100 flex-shrink-0">
+                    <span class="font-bold text-lg text-gray-900 mx-auto">我的</span>
+                </div>
+                <!-- Body -->
+                <div class="flex-1 overflow-hidden bg-gray-50">
+                    <div class="bg-white px-6 py-5 flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-full bg-gray-200 flex items-center justify-center flex-shrink-0">
+                            <i class="ri-user-line text-xl text-gray-400"></i>
+                        </div>
+                        <div>
+                            <div class="font-bold text-base text-gray-900">张大妈</div>
+                            <div class="text-sm font-normal text-gray-400 mt-0.5">东方老年大学</div>
+                        </div>
+                    </div>
+                    <!-- Points Card -->
+                    <div class="mx-4 p-4 border border-gray-900 rounded-2xl">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-sm font-normal text-gray-600">我的积分</span>
+                            <i class="ri-arrow-right-s-line text-gray-300 text-lg"></i>
+                        </div>
+                        <div class="flex items-baseline gap-1 mb-4">
+                            <span class="text-3xl font-bold text-gray-900">128</span>
+                            <span class="text-xs font-normal text-gray-400">积分</span>
+                        </div>
+                        <div
+                            class="h-12 bg-gray-900 rounded-full flex items-center justify-center text-white font-medium text-sm">
+                            今日签到 +3积分
+                        </div>
+                    </div>
+                    <!-- List -->
+                    <div class="mt-4 border-t border-gray-100">
+                        <div class="flex items-center justify-between px-6 py-4 border-b border-gray-50">
+                            <div class="flex items-center gap-3">
+                                <i class="ri-team-line text-gray-400 text-lg"></i>
+                                <span class="text-sm font-normal">我的社团</span>
+                            </div>
+                            <i class="ri-arrow-right-s-line text-gray-200 text-lg"></i>
+                        </div>
+                        <div class="flex items-center justify-between px-6 py-4">
+                            <div class="flex items-center gap-3">
+                                <i class="ri-image-line text-gray-400 text-lg"></i>
+                                <span class="text-sm font-normal">我的作品</span>
+                            </div>
+                            <i class="ri-arrow-right-s-line text-gray-200 text-lg"></i>
+                        </div>
+                    </div>
+                </div>
+                <!-- Tabbar -->
+                <div class="h-20 bg-white border-t border-gray-100 flex items-center justify-around flex-shrink-0 px-4">
+                    <div class="flex flex-col items-center text-gray-300 gap-1 opacity-50">
+                        <i class="ri-group-line text-2xl"></i>
+                        <span class="text-[10px] font-normal">社团</span>
+                    </div>
+                    <div class="flex flex-col items-center text-gray-300 gap-1 opacity-50">
+                        <i class="ri-trophy-line text-2xl"></i>
+                        <span class="text-[10px] font-normal">赛事</span>
+                    </div>
+                    <div class="flex flex-col items-center text-gray-900 gap-1">
+                        <i class="ri-user-fill text-2xl"></i>
+                        <span class="text-[10px] font-bold">我的</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Node A2: PT-2 未签到态 -->
+        <div class="absolute" style="left: 600px; top: 150px;">
+            <div id="PT-2"
+                class="absolute -top-10 left-0 bg-gray-900 text-white text-sm px-3 py-1 rounded shadow-sm z-10">PT-2 ·
+                每日签到（未签到态）</div>
+            <div
+                class="w-[375px] h-[812px] bg-white border border-gray-200 rounded-[40px] shadow-2xl overflow-hidden transform scale-[0.65] origin-top-left flex flex-col">
+                <!-- Navbar -->
+                <div class="h-14 flex items-center px-4 border-b border-gray-100 flex-shrink-0 relative">
+                    <i class="ri-arrow-left-s-line text-2xl text-gray-900 mr-1"></i>
+                    <span class="font-bold text-lg text-gray-900 absolute left-1/2 -translate-x-1/2">每日签到</span>
+                </div>
+                <!-- Body -->
+                <div class="flex-1 flex flex-col items-center justify-center p-8 text-center bg-white">
+                    <i class="ri-calendar-check-line text-7xl text-gray-100 mb-6"></i>
+                    <div class="text-2xl font-bold text-gray-900 mb-2">今日还未签到</div>
+                    <p class="text-sm font-normal text-gray-400 mb-10">每日签到可获得 3 积分</p>
+                    <div
+                        class="w-full h-14 bg-gray-900 rounded-full flex items-center justify-center text-white font-medium text-lg mb-4">
+                        立即签到
+                    </div>
+                    <div class="text-xs font-normal text-gray-300">已连续签到 · 7 天</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Node A3: PT-2 已签到动效态 -->
+        <div class="absolute" style="left: 1100px; top: 150px;">
+            <div id="PT-2-checked"
+                class="absolute -top-10 left-0 bg-gray-900 text-white text-sm px-3 py-1 rounded shadow-sm z-10">PT-2 ·
+                每日签到（已签到态）</div>
+            <div
+                class="w-[375px] h-[812px] bg-white border border-gray-200 rounded-[40px] shadow-2xl overflow-hidden transform scale-[0.65] origin-top-left flex flex-col">
+                <!-- Navbar -->
+                <div class="h-14 flex items-center px-4 border-b border-gray-100 flex-shrink-0 relative">
+                    <i class="ri-arrow-left-s-line text-2xl text-gray-900 mr-1"></i>
+                    <span class="font-bold text-lg text-gray-900 absolute left-1/2 -translate-x-1/2">每日签到</span>
+                </div>
+                <!-- Toast -->
+                <div class="mx-6 mt-5 bg-gray-900 text-white px-4 py-3 rounded-2xl text-center text-sm font-medium">
+                    今日签到成功，获得 3 积分！
+                </div>
+                <!-- Body -->
+                <div class="flex-1 flex flex-col items-center justify-center p-8 text-center bg-white">
+                    <i class="ri-checkbox-circle-fill text-7xl text-gray-900 mb-6"></i>
+                    <div class="text-2xl font-bold text-gray-900 mb-2">今日已签到</div>
+                    <p class="text-sm font-normal text-gray-400 mb-10">明天再来签到</p>
+                    <div
+                        class="w-full h-14 bg-white border border-gray-200 rounded-full flex items-center justify-center text-gray-300 font-medium text-lg mb-4">
+                        已签到 ✓
+                    </div>
+                    <div class="text-xs font-normal text-gray-300">已连续签到 · 8 天</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>
+
+</html>

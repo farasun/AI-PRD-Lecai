@@ -1,778 +1,365 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Low-Fi Flow Map · 积分流程 v1.1</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Low-Fi Flow Map · 积分体系全景图 v1.1</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" />
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
   <style>
-    * { box-sizing: border-box; }
-    body {
-      background: #f5f5f5;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      margin: 0;
-      padding: 0;
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
     }
 
-    /* Canvas wrapper */
-    #canvas {
-      position: relative;
-      width: 1800px;
-      height: 3050px;
-      background: #fafafa;
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
     }
 
-    /* Phone frame shared */
-    .phone-frame {
-      position: absolute;
-      width: 375px;
-      height: 528px;
-      background: #ffffff;
-      border: 2px solid #1a1a1a;
-      border-radius: 24px;
-      overflow: hidden;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.12);
-      /* Scale to 65% */
-      transform: scale(0.65);
-      transform-origin: top left;
-    }
-
-    /* Page label below each frame */
-    .page-label {
-      position: absolute;
-      font-size: 11px;
-      color: #555;
-      font-weight: 600;
-      letter-spacing: 0.3px;
-      text-align: center;
-      width: 244px; /* 375*0.65 */
-    }
-
-    /* Row label */
-    .row-label {
-      position: absolute;
-      left: 10px;
-      writing-mode: vertical-rl;
-      transform: rotate(180deg);
-      font-size: 12px;
-      font-weight: 700;
-      color: #333;
-      letter-spacing: 1px;
-    }
-
-    /* Arrow labels */
-    .arrow-label {
-      position: absolute;
-      background: #fff;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      padding: 2px 6px;
-      font-size: 10px;
-      color: #444;
-      white-space: nowrap;
-    }
-
-    /* ── Inside-frame component styles ── */
-
-    /* Navbar */
-    .f-navbar {
-      display: flex;
-      align-items: center;
-      height: 64px;
-      border-bottom: 1px solid #e5e7eb;
-      padding: 0 16px;
-      position: relative;
-      flex-shrink: 0;
-    }
-    .f-navbar-title {
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
-      font-size: 16px;
-      font-weight: 600;
-      color: #111;
-    }
-    .f-navbar-back {
-      font-size: 20px;
-      color: #333;
-      cursor: pointer;
-    }
-
-    /* Tabbar */
-    .f-tabbar {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 80px;
-      border-top: 1px solid #e5e7eb;
-      background: #fff;
-      display: flex;
-      align-items: center;
-    }
-    .f-tabbar-item {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 3px;
-      font-size: 11px;
-      color: #9ca3af;
-    }
-    .f-tabbar-item.active {
-      color: #111;
-    }
-    .f-tabbar-item i {
-      font-size: 22px;
-    }
-
-    /* Primary button */
-    .f-btn-primary {
-      background: #111;
-      color: #fff;
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 14px;
-      font-weight: 600;
-      width: 100%;
-      cursor: pointer;
-    }
-
-    /* Ghost button */
-    .f-btn-ghost {
-      background: transparent;
-      color: #9ca3af;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 13px;
-      cursor: pointer;
-    }
-
-    /* Disabled button */
-    .f-btn-disabled {
-      background: #fff;
-      color: #9ca3af;
-      border: 1px solid #e5e7eb;
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 14px;
-      width: 100%;
-    }
-
-    /* Toast */
-    .f-toast {
-      position: absolute;
-      top: 72px;
-      left: 16px;
-      right: 16px;
-      background: #1a1a1a;
-      color: #fff;
-      border-radius: 12px;
-      padding: 12px;
-      text-align: center;
-      font-size: 13px;
-      z-index: 10;
-    }
-
-    /* Scrollable body area (accounts for navbar + tabbar) */
-    .f-body {
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-    }
-
-    /* List row */
-    .f-list-row {
-      display: flex;
-      align-items: center;
-      padding: 14px 24px;
-      border-bottom: 1px solid #f3f4f6;
-      font-size: 14px;
-      color: #111;
-    }
-    .f-list-row i {
-      font-size: 18px;
-      margin-right: 12px;
-      color: #555;
-    }
-    .f-list-row .spacer { flex: 1; }
-    .f-list-row .arrow { font-size: 18px; color: #ccc; }
-
-    /* Points card */
-    .f-points-card {
-      margin: 16px;
-      padding: 16px;
-      border: 1px solid #1a1a1a;
-      border-radius: 16px;
-    }
-
-    /* Dim overlay for modal */
-    .f-dim {
-      position: absolute;
-      inset: 0;
-      background: rgba(0,0,0,0.4);
-      z-index: 5;
-    }
-
-    /* Bottom sheet */
-    .f-sheet {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background: #fff;
-      border-radius: 24px 24px 0 0;
-      padding: 16px;
-      box-shadow: 0 -8px 32px rgba(0,0,0,0.15);
-      z-index: 10;
-    }
-
-    /* Fixed bottom bar inside frame */
-    .f-bottom-bar {
-      position: absolute;
-      bottom: 80px;
-      left: 0;
-      right: 0;
-      padding: 12px 16px;
-      border-top: 1px solid #f3f4f6;
-      background: #fff;
-    }
-
-    /* Grid for artwork */
-    .f-artwork-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 4px;
-      padding: 0 16px;
-    }
-    .f-artwork-cell {
-      background: #f3f4f6;
-      height: 96px;
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    .bg-dot-grid {
+      background-image: radial-gradient(circle, #cbd5e1 1px, transparent 1px);
+      background-size: 20px 20px;
     }
   </style>
 </head>
-<body>
 
-<div style="padding: 32px;">
-  <h1 style="font-size:18px;font-weight:700;color:#111;margin:0 0 4px 0;">积分体系 · 低保真全景流程图</h1>
-  <p style="font-size:12px;color:#888;margin:0 0 24px 0;">v1.1 · Low-Fi Flow Map · 2026-03-04</p>
+<body class="m-0 p-0 bg-gray-200 no-scrollbar">
 
-  <!-- ════════════════════════════════════════════ -->
-  <!--  CANVAS                                      -->
-  <!-- ════════════════════════════════════════════ -->
-  <div id="canvas">
+  <!-- 悬浮标题板 -->
+  <div
+    style="position:fixed;top:24px;left:24px;z-index:50;background:rgba(17,24,39,0.85);backdrop-filter:blur(8px);border-radius:12px;padding:12px 20px;">
+    <div style="font-size:16px;font-weight:700;color:#fff;">积分体系全景流程图 · 合并版</div>
+    <div style="font-size:12px;color:#9ca3af;margin-top:4px;">v1.1 · Low-Fi Flow Map · 2026-03-04</div>
+  </div>
 
-    <!-- ════════════════════════════════ -->
-    <!-- ROW LABELS                       -->
-    <!-- ════════════════════════════════ -->
-    <div class="row-label" style="top:430px;">流程A · 每日签到得积分</div>
-    <div class="row-label" style="top:1380px;">流程B · 上传作品得积分</div>
-    <div class="row-label" style="top:2330px;">流程C · 查看积分明细</div>
+  <!-- 画布 -->
+  <div class="relative bg-dot-grid w-[2200px] h-[3200px] no-scrollbar font-sans text-gray-900">
 
-    <!-- ════════════════════════════════════════════ -->
-    <!-- SVG ARROWS                                   -->
-    <!-- ════════════════════════════════════════════ -->
-    <svg style="position:absolute;top:0;left:0;width:1800px;height:3050px;pointer-events:none;overflow:visible;">
+    <!-- 业务线标识 -->
+    <div class="absolute left-6 font-bold text-gray-400 text-sm tracking-widest opacity-50 flex flex-col gap-[900px]"
+      style="top: 400px; writing-mode: vertical-rl; transform: rotate(180deg);">
+      <span>流程A · 每日签到得积分</span>
+      <span>流程B · 上传作品得积分</span>
+      <span>流程C · 查看积分明细</span>
+    </div>
+
+    <!-- SVG 连线层 -->
+    <svg class="absolute inset-0 w-full h-full pointer-events-none z-0">
       <defs>
-        <marker id="arrow-gray" markerWidth="8" markerHeight="8"
-                refX="6" refY="3" orient="auto">
-          <path d="M0,0 L0,6 L8,3 z" fill="#666" />
+        <marker id="arrow-gray" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+          <path d="M0,0 L0,6 L9,3 z" fill="#94a3b8" />
         </marker>
       </defs>
 
       <!-- ── Flow A ── -->
-      <!-- A1→A2 -->
-      <path d="M 344 414 C 470 414, 470 414, 600 414"
-            fill="none" stroke="#444" stroke-width="1.5"
-            marker-end="url(#arrow-gray)" />
-      <!-- A2→A3 -->
-      <path d="M 844 414 C 970 414, 970 414, 1100 414"
-            fill="none" stroke="#444" stroke-width="1.5"
-            marker-end="url(#arrow-gray)" />
-      <!-- A3→A1 return (dashed) -->
-      <path d="M 1222 678 C 1222 740, 222 740, 222 678"
-            fill="none" stroke="#888" stroke-width="1.5" stroke-dasharray="5 5"
-            marker-end="url(#arrow-gray)" />
+      <!-- A1 → A2 -->
+      <path d="M 344 414 C 470 414, 470 414, 598 414" stroke="#94a3b8" stroke-width="2" fill="none"
+        marker-end="url(#arrow-gray)" />
+      <rect x="380" y="399" width="150" height="28" fill="#f8fafc" rx="4" />
+      <text x="455" y="418" fill="#64748b" font-size="13" font-weight="500" text-anchor="middle">点击[签到入口]</text>
+
+      <!-- A2 → A3 -->
+      <path d="M 844 414 C 970 414, 970 414, 1098 414" stroke="#94a3b8" stroke-width="2" fill="none"
+        marker-end="url(#arrow-gray)" />
+      <rect x="880" y="399" width="150" height="28" fill="#f8fafc" rx="4" />
+      <text x="955" y="418" fill="#64748b" font-size="13" font-weight="500" text-anchor="middle">点击[立即签到]</text>
+
+      <!-- A3 → A1 return -->
+      <path d="M 1222 678 C 1222 760, 222 760, 222 678" stroke="#94a3b8" stroke-dasharray="5 5" stroke-width="2"
+        fill="none" marker-end="url(#arrow-gray)" />
+      <rect x="570" y="745" width="200" height="28" fill="#f8fafc" rx="4" />
+      <text x="670" y="764" fill="#64748b" font-size="13" font-weight="500" text-anchor="middle">积分到账，自动返回</text>
 
       <!-- ── Flow B ── -->
-      <!-- B1→B2 -->
-      <path d="M 344 1364 C 470 1364, 470 1364, 600 1364"
-            fill="none" stroke="#444" stroke-width="1.5"
-            marker-end="url(#arrow-gray)" />
-      <!-- B2→B3 -->
-      <path d="M 844 1364 C 970 1364, 970 1364, 1100 1364"
-            fill="none" stroke="#444" stroke-width="1.5"
-            marker-end="url(#arrow-gray)" />
+      <!-- B1 → B2 -->
+      <path d="M 344 1364 C 470 1364, 470 1364, 598 1364" stroke="#94a3b8" stroke-width="2" fill="none"
+        marker-end="url(#arrow-gray)" />
+      <rect x="365" y="1349" width="190" height="28" fill="#f8fafc" rx="4" />
+      <text x="460" y="1368" fill="#64748b" font-size="13" font-weight="500" text-anchor="middle">点击[上传我的作品]</text>
+
+      <!-- B2 → B3 -->
+      <path d="M 844 1364 C 970 1364, 970 1364, 1098 1364" stroke="#94a3b8" stroke-width="2" fill="none"
+        marker-end="url(#arrow-gray)" />
+      <rect x="875" y="1349" width="160" height="28" fill="#f8fafc" rx="4" />
+      <text x="955" y="1368" fill="#64748b" font-size="13" font-weight="500" text-anchor="middle">提交成功并返回</text>
 
       <!-- ── Flow C ── -->
-      <!-- C1→C2 -->
-      <path d="M 344 2314 C 470 2314, 470 2314, 600 2314"
-            fill="none" stroke="#444" stroke-width="1.5"
-            marker-end="url(#arrow-gray)" />
-      <!-- C2→C3 -->
-      <path d="M 844 2314 C 970 2314, 970 2314, 1100 2314"
-            fill="none" stroke="#444" stroke-width="1.5"
-            marker-end="url(#arrow-gray)" />
-      <!-- C3→C2 return -->
-      <path d="M 1100 2250 C 1100 2190, 844 2190, 844 2250"
-            fill="none" stroke="#888" stroke-width="1.5" stroke-dasharray="5 5"
-            marker-end="url(#arrow-gray)" />
+      <!-- C1 → C2 -->
+      <path d="M 344 2314 C 470 2314, 470 2314, 598 2314" stroke="#94a3b8" stroke-width="2" fill="none"
+        marker-end="url(#arrow-gray)" />
+      <rect x="375" y="2299" width="140" height="28" fill="#f8fafc" rx="4" />
+      <text x="445" y="2318" fill="#64748b" font-size="13" font-weight="500" text-anchor="middle">点击[积分卡片]</text>
+
+      <!-- C2 → C3 -->
+      <path d="M 844 2314 C 970 2314, 970 2314, 1098 2314" stroke="#94a3b8" stroke-width="2" fill="none"
+        marker-end="url(#arrow-gray)" />
+      <rect x="870" y="2299" width="170" height="28" fill="#f8fafc" rx="4" />
+      <text x="955" y="2318" fill="#64748b" font-size="13" font-weight="500" text-anchor="middle">点击[如何赚积分]</text>
+
+      <!-- C3 → C2 return -->
+      <path d="M 1100 2250 C 1100 2190, 844 2190, 844 2250" stroke="#94a3b8" stroke-dasharray="5 5" stroke-width="2"
+        fill="none" marker-end="url(#arrow-gray)" />
+      <rect x="975" y="2165" width="60" height="28" fill="#f8fafc" rx="4" />
+      <text x="1005" y="2184" fill="#64748b" font-size="13" font-weight="500" text-anchor="middle">还原</text>
     </svg>
 
-    <!-- ════════════════════════════════════════════ -->
-    <!-- ARROW LABELS                                 -->
-    <!-- ════════════════════════════════════════════ -->
-    <!-- Flow A -->
-    <div class="arrow-label" style="left:380px; top:399px;">点击[签到入口]</div>
-    <div class="arrow-label" style="left:880px; top:399px;">点击[立即签到]</div>
-    <div class="arrow-label" style="left:570px; top:720px;">积分到账，自动返回</div>
-    <!-- Flow B -->
-    <div class="arrow-label" style="left:350px; top:1349px;">点击[上传我的作品]</div>
-    <div class="arrow-label" style="left:860px; top:1349px;">提交成功并返回</div>
-    <!-- Flow C -->
-    <div class="arrow-label" style="left:370px; top:2299px;">点击[积分卡片]</div>
-    <div class="arrow-label" style="left:860px; top:2299px;">点击[如何赚积分]</div>
-    <div class="arrow-label" style="left:920px; top:2175px;">关闭</div>
+    <!-- ── 节点区域 ── -->
 
-
-    <!-- ════════════════════════════════════════════════════════════════════ -->
-    <!--  FLOW A · ROW 1                                                     -->
-    <!-- ════════════════════════════════════════════════════════════════════ -->
-
-    <!-- A-Node1: CC-3（流程A入口）left=100, top=150 -->
-    <div id="CC-3-A" class="phone-frame" style="left:100px; top:150px;">
-      <!-- Navbar -->
-      <div class="f-navbar">
-        <span class="f-navbar-title">我的</span>
-      </div>
-      <!-- Body -->
-      <div class="f-body" style="height:calc(528px - 64px - 80px); overflow:hidden;">
-        <!-- User area -->
-        <div style="display:flex;align-items:center;padding:20px 24px 16px;">
-          <div style="width:40px;height:40px;border-radius:50%;background:#d1d5db;flex-shrink:0;"></div>
-          <div style="margin-left:12px;">
-            <div style="font-size:15px;font-weight:600;color:#111;">张大妈</div>
-            <div style="font-size:12px;color:#9ca3af;margin-top:2px;">东方老年大学</div>
+    <!-- ROW 1: Flow A -->
+    <div class="absolute" style="left: 100px; top: 150px;">
+      <div id="CC-3-A" class="absolute -top-10 left-0 bg-gray-900 text-white text-sm px-3 py-1 rounded shadow-sm z-10">
+        CC-3 · 主导航-我的</div>
+      <div
+        class="w-[375px] h-[812px] bg-white border border-gray-200 rounded-[40px] shadow-2xl overflow-hidden transform scale-[0.65] origin-top-left flex flex-col relative">
+        <div class="h-14 flex items-center justify-between px-4 border-b border-gray-100 flex-shrink-0">
+          <span class="font-bold text-lg text-gray-900 mx-auto">我的</span>
+        </div>
+        <div class="flex-1 overflow-hidden bg-gray-50">
+          <div class="bg-white px-6 py-5 flex items-center gap-4">
+            <div class="w-12 h-12 rounded-full bg-gray-200 flex items-center justify-center flex-shrink-0"><i
+                class="ri-user-line text-xl text-gray-400"></i></div>
+            <div>
+              <div class="font-bold text-base text-gray-900">张大妈</div>
+              <div class="text-sm font-normal text-gray-400 mt-0.5">东方老年大学</div>
+            </div>
+          </div>
+          <div class="mx-4 p-4 border border-gray-900 rounded-2xl">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-sm font-normal text-gray-600">我的积分</span>
+              <i class="ri-arrow-right-s-line text-gray-300 text-lg"></i>
+            </div>
+            <div class="flex items-baseline gap-1 mb-4">
+              <span class="text-3xl font-bold text-gray-900">128</span>
+              <span class="text-xs font-normal text-gray-400">积分</span>
+            </div>
+            <div class="h-12 bg-gray-900 rounded-full flex items-center justify-center text-white font-medium text-sm">
+              今日签到 +3积分
+            </div>
+          </div>
+          <div class="mt-4 border-t border-gray-100">
+            <div class="flex items-center justify-between px-6 py-4 border-b border-gray-50">
+              <div class="flex items-center gap-3"><i class="ri-team-line text-gray-400 text-lg"></i><span
+                  class="text-sm font-normal">我的社团</span></div><i
+                class="ri-arrow-right-s-line text-gray-200 text-lg"></i>
+            </div>
+            <div class="flex items-center justify-between px-6 py-4">
+              <div class="flex items-center gap-3"><i class="ri-image-line text-gray-400 text-lg"></i><span
+                  class="text-sm font-normal">我的作品</span></div><i
+                class="ri-arrow-right-s-line text-gray-200 text-lg"></i>
+            </div>
           </div>
         </div>
-        <!-- Points card -->
-        <div class="f-points-card">
-          <div style="display:flex;align-items:center;margin-bottom:10px;">
-            <span style="font-size:13px;color:#333;font-weight:500;">我的积分</span>
-            <span style="flex:1;"></span>
-            <i class="ri-arrow-right-s-line" style="font-size:18px;color:#9ca3af;"></i>
-          </div>
-          <div style="display:flex;align-items:baseline;gap:4px;margin-bottom:14px;">
-            <span style="font-size:20px;">★</span>
-            <span style="font-size:28px;font-weight:700;color:#111;">128</span>
-            <span style="font-size:12px;color:#9ca3af;">积分</span>
-          </div>
-          <div class="f-btn-primary" style="height:40px;">今日签到 +3积分</div>
-        </div>
-        <!-- Divider -->
-        <div style="border-top:1px solid #f3f4f6;margin-top:4px;"></div>
-        <!-- List menu -->
-        <div class="f-list-row">
-          <i class="ri-team-line"></i>
-          <span>我的社团</span>
-          <span class="spacer"></span>
-          <i class="ri-arrow-right-s-line arrow"></i>
-        </div>
-        <div class="f-list-row">
-          <i class="ri-image-line"></i>
-          <span>我的作品</span>
-          <span class="spacer"></span>
-          <i class="ri-arrow-right-s-line arrow"></i>
-        </div>
-      </div>
-      <!-- Tabbar -->
-      <div class="f-tabbar">
-        <div class="f-tabbar-item">
-          <i class="ri-team-line"></i>
-          <span>社团</span>
-        </div>
-        <div class="f-tabbar-item">
-          <i class="ri-trophy-line"></i>
-          <span>赛事</span>
-        </div>
-        <div class="f-tabbar-item active">
-          <i class="ri-user-fill"></i>
-          <span>我的</span>
+        <div class="h-20 bg-white border-t border-gray-100 flex items-center justify-around flex-shrink-0 px-4">
+          <div class="flex flex-col items-center text-gray-300 gap-1 opacity-50"><i
+              class="ri-group-line text-2xl"></i><span class="text-[10px] font-normal">社团</span></div>
+          <div class="flex flex-col items-center text-gray-300 gap-1 opacity-50"><i
+              class="ri-trophy-line text-2xl"></i><span class="text-[10px] font-normal">赛事</span></div>
+          <div class="flex flex-col items-center text-gray-900 gap-1"><i class="ri-user-fill text-2xl"></i><span
+              class="text-[10px] font-bold">我的</span></div>
         </div>
       </div>
     </div>
-    <!-- Label A1 -->
-    <div class="page-label" style="left:100px; top:495px;">CC-3 主导航-我的</div>
 
-    <!-- A-Node2: PT-2（未签到态）left=600, top=150 -->
-    <div id="PT-2未签到态" class="phone-frame" style="left:600px; top:150px;">
-      <!-- Navbar -->
-      <div class="f-navbar">
-        <i class="ri-arrow-left-s-line f-navbar-back"></i>
-        <span class="f-navbar-title">每日签到</span>
+    <div class="absolute" style="left: 600px; top: 150px;">
+      <div id="PT-2-uncheck"
+        class="absolute -top-10 left-0 bg-gray-900 text-white text-sm px-3 py-1 rounded shadow-sm z-10">PT-2 ·
+        每日签到（未签到态）</div>
+      <div
+        class="w-[375px] h-[812px] bg-white border border-gray-200 rounded-[40px] shadow-2xl overflow-hidden transform scale-[0.65] origin-top-left flex flex-col items-center justify-center p-8 bg-white">
+        <i class="ri-calendar-check-line text-7xl text-gray-100 mb-6"></i>
+        <div class="text-2xl font-bold text-gray-900 mb-2">今日还未签到</div>
+        <p class="text-sm font-normal text-gray-400 mb-10">每日签到可获得 3 积分</p>
+        <div
+          class="w-full h-14 bg-gray-900 rounded-full flex items-center justify-center text-white font-medium text-lg mb-4">
+          立即签到</div>
+        <div class="text-xs font-normal text-gray-300">已连续签到 · 7 天</div>
       </div>
-      <!-- Body: centered content -->
-      <div class="f-body" style="height:calc(528px - 64px); align-items:center; justify-content:center; gap:24px; padding:48px 24px;">
-        <div style="text-align:center;display:flex;flex-direction:column;align-items:center;gap:20px;width:100%;">
-          <i class="ri-calendar-check-line" style="font-size:64px;color:#d1d5db;"></i>
-          <div style="font-size:20px;font-weight:700;color:#111;">今日还未签到</div>
-          <div style="font-size:14px;color:#6b7280;">每日签到可获得 3 积分</div>
-          <div class="f-btn-primary" style="height:56px;width:100%;">立即签到</div>
-          <div style="font-size:12px;color:#9ca3af;">已连续签到 · 7 天</div>
+    </div>
+
+    <div class="absolute" style="left: 1100px; top: 150px;">
+      <div id="PT-2-checked"
+        class="absolute -top-10 left-0 bg-gray-900 text-white text-sm px-3 py-1 rounded shadow-sm z-10">PT-2 ·
+        每日签到（已签到态）</div>
+      <div
+        class="w-[375px] h-[812px] bg-white border border-gray-200 rounded-[40px] shadow-2xl overflow-hidden transform scale-[0.65] origin-top-left flex flex-col bg-white relative">
+        <div class="mx-6 mt-16 bg-gray-900 text-white px-4 py-3 rounded-2xl text-center text-sm font-medium">今日签到成功，获得 3
+          积分！</div>
+        <div class="flex-1 flex flex-col items-center justify-center p-8 text-center">
+          <i class="ri-checkbox-circle-fill text-7xl text-gray-900 mb-6"></i>
+          <div class="text-2xl font-bold text-gray-900 mb-2">今日已签到</div>
+          <p class="text-sm font-normal text-gray-400 mb-10">明天再来签到</p>
+          <div
+            class="w-full h-14 bg-white border border-gray-200 rounded-full flex items-center justify-center text-gray-300 font-medium text-lg mb-4">
+            已签到 ✓</div>
+          <div class="text-xs font-normal text-gray-300">已连续签到 · 8 天</div>
         </div>
       </div>
     </div>
-    <!-- Label A2 -->
-    <div class="page-label" style="left:600px; top:495px;">PT-2 每日签到（未签到态）</div>
 
-    <!-- A-Node3: PT-2（已签到动效态）left=1100, top=150 -->
-    <div id="PT-2已签到动效态" class="phone-frame" style="left:1100px; top:150px;">
-      <!-- Navbar -->
-      <div class="f-navbar">
-        <i class="ri-arrow-left-s-line f-navbar-back"></i>
-        <span class="f-navbar-title">每日签到</span>
-      </div>
-      <!-- Toast -->
-      <div class="f-toast">今日签到成功，获得 3 积分！</div>
-      <!-- Body: centered content -->
-      <div class="f-body" style="height:calc(528px - 64px); align-items:center; justify-content:center; gap:24px; padding:48px 24px;">
-        <div style="text-align:center;display:flex;flex-direction:column;align-items:center;gap:20px;width:100%;">
-          <i class="ri-checkbox-circle-fill" style="font-size:64px;color:#1a1a1a;"></i>
-          <div style="font-size:20px;font-weight:700;color:#111;">今日已签到</div>
-          <div style="font-size:14px;color:#6b7280;">明天再来签到</div>
-          <div class="f-btn-disabled" style="height:56px;">已签到 ✓</div>
-          <div style="font-size:12px;color:#9ca3af;">已连续签到 · 8 天</div>
+    <!-- ROW 2: Flow B -->
+    <div class="absolute" style="left: 100px; top: 1100px;">
+      <div id="CC-5-B" class="absolute -top-10 left-0 bg-gray-900 text-white text-sm px-3 py-1 rounded shadow-sm z-10">
+        CC-5 · 社团活动详情</div>
+      <div
+        class="w-[375px] h-[812px] bg-white border border-gray-200 rounded-[40px] shadow-2xl overflow-hidden transform scale-[0.65] origin-top-left flex flex-col relative">
+        <div class="h-14 flex items-center justify-between px-4 border-b border-gray-100 flex-shrink-0">
+          <div class="flex items-center text-gray-900"><i class="ri-arrow-left-s-line text-2xl mr-1"></i><span
+              class="font-normal text-sm">返回社团</span></div>
+          <span class="font-bold text-lg">春日摄影展</span>
+          <i class="ri-more-2-fill text-xl text-gray-400"></i>
+        </div>
+        <div class="h-36 bg-gray-100 flex items-center justify-center flex-shrink-0"><i
+            class="ri-image-line text-5xl text-gray-200"></i></div>
+        <div class="px-5 py-3 border-b border-gray-100 flex-shrink-0">
+          <div class="font-bold text-base text-gray-900 mb-1">春日摄影展</div>
+          <div class="text-xs font-normal text-gray-400">2026-03-04 · 23 件作品</div>
+        </div>
+        <div class="flex-1 grid grid-cols-2 gap-2 p-3 bg-gray-50 pb-20">
+          <div class="h-28 bg-gray-100 rounded-xl flex items-center justify-center"><i
+              class="ri-image-2-line text-2xl text-gray-200"></i></div>
+          <div class="h-28 bg-gray-100 rounded-xl flex items-center justify-center"><i
+              class="ri-image-2-line text-2xl text-gray-200"></i></div>
+        </div>
+        <div class="absolute bottom-0 w-full p-4 bg-white border-t border-gray-100 pb-8 z-40">
+          <div class="h-12 bg-gray-900 rounded-full flex items-center justify-center text-white font-medium shadow-md">
+            <i class="ri-add-line mr-1 text-lg"></i> 上传我的作品</div>
         </div>
       </div>
     </div>
-    <!-- Label A3 -->
-    <div class="page-label" style="left:1100px; top:495px;">PT-2 每日签到（已签到态）</div>
 
-
-    <!-- ════════════════════════════════════════════════════════════════════ -->
-    <!--  FLOW B · ROW 2                                                     -->
-    <!-- ════════════════════════════════════════════════════════════════════ -->
-
-    <!-- B-Node1: CC-5（含上传按钮）left=100, top=1100 -->
-    <div id="CC-5-B" class="phone-frame" style="left:100px; top:1100px;">
-      <!-- Navbar -->
-      <div class="f-navbar">
-        <i class="ri-arrow-left-s-line f-navbar-back"></i>
-        <span class="f-navbar-title">春日摄影展</span>
-      </div>
-      <!-- Cover image -->
-      <div style="height:120px;background:#f3f4f6;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-        <i class="ri-image-line" style="font-size:48px;color:#d1d5db;"></i>
-      </div>
-      <!-- Activity info -->
-      <div style="padding:12px 16px 8px;">
-        <div style="font-size:16px;font-weight:700;color:#111;margin-bottom:4px;">春日摄影展</div>
-        <div style="font-size:12px;color:#9ca3af;">2026-03-04 · 23 件作品</div>
-      </div>
-      <!-- Divider -->
-      <div style="border-top:1px solid #f3f4f6;"></div>
-      <!-- Works header -->
-      <div style="padding:8px 16px;">
-        <span style="font-size:14px;font-weight:500;color:#111;">作品</span>
-      </div>
-      <!-- Works grid -->
-      <div class="f-artwork-grid">
-        <div class="f-artwork-cell"><i class="ri-image-2-line" style="font-size:28px;color:#d1d5db;"></i></div>
-        <div class="f-artwork-cell"><i class="ri-image-2-line" style="font-size:28px;color:#d1d5db;"></i></div>
-        <div class="f-artwork-cell"><i class="ri-image-2-line" style="font-size:28px;color:#d1d5db;"></i></div>
-        <div class="f-artwork-cell"><i class="ri-image-2-line" style="font-size:28px;color:#d1d5db;"></i></div>
-      </div>
-      <!-- Bottom bar (upload button) -->
-      <div style="position:absolute;bottom:0;left:0;right:0;padding:12px 16px 16px;border-top:1px solid #f3f4f6;background:#fff;">
-        <div class="f-btn-primary" style="height:56px;">上传我的作品</div>
-      </div>
-    </div>
-    <!-- Label B1 -->
-    <div class="page-label" style="left:100px; top:1445px;">CC-5 社团活动详情</div>
-
-    <!-- B-Node2: CC-7（提交作品表单）left=600, top=1100 -->
-    <div id="CC-7" class="phone-frame" style="left:600px; top:1100px;">
-      <!-- Navbar -->
-      <div class="f-navbar">
-        <i class="ri-arrow-left-s-line f-navbar-back"></i>
-        <span class="f-navbar-title">上传作品</span>
-      </div>
-      <!-- Body -->
-      <div class="f-body" style="height:calc(528px - 64px - 60px); overflow:hidden;">
-        <!-- Upload area -->
-        <div style="margin:16px;height:120px;border:2px dashed #d1d5db;border-radius:16px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;">
-          <i class="ri-add-circle-line" style="font-size:36px;color:#d1d5db;"></i>
-          <span style="font-size:12px;color:#9ca3af;">点击添加照片或视频</span>
+    <div class="absolute" style="left: 600px; top: 1100px;">
+      <div id="CC-7" class="absolute -top-10 left-0 bg-gray-900 text-white text-sm px-3 py-1 rounded shadow-sm z-10">
+        CC-7 · 社团提交作品表单</div>
+      <div
+        class="w-[375px] h-[812px] bg-white border border-gray-200 rounded-[40px] shadow-2xl overflow-hidden transform scale-[0.65] origin-top-left flex flex-col relative">
+        <div class="h-14 flex items-center px-4 border-b border-gray-100 flex-shrink-0">
+          <div class="flex items-center text-gray-900"><i class="ri-arrow-left-s-line text-2xl mr-1"></i><span
+              class="font-normal text-sm text-gray-500">取消</span></div>
         </div>
-        <!-- Points hint -->
-        <div style="margin:0 16px;padding:12px;background:#f9fafb;border-radius:12px;display:flex;align-items:center;gap:8px;">
-          <i class="ri-copper-coin-line" style="font-size:16px;color:#6b7280;"></i>
-          <span style="font-size:12px;color:#374151;">上传后可获得 10 积分</span>
+        <div class="p-4 flex gap-2 border-b border-gray-50 flex-shrink-0">
+          <div class="w-24 h-24 bg-gray-200 rounded-xl flex items-center justify-center"><i
+              class="ri-image-fill text-gray-300 text-xl"></i></div>
+          <div
+            class="w-24 h-24 border-2 border-dashed border-gray-200 bg-gray-50 rounded-xl flex items-center justify-center text-gray-300">
+            <i class="ri-add-line text-3xl"></i></div>
         </div>
-        <!-- Form -->
-        <div style="padding:0 16px;margin-top:16px;">
-          <div style="font-size:12px;color:#6b7280;margin-bottom:8px;">作品标题（选填）</div>
-          <div style="height:56px;border:1px solid #e5e7eb;border-radius:12px;padding:0 16px;display:flex;align-items:center;">
-            <span style="font-size:13px;color:#d1d5db;">给作品起个名字...</span>
-          </div>
+        <div class="mx-4 mt-4 bg-gray-50 rounded-xl p-3 flex items-center gap-3 border border-gray-100"><i
+            class="ri-copper-coin-line text-gray-400"></i><span class="text-sm font-normal text-gray-600">上传后可获得 10
+            积分</span></div>
+        <div class="flex-1 p-4">
+          <div class="text-lg font-bold text-gray-300 mb-3">添加标题（选填）</div>
+          <div class="border-t border-gray-100 my-3"></div>
+          <div class="text-sm font-normal text-gray-300">添加文字说明（选填）</div>
         </div>
-      </div>
-      <!-- Fixed bottom -->
-      <div style="position:absolute;bottom:0;left:0;right:0;padding:12px 16px 16px;border-top:1px solid #f3f4f6;background:#fff;">
-        <div class="f-btn-primary" style="height:56px;">发布</div>
-      </div>
-    </div>
-    <!-- Label B2 -->
-    <div class="page-label" style="left:600px; top:1445px;">CC-7 社团提交作品表单</div>
-
-    <!-- B-Node3: CC-5 + 积分到账Toast left=1100, top=1100 -->
-    <div id="CC-5-B-toast" class="phone-frame" style="left:1100px; top:1100px;">
-      <!-- Navbar -->
-      <div class="f-navbar">
-        <i class="ri-arrow-left-s-line f-navbar-back"></i>
-        <span class="f-navbar-title">春日摄影展</span>
-      </div>
-      <!-- Toast -->
-      <div class="f-toast">您的作品已入库，获得 10 积分！</div>
-      <!-- Cover image -->
-      <div style="height:120px;background:#f3f4f6;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-        <i class="ri-image-line" style="font-size:48px;color:#d1d5db;"></i>
-      </div>
-      <!-- Activity info -->
-      <div style="padding:12px 16px 8px;">
-        <div style="font-size:16px;font-weight:700;color:#111;margin-bottom:4px;">春日摄影展</div>
-        <div style="font-size:12px;color:#9ca3af;">2026-03-04 · 24 件作品</div>
-      </div>
-      <!-- Divider -->
-      <div style="border-top:1px solid #f3f4f6;"></div>
-      <!-- Works header -->
-      <div style="padding:8px 16px;">
-        <span style="font-size:14px;font-weight:500;color:#111;">作品</span>
-      </div>
-      <!-- Works grid -->
-      <div class="f-artwork-grid">
-        <div class="f-artwork-cell"><i class="ri-image-2-line" style="font-size:28px;color:#d1d5db;"></i></div>
-        <div class="f-artwork-cell"><i class="ri-image-2-line" style="font-size:28px;color:#d1d5db;"></i></div>
-        <div class="f-artwork-cell"><i class="ri-image-2-line" style="font-size:28px;color:#d1d5db;"></i></div>
-        <div class="f-artwork-cell"><i class="ri-image-2-line" style="font-size:28px;color:#d1d5db;"></i></div>
-      </div>
-      <!-- Bottom bar -->
-      <div style="position:absolute;bottom:0;left:0;right:0;padding:12px 16px 16px;border-top:1px solid #f3f4f6;background:#fff;">
-        <div class="f-btn-primary" style="height:56px;">上传我的作品</div>
-      </div>
-    </div>
-    <!-- Label B3 -->
-    <div class="page-label" style="left:1100px; top:1445px;">CC-5 社团活动详情（积分到账Toast）</div>
-
-
-    <!-- ════════════════════════════════════════════════════════════════════ -->
-    <!--  FLOW C · ROW 3                                                     -->
-    <!-- ════════════════════════════════════════════════════════════════════ -->
-
-    <!-- C-Node1: CC-3（流程C入口）left=100, top=2050 -->
-    <div id="CC-3-C" class="phone-frame" style="left:100px; top:2050px;">
-      <!-- Navbar -->
-      <div class="f-navbar">
-        <span class="f-navbar-title">我的</span>
-      </div>
-      <!-- Body -->
-      <div class="f-body" style="height:calc(528px - 64px - 80px); overflow:hidden;">
-        <!-- User area -->
-        <div style="display:flex;align-items:center;padding:20px 24px 16px;">
-          <div style="width:40px;height:40px;border-radius:50%;background:#d1d5db;flex-shrink:0;"></div>
-          <div style="margin-left:12px;">
-            <div style="font-size:15px;font-weight:600;color:#111;">张大妈</div>
-            <div style="font-size:12px;color:#9ca3af;margin-top:2px;">东方老年大学</div>
-          </div>
-        </div>
-        <!-- Points card -->
-        <div class="f-points-card">
-          <div style="display:flex;align-items:center;margin-bottom:10px;">
-            <span style="font-size:13px;color:#333;font-weight:500;">我的积分</span>
-            <span style="flex:1;"></span>
-            <i class="ri-arrow-right-s-line" style="font-size:18px;color:#9ca3af;"></i>
-          </div>
-          <div style="display:flex;align-items:baseline;gap:4px;margin-bottom:14px;">
-            <span style="font-size:20px;">★</span>
-            <span style="font-size:28px;font-weight:700;color:#111;">128</span>
-            <span style="font-size:12px;color:#9ca3af;">积分</span>
-          </div>
-          <div class="f-btn-primary" style="height:40px;">今日签到 +3积分</div>
-        </div>
-        <!-- Divider -->
-        <div style="border-top:1px solid #f3f4f6;margin-top:4px;"></div>
-        <!-- List menu -->
-        <div class="f-list-row">
-          <i class="ri-team-line"></i>
-          <span>我的社团</span>
-          <span class="spacer"></span>
-          <i class="ri-arrow-right-s-line arrow"></i>
-        </div>
-        <div class="f-list-row">
-          <i class="ri-image-line"></i>
-          <span>我的作品</span>
-          <span class="spacer"></span>
-          <i class="ri-arrow-right-s-line arrow"></i>
-        </div>
-      </div>
-      <!-- Tabbar -->
-      <div class="f-tabbar">
-        <div class="f-tabbar-item">
-          <i class="ri-team-line"></i>
-          <span>社团</span>
-        </div>
-        <div class="f-tabbar-item">
-          <i class="ri-trophy-line"></i>
-          <span>赛事</span>
-        </div>
-        <div class="f-tabbar-item active">
-          <i class="ri-user-fill"></i>
-          <span>我的</span>
+        <div class="absolute bottom-0 w-full p-4 bg-white border-t border-gray-100 pb-8 z-40">
+          <div
+            class="h-14 bg-gray-900 rounded-full flex items-center justify-center text-white text-lg font-bold shadow-2xl">
+            发布</div>
         </div>
       </div>
     </div>
-    <!-- Label C1 -->
-    <div class="page-label" style="left:100px; top:2395px;">CC-3 主导航-我的</div>
 
-    <!-- C-Node2: PT-1（记录列表态）left=600, top=2050 -->
-    <div id="PT-1" class="phone-frame" style="left:600px; top:2050px;">
-      <!-- Navbar -->
-      <div class="f-navbar">
-        <i class="ri-arrow-left-s-line f-navbar-back"></i>
-        <span class="f-navbar-title">我的积分</span>
-      </div>
-      <!-- Balance area -->
-      <div style="padding:24px;border-bottom:1px solid #f3f4f6;text-align:center;flex-shrink:0;">
-        <div style="font-size:12px;color:#6b7280;margin-bottom:6px;">当前积分</div>
-        <div style="font-size:36px;font-weight:700;color:#111;line-height:1.1;">128</div>
-        <div style="font-size:12px;color:#9ca3af;margin-top:4px;">积分</div>
-      </div>
-      <!-- Record list -->
-      <div style="flex:1;overflow:hidden;">
-        <!-- Row 1 -->
-        <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-bottom:1px solid #f3f4f6;">
-          <div>
-            <div style="font-size:14px;color:#111;">每日签到</div>
-            <div style="font-size:12px;color:#9ca3af;margin-top:2px;">03-04</div>
-          </div>
-          <div style="font-size:14px;font-weight:700;color:#111;">+3</div>
-        </div>
-        <!-- Row 2 -->
-        <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-bottom:1px solid #f3f4f6;">
-          <div>
-            <div style="font-size:14px;color:#111;">上传至「春日摄影展」</div>
-            <div style="font-size:12px;color:#9ca3af;margin-top:2px;">03-03</div>
-          </div>
-          <div style="font-size:14px;font-weight:700;color:#111;">+10</div>
-        </div>
-        <!-- Row 3 -->
-        <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-bottom:1px solid #f3f4f6;">
-          <div>
-            <div style="font-size:14px;color:#111;">首次加入社团（新手奖励）</div>
-            <div style="font-size:12px;color:#9ca3af;margin-top:2px;">03-02</div>
-          </div>
-          <div style="font-size:14px;font-weight:700;color:#111;">+20</div>
-        </div>
-        <!-- Row 4 -->
-        <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-bottom:1px solid #f3f4f6;">
-          <div>
-            <div style="font-size:14px;color:#111;">加入社团</div>
-            <div style="font-size:12px;color:#9ca3af;margin-top:2px;">03-02</div>
-          </div>
-          <div style="font-size:14px;font-weight:700;color:#111;">+5</div>
-        </div>
-      </div>
-      <!-- Bottom -->
-      <div style="border-top:1px solid #f3f4f6;padding:16px;text-align:center;flex-shrink:0;">
-        <div class="f-btn-ghost">如何赚积分 ∨</div>
-      </div>
-    </div>
-    <!-- Label C2 -->
-    <div class="page-label" style="left:600px; top:2395px;">PT-1 我的积分（记录列表）</div>
-
-    <!-- C-Node3: PT-1 + 规则弹层（流程C结束态）left=1100, top=2050 -->
-    <div id="PT-1规则弹层展开态" class="phone-frame" style="left:1100px; top:2050px;">
-      <!-- Navbar -->
-      <div class="f-navbar">
-        <i class="ri-arrow-left-s-line f-navbar-back"></i>
-        <span class="f-navbar-title">我的积分</span>
-      </div>
-      <!-- Balance area (dimmed) -->
-      <div style="padding:24px;border-bottom:1px solid #f3f4f6;text-align:center;flex-shrink:0;opacity:0.4;">
-        <div style="font-size:12px;color:#6b7280;margin-bottom:6px;">当前积分</div>
-        <div style="font-size:36px;font-weight:700;color:#111;line-height:1.1;">128</div>
-        <div style="font-size:12px;color:#9ca3af;margin-top:4px;">积分</div>
-      </div>
-      <!-- Record list (dimmed) -->
-      <div style="flex:1;overflow:hidden;opacity:0.4;">
-        <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-bottom:1px solid #f3f4f6;">
-          <div>
-            <div style="font-size:14px;color:#111;">每日签到</div>
-            <div style="font-size:12px;color:#9ca3af;margin-top:2px;">03-04</div>
-          </div>
-          <div style="font-size:14px;font-weight:700;color:#111;">+3</div>
-        </div>
-        <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-bottom:1px solid #f3f4f6;">
-          <div>
-            <div style="font-size:14px;color:#111;">上传至「春日摄影展」</div>
-            <div style="font-size:12px;color:#9ca3af;margin-top:2px;">03-03</div>
-          </div>
-          <div style="font-size:14px;font-weight:700;color:#111;">+10</div>
-        </div>
-        <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-bottom:1px solid #f3f4f6;">
-          <div>
-            <div style="font-size:14px;color:#111;">加入社团</div>
-            <div style="font-size:12px;color:#9ca3af;margin-top:2px;">03-02</div>
-          </div>
-          <div style="font-size:14px;font-weight:700;color:#111;">+5</div>
-        </div>
-      </div>
-      <!-- Dim overlay -->
-      <div class="f-dim"></div>
-      <!-- Bottom sheet -->
-      <div class="f-sheet">
-        <!-- Sheet header -->
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
-          <span style="font-size:14px;font-weight:500;color:#111;">如何赚积分</span>
-          <i class="ri-close-line" style="font-size:20px;color:#6b7280;cursor:pointer;"></i>
-        </div>
-        <!-- Rules -->
-        <div style="display:flex;flex-direction:column;gap:12px;">
-          <div style="display:flex;align-items:center;gap:10px;font-size:13px;color:#111;">
-            <i class="ri-checkbox-circle-line" style="font-size:18px;color:#1a1a1a;"></i>
-            每日打卡签到
-          </div>
-          <div style="display:flex;align-items:center;gap:10px;font-size:13px;color:#111;">
-            <i class="ri-checkbox-circle-line" style="font-size:18px;color:#1a1a1a;"></i>
-            上传作品到社团
-          </div>
-          <div style="display:flex;align-items:center;gap:10px;font-size:13px;color:#111;">
-            <i class="ri-checkbox-circle-line" style="font-size:18px;color:#1a1a1a;"></i>
-            加入社团
-          </div>
-        </div>
-        <!-- More link -->
-        <div style="text-align:center;margin-top:12px;">
-          <div class="f-btn-ghost" style="font-size:12px;color:#9ca3af;">更多获积方式 ∨</div>
+    <div class="absolute" style="left: 1100px; top: 1100px;">
+      <div id="CC-5-toast"
+        class="absolute -top-10 left-0 bg-gray-900 text-white text-sm px-3 py-1 rounded shadow-sm z-10">CC-5 ·
+        活动详情（积分到账）</div>
+      <div
+        class="w-[375px] h-[812px] bg-white border border-gray-200 rounded-[40px] shadow-2xl overflow-hidden transform scale-[0.65] origin-top-left flex flex-col bg-white relative opacity-95">
+        <div class="mx-5 mt-16 bg-gray-900 text-white px-4 py-3 rounded-2xl text-center text-sm font-medium">您的作品已入库，获得
+          10 积分！</div>
+        <div class="flex-1 opacity-40 p-4">
+          <div class="h-32 bg-gray-100 rounded-2xl mb-4"></div>
+          <div class="h-4 w-48 bg-gray-200 rounded mb-2"></div>
+          <div class="h-4 w-32 bg-gray-100 rounded"></div>
         </div>
       </div>
     </div>
-    <!-- Label C3 -->
-    <div class="page-label" style="left:1100px; top:2395px;">PT-1 我的积分（规则弹层）</div>
 
+    <!-- ROW 3: Flow C -->
+    <div class="absolute" style="left: 100px; top: 2050px;">
+      <div id="CC-3-C" class="absolute -top-10 left-0 bg-gray-900 text-white text-sm px-3 py-1 rounded shadow-sm z-10">
+        CC-3 · 主导航-我的</div>
+      <div
+        class="w-[375px] h-[812px] bg-white border border-gray-200 rounded-[40px] shadow-2xl overflow-hidden transform scale-[0.65] origin-top-left flex flex-col relative">
+        <div class="h-14 flex items-center justify-between px-4 border-b border-gray-100 flex-shrink-0"><span
+            class="font-bold text-lg text-gray-900 mx-auto">我的</span></div>
+        <div class="flex-1 overflow-hidden bg-gray-50">
+          <div class="bg-white px-6 py-5 flex items-center gap-4">
+            <div class="w-12 h-12 rounded-full bg-gray-200 flex items-center justify-center flex-shrink-0"><i
+                class="ri-user-line text-xl text-gray-400"></i></div>
+            <div>
+              <div class="font-bold text-base text-gray-900">张大妈</div>
+              <div class="text-sm font-normal text-gray-400 mt-0.5">东方老年大学</div>
+            </div>
+          </div>
+          <div class="mx-4 p-4 border border-gray-900 rounded-2xl">
+            <div class="flex items-center justify-between mb-2"><span
+                class="text-sm font-normal text-gray-600">我的积分</span><i
+                class="ri-arrow-right-s-line text-gray-300 text-lg"></i></div>
+            <div class="flex items-baseline gap-1 mb-4"><span class="text-3xl font-bold text-gray-900">128</span><span
+                class="text-xs font-normal text-gray-400">积分</span></div>
+          </div>
+        </div>
+        <div class="h-20 bg-white border-t border-gray-100 flex items-center justify-around flex-shrink-0 px-4">
+          <div class="flex flex-col items-center text-gray-900 gap-1"><i class="ri-user-fill text-2xl"></i><span
+              class="text-[10px] font-bold">我的</span></div>
+        </div>
+      </div>
+    </div>
 
-  </div><!-- /#canvas -->
-</div><!-- /padding wrapper -->
+    <div class="absolute" style="left: 600px; top: 2050px;">
+      <div id="PT-1" class="absolute -top-10 left-0 bg-gray-900 text-white text-sm px-3 py-1 rounded shadow-sm z-10">
+        PT-1 · 我的积分（记录列表）</div>
+      <div
+        class="w-[375px] h-[812px] bg-white border border-gray-200 rounded-[40px] shadow-2xl overflow-hidden transform scale-[0.65] origin-top-left flex flex-col bg-white">
+        <div class="py-8 text-center border-b border-gray-50">
+          <div class="text-xs font-normal text-gray-400 mb-2">当前积分</div>
+          <div class="text-5xl font-bold text-gray-900 leading-tight">128</div>
+        </div>
+        <div class="flex-1 overflow-hidden">
+          <div class="flex items-center justify-between px-6 py-4 border-b border-gray-50">
+            <div>
+              <div class="text-sm font-normal text-gray-900">每日签到</div>
+              <div class="text-xs font-normal text-gray-400 mt-0.5">03-04</div>
+            </div>
+            <div class="text-sm font-bold text-gray-900">+3</div>
+          </div>
+          <div class="flex items-center justify-between px-6 py-4 border-b border-gray-50">
+            <div>
+              <div class="text-sm font-normal text-gray-900">上传作品</div>
+              <div class="text-xs font-normal text-gray-400 mt-0.5">03-03</div>
+            </div>
+            <div class="text-sm font-bold text-gray-900">+10</div>
+          </div>
+        </div>
+        <div class="py-5 border-t border-gray-100 text-center">
+          <div class="text-gray-400 text-sm font-normal">如何赚积分 ∨</div>
+        </div>
+      </div>
+    </div>
 
+    <div class="absolute" style="left: 1100px; top: 2050px;">
+      <div id="PT-1-sheet"
+        class="absolute -top-10 left-0 bg-gray-900 text-white text-sm px-3 py-1 rounded shadow-sm z-10">PT-1 ·
+        我的积分（规则弹层）</div>
+      <div
+        class="w-[375px] h-[812px] bg-white border border-gray-200 rounded-[40px] shadow-2xl overflow-hidden transform scale-[0.65] origin-top-left flex flex-col bg-white relative">
+        <div class="absolute inset-0 bg-black bg-opacity-40 z-10"></div>
+        <div class="absolute bottom-0 left-0 w-full bg-white rounded-t-[40px] p-6 z-20 shadow-2xl">
+          <div class="w-10 h-1 bg-gray-200 rounded-full mx-auto mb-5"></div>
+          <div class="text-lg font-bold text-gray-900 mb-6">如何赚积分</div>
+          <div class="flex flex-col gap-5">
+            <div class="flex items-center gap-3"><i class="ri-checkbox-circle-fill text-gray-900 text-2xl"></i><span
+                class="text-sm font-normal text-gray-900">每日打卡签到</span></div>
+            <div class="flex items-center gap-3"><i class="ri-checkbox-circle-fill text-gray-900 text-2xl"></i><span
+                class="text-sm font-normal text-gray-900">上传作品到社团</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
 </body>
+
 </html>

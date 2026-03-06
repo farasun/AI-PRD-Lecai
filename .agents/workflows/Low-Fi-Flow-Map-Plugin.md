@@ -10,7 +10,7 @@ description: Low-Fi-Flow-Map-Plugin
 **[核心标准 (Execution Standards)]**
 
 1.  **画布与环境 (The Engineering Canvas)**：
-    * **基调**：纯净工程风。使用 `bg-gray-50` (浅灰) + 细微点阵/网格背景。
+    * **基调**：纯净工程风。`<body>` 背景使用 `bg-gray-200`（中灰，代表"墙"）；画布 `<div>` 本体背景使用 **点阵网格**（白色或浅灰底，径向点阵覆盖），以形成"硬纸板放在灰墙上"的视觉分层感。点阵 CSS 写法：`background-image: radial-gradient(circle, #cbd5e1 1px, transparent 1px); background-size: 20px 20px;`。
     * **布局**：创建一个超大画布 (e.g., `3000px * 1600px` 或更大)，采用 `position: absolute` 手动计算节点坐标。
     * **间距**：节点间保持宽松呼吸感（水平间距 > 400px），杜绝拥挤。
     * **坐标安全域 (Coordinate Safety Bound) [防裁剪规则]**：**绝对禁止为元素的 `top` 或 `left` 设置负值（严禁 `<div style="top: -50px">`）**！由于外层画布拥有 `overflow-scroll` 属性，处于负坐标系的任何元素会被永久裁剪，无法滚动查看。特别是对于带有负向上偏移标签 (`-top-10`) 的节点，其容器的 `top` 必须**至少大于等于 150px**，`left` **至少大于等于 100px**，以确保所有内容完全可见。
@@ -18,7 +18,8 @@ description: Low-Fi-Flow-Map-Plugin
 2.  **连线逻辑 (The Logic Links)**：
     * **风格**：深灰色 (`#94a3b8`, Slate-400) 的贝塞尔曲线。
     * **形态**：使用 SVG `<path>` 绘制 `C` 曲线（从左侧节点右缘 -> 右侧节点左缘）。线宽 `2px`，末端带简约箭头。
-    * **禁止**：禁止使用直线或折线，禁止使用高亮色（如黄/红）。
+    * **连线标签 [标准实现]**：在 SVG 内使用 `<rect>` + `<text>` 的组合，将文字标签直接绘制在 SVG 层内，而非 HTML `<div>`。`<rect>` 使用 `fill="#f8fafc"` 白底色块以遮盖穿越的连线，`<text>` 使用 `fill="#64748b"`、`font-size="14"`、`font-weight="500"`，两者中心坐标精确对齐。
+    * **禁止**：禁止使用直线或折线，禁止使用高亮色（如黄/红），禁止使用 HTML `<div>` 替代 SVG 内联标签。
 
 3.  **节点渲染：Chat D 视觉宪法 (Visual Constitution)**：
     * **容器外观**：纯白手机壳 (`bg-white`) + 1px 极细边框 (`border-gray-200`) + 柔和阴影 (`shadow-xl`)。
@@ -31,7 +32,14 @@ description: Low-Fi-Flow-Map-Plugin
             * 字重：标题 `font-bold`，正文必须为 `font-normal` (严禁全局粗体)。
             * 线条：所有分割线必须为 `border-gray-100` 或 `gray-200` 的 1px 细线。
 
-4.  **标签系统 (Node Labeling)**：
+4.  **悬浮标题板 (Floating Title Panel) [固化规则]**：
+    * **必须添加**：每个独立流程图 HTML 文件的左上角，**必须**放置一块固定定位的悬浮标题板，用于标明当前流程的编号与名称。
+    * **定位**：`position: fixed; top: 24px; left: 24px; z-index: 50;`（使用 `fixed` 而非 `absolute`，确保在画布滚动时标题始终可见）。
+    * **样式**：深色毛玻璃背景（`background: rgba(17,24,39,0.85); backdrop-filter: blur(8px)`）+ `border-radius: 12px` + `padding: 12px 20px`，白色主标题（`font-size: 16px; font-weight: 700; color: #fff`）+ 浅灰副标题（`font-size: 12px; color: #9ca3af`）。
+    * **内容格式**：主标题为 `[流程名称]`，副标题为 `v[版本号] · Low-Fi Flow Map · [日期]`。
+    * *正确示例*：主标题 `积分流程A · 每日签到得积分` / 副标题 `v1.1 · Low-Fi Flow Map · 2026-03-04`
+
+5.  **标签系统 (Node Labeling)**：
     * 每个节点上方悬浮显示标签。
     * 样式：`bg-gray-900` (深黑背景)，`text-white`，`rounded-md`，`px-3 py-1`，无衬线字体。
     * 格式：`[PageList页面编号] · [页面名称]`。
@@ -60,46 +68,61 @@ A[登录页] --> B[手机号验证]
 
 **[输出结构参考]**
 [START_CODE_BLOCK]
-<div class="flow-canvas relative bg-gray-50 w-[3000px] h-[1500px] overflow-scroll font-sans text-gray-900">
-    
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+  <style>
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    /* 点阵画布背景 */
+    .bg-dot-grid {
+      background-image: radial-gradient(circle, #cbd5e1 1px, transparent 1px);
+      background-size: 20px 20px;
+    }
+  </style>
+</head>
+<!-- body = 灰墙底色 -->
+<body class="m-0 p-0 bg-gray-200 no-scrollbar">
+
+  <!-- ① 悬浮标题板 [固化，fixed 定位] -->
+  <div style="position:fixed;top:24px;left:24px;z-index:50;background:rgba(17,24,39,0.85);backdrop-filter:blur(8px);border-radius:12px;padding:12px 20px;">
+    <div style="font-size:16px;font-weight:700;color:#fff;">积分流程X · 流程名称</div>
+    <div style="font-size:12px;color:#9ca3af;margin-top:4px;">v1.1 · Low-Fi Flow Map · 2026-03-04</div>
+  </div>
+
+  <!-- ② 画布 = 点阵底纹 -->
+  <div class="relative bg-dot-grid w-[3000px] h-[1600px] no-scrollbar font-sans text-gray-900">
+
+    <!-- ③ SVG 连线层（含 rect+text 标签）-->
     <svg class="absolute inset-0 w-full h-full pointer-events-none z-0">
-        <defs>
-            <marker id="arrow-gray" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
-                <path d="M0,0 L0,6 L9,3 z" fill="#94a3b8" />
-            </marker>
-        </defs>
-        <path d="M 300 400 C 400 400, 450 400, 550 400" stroke="#94a3b8" stroke-width="2" fill="none" marker-end="url(#arrow-gray)" />
+      <defs>
+        <marker id="arrow-gray" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+          <path d="M0,0 L0,6 L9,3 z" fill="#94a3b8" />
+        </marker>
+      </defs>
+      <!-- 连线 -->
+      <path d="M 344 414 C 470 414, 470 414, 598 414" stroke="#94a3b8" stroke-width="2" fill="none" marker-end="url(#arrow-gray)" />
+      <!-- 连线标签：rect 遮盖连线，text 居中对齐 -->
+      <rect x="390" y="399" width="130" height="30" fill="#f8fafc" rx="4" />
+      <text x="455" y="419" fill="#64748b" font-size="14" font-weight="500" text-anchor="middle">点击[操作名称]</text>
     </svg>
 
-    <div class="absolute" style="left: 50px; top: 150px;">
-        <!-- 注意此处的 id="A" 为锚点定位示例 (真实产出应为如 id="CC-5" 的格式) -->
-        <div id="A" class="absolute -top-10 left-0 bg-gray-900 text-white text-sm px-3 py-1 rounded shadow-sm z-10">A · 登录页</div>
-        <div class="w-[375px] h-[812px] bg-white border border-gray-200 rounded-[40px] shadow-2xl overflow-hidden transform scale-[0.65] origin-top-left flex flex-col">
-            <div class="h-16 flex items-center px-6 border-b border-gray-100">
-                <i class="ri-close-line text-2xl text-gray-900"></i>
-            </div>
-            <div class="p-8 flex-1">
-                <h1 class="text-3xl font-bold text-gray-900 mb-2">欢迎回来</h1>
-                <p class="text-gray-500 mb-10">请使用手机号登录</p>
-                <div class="h-14 border border-gray-900 rounded-xl flex items-center px-4 mb-4">
-                    <span class="text-gray-900">+86</span>
-                </div>
-                <div class="h-14 bg-gray-900 rounded-2xl flex items-center justify-center text-white font-medium">
-                    获取验证码
-                </div>
-            </div>
-        </div>
+    <!-- ④ 节点容器（top ≥ 150px）-->
+    <div class="absolute" style="left: 100px; top: 150px;">
+      <!-- 节点标签（id 为锚点）-->
+      <div id="CC-5" class="absolute -top-10 left-0 bg-gray-900 text-white text-sm px-3 py-1 rounded shadow-sm z-10">CC-5 · 社团活动详情</div>
+      <!-- 手机壳 -->
+      <div class="w-[375px] h-[812px] bg-white border border-gray-200 rounded-[40px] shadow-2xl overflow-hidden transform scale-[0.65] origin-top-left flex flex-col">
+        <!-- 内部 UI 内容 -->
+      </div>
     </div>
 
-    <div class="absolute" style="left: 550px; top: 150px;">
-        <div class="absolute -top-10 left-0 bg-gray-900 text-white text-sm px-3 py-1 rounded shadow-sm">B · 验证页</div>
-        <div class="w-[375px] h-[812px] bg-white border-2 border-dashed border-gray-300 rounded-[40px] flex flex-col items-center justify-center transform scale-[0.65] origin-top-left">
-            <i class="ri-shield-keyhole-line text-6xl text-gray-300 mb-4"></i>
-            <span class="text-xl font-bold text-gray-400">手机号验证</span>
-        </div>
-    </div>
-
-</div>
+  </div>
+</body>
+</html>
 [END_CODE_BLOCK]
 
 ---
