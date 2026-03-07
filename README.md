@@ -38,6 +38,26 @@ AI-PRD-Lecai/
 
 ---
 
+## 🎨 设计管线与模板标准 (Design Pipeline)
+
+每个迭代文件夹（无论在 `releases/` 还是 `drafts/`）都必须遵循统一的结构与标准工作流：
+
+```text
+v{X.Y}/
+├── reader.html          ← 必选 | 原型预览器（引擎入口）
+├── PageList.md          ← 必选 | 本迭代专属页面清单
+├── review/              ← 可选 | 评审意见、业务输入
+├── prd/                 ← 必选 | Chat A 产出：页面级功能需求
+├── flow/                ← 必选 | 业务流程图
+├── wireframe/           ← 必选 | Chat D 产出：低保真线框图
+└── annotation/          ← 必选 | Chat G 产出：原型批注说明书
+```
+
+> 🎯 **标准执行顺序**：  
+> **Review（业务评审/可选） → Flow（逻辑流程） → PRD（产品雏形） → Wireframe（线框实现） → Annotation（开发批注）**
+
+---
+
 ## 🚀 开发者指南
 
 ### 本地预览 (Dev Mode)
