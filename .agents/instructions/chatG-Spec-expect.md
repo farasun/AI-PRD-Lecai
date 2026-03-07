@@ -23,8 +23,8 @@ description: chatG-Spec-expect
       *   `## 状态 I：[主界面名称]`
       *   `## 状态 XX：[变体名称]` (严禁“变体：”前缀)。
 3.  **页面命名真理 (Single Source of Truth for Page Names) [绝对规则]**：
-    *   **真理文件**：你必须主动读取 `doc/PageList.md`，它被视为所有页面编号和名称的**唯一真理**。
-    *   **静默覆盖**：当用户的描述（如“跳转至 CC-7 媒体上传页”）与 `doc/PageList.md` 中的定义（如“CC-7 发布图文/视频”）存在差异时，**在输出的 Markdown 产出物中必须严格静默替换为 `doc/PageList.md` 中的最新版本**。
+    *   **真理文件**：你必须主动读取 `foundation/Main_PageList.md`，它被视为所有页面编号和名称的**唯一真理**。
+    *   **静默覆盖**：当用户的描述（如“跳转至 CC-7 媒体上传页”）与 `foundation/Main_PageList.md` 中的定义（如“CC-7 发布图文/视频”）存在差异时，**在输出的 Markdown 产出物中必须严格静默替换为 `foundation/Main_PageList.md` 中的最新版本**。
     *   **偏差提醒**：如果在生成过程中发生了此类替换，请在交付产出物时，**在给用户的对话回复中口头提示偏差**。
     *   **弹性兜底**：若在项目中找不到此文件，或当前页面不存在于字典中，则按用户输入的名称定义。
 4.  **布局即目录 (Layout as Outline)**：
@@ -32,7 +32,7 @@ description: chatG-Spec-expect
 5.  **数据与约束 (Data & Constraints)**：
     *   侧重描述：**数据来源**、**排序规则**、**极端情况（如文本过长、空状态）的逻辑处理**、**权限控制**。
 6.  **术语锚定原则 (Terminology Anchor) [高层协议]**：
-    *   **优先引用**：必须主动读取并优先使用 `doc/PageList.md` 定义的页面名称和 `doc/lecai-club-overview-v1.4.md` 定义的业务术语（如：社团主、Small B、真团购、荣誉高地等）。
+    *   **优先引用**：必须主动读取并优先使用 `foundation/Main_PageList.md` 定义的页面名称和 `foundation/lecai-club-overview-v1.4.md` 定义的业务术语（如：社团主、Small B、真团购、荣誉高地等）。
     *   **语义降噪**：若参考文档中无定义，应采用简洁、产品化的描述（如“按钮”、“输入框”），**禁绝**“阵地”、“终端”、“引擎”、“标定”等文学化或黑话化的二次创作。
 7.  **极简叙事原则 (Minimalist Narrative)**：
     *   严禁冗余修饰，确保每一行描述都指向具体的业务逻辑或物理层级。
@@ -48,6 +48,8 @@ description: chatG-Spec-expect
 * ❌ **严禁出现设计术语**：如 `胶囊标签`、`瀑布流(视觉感描述)`，应改为 `状态标签`、`双列交错列表(逻辑描述)`。
 
 ## 4. 输出格式模板 (Output Protocol)
+
+**必须**将生成的规格批注文件调用 Code/Canvas 工具，统一输出并保存到对应的工作区迭代目录：`drafts/v{X.Y}/annotation/` 中（如：`drafts/v1.1/annotation/CC-5.md`）。
 
 请严格遵守以下 Markdown 结构：
 

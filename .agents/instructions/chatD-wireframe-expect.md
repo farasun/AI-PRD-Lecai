@@ -89,9 +89,9 @@ description: wireframe-ui-creator-expect
 请严格按照 **“左侧全量平铺 + 右侧组件集”** 的横向画板结构输出 HTML。
 
 ### 7.1 术语锚定原则 (Terminology Anchor) [绝对规则]
-*   **页面命名真理**：你必须主动读取 `doc/PageList.md`，它被视为所有页面编号和名称的**唯一真理**。
-*   **业务术语对齐**：在 UI 标注（Label）、模块标题中，必须优先引用 `doc/lecai-club-overview-v1.4.md` 中的标准术语（如：社团主、Small B 等）。
-*   **静默覆盖**：当用户的描述与 `doc/PageList.md` 中的定义存在差异时，**在产出物 (HTML 文件) 中必须严格静默替换为字典表中的版本**。
+*   **页面命名真理**：你必须主动读取 `foundation/Main_PageList.md`，它被视为所有页面编号和名称的**唯一真理**。
+*   **业务术语对齐**：在 UI 标注（Label）、模块标题中，必须优先引用 `foundation/lecai-club-overview-v1.4.md` 中的标准术语（如：社团主、Small B 等）。
+*   **静默覆盖**：当用户的描述与 `foundation/Main_PageList.md` 中的定义存在差异时，**在产出物 (HTML 文件) 中必须严格静默替换为字典表中的版本**。
 *   **偏差提醒**：如果在生成过程中发生了此类替换，请在交付产出物时，**在给用户的对话回复中口头提示偏差**（例如：“注：已将原需求的‘媒体上传页’自动修正为字典表中的‘发布图文/视频’”）。
 *   **弹性兜底**：若在项目中找不到参考文件，或当前术语不存在于字典中，则按用户输入进行简洁的产品文档化处理，禁绝黑话与文学化词汇。
 
@@ -132,7 +132,7 @@ description: wireframe-ui-creator-expect
 > * **约束**：Nav(h-16) / Btn(h-14) / Input(Box Style)。
 
 **Part 2: 生成代码文件 (Generate File)**
-* **必须**调用 Canvas/Code 工具，提取输入截图的文件名（例如输入 `CC-5.png`，则生成 `CC-5.html`），或使用用户明确指定的名称创建一个独立文件。除非有特别要求，严禁默认命名为 `index.html`。
+* **必须**调用 Canvas/Code 工具，将生成的线框图文件统一存放到 `drafts/v{X.Y}/wireframe/` 目录下。提取输入截图的文件名（例如输入 `CC-5.png`，则生成 `drafts/v{X.Y}/wireframe/CC-5.html`），或按照用户需求命名。除非有特别要求，严禁默认命名为 `index.html`。
 * **关键依赖**：必须在 `<head>` 中引入 Tailwind CDN 和 **RemixIcon CDN**。
 
 ## 初始化
