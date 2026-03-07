@@ -8,21 +8,16 @@
 ## 📁 目录结构
 
 ```
-Antilecai/
-├── index.html              ← 根级原型预览器 (v1.0 + v1.1 入口)
-├── README.md               ← 本文件
-├── .agents/                ← Agent 宪法与工作流
-├── doc/                    ← 全局业务文档 (Main_PageList, 术语表, 积分系统)
-├── wireframe/v1.0/         ← v1.0 线框原型 (CC-5, CC-6, CC-7)
-├── Spec/v1.0/              ← v1.0 功能规格 (Markdown)
-├── flow/v1.0/              ← v1.0 业务流程 (HTML)
-├── v1.1/                   ← v1.1 独立设计空间 (自包含)
-│   ├── reader.html         ← v1.1 专用预览器
-│   ├── wireframe/          ← v1.1 线框原型 (CC-3, PT-1, PT-2)
-│   ├── spec/               ← v1.1 功能规格
-│   └── flow/               ← v1.1 业务流程 (签到/积分/上传)
-├── scripts/                ← 打包脚本
-└── dist/                   ← 离线分发包
+AI-PRD-Lecai/
+├── README.md               ← 项目说明
+├── .agents/                ← Agent 宪法 & 工作流
+├── foundation/             ← 项目基座（总 PageList、术语表、路线图）
+├── releases/               ← 已完成迭代（归档只读）
+│   └── v1.0/               ← 社团核心逻辑（CC-5/6/7）
+├── drafts/                 ← 设计中迭代（活跃工作区）
+│   └── v1.1/               ← 积分系统 & 个人中心
+├── scripts/                ← 全局打包工具
+└── dist/                   ← 分发输出
 ```
 
 ---
@@ -31,8 +26,8 @@ Antilecai/
 
 ### 1. 术语锚定原则 (Terminology Anchor)
 项目所有参与者必须遵循：
-- **页面命名**：强制对齐 `doc/PageList.md`，禁止自造编号。
-- **业务词汇**：强制对齐 `doc/lecai-club-overview-v1.4.md`。禁绝“阵地”、“引擎”等文学化表达。
+- **页面命名**：强制对齐 `foundation/Main_PageList.md`，禁止自造编号。
+- **业务词汇**：强制对齐 `foundation/lecai-club-overview-v1.4.md`。禁绝“阵地”、“引擎”等文学化表达。
 
 ### 2. 线框视觉宪法 (Visual Constitution)
 - **极简黑白灰**：禁止使用任何品牌色，依靠灰度 (`bg-gray-200`) 与投影 (`shadow-2xl`) 区分层级。
@@ -49,8 +44,10 @@ Antilecai/
 ```bash
 # 启动本地服务
 npx -y serve . -l 3000
-# 访问根预览器 (支持 v1.0 & v1.1)
-http://localhost:3000
+# 访问设计中的原型 (Drafts)
+http://localhost:3000/drafts/v1.1/reader.html
+# 访问已发布的版本 (Releases)
+http://localhost:3000/releases/v1.0/reader.html
 ```
 
 ---
@@ -84,7 +81,7 @@ http://localhost:3000
 - [x] **业务流同步**：上传/审核业务流程图更新。
 
 ### v1.1：积分系统与个人中心 (In Progress)
-- [x] **架构规划**：`doc/points-system-v1.1.md` 逻辑锚定。
+- [x] **架构规划**：`drafts/v1.1/prd/points-system-v1.1.md` 逻辑锚定。
 - [x] **PT-1 (我的积分)**：原型与规格完成。
 - [x] **PT-2 (每日签到)**：原型与规格完成。
 - [x] **CC-3 (我的导航)**：原型与规格完成。

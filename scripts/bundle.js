@@ -1,8 +1,8 @@
 /**
  * Antilecai 原型阅读器 — 单文件打包脚本（联网版）
  * 
- * 用法: node scripts/bundle.js v1.0
- * 输出: dist/Antilecai-v1.0.html
+ * 用法: node scripts/bundle.js releases/v1.0 或 node scripts/bundle.js drafts/v1.1
+ * 输出: dist/Antilecai-releases-v1.0.html
  * 
  * 说明: 打包产物保留 CDN 引用（Tailwind / Remix Icon / marked.js），
  *       需要联网才能正常显示。线框图、规格、流程图等内容数据会内联。
@@ -12,10 +12,10 @@ const fs = require('fs');
 const path = require('path');
 
 const ROOT = path.resolve(__dirname, '..');
-const VERSION = process.argv[2];
+const VERSION_PATH = process.argv[2];
 
-if (!VERSION) {
-    console.error('❌ 请指定版本号，例如: node scripts/bundle.js v1.0');
+if (!VERSION_PATH) {
+    console.error('❌ 请指定版本号，例如: node scripts/bundle.js releases/v1.0');
     process.exit(1);
 }
 
@@ -24,7 +24,7 @@ if (!VERSION) {
 // ========================================
 function scanDir(dir, ext) {
     const result = {};
-    const fullDir = path.join(ROOT, dir, VERSION);
+    const fullDir = path.join(ROOT, VERSION_PATH, dir);
     if (!fs.existsSync(fullDir)) {
         console.warn(`⚠️  目录不存在: ${fullDir}`);
         return result;
@@ -49,17 +49,17 @@ function safeStringify(obj) {
 // 3. 主流程
 // ========================================
 function main() {
-    console.log(`📦 打包版本: ${VERSION}`);
+    console.log(`📦 打包版本: ${VERSION_PATH}`);
     console.log('');
 
     // 3.1 扫描源文件
     console.log('🔍 扫描文件...');
     const wireData = scanDir('wireframe', '.html');
-    const specData = scanDir('Spec', '.md');
+    const specData = scanDir('annotation', '.md');
     const flowData = scanDir('flow', '.html');
 
     // 读取 PageList
-    const plPath = path.join(ROOT, 'doc', 'PageList.md');
+    const plPath = path.join(ROOT, VERSION_PATH, 'PageList.md');
     const plData = fs.existsSync(plPath) ? fs.readFileSync(plPath, 'utf-8') : '';
 
     console.log(`   线框图: ${Object.keys(wireData).length} 个`);
@@ -74,14 +74,14 @@ function main() {
     // 3.2 读取 index.html 模板
     console.log('');
     console.log('🛠️  组装单文件...');
-    let html = fs.readFileSync(path.join(ROOT, 'index.html'), 'utf-8');
+    let html = fs.readFileSync(path.join(ROOT, VERSION_PATH, 'reader.html'), 'utf-8');
 
     // 3.3 注入 Bundle 标志 + 数据（CDN 引用原样保留，只嵌入内容数据）
     const dataScript = `
 <script>
 // === BUNDLE MODE (联网版) ===
 var __BUNDLE_MODE__ = true;
-var __BUNDLE_VERSION__ = ${JSON.stringify(VERSION)};
+var __BUNDLE_VERSION__ = ${JSON.stringify(VERSION_PATH)};
 var __WIRE_DATA__ = ${safeStringify(wireData)};
 var __SPEC_DATA__ = ${safeStringify(specData)};
 var __FLOW_DATA__ = ${safeStringify(flowData)};
@@ -98,7 +98,7 @@ var __PL_DATA__ = ${safeStringify(plData)};
   <div style="background:#1e293b;border:1px solid #334155;border-radius:12px;padding:32px 36px;max-width:420px;text-align:center;color:#e2e8f0;font-family:system-ui,sans-serif;box-shadow:0 25px 50px rgba(0,0,0,.4)">
     <div style="font-size:36px;margin-bottom:12px">🌐</div>
     <h2 style="margin:0 0 8px;font-size:18px;color:#f8fafc">需要联网查看</h2>
-    <p style="margin:0 0 6px;font-size:13px;color:#94a3b8;line-height:1.6">此文件是 <strong style="color:#e2e8f0">Antilecai ${VERSION}</strong> 原型阅读器的打包快照。</p>
+    <p style="margin:0 0 6px;font-size:13px;color:#94a3b8;line-height:1.6">此文件是 <strong style="color:#e2e8f0">Antilecai ${VERSION_PATH}</strong> 原型阅读器的打包快照。</p>
     <p style="margin:0 0 20px;font-size:13px;color:#94a3b8;line-height:1.6">页面样式依赖在线 CDN 加载，请确保设备已连接网络后继续。</p>
     <button onclick="document.getElementById('netOverlay').remove()" style="background:#4f46e5;color:#fff;border:none;padding:10px 32px;border-radius:8px;font-size:14px;cursor:pointer;font-weight:500;transition:background .2s" onmouseover="this.style.background='#4338ca'" onmouseout="this.style.background='#4f46e5'">我已联网，继续查看</button>
   </div>
@@ -114,7 +114,7 @@ var __PL_DATA__ = ${safeStringify(plData)};
     const distDir = path.join(ROOT, 'dist');
     if (!fs.existsSync(distDir)) fs.mkdirSync(distDir, { recursive: true });
 
-    const outFile = path.join(distDir, `Antilecai-${VERSION}.html`);
+    const outFile = path.join(distDir, `Antilecai-${VERSION_PATH.replace('/', '-')}.html`);
     fs.writeFileSync(outFile, html, 'utf-8');
 
     const sizeKB = (Buffer.byteLength(html, 'utf-8') / 1024).toFixed(0);
