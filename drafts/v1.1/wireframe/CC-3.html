@@ -1,13 +1,25 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>CC-3 主导航-我的</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet" />
+  <style>
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  </style>
 </head>
-<body class="bg-gray-200 min-h-screen flex justify-center p-12 overflow-x-auto">
+
+<body class="bg-gray-200 min-h-screen flex justify-center p-12 overflow-x-auto no-scrollbar">
 
   <!-- Artboard -->
   <div class="flex flex-row items-start gap-24">
@@ -15,155 +27,157 @@
     <!-- 主视图（左栏） -->
     <div class="flex flex-col gap-3">
       <!-- 页面标题 -->
-      <p class="text-xl font-bold text-gray-900 mb-4">CC-3 主导航-我的 (状态 I：未签到态)</p>
+      <p class="text-xl font-bold text-gray-900 mb-4">CC-3 主导航-我的 (v1.1 增量版)</p>
 
-      <!-- 手机画板 -->
-      <div class="w-[375px] bg-white shadow-2xl border border-gray-200 relative overflow-hidden rounded-none" style="min-height: 720px; display: flex; flex-direction: column;">
+      <!-- 手机画板容器 (抽象为黑白灰) -->
+      <div
+        class="w-[375px] h-auto bg-white shadow-2xl border border-gray-200 relative overflow-hidden flex flex-col no-scrollbar rounded-none">
 
-        <!-- Navbar -->
-        <div class="h-16 flex items-center justify-between px-4 border-b border-gray-100">
-          <div class="w-8"></div>
-          <span class="text-xl font-bold text-gray-900">我的</span>
-          <i class="ri-settings-3-line text-xl text-gray-900"></i>
-        </div>
-
-        <!-- 用户信息区 -->
-        <div class="px-6 py-5 flex items-center gap-4 border-b border-gray-100">
-          <!-- 头像 -->
-          <div class="w-16 h-16 rounded-full bg-gray-100 flex items-center justify-center flex-shrink-0">
-            <i class="ri-user-3-line text-2xl text-gray-400"></i>
-          </div>
-          <!-- 信息区 -->
-          <div class="flex flex-col gap-1">
-            <span class="text-xl font-bold text-gray-900">张大妈</span>
-            <span class="text-base text-gray-400">东方老年大学</span>
-          </div>
-        </div>
-
-        <!-- 积分卡片 -->
-        <div class="mx-4 mt-5 p-4 rounded-2xl border border-gray-900">
-          <!-- 标题行 -->
-          <div class="flex justify-between items-center mb-3">
-            <span class="text-lg font-normal text-gray-700">我的积分</span>
-            <i class="ri-arrow-right-s-line text-xl text-gray-400"></i>
-          </div>
-          <!-- 余额行 -->
-          <div class="flex items-baseline gap-1 mb-4">
-            <span class="text-4xl font-bold text-gray-900">128</span>
-            <span class="text-base text-gray-400">积分</span>
-          </div>
-          <!-- 签到按钮 -->
-          <button class="h-10 bg-gray-900 text-white font-medium rounded-xl w-full text-base flex items-center justify-center">
-            今日签到 +3 积分
-          </button>
-        </div>
-
-        <!-- 功能菜单 -->
-        <div class="mx-4 mt-5 rounded-2xl border border-gray-100 overflow-hidden divide-y divide-gray-100">
-          <!-- 行1：我的社团 -->
-          <div class="flex items-center justify-between px-4 h-14">
-            <div class="flex items-center">
-              <i class="ri-team-line text-xl text-gray-700 mr-3"></i>
-              <span class="text-lg font-normal text-gray-700">我的社团</span>
+        <!-- 1. Hero Header (Abstracted to Grayscale) -->
+        <div class="bg-gray-100 h-48 p-6 pt-10 relative shrink-0">
+          <!-- Status Bar Placeholder -->
+          <div class="flex justify-between items-center text-gray-400 mb-6 font-bold">
+            <span class="text-sm">21:02</span>
+            <div class="flex gap-1 items-center">
+              <i class="ri-signal-tower-fill"></i>
+              <i class="ri-wifi-line"></i>
+              <i class="ri-battery-2-fill"></i>
             </div>
-            <i class="ri-arrow-right-s-line text-xl text-gray-400"></i>
           </div>
-          <!-- 行2：我的作品 -->
-          <div class="flex items-center justify-between px-4 h-14">
-            <div class="flex items-center">
-              <i class="ri-image-line text-xl text-gray-700 mr-3"></i>
-              <span class="text-lg font-normal text-gray-700">我的作品</span>
-            </div>
-            <i class="ri-arrow-right-s-line text-xl text-gray-400"></i>
+          <!-- Menu Pill -->
+          <div
+            class="absolute right-4 top-14 bg-white border border-gray-200 rounded-full px-3 py-1 flex gap-2 text-gray-900">
+            <i class="ri-more-fill"></i>
+            <span class="w-px h-4 bg-gray-200 self-center"></span>
+            <i class="ri-checkbox-blank-circle-line"></i>
           </div>
-          <!-- 行3：我的申请 -->
-          <div class="flex items-center justify-between px-4 h-14">
-            <div class="flex items-center">
-              <i class="ri-file-list-3-line text-xl text-gray-700 mr-3"></i>
-              <span class="text-lg font-normal text-gray-700">我的申请</span>
+          <!-- User Info Area -->
+          <div class="flex items-center gap-4 mt-2">
+            <div
+              class="w-16 h-16 rounded-full border border-gray-200 overflow-hidden bg-gray-50 flex items-center justify-center">
+              <i class="ri-user-3-fill text-gray-300 text-4xl mt-3"></i>
             </div>
-            <i class="ri-arrow-right-s-line text-xl text-gray-400"></i>
+            <div class="text-gray-900 relative flex-1">
+              <div class="text-xl font-bold flex items-center justify-between">
+                法拉孙Fara
+                <i class="ri-arrow-right-s-line text-2xl text-gray-400"></i>
+              </div>
+              <div class="text-base text-gray-400 mt-1">5 获赞</div>
+            </div>
           </div>
         </div>
 
-        <!-- Spacer -->
-        <div class="flex-1"></div>
+        <!-- Body Content -->
+        <div class="flex-1 -mt-4 rounded-t-3xl bg-white p-4 space-y-4">
 
-        <!-- 底部 Tabbar -->
-        <div class="h-20 flex items-center justify-around border-t border-gray-200 bg-white mt-auto">
-          <!-- 社团 -->
-          <div class="flex flex-col items-center gap-1">
-            <i class="ri-home-5-line text-xl text-gray-400"></i>
-            <span class="text-base text-gray-400">社团</span>
+          <!-- 2. 我的社团 (Grid Layout - Abstracted) -->
+          <div class="text-xl font-bold text-gray-900 px-1">我的社团</div>
+          <div class="grid grid-cols-2 gap-4">
+            <div class="bg-white p-4 rounded-3xl border border-gray-200 shadow-sm flex flex-col gap-2">
+              <div class="w-10 h-10 bg-gray-100 rounded-2xl flex items-center justify-center">
+                <i class="ri-group-line text-gray-900 text-xl"></i>
+              </div>
+              <div class="font-bold text-gray-900">我加入的</div>
+              <div class="text-base text-gray-400 font-normal">已加入 2 个</div>
+            </div>
+            <div class="bg-white p-4 rounded-3xl border border-gray-200 shadow-sm flex flex-col gap-2">
+              <div class="w-10 h-10 bg-gray-100 rounded-2xl flex items-center justify-center">
+                <i class="ri-settings-3-line text-gray-900 text-xl"></i>
+              </div>
+              <div class="font-bold text-gray-900">团长工作台</div>
+              <div class="text-base text-gray-400 font-normal">管理我的社团</div>
+            </div>
           </div>
-          <!-- 赛事 -->
-          <div class="flex flex-col items-center gap-1">
-            <i class="ri-trophy-line text-xl text-gray-400"></i>
-            <span class="text-base text-gray-400">赛事</span>
+
+          <!-- 3. [V1.1] 积分卡片 (强视觉锚点) -->
+          <div class="bg-white p-6 rounded-3xl border border-gray-900 shadow-lg">
+            <div class="flex justify-between items-center mb-1">
+              <span class="text-lg text-gray-700 font-normal">我的积分</span>
+              <i class="ri-arrow-right-s-line text-gray-400"></i>
+            </div>
+            <div class="text-4xl font-bold text-gray-900 mb-4">128</div>
+            <!-- Primary Action Button -->
+            <div
+              class="h-14 bg-gray-900 text-white rounded-2xl flex items-center justify-center font-medium text-lg cursor-pointer">
+              今日签到 +3 积分
+            </div>
           </div>
-          <!-- 我的（活跃态） -->
-          <div class="flex flex-col items-center gap-1">
-            <i class="ri-user-3-line text-xl text-gray-900"></i>
-            <span class="text-base font-bold text-gray-900">我的</span>
+
+          <!-- 4. 我的作品 (Horizontal Scroll - Abstracted) -->
+          <div class="flex justify-between items-center px-1">
+            <div class="text-xl font-bold text-gray-900">我的作品 (36)</div>
+            <div class="text-base text-gray-400 flex items-center font-normal">查看全部 <i
+                class="ri-arrow-right-s-line ml-1"></i>
+            </div>
+          </div>
+          <div class="flex gap-3 overflow-x-auto no-scrollbar pb-2">
+            <div
+              class="w-32 h-32 bg-gray-100 rounded-2xl shrink-0 relative overflow-hidden flex items-center justify-center">
+              <div
+                class="absolute top-2 left-2 bg-white border border-gray-200 text-gray-900 text-xs px-2 py-0.5 rounded font-bold">
+                已发布</div>
+              <i class="ri-image-line text-gray-300 text-3xl"></i>
+            </div>
+            <div
+              class="w-32 h-32 bg-gray-100 rounded-2xl shrink-0 relative overflow-hidden flex items-center justify-center">
+              <div
+                class="absolute top-2 left-2 bg-white border border-gray-200 text-gray-900 text-xs px-2 py-0.5 rounded font-bold">
+                已发布</div>
+              <i class="ri-image-line text-gray-300 text-3xl"></i>
+            </div>
+            <div
+              class="w-32 h-32 bg-gray-100 rounded-2xl shrink-0 relative overflow-hidden flex items-center justify-center">
+              <div
+                class="absolute top-2 left-2 bg-white border border-gray-200 text-gray-400 text-xs px-2 py-0.5 rounded font-bold">
+                未发布</div>
+              <i class="ri-image-line text-gray-200 text-3xl opacity-50"></i>
+            </div>
+          </div>
+        </div>
+
+        <!-- 5. 底部 Tabbar -->
+        <div class="h-20 bg-white border-t border-gray-200 flex items-center justify-around px-6 shrink-0">
+          <div class="flex flex-col items-center gap-1 opacity-30">
+            <i class="ri-home-5-line text-2xl"></i>
+            <span class="text-base font-normal">社团</span>
+          </div>
+          <div class="flex flex-col items-center gap-1 opacity-30">
+            <i class="ri-trophy-line text-2xl"></i>
+            <span class="text-base font-normal">赛事</span>
+          </div>
+          <div class="flex flex-col items-center gap-1 text-gray-900">
+            <i class="ri-user-3-fill text-2xl"></i>
+            <span class="text-base font-bold">我的</span>
           </div>
         </div>
 
       </div>
     </div>
 
-    <!-- 组件变体集（右栏） -->
+    <!-- 变体展示单元 (右栏) -->
     <div class="flex flex-col gap-10 w-[360px]">
+      <div class="text-xl font-bold text-gray-900">多状态展示</div>
 
-      <!-- 区域标题 -->
-      <p class="text-xl font-bold text-gray-900">多状态展示</p>
-
-      <!-- 变体卡片 1：积分卡片 - 已签到态 -->
+      <!-- 状态 II：已签到态 -->
       <div class="bg-white p-6 border border-gray-200 shadow-md rounded-none">
-        <p class="text-lg font-bold text-gray-700 mb-4 pl-3 border-l-4 border-gray-900">积分卡片：已签到态</p>
-        <div class="p-4 rounded-2xl border border-gray-200">
-          <!-- 标题行 -->
-          <div class="flex justify-between items-center mb-3">
-            <span class="text-lg font-normal text-gray-700">我的积分</span>
-            <i class="ri-arrow-right-s-line text-xl text-gray-400"></i>
+        <div class="text-lg font-bold text-gray-700 mb-4 pl-3 border-l-4 border-gray-900">状态：已签到态</div>
+        <div class="p-6 rounded-3xl border border-gray-200 bg-gray-50 opacity-80">
+          <div class="flex justify-between items-center mb-1">
+            <span class="text-base text-gray-400 font-normal">我的积分</span>
           </div>
-          <!-- 余额行 -->
-          <div class="flex items-baseline gap-1 mb-4">
-            <span class="text-4xl font-bold text-gray-900">128</span>
-            <span class="text-base text-gray-400">积分</span>
+          <div class="text-4xl font-bold text-gray-900 mb-4">131</div>
+          <div
+            class="h-14 border border-gray-300 text-gray-400 rounded-2xl flex items-center justify-center font-medium text-lg bg-white">
+            今日已完成签到 ✓
           </div>
-          <!-- 签到按钮（已签到 Disabled 态） -->
-          <button class="h-10 bg-white border border-gray-200 text-gray-400 rounded-xl w-full text-base flex items-center justify-center" disabled>
-            今日已签到 ✓
-          </button>
         </div>
       </div>
-
-      <!-- 变体卡片 2：积分卡片 - 零余额态 -->
-      <div class="bg-white p-6 border border-gray-200 shadow-md rounded-none">
-        <p class="text-lg font-bold text-gray-700 mb-4 pl-3 border-l-4 border-gray-900">积分卡片：零余额态</p>
-        <div class="p-4 rounded-2xl border border-gray-200">
-          <!-- 标题行 -->
-          <div class="flex justify-between items-center mb-3">
-            <span class="text-lg font-normal text-gray-700">我的积分</span>
-            <i class="ri-arrow-right-s-line text-xl text-gray-400"></i>
-          </div>
-          <!-- 余额行 -->
-          <div class="flex items-baseline gap-1 mb-4">
-            <span class="text-4xl font-bold text-gray-900">0</span>
-            <span class="text-base text-gray-400">积分</span>
-          </div>
-          <!-- 签到按钮（Primary） -->
-          <button class="h-10 bg-gray-900 text-white font-medium rounded-xl w-full text-base flex items-center justify-center">
-            今日签到 +3 积分
-          </button>
-        </div>
-      </div>
-
     </div>
-    <!-- /组件变体集 -->
+    <!-- /右栏 -->
 
   </div>
   <!-- /Artboard -->
 
 </body>
+
 </html>

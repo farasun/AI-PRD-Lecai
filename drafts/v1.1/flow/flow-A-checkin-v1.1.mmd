@@ -1,0 +1,31 @@
+sequenceDiagram
+    autonumber
+    participant U as 用户
+    participant CC3 as CC-3 我的 (首页)
+    participant S as 后端处理引擎
+    participant DB as 核心数据库
+    participant PT1 as PT-1 我的积分 (详情)
+
+    Note over U, CC3: 流程：极简签到交互 (R1)
+    U->>CC3: 进入“我的”页面
+    CC3->>S: 加载用户信息与签到状态
+    S-->>CC3: 返回账户余额与今日签到态
+
+    alt 未签到
+        U->>CC3: 点击 [今日签到 +3积分] 按钮
+        CC3->>S: 提交签到请求 (R1)
+        S->>DB: 写入 t_coin_history 
+        S->>DB: 更新 t_coin_account
+        S-->>CC3: 返回签到成功
+        CC3->>CC3: 弹出 Toast「今日签到成功！」
+        CC3->>CC3: 按钮切换为「今日已签到 ✓」并静默
+    else 已签到
+        CC3->>CC3: 按钮默认显示为「今日已签到 ✓」(禁用态)
+    end
+
+    Note over U, PT1: 流程：资产与荣誉查看
+    U->>CC3: 点击积分卡片标题或余额区
+    CC3->>PT1: 页面路由跳转
+    PT1->>S: 获取累计天数与积分流水
+    S-->>PT1: 返回数据 (累计签到 X 天、历史列表)
+    PT1->>PT1: 展示“功劳簿”式资产明细

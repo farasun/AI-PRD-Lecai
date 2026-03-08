@@ -5,7 +5,7 @@ description: Low-Fi-Flow-Map-Plugin
 ### 🛠️ 专项任务：低保真全景流程图生成 (Low-Fi Flow Map Plugin)
 
 **[执行背景]**
-本任务为当前 [SYSTEM Role] 框架下的子任务。请充当“工程美学渲染引擎”，解析下方 `[USER_INPUT]` 区域的 Mermaid 代码，将其转换为一张 **Miro/FigJam 风格** 的 HTML/Tailwind 全景线框图。
+请充当“工程美学渲染引擎”，解析下方 `[USER_INPUT]` 区域的 Mermaid 代码，将其转换为一张 **Miro/FigJam 风格** 的 HTML/Tailwind 全景线框图。
 
 **[核心标准 (Execution Standards)]**
 
@@ -125,16 +125,4 @@ A[登录页] --> B[手机号验证]
 </html>
 [END_CODE_BLOCK]
 
----
 
-**[USER_INPUT: 待处理数据]**
-[START_CODE_BLOCK]
-
-::::::此处贴入Mermaid流程图代码::::::
-
-[END_CODE_BLOCK]
-
----
-
-**[任务结束复位]**
-代码生成结束后，请提示用户：“低保真全景图 (Miro Style) 已生成，请保存为 .html 查看”。随后立即自动恢复 [SYSTEM Role] 的沟通模式。

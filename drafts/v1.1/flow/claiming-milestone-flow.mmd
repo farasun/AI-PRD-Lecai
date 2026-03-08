@@ -1,0 +1,28 @@
+sequenceDiagram
+    autonumber
+    participant S as 后端处理引擎
+    participant DB as 核心数据库
+    participant B as 社团主 (CC-4)
+    
+    Note over S, DB: 阶段一：里程碑触发 (后台静默)
+    S->>DB: 检测到 R8/R10/R11 目标达成
+    S->>S: 锁定业务流水号 (biz_id)
+    S->>DB: 写入 t_app_message (标记为未读、待申领)
+    
+    Note over B, DB: 阶段二：权益拦截 (用户侧)
+    B->>B: 进入/刷新 CC-4 社团主页
+    B->>DB: 探测是否存在“未申领”里程碑消息
+    DB-->>B: 返回奖励列表 (R8, R10, R11)
+    B->>B: 启动全局 Modal 拦截 (阻断背景交互)
+    
+    Note over B, DB: 阶段三：申领入账 (点击兑现)
+    B->>B: 用户物理点击 [开心收下] 按钮
+    B->>DB: 提交申领请求 (带入 biz_id)
+    rect rgb(240, 240, 240)
+        Note right of DB: 数据库事务保证幂等性
+        DB->>DB: 写入 t_coin_history (资金正向流水)
+        DB->>DB: 更新 t_coin_account (余额增加)
+        DB->>DB: 变更 t_app_message (标记已读/已领)
+    end
+    DB-->>B: 返回申领成功状态
+    B->>B: UI 同步最新余额，销毁拦截面板

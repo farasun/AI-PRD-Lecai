@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <style>
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        /* 点阵画布背景 */
+        .bg-dot-grid {
+            background-image: radial-gradient(circle, #cbd5e1 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+    </style>
+</head>
+
+<body class="m-0 p-0 bg-gray-200 no-scrollbar">
+
+    <!-- ① 悬浮标题板 -->
+    <div
+        style="position:fixed;top:24px;left:24px;z-index:50;background:rgba(17,24,39,0.85);backdrop-filter:blur(8px);border-radius:12px;padding:12px 20px;">
+        <div style="font-size:16px;font-weight:700;color:#fff;">业务流程 · 里程碑奖励申领 (R8/R10/R11)</div>
+        <div style="font-size:12px;color:#9ca3af;margin-top:4px;">v1.1 · Low-Fi Flow Map · 2026-03-08</div>
+    </div>
+
+    <!-- ② 画布 -->
+    <div class="relative bg-dot-grid w-[3000px] h-[1000px] no-scrollbar font-sans text-gray-900">
+
+        <!-- ③ SVG 连线层 -->
+        <svg class="absolute inset-0 w-full h-full pointer-events-none z-0">
+            <defs>
+                <marker id="arrow-gray" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                    <path d="M0,0 L0,6 L9,3 z" fill="#94a3b8" />
+                </marker>
+            </defs>
+
+            <!-- Link 1: Backend -> DB -->
+            <path d="M 344 414 C 472 414, 472 414, 600 414" stroke="#94a3b8" stroke-width="2" fill="none"
+                marker-end="url(#arrow-gray)" />
+            <rect x="412" y="399" width="120" height="30" fill="#f8fafc" rx="4" />
+            <text x="472" y="419" fill="#64748b" font-size="14" font-weight="500" text-anchor="middle">检测达标并预埋</text>
+
+            <!-- Link 2: DB -> CC-4 -->
+            <path d="M 844 414 C 972 414, 972 414, 1100 414" stroke="#94a3b8" stroke-width="2" fill="none"
+                marker-end="url(#arrow-gray)" />
+            <rect x="912" y="399" width="120" height="30" fill="#f8fafc" rx="4" />
+            <text x="972" y="419" fill="#64748b" font-size="14" font-weight="500" text-anchor="middle">进入页面探测消息</text>
+
+            <!-- Link 3: CC-4 Modal -> DB Update -->
+            <path d="M 1344 414 C 1472 414, 1472 414, 1600 414" stroke="#94a3b8" stroke-width="2" fill="none"
+                marker-end="url(#arrow-gray)" />
+            <rect x="1412" y="399" width="120" height="30" fill="#f8fafc" rx="4" />
+            <text x="1472" y="419" fill="#64748b" font-size="14" font-weight="500" text-anchor="middle">点击[开心收下]</text>
+
+            <!-- Link 4: DB Update -> Final CC-4 -->
+            <path d="M 1844 414 C 1972 414, 1972 414, 2100 414" stroke="#94a3b8" stroke-width="2" fill="none"
+                marker-end="url(#arrow-gray)" />
+            <rect x="1912" y="399" width="120" height="30" fill="#f8fafc" rx="4" />
+            <text x="1972" y="419" fill="#64748b" font-size="14" font-weight="500" text-anchor="middle">事务提交入账</text>
+        </svg>
+
+        <!-- Node 1: Backend System -->
+        <div class="absolute" style="left: 100px; top: 150px;">
+            <div class="absolute -top-10 left-0 bg-gray-900 text-white text-sm px-3 py-1 rounded shadow-sm z-10">后端处理引擎
+            </div>
+            <div
+                class="w-[375px] h-[812px] bg-gray-100 border border-gray-200 rounded-[40px] shadow-inner flex flex-col items-center justify-center p-8 transform scale-[0.65] origin-top-left">
+                <i class="ri-radar-line text-6xl text-gray-400 mb-6 font-normal"></i>
+                <span class="text-2xl font-bold text-gray-900 text-center">数据指标探测</span>
+                <span class="text-base text-gray-500 mt-2 text-center leading-relaxed font-normal">系统在后台持续监测 R8/R10/R11
+                    条件（如成员数、作品数）。<br><br>一旦达标，立即锁定 biz_id。</span>
+            </div>
+        </div>
+
+        <!-- Node 2: Database Storage -->
+        <div class="absolute" style="left: 600px; top: 150px;">
+            <div class="absolute -top-10 left-0 bg-gray-900 text-white text-sm px-3 py-1 rounded shadow-sm z-10">核心存储池
+                (待申领态)</div>
+            <div
+                class="w-[375px] h-[812px] bg-gray-100 border border-gray-200 rounded-[40px] shadow-inner flex flex-col p-8 transform scale-[0.65] origin-top-left">
+                <div class="flex-1 flex flex-col items-center justify-center">
+                    <i class="ri-database-2-line text-6xl text-gray-400 mb-6 font-normal"></i>
+                    <span class="text-2xl font-bold text-gray-900 text-center">t_app_message 归档</span>
+                    <p class="text-base text-gray-500 mt-4 text-center font-normal">插入一条“待领取”消息记录。</p>
+                </div>
+                <!-- Mini Table Mockup -->
+                <div class="w-full bg-white border border-gray-200 rounded-xl p-4 mt-auto">
+                    <div class="text-xs font-bold text-gray-400 uppercase mb-2">Message Record</div>
+                    <div class="flex justify-between text-sm py-1 border-b border-gray-50">
+                        <span>biz_id</span><span>R10_50</span></div>
+                    <div class="flex justify-between text-sm py-1"><span>status</span><span
+                            class="text-gray-900 font-bold">Unclaimed</span></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Node 3: CC-4 Modal Intercept -->
+        <div class="absolute" style="left: 1100px; top: 150px;">
+            <div id="CC-4"
+                class="absolute -top-10 left-0 bg-gray-900 text-white text-sm px-3 py-1 rounded shadow-sm z-10">CC-4 ·
+                社团主页 (拦截态)</div>
+            <div
+                class="w-[375px] h-[812px] bg-white border border-gray-200 rounded-[40px] shadow-2xl transform scale-[0.65] origin-top-left flex flex-col relative overflow-hidden">
+                <!-- Blocking Modal Overlay -->
+                <div class="absolute inset-0 bg-black bg-opacity-70 z-50 flex items-center justify-center p-6">
+                    <div class="bg-white w-full rounded-3xl p-8 flex flex-col items-center text-center">
+                        <i class="ri-gift-line text-4xl mb-4"></i>
+                        <span class="text-2xl font-bold text-gray-900 mb-2">里程碑达成！</span>
+                        <span class="text-sm text-gray-500 mb-6">您的社团已集结 50 位成员</span>
+                        <div
+                            class="w-full h-14 bg-gray-900 text-white flex items-center justify-center rounded-2xl font-bold text-lg">
+                            开心收下</div>
+                    </div>
+                </div>
+                <!-- Background Page Blur -->
+                <div class="h-48 bg-gray-100 shrink-0"></div>
+                <div class="p-4 flex flex-col gap-4">
+                    <div class="h-6 bg-gray-100 w-1/2 rounded"></div>
+                    <div class="h-4 bg-gray-100 w-3/4 rounded"></div>
+                    <div class="h-32 bg-gray-100 rounded-xl"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Node 4: DB Transaction Logic -->
+        <div class="absolute" style="left: 1600px; top: 150px;">
+            <div class="absolute -top-10 left-0 bg-gray-900 text-white text-sm px-3 py-1 rounded shadow-sm z-10">申领入账处理
+            </div>
+            <div
+                class="w-[375px] h-[812px] bg-gray-100 border border-gray-200 rounded-[40px] shadow-inner flex flex-col p-8 transform scale-[0.65] origin-top-left">
+                <i class="ri-exchange-funds-line text-6xl text-gray-400 mb-6 mx-auto font-normal"></i>
+                <span class="text-2xl font-bold text-gray-900 text-center">事务级入账过程</span>
+                <div class="flex flex-col gap-4 mt-8">
+                    <div class="flex items-center gap-3 p-4 bg-white rounded-xl shadow-sm">
+                        <i class="ri-add-circle-line text-gray-400"></i>
+                        <span class="text-sm text-gray-600 font-normal">1. 写入 t_coin_history 流水</span>
+                    </div>
+                    <div class="flex items-center gap-3 p-4 bg-white rounded-xl shadow-sm">
+                        <i class="ri-wallet-3-line text-gray-400"></i>
+                        <span class="text-sm text-gray-600 font-normal">2. 更新 t_coin_account 余额</span>
+                    </div>
+                    <div class="flex items-center gap-3 p-4 bg-white rounded-xl shadow-sm">
+                        <i class="ri-checkbox-circle-line text-gray-400"></i>
+                        <span class="text-sm text-gray-600 font-normal">3. 标记消息为 Read/Claimed</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Node 5: Updated CC-4 -->
+        <div class="absolute" style="left: 2100px; top: 150px;">
+            <div id="CC-4-Final"
+                class="absolute -top-10 left-0 bg-gray-900 text-white text-sm px-3 py-1 rounded shadow-sm z-10">CC-4 ·
+                社团主页 (正常态)</div>
+            <div
+                class="w-[375px] h-[812px] bg-white border border-gray-200 rounded-[40px] shadow-2xl transform scale-[0.65] origin-top-left flex flex-col relative overflow-hidden">
+                <div
+                    class="h-48 bg-gray-100 shrink-0 flex items-center justify-center text-gray-200 italic font-normal">
+                    Hero Banner</div>
+                <div class="p-6 flex flex-col gap-6">
+                    <div class="flex items-center justify-between">
+                        <div class="w-24 h-6 bg-gray-900 rounded"></div>
+                        <div class="w-16 h-8 bg-gray-100 rounded-full"></div>
+                    </div>
+                    <div class="h-4 bg-gray-50 w-full rounded"></div>
+                    <div class="h-4 bg-gray-50 w-5/6 rounded"></div>
+                    <div class="mt-4 flex flex-col gap-4">
+                        <div
+                            class="h-14 bg-white border border-gray-100 rounded-2xl flex items-center px-4 font-bold text-gray-900 shadow-sm">
+                            <i class="ri-shield-user-line mr-2 font-normal"></i> 社团大管家
+                        </div>
+                    </div>
+                </div>
+                <!-- Success Toast -->
+                <div
+                    class="absolute bottom-10 left-10 right-10 bg-gray-900 text-white py-3 px-4 rounded-xl text-center shadow-2xl z-20 animate-bounce">
+                    申领成功，余额已更新！
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>
+
+</html>
