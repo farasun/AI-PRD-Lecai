@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CC-9 申请创建社团 - 线框图</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-200 min-h-screen flex justify-center p-12 overflow-x-auto no-scrollbar">
+
+    <div id="artboard" class="flex flex-row items-start gap-24">
+
+        <!-- ============================================================
+             区域 A：主视图 (Left Column - Main View)
+             ============================================================ -->
+        <div class="flex flex-col">
+            <h2 class="text-xl font-bold text-gray-900 mb-4">CC-9 申请创建社团 (状态 I：正常态)</h2>
+            <div
+                class="w-[375px] h-auto bg-white shadow-2xl border border-gray-200 relative p-0 overflow-hidden rounded-none flex flex-col">
+
+                <!-- Navbar (h-16) -->
+                <div class="h-16 flex items-center px-4 border-b border-gray-200 bg-white sticky top-0 z-20">
+                    <div class="flex-1"><i class="ri-arrow-left-s-line text-2xl text-gray-900"></i></div>
+                    <div class="text-xl font-bold text-gray-900">申请创建社团</div>
+                    <div class="flex-1"></div>
+                </div>
+
+                <!-- Scrollable Content -->
+                <div class="flex-1 overflow-y-auto pb-32">
+
+                    <!-- 模块 1: 顶部强预期 Banner [🌟 V1.1 新增] -->
+                    <div class="bg-gray-900 p-4 relative overflow-hidden">
+                        <!-- BG Accent -->
+                        <div class="absolute -right-2 -top-2 w-16 h-16 bg-white opacity-5 rotate-45 transform"></div>
+
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center shrink-0">
+                                <i class="ri-medal-fill text-2xl text-gray-900"></i>
+                            </div>
+                            <div class="text-lg font-bold text-white leading-tight">
+                                成功建立社团，审核通过即领 <span class="text-gray-300">500</span> 初始积分等特权大礼！
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 模块 2: 社团信息输入组 -->
+                    <div class="p-6 flex flex-col gap-8">
+
+                        <!-- Header Selection -->
+                        <div class="flex flex-col gap-3">
+                            <label class="text-lg font-bold text-gray-900">社团头像</label>
+                            <div
+                                class="w-24 h-24 bg-gray-50 border border-gray-900 rounded-full flex flex-col items-center justify-center text-gray-400 gap-1">
+                                <i class="ri-camera-line text-2xl"></i>
+                                <span class="text-xs">选择图</span>
+                            </div>
+                        </div>
+
+                        <!-- Text Inputs -->
+                        <div class="flex flex-col gap-3">
+                            <label class="text-lg font-bold text-gray-900">社团名称</label>
+                            <div class="h-14 bg-white border border-gray-900 rounded-xl px-4 flex items-center">
+                                <span class="text-lg text-gray-400">请输入响亮的社团名称</span>
+                            </div>
+                        </div>
+
+                        <div class="flex flex-col gap-3">
+                            <label class="text-lg font-bold text-gray-900">兴趣类型</label>
+                            <div class="flex flex-wrap gap-3">
+                                <div
+                                    class="px-4 py-2 border border-gray-900 rounded-full text-lg font-medium bg-gray-900 text-white">
+                                    数码影像</div>
+                                <div
+                                    class="px-4 py-2 border border-gray-300 rounded-full text-lg font-medium text-gray-400">
+                                    魅力模特</div>
+                                <div
+                                    class="px-4 py-2 border border-gray-300 rounded-full text-lg font-medium text-gray-400">
+                                    书画艺术</div>
+                                <div
+                                    class="px-4 py-2 border border-gray-300 rounded-full text-lg font-medium text-gray-400">
+                                    声乐戏曲</div>
+                            </div>
+                        </div>
+
+                        <div class="flex flex-col gap-3">
+                            <label class="text-lg font-bold text-gray-900">社团简介</label>
+                            <div class="min-h-[160px] bg-white border border-gray-900 rounded-xl p-4">
+                                <span class="text-lg text-gray-400">向大家介绍一下您的社团吧...</span>
+                            </div>
+                        </div>
+
+                        <!-- Divider -->
+                        <div class="h-px bg-gray-100 my-2"></div>
+
+                        <!-- Manager Info -->
+                        <div class="flex flex-col gap-3">
+                            <label class="text-lg font-bold text-gray-900">社团主姓名</label>
+                            <div class="h-14 bg-white border border-gray-900 rounded-xl px-4 flex items-center">
+                                <span class="text-lg text-gray-400">请输入您的真实姓名</span>
+                            </div>
+                        </div>
+
+                        <div class="flex flex-col gap-3">
+                            <label class="text-lg font-bold text-gray-900">负责人手机号</label>
+                            <div
+                                class="h-14 bg-white border border-gray-900 rounded-xl px-4 flex items-center justify-between">
+                                <span class="text-lg text-gray-900">138 **** 8888</span>
+                                <span class="text-base text-gray-400">系统绑定</span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Bottom CTA -->
+                <div class="absolute bottom-0 left-0 right-0 p-6 bg-white border-t border-gray-200">
+                    <div
+                        class="h-14 rounded-2xl bg-gray-900 text-white flex items-center justify-center text-xl font-medium">
+                        提交申请
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================
+             区域 B：组件变体集 (Right Column - Component Variants)
+             ============================================================ -->
+        <div class="flex flex-col gap-10 w-[360px]">
+            <h2 class="text-xl font-bold text-gray-900">多状态展示</h2>
+
+            <!-- 状态 II：提交后的拦截反馈 (Modal) -->
+            <div class="flex flex-col">
+                <div class="text-lg font-bold text-gray-700 mb-4 pl-3 border-l-4 border-gray-900">状态 II：提交反馈 (Modal)
+                </div>
+                <div class="bg-white p-6 border border-gray-200 solid shadow-md rounded-none">
+                    <!-- Modal Component -->
+                    <div class="bg-white rounded-3xl border border-gray-900 p-8 flex flex-col items-center text-center">
+                        <div class="w-20 h-20 bg-gray-50 rounded-full flex items-center justify-center mb-6">
+                            <i class="ri-send-plane-fill text-4xl text-gray-900"></i>
+                        </div>
+                        <div class="text-2xl font-bold text-gray-900 mb-4">提交成功！</div>
+                        <div class="text-lg text-gray-700 font-normal leading-relaxed mb-8">
+                            平台正在加急处理中。您的社团审核通过后，即可在主页直接领取 <span class="font-bold underline">500 积分</span> 大团长启动资金！
+                        </div>
+                        <div
+                            class="w-full h-14 rounded-2xl border border-gray-900 flex items-center justify-center text-xl font-medium">
+                            我知道了
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 说明条目 -->
+            <div class="flex flex-col">
+                <div class="text-lg font-bold text-gray-700 mb-4 pl-3 border-l-4 border-gray-900">V1.1 增量说明</div>
+                <div class="bg-white p-6 border border-gray-200 solid shadow-md rounded-none">
+                    <ul class="text-base text-gray-700 flex flex-col gap-4 list-disc pl-5">
+                        <li><span class="font-bold">利益前置：</span>新增顶部暗金视觉 Banner，将核心利益点（500积分）在进入页面瞬间推送到用户视野中心。</li>
+                        <li><span class="font-bold">预期对齐：</span>提交后的反馈文案明确了“审核通过”与“500积分”的因果关系，消除用户对发分延迟的疑虑。</li>
+                        <li><span class="font-bold">无障碍录入：</span>输入控件高度固定为 h-14，边框采用 border-gray-900 强视觉索引。</li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Flow E · B端社团主积分获取闭环</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <style>
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        /* 点阵画布背景 */
+        .bg-dot-grid {
+            background-image: radial-gradient(circle, #cbd5e1 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+    </style>
+</head>
+
+<body class="m-0 p-0 bg-gray-200 no-scrollbar">
+
+    <!-- 悬浮标题板 -->
+    <div
+        style="position:fixed;top:24px;left:24px;z-index:50;background:rgba(17,24,39,0.85);backdrop-filter:blur(8px);border-radius:12px;padding:12px 20px;">
+        <div style="font-size:16px;font-weight:700;color:#fff;">流程E · B端社团主积分获取闭环 (R8~R11)</div>
+        <div style="font-size:12px;color:#9ca3af;margin-top:4px;">v1.1 · Low-Fi Flow Map · 2026-03-08</div>
+    </div>
+
+    <!-- 画布 -->
+    <div class="relative bg-dot-grid w-[2400px] h-[2200px] no-scrollbar font-sans text-gray-900">
+
+        <!-- SVG 连线层 -->
+        <svg class="absolute inset-0 w-full h-full pointer-events-none z-0">
+            <defs>
+                <marker id="arrow-gray" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                    <path d="M0,0 L0,6 L9,3 z" fill="#94a3b8" />
+                </marker>
+                <marker id="arrow-gray-dashed" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                    <path d="M0,0 L0,6 L9,3 z" fill="#94a3b8" />
+                </marker>
+            </defs>
+
+            <!-- Row 1: E1 -->
+            <path d="M 344 414 C 472 414, 472 414, 600 414" stroke="#94a3b8" stroke-width="2" fill="none"
+                marker-end="url(#arrow-gray)" />
+            <rect x="422" y="399" width="100" height="30" fill="#f8fafc" rx="4" />
+            <text x="472" y="419" fill="#64748b" font-size="14" font-weight="500" text-anchor="middle">提交表单</text>
+
+            <path d="M 844 414 C 972 414, 972 414, 1100 414" stroke="#94a3b8" stroke-width="2" fill="none"
+                marker-end="url(#arrow-gray)" />
+            <rect x="912" y="399" width="120" height="30" fill="#f8fafc" rx="4" />
+            <text x="972" y="419" fill="#64748b" font-size="14" font-weight="500" text-anchor="middle">触发R8奖励</text>
+
+            <!-- Row 2: E2 -->
+            <path d="M 344 1064 C 472 1064, 472 1064, 600 1064" stroke="#94a3b8" stroke-width="2" fill="none"
+                marker-end="url(#arrow-gray)" />
+            <rect x="412" y="1049" width="120" height="30" fill="#f8fafc" rx="4" />
+            <text x="472" y="1069" fill="#64748b" font-size="14" font-weight="500" text-anchor="middle">点击[发布活动]</text>
+
+            <path d="M 844 1064 C 972 1064, 972 1064, 1100 1064" stroke="#94a3b8" stroke-width="2" fill="none"
+                marker-end="url(#arrow-gray)" />
+            <rect x="922" y="1049" width="100" height="30" fill="#f8fafc" rx="4" />
+            <text x="972" y="1069" fill="#64748b" font-size="14" font-weight="500" text-anchor="middle">发布成功</text>
+
+            <!-- Row 3: E3 -->
+            <path d="M 344 1714 C 472 1714, 472 1714, 600 1714" stroke="#94a3b8" stroke-width="2" fill="none"
+                marker-end="url(#arrow-gray)" />
+            <rect x="412" y="1699" width="120" height="30" fill="#f8fafc" rx="4" />
+            <text x="472" y="1719" fill="#64748b" font-size="14" font-weight="500" text-anchor="middle">触发数据增长</text>
+
+            <path d="M 844 1714 C 972 1714, 972 1714, 1100 1714" stroke="#94a3b8" stroke-width="2"
+                stroke-dasharray="6,4" fill="none" marker-end="url(#arrow-gray-dashed)" />
+            <rect x="882" y="1699" width="180" height="30" fill="#f8fafc" rx="4" />
+            <text x="972" y="1719" fill="#64748b" font-size="14" font-weight="500"
+                text-anchor="middle">异步触发R10/R11奖励</text>
+
+        </svg>
+
+        <!-- ============================================== -->
+        <!-- ROW 1: E1 建团得积分 (R8)                      -->
+        <!-- ============================================== -->
+
+        <!-- E1_1: CC-9 申请创建社团 -->
+        <div class="absolute" style="left: 100px; top: 150px;">
+            <div id="CC-9"
+                class="absolute -top-10 left-0 bg-gray-900 text-white text-sm px-3 py-1 rounded shadow-sm z-10">CC-9 ·
+                申请创建社团 (提交审核)</div>
+            <div
+                class="w-[375px] h-[812px] bg-white border border-gray-200 rounded-[40px] shadow-2xl overflow-hidden transform scale-[0.65] origin-top-left flex flex-col pt-10">
+                <div class="h-16 flex items-center px-4 border-b border-gray-100 shrink-0">
+                    <i class="ri-arrow-left-s-line text-2xl text-gray-900"></i>
+                    <span class="text-xl font-bold text-gray-900 mx-auto">申请创建社团</span>
+                </div>
+                <div class="p-6 flex flex-col gap-6">
+                    <div class="flex flex-col gap-2">
+                        <span class="text-base font-bold text-gray-900">社团名称</span>
+                        <div class="h-12 border border-gray-200 rounded-xl px-4 flex items-center text-gray-900">光影同行摄影社
+                        </div>
+                    </div>
+                    <div class="flex flex-col gap-2">
+                        <span class="text-base font-bold text-gray-900">社团口号</span>
+                        <div class="h-12 border border-gray-200 rounded-xl px-4 flex items-center text-gray-900">
+                            记录生活的每一帧</div>
+                    </div>
+                </div>
+                <div class="mt-auto p-6 border-t border-gray-100 pb-12">
+                    <!-- 利益引导 -->
+                    <div class="text-center text-sm text-gray-500 mb-4">
+                        <i class="ri-money-cny-circle-line text-gray-400 align-middle"></i> 审核通过后，即可获得建团积分奖励！
+                    </div>
+                    <div
+                        class="h-14 bg-gray-900 text-white rounded-xl flex items-center justify-center font-bold text-lg">
+                        提交审核
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- E1_2: 系统后台 -->
+        <div class="absolute" style="left: 600px; top: 150px;">
+            <div class="absolute -top-10 left-0 bg-gray-900 text-white text-sm px-3 py-1 rounded shadow-sm z-10">系统架构 ·
+                后台数据中心</div>
+            <div
+                class="w-[375px] h-[812px] bg-gray-100 border border-gray-200 rounded-[40px] shadow-inner flex flex-col items-center justify-center p-8 transform scale-[0.65] origin-top-left">
+                <i class="ri-server-line text-6xl text-gray-400 mb-6"></i>
+                <span class="text-2xl font-bold text-gray-900 text-center">系统后台</span>
+                <span class="text-lg text-gray-500 mt-2 text-center">状态：审核通过 <br> 动作：触发行发积分 (R8)</span>
+            </div>
+        </div>
+
+        <!-- E1_3: CC-4 社团主页 -->
+        <div class="absolute" style="left: 1100px; top: 150px;">
+            <div id="CC-4"
+                class="absolute -top-10 left-0 bg-gray-900 text-white text-sm px-3 py-1 rounded shadow-sm z-10">CC-4 ·
+                社团主页 (建团审核通过首进)</div>
+            <div
+                class="w-[375px] h-[812px] bg-white border border-gray-200 rounded-[40px] shadow-2xl overflow-hidden transform scale-[0.65] origin-top-left flex flex-col pt-10 relative">
+
+                <!-- R8 积分通知 Toast (模拟原生 Toast 展示在页面中上方) -->
+                <div
+                    class="absolute top-24 left-4 right-4 bg-gray-900 p-4 rounded-xl shadow-2xl z-50 flex items-start gap-3">
+                    <i class="ri-checkbox-circle-fill text-2xl text-white"></i>
+                    <div class="flex flex-col">
+                        <span class="text-lg font-bold text-white mb-1">社团创建成功！</span>
+                        <span class="text-sm font-normal text-gray-300">恭喜您，获得 100 初始管理积分</span>
+                    </div>
+                </div>
+
+                <div class="h-[200px] bg-gray-200 relative shrink-0">
+                    <div class="absolute inset-0 flex items-center justify-center text-gray-400">顶部背景区域</div>
+                    <div class="absolute top-4 left-4">
+                        <i class="ri-arrow-left-s-line text-2xl text-white drop-shadow-md"></i>
+                    </div>
+                </div>
+                <div class="px-4 py-4 shrink-0 -mt-6 bg-white rounded-t-3xl relative">
+                    <div
+                        class="w-16 h-16 bg-gray-300 rounded-full border-4 border-white absolute -top-8 text-center leading-[56px] text-gray-100">
+                        Logo</div>
+                    <div class="mt-8 flex items-center justify-between">
+                        <span class="text-2xl font-bold text-gray-900">光影同行摄影社</span>
+                        <div
+                            class="px-3 py-1 rounded-full border border-gray-900 text-gray-900 text-sm font-bold flex items-center gap-1">
+                            <i class="ri-settings-4-line text-sm"></i> 管理
+                        </div>
+                    </div>
+                    <span class="text-sm text-gray-500 mt-2 block">记录生活的每一帧</span>
+                </div>
+                <div class="flex items-center gap-8 px-4 py-2 border-b border-gray-100 shrink-0">
+                    <div class="text-lg font-bold text-gray-900 border-b-2 border-gray-900 pb-2">社团活动</div>
+                    <div class="text-lg font-normal text-gray-500 pb-2">荣誉榜单</div>
+                </div>
+                <div class="flex-1 p-6 flex flex-col items-center justify-center text-gray-400">
+                    <i class="ri-calendar-event-line text-4xl mb-4"></i>
+                    <span>暂无活动，快去发布吧</span>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- ============================================== -->
+        <!-- ROW 2: E2 发布活动得积分 (R9)                  -->
+        <!-- ============================================== -->
+
+        <!-- E2_1: CC-12 社团活动管理 -->
+        <div class="absolute" style="left: 100px; top: 800px;">
+            <div id="CC-12"
+                class="absolute -top-10 left-0 bg-gray-900 text-white text-sm px-3 py-1 rounded shadow-sm z-10">CC-12 ·
+                社团活动管理 (活动列表态)</div>
+            <div
+                class="w-[375px] h-[812px] bg-gray-50 border border-gray-200 rounded-[40px] shadow-2xl overflow-hidden transform scale-[0.65] origin-top-left flex flex-col pt-10">
+                <div class="h-16 bg-white flex items-center px-4 border-b border-gray-100 shrink-0">
+                    <i class="ri-arrow-left-s-line text-2xl text-gray-900"></i>
+                    <span class="text-xl font-bold text-gray-900 mx-auto">社团活动管理</span>
+                </div>
+                <div class="flex-1 overflow-y-auto p-4 flex flex-col gap-4">
+                    <!-- 老活动占位 -->
+                    <div class="bg-white p-4 rounded-xl border border-gray-200">
+                        <span class="font-bold text-lg text-gray-900">春日踏青日记</span>
+                        <div class="mt-2 text-sm text-gray-500">参与人数：12 人</div>
+                    </div>
+                </div>
+                <div class="p-4 bg-white border-t border-gray-100 shrink-0 pb-12">
+                    <div
+                        class="h-14 border border-gray-900 text-gray-900 rounded-xl flex items-center justify-center font-bold text-lg gap-2 cursor-pointer shadow-sm">
+                        <i class="ri-add-line"></i> 发布新活动
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- E2_2: CC-12 新增活动表单 -->
+        <div class="absolute" style="left: 600px; top: 800px;">
+            <div class="absolute -top-10 left-0 bg-gray-900 text-white text-sm px-3 py-1 rounded shadow-sm z-10">类型组件 ·
+                新增活动表单</div>
+            <div
+                class="w-[375px] h-[812px] bg-white border border-gray-200 rounded-[40px] shadow-2xl overflow-hidden transform scale-[0.65] origin-top-left flex flex-col pt-10">
+                <div class="h-16 flex items-center px-4 border-b border-gray-100 shrink-0">
+                    <i class="ri-close-line text-2xl text-gray-900"></i>
+                    <span class="text-xl font-bold text-gray-900 mx-auto">发布新活动</span>
+                </div>
+                <div class="flex-1 p-6 flex flex-col gap-6">
+                    <div class="flex flex-col gap-2">
+                        <span class="text-base font-bold text-gray-900">活动标题</span>
+                        <div class="h-12 border border-gray-200 rounded-xl px-4 flex items-center text-gray-900">
+                            五一劳动节随手拍</div>
+                    </div>
+                    <div class="flex flex-col gap-2">
+                        <span class="text-base font-bold text-gray-900">活动时间</span>
+                        <div
+                            class="h-12 border border-gray-200 rounded-xl px-4 flex items-center justify-between text-gray-900">
+                            <span>05-01 00:00 至 05-07 23:59</span> <i class="ri-calendar-line text-gray-400"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-4 pb-12 border-t border-gray-100">
+                    <div
+                        class="h-14 bg-gray-900 text-white rounded-xl flex items-center justify-center font-bold text-lg">
+                        发布并完成
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- E2_3: CC-12 返回主态并吐司 -->
+        <div class="absolute" style="left: 1100px; top: 800px;">
+            <div class="absolute -top-10 left-0 bg-gray-900 text-white text-sm px-3 py-1 rounded shadow-sm z-10">CC-12 ·
+                社团活动管理 (发布成功返回)</div>
+            <div
+                class="w-[375px] h-[812px] bg-gray-50 border border-gray-200 rounded-[40px] shadow-2xl overflow-hidden transform scale-[0.65] origin-top-left flex flex-col pt-10 relative">
+
+                <!-- R9 积分通知 Toast -->
+                <div
+                    class="absolute top-24 left-4 right-4 bg-gray-900 p-4 rounded-xl shadow-2xl z-50 flex items-start gap-3">
+                    <i class="ri-checkbox-circle-fill text-2xl text-white"></i>
+                    <div class="flex flex-col">
+                        <span class="text-lg font-bold text-white mb-1">活动发布成功！</span>
+                        <span class="text-sm font-normal text-gray-300">平台额外奖励 50 积分</span>
+                    </div>
+                </div>
+
+                <div class="h-16 bg-white flex items-center px-4 border-b border-gray-100 shrink-0">
+                    <i class="ri-arrow-left-s-line text-2xl text-gray-900"></i>
+                    <span class="text-xl font-bold text-gray-900 mx-auto">社团活动管理</span>
+                </div>
+                <div class="flex-1 overflow-y-auto p-4 flex flex-col gap-4">
+                    <!-- 新活动 -->
+                    <div class="bg-white p-4 rounded-xl border border-gray-200 border-l-4 border-l-gray-900">
+                        <span class="font-bold text-lg text-gray-900">五一劳动节随手拍</span>
+                        <div class="mt-2 text-sm text-gray-500">进行中</div>
+                    </div>
+                    <div class="bg-white p-4 rounded-xl border border-gray-200 opacity-60">
+                        <span class="font-bold text-lg text-gray-900">春日踏青日记</span>
+                    </div>
+                </div>
+                <div class="p-4 bg-white border-t border-gray-100 shrink-0 pb-12">
+                    <div
+                        class="h-14 border border-gray-900 text-gray-900 rounded-xl flex items-center justify-center font-bold text-lg gap-2 cursor-pointer">
+                        <i class="ri-add-line"></i> 发布新活动
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- ============================================== -->
+        <!-- ROW 3: E3 达成里程碑得积分 (R10/R11)           -->
+        <!-- ============================================== -->
+
+        <!-- E3_1: 外部前台环境 -->
+        <div class="absolute" style="left: 100px; top: 1450px;">
+            <div class="absolute -top-10 left-0 bg-gray-900 text-white text-sm px-3 py-1 rounded shadow-sm z-10">系统环境 ·
+                成员/内容增长变动</div>
+            <div
+                class="w-[375px] h-[812px] bg-gray-100 border border-gray-200 rounded-[40px] shadow-inner flex flex-col items-center justify-center p-8 transform scale-[0.65] origin-top-left">
+                <i class="ri-user-add-line text-6xl text-gray-400 mb-6"></i>
+                <span class="text-2xl font-bold text-gray-900 text-center">用户日常操作</span>
+                <span
+                    class="text-base text-gray-500 mt-2 text-center leading-relaxed">普通成员发生[申请加入团员]或[提交作品]操作，社团大盘数据被推高。此阶段社团主并不在线。</span>
+            </div>
+        </div>
+
+        <!-- E3_2: 数据引擎系统探测 -->
+        <div class="absolute" style="left: 600px; top: 1450px;">
+            <div class="absolute -top-10 left-0 bg-gray-900 text-white text-sm px-3 py-1 rounded shadow-sm z-10">系统环境 ·
+                数据指标探测引擎</div>
+            <div
+                class="w-[375px] h-[812px] bg-gray-100 border border-gray-200 rounded-[40px] shadow-inner flex flex-col items-center justify-center p-8 transform scale-[0.65] origin-top-left">
+                <i class="ri-bar-chart-2-line text-6xl text-gray-400 mb-6"></i>
+                <span class="text-2xl font-bold text-gray-900 text-center">数据阈值引擎</span>
+                <span class="text-base text-gray-500 mt-2 text-center">检测到社团人数突破 50 人大关。<br>写入发奖队列，等待团长回流消费...</span>
+            </div>
+        </div>
+
+        <!-- E3_3: CC-4 社团主页异步发奖 -->
+        <div class="absolute" style="left: 1100px; top: 1450px;">
+            <!-- ID 给 CC-4 备扫描 -->
+            <div class="absolute -top-10 left-0 bg-gray-900 text-white text-sm px-3 py-1 rounded shadow-sm z-10">CC-4 ·
+                社团主页 (异步领取里程碑发奖)</div>
+            <div
+                class="w-[375px] h-[812px] bg-white border border-gray-200 rounded-[40px] shadow-2xl overflow-hidden transform scale-[0.65] origin-top-left flex flex-col pt-10 relative">
+
+                <!-- R10/R11 强打扰里程碑弹窗 (因为价值高，也可设计为居中模态框，但暂设为高亮强 Toast) -->
+                <div
+                    class="absolute top-24 left-4 right-4 bg-indigo-600 p-5 rounded-xl shadow-2xl z-50 flex items-start gap-4">
+                    <i class="ri-vip-crown-fill text-3xl text-yellow-300"></i>
+                    <div class="flex flex-col">
+                        <span class="text-lg font-bold text-white mb-1">社团里程碑达成！</span>
+                        <span class="text-sm font-normal text-indigo-100 leading-snug">恭喜，您的社团已集结 50 位成员！<br>平台派发 500
+                            积分大礼包。</span>
+                    </div>
+                </div>
+
+                <div class="h-[200px] bg-gray-200 relative shrink-0"></div>
+                <div class="px-4 py-4 shrink-0 -mt-6 bg-white rounded-t-3xl relative">
+                    <div class="w-16 h-16 bg-gray-300 rounded-full border-4 border-white absolute -top-8"></div>
+                    <div class="mt-8 flex items-center justify-between">
+                        <span class="text-2xl font-bold text-gray-900">光影同行摄影社</span>
+                        <div
+                            class="px-3 py-1 rounded-full border border-gray-900 text-gray-900 text-sm font-bold flex items-center gap-1">
+                            <i class="ri-settings-4-line text-sm"></i> 管理
+                        </div>
+                    </div>
+                    <span class="text-sm text-gray-500 mt-1 block">成员: 50人 · 作品: 213件</span>
+                </div>
+                <div class="flex items-center gap-8 px-4 py-2 border-b border-gray-100 shrink-0">
+                    <div class="text-lg font-bold text-gray-900 border-b-2 border-gray-900 pb-2">社团活动</div>
+                </div>
+                <div class="flex-1 p-6">
+                    <div class="bg-gray-100 h-24 rounded-xl mb-4"></div>
+                    <div class="bg-gray-100 h-24 rounded-xl"></div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>
+
+</html>

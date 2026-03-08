@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CC-4 社团主页 - 线框图</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-200 min-h-screen flex justify-center p-12 overflow-x-auto no-scrollbar">
+
+    <div id="artboard" class="flex flex-row items-start gap-24">
+
+        <!-- ============================================================
+             区域 A：主视图 (Left Column - Main View)
+             ============================================================ -->
+        <div class="flex flex-col">
+            <h2 class="text-xl font-bold text-gray-900 mb-4">CC-4 社团主页 (状态 I：正常态)</h2>
+            <div
+                class="w-[375px] h-auto bg-white shadow-2xl border border-gray-200 relative p-0 overflow-hidden rounded-none flex flex-col">
+
+                <!-- Navbar (h-16) -->
+                <div class="h-16 flex items-center px-4 border-b border-gray-200 sticky top-0 bg-white z-20">
+                    <div class="flex-1"><i class="ri-arrow-left-s-line text-2xl text-gray-900"></i></div>
+                    <div class="text-xl font-bold text-gray-900">社团主页</div>
+                    <div class="flex-1 text-right"><i class="ri-more-fill text-xl text-gray-900"></i></div>
+                </div>
+
+                <!-- Scrollable Content -->
+                <div class="flex-1 overflow-y-auto pb-32">
+
+                    <!-- Hero Area (英雄区) -->
+                    <div class="relative h-64 bg-gray-100 overflow-hidden">
+                        <div class="absolute inset-0 bg-gray-400 opacity-20"></div> <!-- 毛玻璃模拟 -->
+                        <div class="absolute inset-0 flex items-center justify-center text-gray-300 italic">社团大幅背景图
+                        </div>
+
+                        <!-- Header Info Card -->
+                        <div class="absolute bottom-0 left-0 right-0 p-6 flex flex-col gap-4">
+                            <div class="flex items-center gap-4">
+                                <div
+                                    class="w-16 h-16 bg-gray-200 rounded-full border-2 border-white flex items-center justify-center text-gray-400">
+                                    Logo</div>
+                                <div class="flex flex-col">
+                                    <div class="text-2xl font-bold text-gray-900 drop-shadow-sm">光影同行摄影社</div>
+                                    <div class="text-base text-gray-900 font-medium">社团主：王大旗</div>
+                                </div>
+                            </div>
+                            <!-- Stats -->
+                            <div class="flex gap-6">
+                                <div class="flex flex-col">
+                                    <span class="text-xl font-bold text-gray-900">128</span>
+                                    <span class="text-base text-gray-500">作品数</span>
+                                </div>
+                                <div class="flex flex-col">
+                                    <span class="text-xl font-bold text-gray-900">1.2k</span>
+                                    <span class="text-base text-gray-500">获赞数</span>
+                                </div>
+                            </div>
+                            <!-- Description (Collapsible) -->
+                            <div class="flex items-start gap-2 max-w-[90%]">
+                                <p class="text-base text-gray-700 leading-tight line-clamp-2">
+                                    记录指尖下的光影流动，分享退休生活中的每一抹灿烂春色。我们在这里一起学习摄影，一起发现美。</p>
+                                <i class="ri-arrow-down-s-line text-gray-400 mt-1"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="flex gap-4 px-6 py-6 border-b border-gray-100">
+                        <div
+                            class="flex-1 h-14 rounded-2xl border border-gray-900 flex items-center justify-center text-lg font-medium text-gray-900">
+                            分享给好友</div>
+                        <div
+                            class="flex-1 h-14 rounded-2xl bg-gray-900 text-white flex items-center justify-center text-lg font-medium">
+                            邀请加入</div>
+                    </div>
+
+                    <!-- Members Section -->
+                    <div class="px-6 py-6 border-b border-gray-100 flex items-center justify-between">
+                        <div class="flex items-center gap-2">
+                            <div class="flex -space-x-3">
+                                <div class="w-10 h-10 rounded-full bg-gray-200 border-2 border-white"></div>
+                                <div class="w-10 h-10 rounded-full bg-gray-300 border-2 border-white"></div>
+                                <div class="w-10 h-10 rounded-full bg-gray-400 border-2 border-white"></div>
+                            </div>
+                            <span class="text-lg font-normal text-gray-700 ml-2">56 位成员</span>
+                        </div>
+                        <i class="ri-arrow-right-s-line text-2xl text-gray-400"></i>
+                    </div>
+
+                    <!-- Tabs/Navigation -->
+                    <div class="flex items-center gap-8 px-6 py-4 border-b border-gray-100">
+                        <div class="text-xl font-bold text-gray-900 border-b-2 border-gray-900 pb-2">社团活动</div>
+                        <div class="text-xl font-normal text-gray-400 pb-2">荣誉榜单</div>
+                    </div>
+
+                    <!-- Waterfall/Content Area -->
+                    <div class="px-4 py-4 grid grid-cols-1 gap-6">
+                        <!-- Card 1 -->
+                        <div class="rounded-3xl border border-gray-200 overflow-hidden flex flex-col">
+                            <div
+                                class="h-48 bg-gray-100 flex items-center justify-center text-gray-300 italic uppercase tracking-widest text-base">
+                                Activity Cover</div>
+                            <div class="p-6">
+                                <div class="text-xl font-bold text-gray-900 mb-2">夕阳红摄影外采 - 奥林匹克公园站</div>
+                                <div class="flex justify-between items-center text-base text-gray-400">
+                                    <span>24 个作品</span>
+                                    <span>10-24 进行中</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Card 2 -->
+                        <div class="rounded-3xl border border-gray-200 overflow-hidden flex flex-col">
+                            <div
+                                class="h-48 bg-gray-100 flex items-center justify-center text-gray-300 italic uppercase tracking-widest text-base">
+                                Activity Cover</div>
+                            <div class="p-6">
+                                <div class="text-xl font-bold text-gray-900 mb-2">最美不过家乡水 摄影评选活动</div>
+                                <div class="flex justify-between items-center text-base text-gray-400">
+                                    <span>86 个作品</span>
+                                    <span>已结束</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Floating "+" Button -->
+                <div
+                    class="absolute right-6 bottom-28 w-16 h-16 rounded-full bg-purple-600 shadow-xl flex flex-col items-center justify-center text-white pointer-events-auto z-10">
+                    <i class="ri-add-line text-3xl"></i>
+                    <span class="text-[10px] -mt-1 font-bold">投稿</span>
+                </div>
+
+                <!-- Bottom Sticky Pedestal -->
+                <div
+                    class="absolute bottom-0 left-0 right-0 h-20 bg-white border-t border-gray-200 flex items-center justify-center z-20">
+                    <div class="text-lg font-bold text-gray-900 flex items-center gap-2">
+                        <i class="ri-shield-user-line"></i> 社团主管理模式
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================
+             区域 B：组件变体集 (Right Column - Component Variants)
+             ============================================================ -->
+        <div class="flex flex-col gap-10 w-[360px]">
+            <h2 class="text-xl font-bold text-gray-900">多状态展示</h2>
+
+            <!-- 状态 II：里程碑结算大礼包 (Modal) -->
+            <div class="flex flex-col">
+                <div class="text-lg font-bold text-gray-700 mb-4 pl-3 border-l-4 border-gray-900">状态 II：里程碑结算大礼包 (Modal)
+                </div>
+                <div class="bg-white p-0 border border-gray-200 solid shadow-md rounded-none relative">
+                    <!-- Dark Overlay Placeholder -->
+                    <div class="w-full bg-gray-900 bg-opacity-80 p-6 flex items-center justify-center min-h-[400px]">
+                        <!-- Modal Content -->
+                        <div class="bg-white rounded-3xl p-8 w-[300px] flex flex-col items-center text-center">
+                            <div class="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mb-6">
+                                <i class="ri-gift-line text-4xl text-gray-900"></i>
+                            </div>
+                            <div class="text-2xl font-bold text-gray-900 mb-2">恭喜达成多项里程碑！</div>
+                            <div class="text-lg text-gray-500 mb-6 font-normal">您的社团经营有方，快来签收奖励</div>
+
+                            <!-- Award List -->
+                            <div class="w-full bg-gray-50 rounded-2xl p-4 mb-6 flex flex-col gap-3">
+                                <div class="flex justify-between items-center text-lg">
+                                    <span class="text-gray-700">建团审核通过</span>
+                                    <span class="font-bold text-gray-900">+ 500</span>
+                                </div>
+                                <div class="flex justify-between items-center text-lg">
+                                    <span class="text-gray-700">成员突破 50 人</span>
+                                    <span class="font-bold text-gray-900">+ 500</span>
+                                </div>
+                            </div>
+
+                            <!-- Total -->
+                            <div class="mb-8">
+                                <span class="text-base text-gray-400">本次共计获得</span>
+                                <div class="text-4xl font-bold text-gray-900 mt-1">1000 <span class="text-xl">积分</span>
+                                </div>
+                            </div>
+
+                            <!-- CTA -->
+                            <div
+                                class="w-full h-14 rounded-2xl bg-gray-900 text-white flex items-center justify-center text-xl font-medium">
+                                开心收下
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 说明条目 -->
+            <div class="flex flex-col">
+                <div class="text-lg font-bold text-gray-700 mb-4 pl-3 border-l-4 border-gray-900">界面逻辑说明</div>
+                <div class="bg-white p-6 border border-gray-200 solid shadow-md rounded-none">
+                    <ul class="text-base text-gray-700 flex flex-col gap-4 list-disc pl-5">
+                        <li><span class="font-bold">拦截逻辑：</span>社团主首次进入或刷新页面时，异步积分弹窗全文阻断背景交互。</li>
+                        <li><span class="font-bold">强交互收分：</span>去除右上角弱关闭按钮，强制用户点击“开心收下”完成入账感知。</li>
+                        <li><span class="font-bold">分期演进：</span>本页面的基座展示逻辑（瀑布流/Hero区）维持 v1.0 稳定，仅增强发奖触达。</li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>

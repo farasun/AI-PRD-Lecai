@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Flow E3 · 达成里程碑得积分(R10/R11)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <style>
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .bg-dot-grid {
+            background-image: radial-gradient(circle, #cbd5e1 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+    </style>
+</head>
+
+<body class="m-0 p-0 bg-gray-200 no-scrollbar">
+
+    <div
+        style="position:fixed;top:24px;left:24px;z-index:50;background:rgba(17,24,39,0.85);backdrop-filter:blur(8px);border-radius:12px;padding:12px 20px;">
+        <div style="font-size:16px;font-weight:700;color:#fff;">流程E3 · 达成里程碑得积分(R10/R11)</div>
+        <div style="font-size:12px;color:#9ca3af;margin-top:4px;">v1.1 · Low-Fi Flow Map · 2026-03-08</div>
+    </div>
+
+    <div class="relative bg-dot-grid w-[2400px] h-[900px] no-scrollbar font-sans text-gray-900">
+        <svg class="absolute inset-0 w-full h-full pointer-events-none z-0">
+            <defs>
+                <marker id="arrow-gray" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                    <path d="M0,0 L0,6 L9,3 z" fill="#94a3b8" />
+                </marker>
+                <marker id="arrow-gray-dashed" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                    <path d="M0,0 L0,6 L9,3 z" fill="#94a3b8" />
+                </marker>
+            </defs>
+
+            <path d="M 344 414 C 472 414, 472 414, 600 414" stroke="#94a3b8" stroke-width="2" fill="none"
+                marker-end="url(#arrow-gray)" />
+            <rect x="412" y="399" width="120" height="30" fill="#f8fafc" rx="4" />
+            <text x="472" y="419" fill="#64748b" font-size="14" font-weight="500" text-anchor="middle">触发数据增长</text>
+
+            <path d="M 844 414 C 972 414, 972 414, 1100 414" stroke="#94a3b8" stroke-width="2" stroke-dasharray="6,4"
+                fill="none" marker-end="url(#arrow-gray-dashed)" />
+            <rect x="882" y="399" width="180" height="30" fill="#f8fafc" rx="4" />
+            <text x="972" y="419" fill="#64748b" font-size="14" font-weight="500"
+                text-anchor="middle">异步触发R10/R11奖励</text>
+        </svg>
+
+        <!-- Node 1 -->
+        <div class="absolute" style="left: 100px; top: 150px;">
+            <div class="absolute -top-10 left-0 bg-gray-900 text-white text-sm px-3 py-1 rounded shadow-sm z-10">系统环境 ·
+                成员/内容增长变动</div>
+            <div
+                class="w-[375px] h-[812px] bg-gray-100 border border-gray-200 rounded-[40px] shadow-inner flex flex-col items-center justify-center p-8 transform scale-[0.65] origin-top-left">
+                <i class="ri-user-add-line text-6xl text-gray-400 mb-6"></i>
+                <span class="text-2xl font-bold text-gray-900 text-center">用户日常操作</span>
+                <span
+                    class="text-base text-gray-500 mt-2 text-center leading-relaxed">普通成员发生[申请加入团员]或[提交作品]操作，社团大盘数据被推高。此阶段社团主并不在线。</span>
+            </div>
+        </div>
+
+        <!-- Node 2 -->
+        <div class="absolute" style="left: 600px; top: 150px;">
+            <div class="absolute -top-10 left-0 bg-gray-900 text-white text-sm px-3 py-1 rounded shadow-sm z-10">系统环境 ·
+                数据指标探测引擎</div>
+            <div
+                class="w-[375px] h-[812px] bg-gray-100 border border-gray-200 rounded-[40px] shadow-inner flex flex-col items-center justify-center p-8 transform scale-[0.65] origin-top-left">
+                <i class="ri-bar-chart-2-line text-6xl text-gray-400 mb-6"></i>
+                <span class="text-2xl font-bold text-gray-900 text-center">数据阈值引擎</span>
+                <span class="text-base text-gray-500 mt-2 text-center">检测到社团人数突破 50 人大关。<br>写入发奖队列，等待团长回流消费...</span>
+            </div>
+        </div>
+
+        <!-- Node 3 -->
+        <div class="absolute" style="left: 1100px; top: 150px;">
+            <div id="CC-4"
+                class="absolute -top-10 left-0 bg-gray-900 text-white text-sm px-3 py-1 rounded shadow-sm z-10">CC-4 ·
+                社团主页 (异步领取里程碑发奖)</div>
+            <div
+                class="w-[375px] h-[812px] bg-white border border-gray-200 rounded-[40px] shadow-2xl overflow-hidden transform scale-[0.65] origin-top-left flex flex-col pt-10 relative">
+                <div
+                    class="absolute top-24 left-4 right-4 bg-indigo-600 p-5 rounded-xl shadow-2xl z-50 flex items-start gap-4">
+                    <i class="ri-vip-crown-fill text-3xl text-yellow-300"></i>
+                    <div class="flex flex-col">
+                        <span class="text-lg font-bold text-white mb-1">社团里程碑达成！</span>
+                        <span class="text-sm font-normal text-indigo-100 leading-snug">恭喜，您的社团已集结 50 位成员！<br>平台派发 500
+                            积分大礼包。</span>
+                    </div>
+                </div>
+                <div class="h-[200px] bg-gray-200 relative shrink-0"></div>
+                <div class="px-4 py-4 shrink-0 -mt-6 bg-white rounded-t-3xl relative">
+                    <div class="w-16 h-16 bg-gray-300 rounded-full border-4 border-white absolute -top-8"></div>
+                    <div class="mt-8 flex items-center justify-between">
+                        <span class="text-2xl font-bold text-gray-900">光影同行摄影社</span>
+                        <div
+                            class="px-3 py-1 rounded-full border border-gray-900 text-gray-900 text-sm font-bold flex items-center gap-1">
+                            <i class="ri-settings-4-line text-sm"></i> 管理</div>
+                    </div>
+                    <span class="text-sm text-gray-500 mt-1 block">成员: 50人 · 作品: 213件</span>
+                </div>
+                <div class="flex items-center gap-8 px-4 py-2 border-b border-gray-100 shrink-0">
+                    <div class="text-lg font-bold text-gray-900 border-b-2 border-gray-900 pb-2">社团活动</div>
+                </div>
+                <div class="flex-1 p-6">
+                    <div class="bg-gray-100 h-24 rounded-xl mb-4"></div>
+                    <div class="bg-gray-100 h-24 rounded-xl"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
