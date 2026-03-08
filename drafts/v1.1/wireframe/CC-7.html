@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CC-7 社团提交作品表单</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+</head>
+
+<body class="bg-gray-200 min-h-screen flex justify-center p-12 overflow-x-auto">
+
+    <!-- 画板容器 -->
+    <div id="artboard" class="flex flex-row items-start gap-24">
+
+        <!-- 区域 A：主视图 -->
+        <div class="flex flex-col">
+            <h1 class="text-xl font-bold text-gray-900 mb-4">CC-7 社团提交作品表单 (状态 I：空表单态)</h1>
+            <div
+                class="w-[375px] h-[812px] bg-white shadow-2xl border border-gray-200 relative p-0 overflow-hidden rounded-none flex flex-col">
+
+                <!-- Navbar -->
+                <div
+                    class="h-16 flex items-center justify-between px-6 border-b border-gray-100 bg-white z-10 shrink-0">
+                    <button class="text-gray-900 font-normal text-lg">
+                        取消
+                    </button>
+                    <span class="text-xl font-bold text-gray-900 truncate flex-1 text-center"></span>
+                    <div class="w-10"></div> <!-- 占位保持居中 -->
+                </div>
+
+                <!-- 表单滚动区 -->
+                <div class="flex-1 overflow-y-auto w-full flex flex-col pt-6 pb-24">
+
+                    <!-- 多媒体上传区 -->
+                    <div class="px-6 mb-4">
+                        <button
+                            class="w-32 h-32 border border-dashed border-gray-300 rounded-2xl flex flex-col items-center justify-center bg-gray-50 text-gray-400">
+                            <i class="ri-add-line text-4xl mb-1"></i>
+                            <span class="text-base font-normal">添加照片/视频</span>
+                        </button>
+                    </div>
+
+                    <!-- 获益动机强化条 (v1.1 增量核心模块) -->
+                    <div class="px-6 mb-8">
+                        <div class="bg-gray-50 rounded-xl p-4 flex items-center border border-gray-100">
+                            <div
+                                class="w-10 h-10 rounded-full bg-white flex items-center justify-center border border-gray-200 shadow-sm mr-3 shrink-0 text-gray-900">
+                                <i class="ri-copper-coin-line text-2xl animate-pulse"></i>
+                            </div>
+                            <span class="text-lg font-normal text-gray-700 flex-1 leading-snug">
+                                上传后可获得 <strong class="font-bold text-gray-900">10 积分</strong>
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- 隔离条 -->
+                    <div class="w-full h-2 bg-gray-50 mb-6"></div>
+
+                    <!-- 文字编辑区 -->
+                    <div class="px-6 flex flex-col flex-1">
+                        <input type="text" placeholder="添加标题（选填）"
+                            class="w-full h-14 border-b border-gray-200 text-xl font-bold text-gray-900 focus:outline-none placeholder-gray-300 pb-2 mb-4" />
+                        <textarea placeholder="添加这里想对大家说的话（选填）"
+                            class="w-full h-40 border-none resize-none text-lg font-normal text-gray-700 focus:outline-none placeholder-gray-300"></textarea>
+                    </div>
+
+                </div>
+
+                <!-- 底部操作悬浮带 -->
+                <div
+                    class="absolute bottom-0 left-0 w-full bg-white border-t border-gray-200 p-4 pb-8 z-20 shadow-[0_-4px_10px_rgba(0,0,0,0.03)]">
+                    <button
+                        class="w-full h-14 rounded-2xl bg-gray-900 text-white font-medium text-lg flex items-center justify-center opacity-50 cursor-not-allowed">
+                        发布
+                    </button>
+                    <p class="text-center text-sm font-normal text-gray-400 mt-3 flex items-center justify-center">
+                        <i class="ri-information-line mr-1"></i> 请先添加照片或视频
+                    </p>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- 区域 B：组件变体集 -->
+        <div class="flex flex-col gap-10 w-[360px]">
+            <h2 class="text-xl font-bold text-gray-900 mb-0">多状态展示</h2>
+
+            <!-- 变体 1：已选择媒体状态 -->
+            <div class="bg-white p-6 border border-gray-200 border-solid shadow-md rounded-none">
+                <h3 class="text-lg font-bold text-gray-700 mb-4 pl-3 border-l-4 border-gray-900">状态 II：已选媒体态</h3>
+                <div class="p-4 bg-white border border-gray-200 rounded-3xl pb-10">
+                    <div class="flex flex-wrap gap-4 mb-4">
+                        <!-- 第一张照片缩略图 -->
+                        <div
+                            class="w-24 h-24 rounded-2xl bg-gray-100 border border-gray-200 relative flex items-center justify-center">
+                            <i class="ri-image-line text-4xl text-gray-300"></i>
+                            <button
+                                class="absolute -top-2 -right-2 w-6 h-6 bg-white border border-gray-200 text-gray-700 rounded-full flex items-center justify-center shadow-sm">
+                                <i class="ri-close-line text-sm"></i>
+                            </button>
+                        </div>
+                        <!-- 继续添加按钮 -->
+                        <button
+                            class="w-24 h-24 border border-dashed border-gray-300 rounded-2xl flex flex-col items-center justify-center bg-gray-50 text-gray-400">
+                            <i class="ri-add-line text-3xl"></i>
+                        </button>
+                    </div>
+                </div>
+                <p class="text-base text-gray-400 mt-4 leading-relaxed">
+                    说明：选择图片后，原居中的巨大添加按钮缩减为横向排布的缩略图网格。此时底部的「发布」按钮将解除锁定，变为高亮的黑底白字。
+                </p>
+            </div>
+
+            <!-- 变体 2：首次发布额外奖励 -->
+            <div class="bg-white p-6 border border-gray-200 border-solid shadow-md rounded-none">
+                <h3 class="text-lg font-bold text-gray-700 mb-4 pl-3 border-l-4 border-gray-900">状态 III：新人多任务激励态</h3>
+                <div class="bg-gray-50 rounded-xl p-4 flex flex-col border border-gray-100">
+                    <div class="flex items-center mb-2">
+                        <div
+                            class="w-10 h-10 rounded-full bg-white flex items-center justify-center border border-gray-200 shadow-sm mr-3 shrink-0 text-gray-900">
+                            <i class="ri-gift-line text-2xl"></i>
+                        </div>
+                        <span class="text-lg font-normal text-gray-700 flex-1 leading-snug">
+                            完成首次发布，预计可获 <strong class="font-bold text-gray-900">10 积分</strong>
+                        </span>
+                    </div>
+                    <div class="pl-13 ml-13 flex flex-col gap-1 text-base text-gray-400">
+                        <div class="flex items-center"><i class="ri-checkbox-circle-line text-green-500 mr-1"></i>
+                            上传作品基础分 (+3)</div>
+                        <div class="flex items-center"><i class="ri-arrow-right-circle-line text-gray-300 mr-1"></i>
+                            新手首次奖励 (+7)</div>
+                    </div>
+                </div>
+                <p class="text-base text-gray-400 mt-4 leading-relaxed">
+                    说明：当系统识别用户叠加了其他成就（如首次发布）时，横幅内容升级，展开细节进度，强化“一次操作多重收益”的爽感。
+                </p>
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -7,6 +8,7 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet" />
 </head>
+
 <body class="bg-gray-200 min-h-screen flex justify-center p-12 overflow-x-auto">
 
   <div class="flex flex-row items-start gap-24">
@@ -28,6 +30,10 @@
           <span class="text-base text-gray-400">当前积分</span>
           <span class="text-5xl font-bold text-gray-900">128</span>
           <span class="text-base text-gray-400">积分</span>
+          <button
+            class="mt-4 px-4 py-1.5 border border-gray-900 rounded-full text-sm font-medium text-gray-900 flex items-center justify-center gap-1">
+            兑换礼品 <i class="ri-arrow-right-s-line"></i>
+          </button>
         </div>
 
         <!-- 积分记录列表标题 -->
@@ -104,7 +110,8 @@
           <i class="ri-inbox-line text-[56px] text-gray-200"></i>
           <span class="text-lg font-normal text-gray-400 text-center">还没有积分记录</span>
           <span class="text-base text-gray-400 text-center">去签到或上传作品开始累积吧！</span>
-          <button class="h-14 bg-gray-900 text-white font-medium rounded-2xl w-full text-lg text-center flex items-center justify-center">
+          <button
+            class="h-14 bg-gray-900 text-white font-medium rounded-2xl w-full text-lg text-center flex items-center justify-center">
             去签到
           </button>
         </div>
@@ -145,9 +152,32 @@
         </div>
       </div>
 
+      <!-- 变体卡片 3：线下兑换说明弹层 -->
+      <div class="bg-white p-6 border border-gray-200 shadow-md rounded-none">
+        <div class="text-lg font-bold text-gray-700 mb-4 pl-3 border-l-4 border-gray-900">状态 III：线下兑换说明弹层</div>
+        <div class="h-[340px] bg-gray-100 rounded-xl relative overflow-hidden flex items-center justify-center p-4">
+          <!-- 模拟背景遮罩 -->
+          <div class="absolute inset-0 bg-black/40 z-0"></div>
+          <!-- 弹窗面板 -->
+          <div class="w-full bg-white rounded-3xl p-6 shadow-2xl z-10 flex flex-col">
+            <span class="text-xl font-bold text-gray-900 mb-4 text-center">兑换说明</span>
+            <span class="text-lg font-normal text-gray-700 mb-6 leading-relaxed">
+              线上积分商城正在紧张筹备中。目前，您可以凭借积分，向您的<strong class="font-bold text-gray-900">社团主（班长）</strong>报名兑换线下活动的专属福利或精美纪念品。
+            </span>
+            <span class="text-base text-gray-400 mb-8 text-center">
+              具体可兑换物品，请在微信群内直接咨询班长。
+            </span>
+            <button class="min-h-[56px] bg-gray-900 text-white font-medium rounded-2xl w-full text-lg">
+              我知道了
+            </button>
+          </div>
+        </div>
+      </div>
+
     </div>
 
   </div>
 
 </body>
+
 </html>

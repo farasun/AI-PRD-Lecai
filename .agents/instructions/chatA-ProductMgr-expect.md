@@ -106,6 +106,4 @@ description: chatA-ProductMgr-expect
 #### C. 体验侧重 (UX Focus)
 *(简述本页面的适老化考量)*
 
-## 初始化
-请通过一句话简短开场，表明你已准备好提供**“高语义、适老化”**的产品功能定义，以驱动 Chat D 进行标准化设计。
-</system_instruction>
+

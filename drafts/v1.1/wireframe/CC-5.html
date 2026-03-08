@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CC-5 社团活动详情</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+</head>
+
+<body class="bg-gray-200 min-h-screen flex justify-center p-12 overflow-x-auto">
+
+    <!-- 画板容器 -->
+    <div id="artboard" class="flex flex-row items-start gap-24">
+
+        <!-- 区域 A：主视图 -->
+        <div class="flex flex-col">
+            <h1 class="text-xl font-bold text-gray-900 mb-4">CC-5 社团活动详情 (状态 I：正常态)</h1>
+            <div
+                class="w-[375px] h-auto min-h-[812px] bg-white shadow-2xl border border-gray-200 relative p-0 overflow-hidden rounded-none flex flex-col">
+
+                <!-- Navbar -->
+                <div
+                    class="h-16 flex items-center justify-between px-4 border-b border-gray-200 bg-white z-10 sticky top-0">
+                    <button class="flex items-center text-gray-900">
+                        <i class="ri-arrow-left-s-line text-2xl"></i>
+                        <span class="text-lg font-normal ml-1">返回社团</span>
+                    </button>
+                    <span class="text-xl font-bold text-gray-900 truncate flex-1 text-center px-2">春日摄影展</span>
+                    <button class="text-gray-900 border-0 bg-transparent flex items-center justify-center p-2">
+                        <i class="ri-more-fill text-2xl"></i>
+                    </button>
+                </div>
+
+                <!-- 页面主体可滚动区 -->
+                <div class="flex-1 overflow-y-auto pb-24">
+                    <!-- 活动海报与元数据 -->
+                    <div class="w-full">
+                        <div
+                            class="w-full h-48 bg-gray-100 flex items-center justify-center text-gray-400 font-normal tracking-widest text-lg">
+                            <i class="ri-image-line text-4xl"></i>
+                        </div>
+                        <div class="px-6 py-4 border-b border-gray-100 bg-white">
+                            <div class="text-2xl font-bold text-gray-900 mb-2">春日摄影展</div>
+                            <div class="text-base text-gray-400">2026-03-08 · 128 件作品</div>
+                        </div>
+                    </div>
+
+                    <!-- 瀑布流作品专区 -->
+                    <div class="p-4 bg-gray-50 min-h-[400px]">
+                        <div class="columns-2 gap-4">
+                            <!-- 卡片 1 -->
+                            <div class="break-inside-avoid mb-4">
+                                <div class="p-3 rounded-3xl border border-gray-200 bg-white flex flex-col">
+                                    <div
+                                        class="w-full h-32 bg-gray-100 rounded-2xl flex items-center justify-center text-gray-400 text-3xl">
+                                        <i class="ri-image-line"></i>
+                                    </div>
+                                    <div class="mt-3 text-lg font-normal text-gray-700 truncate">公园采风</div>
+                                    <div class="mt-1 flex items-center gap-2">
+                                        <div
+                                            class="w-6 h-6 rounded-full bg-gray-100 flex items-center justify-center text-gray-400 text-xs">
+                                            <i class="ri-user-3-line p-0.5"></i>
+                                        </div>
+                                        <span class="text-base text-gray-400 truncate">张老师</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- 卡片 2 -->
+                            <div class="break-inside-avoid mb-4">
+                                <div class="p-3 rounded-3xl border border-gray-200 bg-white flex flex-col">
+                                    <div
+                                        class="w-full h-48 bg-gray-100 rounded-2xl flex items-center justify-center text-gray-400 text-3xl">
+                                        <i class="ri-video-line"></i>
+                                    </div>
+                                    <div class="mt-3 text-lg font-normal text-gray-700 truncate">花卉展览记录</div>
+                                    <div class="mt-1 flex items-center gap-2">
+                                        <div
+                                            class="w-6 h-6 rounded-full bg-gray-100 flex items-center justify-center text-gray-400 text-xs">
+                                            <i class="ri-user-3-line p-0.5"></i>
+                                        </div>
+                                        <span class="text-base text-gray-400 truncate">李队长</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- 卡片 3 -->
+                            <div class="break-inside-avoid mb-4">
+                                <div class="p-3 rounded-3xl border border-gray-200 bg-white flex flex-col">
+                                    <div
+                                        class="w-full h-24 bg-gray-100 rounded-2xl flex items-center justify-center text-gray-400 text-3xl">
+                                        <i class="ri-image-line"></i>
+                                    </div>
+                                    <div class="mt-3 text-lg font-normal text-gray-700 truncate">迎春花</div>
+                                    <div class="mt-1 flex items-center gap-2">
+                                        <div
+                                            class="w-6 h-6 rounded-full bg-gray-100 flex items-center justify-center text-gray-400 text-xs">
+                                            <i class="ri-user-3-line p-0.5"></i>
+                                        </div>
+                                        <span class="text-base text-gray-400 truncate">王阿姨</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 底部操作悬浮带 -->
+                <div
+                    class="absolute bottom-0 left-0 w-full bg-white/95 backdrop-blur-md border-t border-gray-200 p-4 pb-8 z-20">
+                    <button
+                        class="w-full h-14 rounded-2xl bg-gray-900 text-white font-medium text-lg flex items-center justify-center shadow-lg">
+                        <i class="ri-add-line text-xl mr-2"></i> 上传我的作品
+                    </button>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- 区域 B：组件变体集 -->
+        <div class="flex flex-col gap-10 w-[360px]">
+            <h2 class="text-xl font-bold text-gray-900 mb-0">多状态展示</h2>
+
+            <!-- 变体 1：活动为空 -->
+            <div class="bg-white p-6 border border-gray-200 border-solid shadow-md rounded-none">
+                <h3 class="text-lg font-bold text-gray-700 mb-4 pl-3 border-l-4 border-gray-900">状态 I：空状态</h3>
+                <div class="py-10 flex flex-col items-center justify-center text-center">
+                    <i class="ri-folder-open-line text-6xl text-gray-200 mb-4"></i>
+                    <p class="text-lg font-normal text-gray-700 mb-6">这里空空如也，快去发现新活动吧！</p>
+                    <button class="h-14 px-8 bg-gray-900 text-white font-medium rounded-2xl">
+                        去广场看看
+                    </button>
+                </div>
+            </div>
+
+            <!-- 变体 2：积分到账通知（Toast） -->
+            <div class="bg-white p-6 border border-gray-200 border-solid shadow-md rounded-none">
+                <h3 class="text-lg font-bold text-gray-700 mb-4 pl-3 border-l-4 border-gray-900">状态 II：积分到账态</h3>
+                <!-- 在灰色模拟背景上展示纯净的 Toast -->
+                <div
+                    class="h-[240px] bg-gray-100 rounded-xl relative overflow-hidden flex items-start justify-center pt-8">
+                    <!-- 弹层状态，悬浮于页面居中偏上位置 -->
+                    <div
+                        class="bg-gray-900 text-white px-6 py-3 rounded-full shadow-xl flex items-center z-50 animate-bounce">
+                        <i class="ri-copper-coin-line text-xl mr-2"></i>
+                        <span class="text-lg font-normal">您的作品已入库，获得 10 积分！</span>
+                    </div>
+
+                    <!-- 背景占位图案 -->
+                    <div class="absolute inset-0 opacity-20 pointer-events-none flex items-center justify-center">
+                        <i class="ri-image-line text-6xl text-gray-400"></i>
+                    </div>
+                </div>
+                <p class="text-base text-gray-400 mt-4 leading-relaxed">
+                    说明：用户从提交作品表单返回本页后触发。全局绝对定位悬浮提示，不产生点击交互干扰，停留数秒后自动消失。
+                </p>
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>

@@ -38,23 +38,63 @@ AI-PRD-Lecai/
 
 ---
 
-## 🎨 设计管线与模板标准 (Design Pipeline)
+## 🎨 标准工作流管线 (Standard Design Pipeline)
 
-每个迭代文件夹（无论在 `releases/` 还是 `drafts/`）都必须遵循统一的结构与标准工作流：
+基于实际业务流转复盘，每个迭代（如 `drafts/v1.1`）需严格遵循以下 7 步核心管线。此管线体现了从“宏观总规”到“微观界面”的「自顶向下」设计演进逻辑：
+
+### 🎯 Step 0 — 专家前置审阅 (Review)
+* **角色**：业务专项专家（如 `li-yue-expert.md`）
+* **任务**：从银发经济、S2B2C 视角对迭代计划进行审阅，确认激励差异是否合理、是否存在业务遗漏或合规风险。
+* **产出物**：`drafts/v{X.Y}/review/li-yue-review.md`
+
+### 🗺️ Step 1 — 迭代宏观规划与总规输出 (Foundation & Scope)
+* **任务**：确定本次迭代的宏观规则机制与页面清单边界。所有的**版本级总规则不要藏在单页面的需求里**，需作为独立总纲存在。
+* **产出物**（直接存放于迭代根目录或 `foundation/`）：
+  * 版本业务规则/说明书（如 `points-system-v1.1.md`）
+  * 版本迭代页面清单：`PageList.md` (或更新至根目录总表)
+  * 页面流程划分框架：`flow/flow-framework.md`
+
+### 🔄 Step 2 — 业务全景流程拆解与组装 (Flow)
+这是一条微型流水线，旨在把业务规则映射为带有“节点价值”的用户旅程：
+* **Step 2a (定义框架)**：专家角色定义核心流程线及其起点、终点和核心价值。
+* **Step 2b (编排节点)**：产品经理 `Chat A` 结合页面编号，定义每条流程的精确跳转动作。**注意：每条独立流程必须单独输出一份 Mermaid 流程图代码（如 `xxx-flow-A.mmd`），禁止将多条流程合并在一个文件中**。
+* **Step 2c (视觉渲染)**：调用工作流 `/Low-Fi-Flow-Map-Plugin`，将草图代码渲染为极简 HTML 全景线框图。
+* **产出物**：`drafts/v{X.Y}/flow/xxx-flow.html`
+
+### 📝 Step 3 — 页面级功能描述细化 (PRD)
+* **角色**：产品重构专家 `Chat A`
+* **任务**：依据上述流程图的网图定位，对每个涉及的单页面展开**详尽的功能需求与信息结构描述**。
+* **产出物**：`drafts/v{X.Y}/prd/{PageID}.md`（如 `PT-1.md`）
+
+### 🖼️ Step 4 — 低保真线框图生成 (Wireframe)
+* **角色**：线框工程师 `Chat D`
+* **任务**：将单页面 PRD 翻译为符合极简主义宪法（仅用灰度与阴影层级）的适老化 HTML 网页。
+* **产出物**：`drafts/v{X.Y}/wireframe/{PageID}.html`
+
+### ✍️ Step 5 — 开发伴随批注生成 (Annotation)
+* **角色**：原型批注专家 `Chat G`
+* **任务**：剥离界面视觉结构，专注补充底层数据逻辑、接口边界、动效规则、极限值，输出开发专用的结构化 Markdown 说明。
+* **产出物**：`drafts/v{X.Y}/annotation/{PageID}.md`
+
+### 📦 Step 6 — 组装原型预览引擎 (Reader Integration)
+* **任务**：待所有静态文件与文档生成完毕后，指定大模型通过识别迭代内所有相对路径，将其组装到迭代专属的 `reader.html` 入口中。
+* **注**：未来计划将 `reader.html` 本身的界面组织逻辑抽取为独立的 Agent 模板规则（如 `chatR-Reader-expect.md`），以沉淀阅读能力。
+
+---
+
+每个迭代文件夹的最终物理归档结构应符合以下树形视图：
 
 ```text
 v{X.Y}/
-├── reader.html          ← 必选 | 原型预览器（引擎入口）
-├── PageList.md          ← 必选 | 本迭代专属页面清单
-├── review/              ← 可选 | 评审意见、业务输入
-├── prd/                 ← 必选 | Chat A 产出：页面级功能需求
-├── flow/                ← 必选 | 业务流程图
-├── wireframe/           ← 必选 | Chat D 产出：低保真线框图
-└── annotation/          ← 必选 | Chat G 产出：原型批注说明书
+├── reader.html                  ← Step 6 产出 (预览引擎)
+├── PageList.md                  ← Step 1 产出 (页面清单范围)
+├── xxx-system-rules.md (样例)    ← Step 1 产出 (全局业务总规)
+├── review/                      ← Step 0 产出
+├── flow/                        ← Step 2 产出
+├── prd/                         ← Step 3 产出
+├── wireframe/                   ← Step 4 产出
+└── annotation/                  ← Step 5 产出
 ```
-
-> 🎯 **标准执行顺序**：  
-> **Review（业务评审/可选） → Flow（逻辑流程） → PRD（产品雏形） → Wireframe（线框实现） → Annotation（开发批注）**
 
 ---
 
