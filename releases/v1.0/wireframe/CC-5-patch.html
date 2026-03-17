@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CC-5 社团活动详情 (v1.0 瀑布流重构补丁)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <style>
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-200 min-h-screen flex justify-center p-12 overflow-x-auto">
+
+    <div id="artboard" class="flex flex-row items-start gap-24">
+
+        <!-- ============================================================
+             区域 A：主视图 (CC-5 社团活动详情)
+        ============================================================= -->
+        <div class="flex flex-col">
+            <h2 class="text-xl font-bold text-gray-900 mb-4">CC-5 社团活动详情 (补丁增量说明)</h2>
+
+            <div
+                class="w-[375px] h-auto bg-white shadow-2xl border border-gray-200 relative p-0 overflow-hidden rounded-none flex flex-col">
+
+                <!-- 顶部导航 (h-16) -->
+                <div
+                    class="h-16 flex items-center justify-between px-4 border-b border-gray-100 bg-white sticky top-0 z-50">
+                    <div class="flex items-center gap-1 text-gray-900">
+                        <i class="ri-arrow-left-s-line text-2xl"></i>
+                        <span class="text-lg">返回社团</span>
+                    </div>
+                    <span class="text-xl font-bold text-gray-900">活动</span>
+                    <div class="w-8 flex justify-end">
+                        <i class="ri-more-fill text-2xl text-gray-900"></i>
+                    </div>
+                </div>
+
+                <!-- 活动标题区与数据/控件 -->
+                <div class="bg-white px-4 py-6 border-b border-gray-100">
+                    <h1 class="text-2xl font-bold text-gray-900">2026年1月23日塔川行</h1>
+
+                    <div class="flex items-center gap-2 mt-3">
+                        <div
+                            class="px-3 py-1 border border-gray-300 rounded-lg bg-white text-gray-700 text-sm font-normal">
+                            作品21
+                        </div>
+                        <div
+                            class="px-3 py-1 border border-gray-300 rounded-lg bg-white text-gray-700 text-sm font-normal">
+                            获赞9
+                        </div>
+                    </div>
+
+                    <div class="flex items-center gap-3 mt-6">
+                        <div
+                            class="flex-1 h-12 bg-gray-50 border border-transparent rounded-full flex items-center px-4 text-gray-400">
+                            <i class="ri-search-line mr-2 text-lg"></i>
+                            <span class="text-base font-normal">搜索作品...</span>
+                        </div>
+                        <div class="flex items-center gap-1 text-gray-900">
+                            <span class="text-base font-normal">最新发布</span>
+                            <i class="ri-filter-3-line text-xl"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 瀑布流内容区 (两列排版极窄优化) -->
+                <div class="bg-gray-50 p-4 min-h-[600px] flex gap-4">
+
+                    <!-- 左列 -->
+                    <div class="flex-1 flex flex-col gap-4">
+                        <!-- 卡片 1: 刚刚 -->
+                        <div
+                            class="bg-white border border-gray-200 rounded-none overflow-hidden flex flex-col shadow-sm">
+                            <div class="h-48 bg-gray-100 flex items-center justify-center text-gray-300 relative">
+                                <i class="ri-image-2-line text-4xl font-normal"></i>
+                            </div>
+                            <div class="px-4 py-3 bg-white">
+                                <div class="text-lg font-bold text-gray-900 mb-1 truncate">冰 鱼</div>
+                                <div class="text-base text-gray-500 font-normal mb-3 truncate">法拉孙Fara</div>
+                                <div class="pt-2 border-t border-gray-100 flex items-center justify-between">
+                                    <span class="text-sm font-normal text-gray-400">刚刚</span>
+                                    <div class="flex items-center gap-1 text-gray-900">
+                                        <i class="ri-thumb-up-line text-lg"></i>
+                                        <span class="text-base font-bold">12</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 卡片 2: 10分钟前 -->
+                        <div
+                            class="bg-white border border-gray-200 rounded-none overflow-hidden flex flex-col shadow-sm">
+                            <div class="h-32 bg-gray-100 flex items-center justify-center text-gray-300">
+                                <i class="ri-image-2-line text-4xl font-normal"></i>
+                            </div>
+                            <div class="px-4 py-3 bg-white">
+                                <div class="text-lg font-bold text-gray-900 mb-1 truncate">秋日</div>
+                                <div class="text-base text-gray-500 font-normal mb-3 truncate">张建国</div>
+                                <div class="pt-2 border-t border-gray-100 flex items-center justify-between">
+                                    <span class="text-sm font-normal text-gray-400">10分钟前</span>
+                                    <div class="flex items-center gap-1 text-gray-900">
+                                        <i class="ri-thumb-up-line text-lg"></i>
+                                        <span class="text-base font-bold">5</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 卡片 3: 昨天 -->
+                        <div
+                            class="bg-white border border-gray-200 rounded-none overflow-hidden flex flex-col shadow-sm">
+                            <div class="h-64 bg-gray-100 flex items-center justify-center text-gray-300">
+                                <i class="ri-image-2-line text-4xl font-normal"></i>
+                            </div>
+                            <div class="px-4 py-3 bg-white">
+                                <div class="text-base text-gray-500 font-normal mb-3 truncate">长者摄影家</div>
+                                <div class="pt-2 border-t border-gray-100 flex items-center justify-between">
+                                    <span class="text-sm font-normal text-gray-400">昨天</span>
+                                    <div class="flex items-center gap-1 text-gray-900">
+                                        <i class="ri-thumb-up-line text-lg"></i>
+                                        <span class="text-base font-bold">15</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 右列 -->
+                    <div class="flex-1 flex flex-col gap-4">
+                        <!-- 卡片 4: 2小时前 -->
+                        <div
+                            class="bg-white border border-gray-200 rounded-none overflow-hidden flex flex-col shadow-sm">
+                            <div class="h-40 bg-gray-100 flex items-center justify-center text-gray-300">
+                                <i class="ri-image-2-line text-4xl font-normal"></i>
+                            </div>
+                            <div class="px-4 py-3 bg-white">
+                                <div class="text-lg font-bold text-gray-900 mb-1 truncate">排行</div>
+                                <div class="text-base text-gray-500 font-normal mb-3 truncate">法F</div>
+                                <div class="pt-2 border-t border-gray-100 flex items-center justify-between">
+                                    <span class="text-sm font-normal text-gray-400">2小时前</span>
+                                    <div class="flex items-center gap-1 text-gray-900">
+                                        <i class="ri-thumb-up-line text-lg"></i>
+                                        <span class="text-base font-bold">8</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 卡片 5: 前天 -->
+                        <div
+                            class="bg-white border border-gray-200 rounded-none overflow-hidden flex flex-col shadow-sm">
+                            <div class="h-56 bg-gray-100 flex items-center justify-center text-gray-300">
+                                <i class="ri-image-2-line text-4xl font-normal"></i>
+                            </div>
+                            <div class="px-4 py-3 bg-white">
+                                <div class="text-lg font-bold text-gray-900 mb-1 truncate">红包</div>
+                                <div class="text-base text-gray-500 font-normal mb-3 truncate">法F</div>
+                                <div class="pt-2 border-t border-gray-100 flex items-center justify-between">
+                                    <span class="text-sm font-normal text-gray-400">前天</span>
+                                    <div class="flex items-center gap-1 text-gray-900">
+                                        <i class="ri-thumb-up-line text-lg"></i>
+                                        <span class="text-base font-bold">1</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 卡片 6: 1年前 -->
+                        <div
+                            class="bg-white border border-gray-200 rounded-none overflow-hidden flex flex-col shadow-sm">
+                            <div class="h-44 bg-gray-100 flex items-center justify-center text-gray-300">
+                                <i class="ri-image-2-line text-4xl font-normal"></i>
+                            </div>
+                            <div class="px-4 py-3 bg-white">
+                                <div class="text-base text-gray-500 font-normal mb-3 truncate">老张</div>
+                                <div class="pt-2 border-t border-gray-100 flex items-center justify-between">
+                                    <span class="text-sm font-normal text-gray-400">1年前</span>
+                                    <div class="flex items-center gap-1 text-gray-900">
+                                        <i class="ri-thumb-up-line text-lg"></i>
+                                        <span class="text-base font-bold">24</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 底部占位 (防止按钮遮挡内容) -->
+                <div class="h-24 bg-gray-50"></div>
+
+                <!-- 底部操作栏 -->
+                <div
+                    class="absolute bottom-0 w-full p-4 bg-white border-t border-gray-100 flex items-center justify-center z-[60] pb-8">
+                    <div
+                        class="w-full h-14 bg-gray-900 rounded-full flex items-center justify-center text-white gap-2 shadow-xl">
+                        <i class="ri-add-line text-2xl mt-0.5"></i>
+                        <span class="text-xl font-medium">上传照片/视频</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+
+</html>

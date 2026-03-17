@@ -11,7 +11,12 @@
 AI-PRD-Lecai/
 ├── README.md               ← 项目说明
 ├── .agents/                ← Agent 宪法 & 工作流
-├── foundation/             ← 项目基座（总 PageList、术语表、路线图）
+├── foundation/             ← 项目基座（总 PageList、术语表、路线图、设计系统）
+│   ├── design-system/      ← 视觉识别与 UI 设计规范
+│   │   ├── benchmarks/     ← 对标研究与视觉逆向工程
+│   │   ├── style-guide/    ← 视觉风格指南 (颜色、字体、阴影等)
+│   │   ├── ui-patterns/    ← 界面组件模式 (手机端布局风格)
+│   │   └── assets/         ← 视觉资产 (图标、Logo)
 ├── releases/               ← 已完成迭代（归档只读）
 │   └── v1.0/               ← 社团核心逻辑（CC-5/6/7）
 ├── drafts/                 ← 设计中迭代（活跃工作区）
@@ -53,6 +58,12 @@ AI-PRD-Lecai/
   * 版本业务规则/说明书（如 `points-system-v1.1.md`）
   * 版本迭代页面清单：`PageList.md` (或更新至根目录总表)
   * 页面流程划分框架：`flow/flow-framework.md`
+
+### 🎨 Step 1c — UI 风格规格定义 (UI Framing)
+* **任务**：在缺少 UI 设计师的情况下，通过“对标研究”固化视觉风格。对标竞品的视觉基因，并在 `foundation/design-system/` 中格式化沉淀风格规则。
+* **产出物**：
+  * `foundation/design-system/style-guide/` 中的规则定义
+  * `foundation/design-system/ui-patterns/` 中的组件范式定义
 
 ### 🔄 Step 2 — 业务全景流程拆解与组装 (Flow)
 这是一条微型流水线，旨在把业务规则映射为带有“节点价值”的用户旅程：
@@ -119,6 +130,7 @@ http://localhost:3000/releases/v1.0/reader.html
 | **Chat A (产品重构专家)** | `chatA-ProductMgr-expect.md` | **V2.3** | 专注于银龄经济，定义产品结构与逻辑，产出纯净、语义化需求描述。 |
 | **Chat D (线框工程师)** | `chatD-wireframe-expect.md` | **V1.4** | 将需求转化为 HTML 线框图，具备智能图标推断。 |
 | **Chat G (原型批注专家)** | `chatG-Spec-expect.md` | **V2.1** | 原型伴随说明书，Markdown 结构化文档。 |
+| **Chat U (UI生成工程师)** | `chatU-prompt-rules.md` | **V1.0** | 视觉呈现引擎，强制依据 `variables.css` 将 PRD 翻译为高保真 HTML。 |
 
 ---
 
@@ -140,13 +152,18 @@ http://localhost:3000/releases/v1.0/reader.html
 - [x] **CC-7 (提交作品)**：单视频/多图排他性发布逻辑。
 - [x] **业务流同步**：上传/审核业务流程图更新。
 
-### v1.1：积分系统与个人中心 (In Progress)
+### v1.1：积分系统与个人中心 (Completed)
 - [x] **架构规划**：`drafts/v1.1/prd/points-system-v1.1.md` 逻辑锚定。
 - [x] **PT-1 (我的积分)**：原型与规格完成。
 - [x] **PT-2 (每日签到)**：原型与规格完成。
 - [x] **CC-3 (我的导航)**：原型与规格完成。
-- [ ] **全景流程更新**：完成签到、积分兑换及 1.1 版上传流程映射。
-- [ ] **Li Yue 评审**：针对积分激励文案的适老化评审。
+- [x] **全景流程更新**：完成签到、积分兑换及 1.1 版上传流程映射。
+- [x] **Li Yue 评审**：针对积分激励文案的适老化评审。
+
+### 下一步行动指南 (Next Steps)
+- [ ] **高保真验证**：选取现有 PRD（如 `drafts/v1.1/prd/PT-2.md` 每日签到），调用新设立的 **Chat U** 配合 `variables.css` 渲染首个全局适老化风格的高保真 HTML 页面。
+- [ ] **架构提纯与微调**：根据首个渲染页面的效果，微调 `variables.css` 与 `chatU-prompt-rules.md`。
+- [ ] **组件模式沉淀**：后续在验证过程中逐步沉淀出如“适老化通用卡片”、“底部操作栏”放入 `ui-patterns`。
 
 ---
 
