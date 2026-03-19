@@ -93,6 +93,66 @@ AI-PRD-Lecai/
 
 ---
 
+## 工作流自动化成熟度视图
+
+```mermaid
+flowchart TD
+    %% 人工步骤 - 蓝色
+    S0[Step 0: Li Yue]:::manual
+    S1[Step 1: 宏观规划]:::manual
+    S2[Step 2: Chat A/Flow]:::manual
+    S3[Step 3: Chat A/PRD]:::manual
+
+    %% 自动化步骤 - 绿色
+    S4[Step 4: Chat D]:::auto
+    S5[Step 5: Chat G]:::auto
+    S6[Step 6: Reader]:::auto
+
+    %% 断点 - 红色
+    BP1{术语校验}:::breakpoint
+    BP2{版本对比}:::breakpoint
+    BP3{质量门控}:::breakpoint
+
+    %% 流程连接
+    S0 --> S1
+    S1 --> S2
+    S2 --> S3
+    S3 --> BP1
+    BP1 -->|通过| S4
+    BP1 -->|失败| S3
+    S4 --> BP2
+    BP2 -->|通过| S5
+    BP2 -->|失败| S3
+    S5 --> BP3
+    BP3 -->|通过| S6
+    BP3 -->|失败| S4
+
+    %% 样式定义
+    classDef manual fill:#e3f2fd,stroke:#1976d2,stroke-width:2px
+    classDef auto fill:#e8f5e9,stroke:#388e3c,stroke-width:2px
+    classDef breakpoint fill:#ffebee,stroke:#d32f2f,stroke-width:2px,stroke-dasharray: 5 5
+```
+
+### 断点分析与改进建议
+
+| 断点 | 问题描述 | 改进建议 |
+|:---|:---|:---|
+| **术语校验** | Chat A/D/G 需读取 `Main_PageList.md` 进行术语锚定，但无自动校验机制，易产生幻觉 | 增加预检脚本：①检查 foundation 文件完整性 ②术语冲突检测（对比 PRD 中的页面名与字典） |
+| **版本对比** | "无变化"识别依赖 Chat G 自行判断，无版本对比机制，易产生假阳性 | 接入 Git diff 或文件哈希校验，明确"变化"定义（文本级 vs 语义级） |
+| **质量门控** | 各 Step 输出无自动检查，直接进入下一步 | 增加：①Wireframe HTML 结构验证 ②Annotation 格式校验 ③PRD 完整性检查 |
+
+### 当前可自动化范围
+
+**✅ 现在即可通过自然语言触发**（如 Claude Code）：
+```
+"基于 drafts/v{X.Y}/prd/{PageID}.md 执行 Step 4-6 流水线"
+```
+
+**❌ 仍需人工主导**：
+- Step 0-3：涉及战略决策、创造性工作和业务判断
+
+---
+
 每个迭代文件夹的最终物理归档结构应符合以下树形视图：
 
 ```text

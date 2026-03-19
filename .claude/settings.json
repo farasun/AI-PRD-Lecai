@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "WebSearch",
+      "WebFetch(domain:www.anthropic.com)",
+      "WebFetch(domain:www.promptingguide.ai)",
+      "Bash(mkdir -p .agents/instructions/archive)",
+      "Bash(cp .agents/instructions/chatD-wireframe-expect.md .agents/instructions/archive/chatD-wireframe-expect-v1.4.md)"
+    ]
+  }
+}

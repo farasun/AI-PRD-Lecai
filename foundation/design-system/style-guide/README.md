@@ -1,12 +1,17 @@
 # Style Guide (视觉风格指南)
 
-本目录定义了项目的全局视觉基础规则，是 UI 生成的“视觉字典”。
+本目录定义了项目的全局视觉基础规则，是 UI 生成的”视觉字典”。
 
 ## 核心规格
 - **Colors (色彩)**：品牌色、辅助色、各级背景色与文字色规范。
 - **Typography (字体)**：字号阶梯、行高、字重及适老化阅读标准。
 - **Spacing & Radius (间距与圆角)**：栅格系统、内外间距、组件圆角半径。
 - **Elevation (层级)**：投影、Z轴高度定义。
+
+## Agent 指令位置
+- **Chat U (UI 生成工程师)**：指令文件已迁移至 `.agents/instructions/chatU-prompt-rules.md`
+  - 该 Agent 负责将 PRD 翻译为高保真 HTML/CSS
+  - 必须引用本目录下的 `variables.css` 设计令牌
 
 ## 应用原则
 各迭代中的 `Wireframe` 生成必须强制引用本目录下的规格，以确保全站视觉一致性。
