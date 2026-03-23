@@ -3,11 +3,43 @@
 .agent/
 .vscode/
 .idea/
+.env
+.env.local
+.python-version
+
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+.pnpm-debug.log*
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv/
+pip-log.txt
+pip-delete-this-directory.txt
+.tox/
+.coverage
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
 
 # Build & Dist
 dist/
 build/
 out/
+releases/ (only if build artifacts)
+drafts/ (only if temporary docs)
 
 # Assets & Temp
 page-screenshot/
@@ -17,5 +49,38 @@ temp/
 
 # OS Files
 .DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
 Thumbs.db
 desktop.ini
+
+# Manual / Research Artifacts
+manual/**/*.mp4
+manual/**/*.docx
+manual/**/*.jpg
+manual/**/*.png
+!manual/**/README.md
+!manual/**/input/*.md
+
+# Project Global Ignoring of Large Artifacts
+**/frames/
+**/*.mp4
+**/*.mov
+**/*.avi
+**/*.wmv
+**/*.docx
+**/*.pdf
+**/*.jpg
+**/*.png
+!**/README.md
+!**/*.md
+!**/*.json
+!**/*.py
+!**/*.js
+!**/*.ts
+!**/*.html
+!**/*.css
+

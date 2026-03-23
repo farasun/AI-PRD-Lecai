@@ -1,0 +1,26 @@
+{
+  "template_name": "001-老年大学团长",
+  "description": "面向老年大学社团团长的简洁功能指引手册",
+  "content_rules": {
+    "show_page_id": false,
+    "use_friendly_names": true,
+    "friendly_names_path": "foundation/friendly_names.md",
+    "description_style": "action_only",
+    "description_max_sentences": 2
+  },
+  "layout": {
+    "page_size": "letter",
+    "margins_inch": 1,
+    "single_column": true
+  },
+  "typography": {
+    "font_family": "Microsoft YaHei",
+    "font_family_fallback": "SimHei",
+    "color": "000000",
+    "doc_title": { "size_pt": 28, "bold": true, "alignment": "center" },
+    "chapter_title": { "size_pt": 22, "bold": true, "spacing_before_pt": 24, "spacing_after_pt": 12 },
+    "step_title": { "size_pt": 18, "bold": true, "spacing_before_pt": 16, "spacing_after_pt": 8 },
+    "body_text": { "size_pt": 15, "line_spacing": 1.5, "spacing_after_pt": 6 },
+    "image": { "width_inch": 4, "max_height_cm": 12, "alignment": "center" }
+  }
+}

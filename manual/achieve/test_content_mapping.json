@@ -1,0 +1,50 @@
+[
+  {
+    "chapter": "第一章：初识乐才",
+    "page_id": "AC-1",
+    "page_name": "登录弹窗",
+    "frame_file": "frame_001.jpg",
+    "subtitle_text": "大家好，我现在打开乐才APP，首先进入登录页面",
+    "manual_text": "打开乐才 APP 后，首先会看到登录页面。您可以使用手机号快速登录，操作非常简单。"
+  },
+  {
+    "chapter": "第一章：初识乐才",
+    "page_id": "AC-4",
+    "page_name": "首次登录后引导",
+    "frame_file": "frame_002.jpg",
+    "subtitle_text": "登录成功后，会看到引导页面，这里可以填写个人信息",
+    "manual_text": "第一次登录成功后，APP 会引导您完善个人信息，比如选择您所在的学校。按照提示一步步操作就可以了。"
+  },
+  {
+    "chapter": "第二章：浏览社团",
+    "page_id": "CC-1",
+    "page_name": "主导航-社团",
+    "frame_file": "frame_003.jpg",
+    "subtitle_text": "我们来到社团首页，可以看到所有社团的列表",
+    "manual_text": "进入社团页面后，您可以看到所有社团的列表。这里按照分类展示了各种兴趣社团，方便您浏览和发现感兴趣的内容。"
+  },
+  {
+    "chapter": "第二章：浏览社团",
+    "page_id": "CC-4",
+    "page_name": "社团主页",
+    "frame_file": "frame_004.jpg",
+    "subtitle_text": "点进去一个社团，这是社团主页，可以看到社团的活动和作品",
+    "manual_text": "点一下某个社团，就能进入这个社团的主页。在这里，您可以看到社团发布的活动、成员们分享的作品，还可以申请加入社团。"
+  },
+  {
+    "chapter": "第三章：积分与签到",
+    "page_id": "CC-3",
+    "page_name": "主导航-我的",
+    "frame_file": "frame_005.jpg",
+    "subtitle_text": "在我的页面，可以看到积分卡片，点击进入积分详情",
+    "manual_text": "点击底部的「我的」，可以看到您的积分卡片。积分是乐才平台的奖励，后续可以用来兑换礼品。"
+  },
+  {
+    "chapter": "第三章：积分与签到",
+    "page_id": "PT-2",
+    "page_name": "每日签到",
+    "frame_file": "frame_006.jpg",
+    "subtitle_text": "这里是每日签到功能，点击签到可以获得积分",
+    "manual_text": "每天打开 APP 后，记得来签到哦！点一下「立即签到」按钮，就能获得积分奖励。坚持签到，积分会越攒越多。"
+  }
+]
