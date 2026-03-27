@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CC-12 社团活动管理 - 现状继承重构版</title>
+    <title>CC-12 社团活动管理 - v1.3.1 Ground Truth</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
     <style>
@@ -18,108 +18,75 @@
     </style>
 </head>
 
-<body class="bg-gray-200 min-h-screen flex justify-center p-12 overflow-x-auto no-scrollbar">
+<body class="bg-gray-100 min-h-screen flex justify-center p-12 overflow-x-auto no-scrollbar">
 
     <div id="artboard" class="flex flex-row items-start gap-24">
 
         <!-- ============================================================
              区域 A：主视图 (Left Column - Main View)
-             [Inherited from v1.1 + v1.3.1 Logic]
+             [v1.3.1 Ground Truth: Management Command Center]
              ============================================================ -->
         <div class="flex flex-col">
             <h2 class="text-xl font-bold text-gray-900 mb-4">CC-12 社团活动管理 (状态 I：正常态)</h2>
             <div
-                class="w-[375px] h-auto bg-white shadow-2xl border border-gray-200 relative p-0 overflow-hidden rounded-none flex flex-col">
+                class="w-[375px] h-[812px] bg-white shadow-2xl border border-gray-200 relative p-0 overflow-hidden flex flex-col">
 
-                <!-- Navbar (h-16) - [Standardize] -->
-                <div class="h-16 flex items-center px-4 border-b border-gray-200 sticky top-0 bg-white z-20">
+                <!-- Navbar (h-16) -->
+                <div class="h-16 flex items-center px-4 border-b border-gray-100 sticky top-0 bg-white z-20">
                     <div class="flex-1"><i class="ri-arrow-left-s-line text-2xl text-gray-900"></i></div>
-                    <div class="text-xl font-bold text-gray-900">社团活动管理</div>
+                    <div class="text-lg font-bold text-gray-900">社团活动管理</div>
                     <div class="flex-1 text-right"></div>
                 </div>
 
-                <!-- 模块 2B: 常驻规则面板 [Inherited from v1.1] -->
-                <div class="p-4 bg-gray-50 border-b border-gray-200">
-                    <div class="p-4 rounded-xl border border-gray-200 bg-white flex items-start gap-3">
-                        <i class="ri-information-line text-xl text-gray-900 mt-0.5"></i>
-                        <div class="text-base text-gray-700 leading-relaxed">
-                            <span class="font-bold">积分速赚：</span>活动含图且说明超 20 字，发布得 50 积分（每天限2次，删帖将扣除奖励）。
-                        </div>
-                    </div>
-                </div>
-
                 <!-- Scrollable Content -->
-                <div class="flex-1 overflow-y-auto pb-32">
+                <div class="flex-1 overflow-y-auto pb-32 no-scrollbar">
 
-                    <!-- 模块 3: 置顶区 [Inherited Structure] -->
+                    <!-- 模块 1: 置顶区 (管理入口) -->
                     <div class="pt-6 px-4">
                         <div class="flex justify-between items-end mb-4 px-2">
-                            <div class="text-xl font-bold text-gray-900">置顶区 (最多3个)</div>
-                            <div class="text-lg text-gray-400">调整顺序</div>
+                            <div class="text-lg font-bold text-gray-900">置顶区 (最多3个)</div>
+                            <div class="text-sm text-gray-400">调整顺序</div>
                         </div>
                         <div class="flex flex-col gap-4">
-                            <!-- Card 1 (v1.3.1 Added: Status Tag) -->
-                            <div class="p-4 rounded-3xl border border-gray-200 flex items-center gap-4">
-                                <div
-                                    class="w-16 h-16 bg-gray-100 rounded-xl flex items-center justify-center text-gray-400 font-normal">
-                                    封面</div>
+                            <div class="p-4 rounded-3xl border border-gray-100 flex items-center gap-4 bg-white shadow-sm">
+                                <div class="w-16 h-16 bg-gray-50 rounded-2xl flex items-center justify-center text-gray-300 font-bold uppercase text-[10px]">Cover</div>
                                 <div class="flex-1">
                                     <div class="flex items-center gap-2 mb-1">
-                                        <div class="text-lg font-bold text-gray-900">金秋摄影大赛</div>
-                                        <!-- v1.3.1 New Status Tag -->
-                                        <span class="px-2 py-0.5 border border-gray-200 text-gray-400 text-xs rounded-lg">指定成员可见</span>
+                                        <div class="text-base font-bold text-gray-900">金秋摄影大赛</div>
+                                        <span class="px-2 py-0.5 border border-gray-200 text-gray-400 text-[10px] rounded-lg">指定成员可见</span>
                                     </div>
-                                    <div class="text-base text-gray-400">摄影 · 官方赛事</div>
-                                </div>
-                                <i class="ri-more-fill text-xl text-gray-400"></i>
-                            </div>
-                            
-                            <!-- Card 2 -->
-                            <div class="p-4 rounded-3xl border border-gray-200 flex items-center gap-4">
-                                <div
-                                    class="w-16 h-16 bg-gray-100 rounded-xl flex items-center justify-center text-gray-400 font-normal">
-                                    封面</div>
-                                <div class="flex-1">
-                                    <div class="flex items-center gap-2 mb-1">
-                                        <div class="text-lg font-bold text-gray-900">乐才春季合唱节</div>
-                                    </div>
-                                    <div class="text-base text-gray-400">声乐 · 公益演出</div>
+                                    <div class="text-xs text-gray-400">摄影 · 官方赛事</div>
                                 </div>
                                 <i class="ri-more-fill text-xl text-gray-400"></i>
                             </div>
                         </div>
                     </div>
 
-                    <!-- 模块 4: 普通区 [Inherited Structure] -->
+                    <!-- 模块 2: 普通区 -->
                     <div class="pt-8 px-4">
                         <div class="flex justify-between items-end mb-4 px-2">
-                            <div class="text-xl font-bold text-gray-900">普通区 (最多20个)</div>
-                            <div class="text-lg text-gray-400">调整顺序</div>
+                            <div class="text-lg font-bold text-gray-900">普通区 (最多20个)</div>
+                            <div class="text-sm text-gray-400">调整顺序</div>
                         </div>
-                        <div class="flex flex-col gap-4">
-                            <!-- Card -->
-                            <div class="p-4 rounded-3xl border border-gray-200 flex items-center gap-4">
-                                <div
-                                    class="w-16 h-16 bg-gray-100 rounded-xl flex items-center justify-center text-gray-400 font-normal">
-                                    封面</div>
+                        <div class="flex flex-col gap-4 opacity-60">
+                            <div class="p-4 rounded-3xl border border-gray-50 flex items-center gap-4">
+                                <div class="w-16 h-16 bg-gray-50 rounded-2xl flex items-center justify-center text-gray-300 font-bold uppercase text-[10px]">Cover</div>
                                 <div class="flex-1">
                                     <div class="flex items-center gap-2 mb-1">
-                                        <div class="text-lg font-bold text-gray-900">周末书法笔会</div>
-                                        <!-- v1.3.1 New Status Tag -->
-                                        <span class="px-2 py-0.5 border border-gray-200 text-gray-400 text-xs rounded-lg">仅本社团可见</span>
+                                        <div class="text-base font-bold text-gray-400">周末书法笔会</div>
+                                        <span class="px-2 py-0.5 border border-gray-100 text-gray-400 text-[10px] rounded-lg">仅本社团可见</span>
                                     </div>
-                                    <div class="text-base text-gray-400">书画 · 日常活动</div>
+                                    <div class="text-xs text-gray-400">书画 · 日常活动</div>
                                 </div>
-                                <i class="ri-more-fill text-xl text-gray-400"></i>
+                                <i class="ri-more-fill text-xl text-gray-300"></i>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- 模块 5: 底部固定按钮 [Inherited] -->
-                <div class="absolute bottom-0 left-0 right-0 p-6 bg-white border-t border-gray-200">
-                    <div
-                        class="h-14 rounded-2xl bg-gray-900 text-white flex items-center justify-center text-xl font-medium">
+                <!-- Bottom CTA -->
+                <div class="absolute bottom-0 left-0 right-0 p-6 bg-white/80 backdrop-blur-md border-t border-gray-50">
+                    <div class="h-14 rounded-2xl bg-gray-900 text-white flex items-center justify-center text-lg font-bold shadow-2xl">
                         新建活动
                     </div>
                 </div>
@@ -132,68 +99,44 @@
         <div class="flex flex-col gap-10 w-[360px]">
             <h2 class="text-xl font-bold text-gray-900">多状态展示</h2>
 
-            <!-- v1.3.1 New: Action Sheet with Permission Settings -->
+            <!-- v1.3.1 Management Action Sheet -->
             <div class="flex flex-col">
-                <div class="text-lg font-bold text-gray-700 mb-4 pl-3 border-l-4 border-gray-900">状态 II：管理配置浮层 (Action Sheet)</div>
-                <div class="bg-white p-6 border border-gray-200 solid shadow-md rounded-none">
-                    <!-- Action Sheet Logic Section -->
-                    <div class="border border-gray-100 rounded-3xl overflow-hidden bg-gray-900/5">
-                        <div class="flex flex-col mt-24 bg-white border-t border-gray-200 rounded-t-3xl p-6 space-y-4">
+                <h3 class="text-lg font-bold text-gray-700 mb-4 pl-3 border-l-4 border-gray-900">状态 II：管理配置浮层 (Action Sheet)</h3>
+                <div class="bg-white p-6 border border-gray-200 shadow-md rounded-none">
+                     <div class="border border-gray-100 rounded-3xl overflow-hidden bg-gray-900/10">
+                        <div class="flex flex-col mt-32 bg-white border-t border-gray-200 rounded-t-3xl p-6 space-y-4 shadow-[0_-8px_30px_rgb(0,0,0,0.12)]">
                             <div class="flex flex-col mb-2">
-                                <span class="text-xl font-bold text-gray-900 leading-none">正在配置活动</span>
-                                <span class="text-base text-gray-400 mt-2">金秋摄影大赛</span>
+                                <span class="text-lg font-bold text-gray-900 leading-none">正在配置活动</span>
+                                <span class="text-sm text-gray-400 mt-2">金秋摄影大赛</span>
                             </div>
                             
-                            <!-- v1.3.1 Added: Visibility Config -->
-                            <div class="p-4 bg-gray-50 border border-gray-200 rounded-2xl flex items-center gap-4">
-                                <div class="w-12 h-12 bg-gray-100 rounded-xl flex items-center justify-center">
-                                    <i class="ri-shield-user-line text-2xl text-gray-900"></i>
-                                </div>
+                            <!-- Core Action: Visibility Setting -->
+                            <div class="p-4 bg-gray-900 text-white rounded-2xl flex items-center gap-4 shadow-xl">
+                                <div class="w-10 h-10 bg-white/10 rounded-xl flex items-center justify-center"><i class="ri-shield-user-line text-xl text-white"></i></div>
                                 <div class="flex-1">
-                                    <div class="text-lg font-bold text-gray-900">活动可见权限</div>
-                                    <div class="text-base text-gray-400 mt-1">当前：指定成员可见</div>
+                                    <div class="text-base font-bold text-white">活动可见权限</div>
+                                    <div class="text-xs text-gray-300">当前：指定成员可见</div>
                                 </div>
-                                <i class="ri-arrow-right-s-line text-gray-400 text-2xl"></i>
+                                <i class="ri-arrow-right-s-line text-white/40 text-2xl"></i>
                             </div>
 
-                            <!-- Legacy Items (Mocked) -->
-                            <div class="p-4 bg-white border border-gray-100 rounded-2xl flex items-center gap-4 opacity-40">
-                                <div class="w-12 h-12 bg-gray-100 rounded-xl flex items-center justify-center">
-                                    <i class="ri-survey-line text-2xl text-gray-900"></i>
-                                </div>
-                                <div class="flex-1">
-                                    <div class="text-lg font-bold text-gray-900">问卷配置项</div>
-                                </div>
-                                <i class="ri-arrow-right-s-line text-gray-400 text-2xl"></i>
+                            <!-- Legacy Action: Survey -->
+                            <div class="p-4 bg-gray-50 border border-gray-100 rounded-2xl flex items-center gap-4 opacity-50">
+                                <div class="w-10 h-10 bg-gray-200 rounded-xl flex items-center justify-center"><i class="ri-survey-line text-xl text-gray-400"></i></div>
+                                <div class="flex-1 text-base font-bold text-gray-400">修改关联问卷</div>
+                                <i class="ri-arrow-right-s-line text-gray-200 text-xl"></i>
                             </div>
 
-                            <!-- Cancel -->
-                            <div class="pt-2 text-center">
-                                <span class="text-xl font-bold text-gray-400">取消</span>
+                            <div class="pt-4 pb-2 text-center border-t border-gray-50">
+                                <span class="text-lg font-bold text-gray-400">取消</span>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-
-            <!-- v1.1 Heritage: Success Feedback -->
-            <div class="flex flex-col opacity-60">
-                <div class="text-lg font-bold text-gray-700 mb-4 pl-3 border-l-4 border-gray-400">（继承自 v1.1）状态 III：发布成功反馈</div>
-                <div class="bg-white p-6 border border-gray-200 solid shadow-md rounded-none">
-                    <div class="bg-gray-900 rounded-2xl p-6 flex flex-col items-center text-center">
-                        <div class="w-12 h-12 rounded-full bg-white flex items-center justify-center mb-4">
-                            <i class="ri-check-line text-2xl text-gray-900"></i>
-                        </div>
-                        <div class="text-xl font-bold text-white mb-1">活动发布成功！</div>
-                        <div class="text-lg font-normal text-gray-400">获得 <span class="text-white font-bold">50</span> 奖励积分</div>
-                    </div>
-                </div>
-            </div>
-
         </div>
 
+
     </div>
-
 </body>
-
 </html>

@@ -30,9 +30,13 @@ description: Lecai 原型阅读器单文件打包工具。将指定版本（如 
 ### 4. 执行打包
 
 ```powershell
-node scripts/bundle.js <版本路径>
+# 1. 初始化版本目录 (生成本地 reader.html 预览引擎)
+python .agents/skills/lecai-bundler/scripts/bundle.py <版本路径> --init
+
+# 2. 自动化打包 (生成 dist/ 单文件)
+python .agents/skills/lecai-bundler/scripts/bundle.py <版本路径>
 ```
-*例如: `node scripts/bundle.js drafts/v1.3.1`*
+*例如: `python .agents/skills/lecai-bundler/scripts/bundle.py drafts/v1.3.1 --init`*
 
 输出将生成在 `dist/` 目录下：
 `d:\AntiGravity\AI-PRD-Lecai\dist\Lecai-<版本路径替换后的名称>.html`

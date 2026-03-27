@@ -38,13 +38,13 @@
                     class="h-16 flex items-center justify-between px-4 border-b border-gray-100 bg-white sticky top-0 z-50">
                     <div class="flex items-center gap-1 text-gray-900">
                         <i class="ri-arrow-left-s-line text-2xl"></i>
-                        <span class="text-lg">返回</span>
                     </div>
                     <span class="text-xl font-bold text-gray-900">活动详情</span>
                     
-                    <!-- v1.3.1 New: Leader Management Shortcut -->
-                    <div class="flex items-center gap-1 bg-gray-900 text-white px-3 py-1.5 rounded-full text-sm font-bold shadow-md">
-                        <i class="ri-settings-3-line"></i> 管理活动
+                    <!-- v1.3.1 New: Leader Management Entry (Clean Style) -->
+                    <div class="flex items-center gap-1 text-gray-900 cursor-pointer">
+                        <i class="ri-settings-3-line text-2xl"></i>
+                        <span class="text-lg font-bold">管理</span>
                     </div>
                 </div>
 
@@ -136,20 +136,28 @@
                 <h3 class="text-lg font-bold text-gray-700 mb-4 pl-3 border-l-4 border-gray-900">状态 II：即看即改 (呼起管理 Action Sheet)</h3>
                 <div class="bg-white p-6 border border-gray-200 shadow-md rounded-none">
                      <div class="border border-gray-100 rounded-3xl overflow-hidden bg-gray-900/10">
-                        <div class="flex flex-col mt-24 bg-white border-t border-gray-200 rounded-t-3xl p-6 space-y-4">
+                        <div class="flex flex-col mt-24 bg-white border-t border-gray-200 rounded-t-3xl p-6 space-y-4 shadow-[0_-8px_30px_rgb(0,0,0,0.12)]">
                             <div class="flex flex-col mb-2">
                                 <span class="text-lg font-bold text-gray-900 leading-none">正在配置活动</span>
                                 <span class="text-sm text-gray-400 mt-2">2026年1月23日塔川行</span>
                             </div>
+                            
+                            <!-- Content from CC-12 (Partial) -->
                             <div class="p-4 bg-gray-50 border border-gray-200 rounded-2xl flex items-center gap-4">
                                 <div class="w-10 h-10 bg-gray-100 rounded-xl flex items-center justify-center"><i class="ri-shield-user-line text-xl text-gray-900"></i></div>
                                 <div class="flex-1">
                                     <div class="text-base font-bold text-gray-900">活动可见权限</div>
-                                    <div class="text-xs text-gray-400">当前：仅本社团可见</div>
+                                    <div class="text-xs text-gray-400">仅本社团可见</div>
                                 </div>
                                 <i class="ri-arrow-right-s-line text-gray-400"></i>
                             </div>
-                            <div class="pt-2 text-center">
+
+                            <div class="p-4 border border-gray-100 rounded-2xl flex items-center gap-4 opacity-50">
+                                <div class="w-10 h-10 bg-gray-50 rounded-xl"></div>
+                                <div class="flex-1 h-10 bg-gray-50 rounded-lg"></div>
+                            </div>
+
+                            <div class="pt-4 pb-2 text-center border-t border-gray-50">
                                 <span class="text-lg font-bold text-gray-400">取消</span>
                             </div>
                         </div>

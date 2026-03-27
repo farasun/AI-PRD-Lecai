@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CC-14 社团成员列表 - Wireframe</title>
+    <title>CC-14 社团成员列表 - Wireframe (Inherited Pattern from v1.0 Releases)</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
 </head>
@@ -20,7 +20,9 @@
                 <div class="h-16 flex items-center px-4 border-b border-gray-100 bg-white sticky top-0 z-10">
                     <div class="w-10 flex items-center"><i class="ri-arrow-left-s-line text-2xl text-gray-900"></i></div>
                     <div class="flex-1 text-center font-bold text-gray-900 text-xl tracking-tight">成员列表 (48)</div>
-                    <div class="w-10 text-right"><i class="ri-search-line text-2xl text-gray-900"></i></div>
+                    <div class="w-10 flex items-center justify-end gap-2 text-gray-400">
+                        <i class="ri-search-line text-2xl"></i>
+                    </div>
                 </div>
 
                 <!-- List Area -->
@@ -55,28 +57,19 @@
         <div class="flex flex-col gap-10 w-[360px]">
             <h2 class="text-xl font-bold text-gray-900">多状态展示</h2>
 
-            <!-- Variant: Leader Dashboard Entry -->
+            <!-- Variant: Leader Perspective -->
             <div class="flex flex-col">
-                <h3 class="text-lg font-bold text-gray-700 mb-4 pl-3 border-l-4 border-gray-900">状态 II：团长视角 (头部管理板块)</h3>
+                <h3 class="text-lg font-bold text-gray-700 mb-4 pl-3 border-l-4 border-gray-900">状态 II：团长视角 (Navbar 管理入口)</h3>
                 <div class="bg-white p-6 border border-gray-200 solid shadow-md rounded-none">
-                    <div class="border border-gray-100 rounded-3xl overflow-hidden shadow-inner p-6 space-y-4">
-                        
-                        <!-- New Shortcut Entry -->
-                        <div class="p-6 bg-gray-900 text-white rounded-[24px] flex items-center justify-between shadow-2xl">
-                            <div class="flex flex-col">
-                                <span class="text-xl font-bold">班长管理区</span>
-                                <span class="text-base text-gray-400 mt-2 font-normal">快速进行审核、禁言或成员管理</span>
-                            </div>
-                            <div class="bg-white text-gray-900 px-4 py-2 rounded-xl text-lg font-bold flex items-center gap-1 shadow-sm">
-                                去管理 <i class="ri-arrow-right-s-line"></i>
-                            </div>
+                    
+                    <!-- Navbar with Manage Action -->
+                    <div class="h-16 flex items-center px-4 border border-gray-200 bg-white rounded-xl">
+                        <div class="w-10 flex items-center"><i class="ri-arrow-left-s-line text-2xl text-gray-900"></i></div>
+                        <div class="flex-1 text-center font-bold text-gray-900 text-xl tracking-tight">成员列表 (48)</div>
+                        <div class="flex items-center gap-1 text-gray-900">
+                            <i class="ri-settings-3-line text-2xl"></i>
+                            <span class="text-lg font-bold">管理</span>
                         </div>
-
-                        <!-- Info Label -->
-                        <div class="p-4 bg-gray-50 rounded-2xl border border-gray-200">
-                           <div class="text-lg text-gray-700">您可以在此快速跳转至复杂的管理后台，处理社团行政事务。</div>
-                        </div>
-
                     </div>
                 </div>
             </div>

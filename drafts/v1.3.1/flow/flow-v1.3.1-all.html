@@ -32,8 +32,8 @@
         <marker id="arrow-gray" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
           <path d="M0,0 L0,6 L9,3 z" fill="#94a3b8" />
         </marker>
-        <marker id="arrow-blue" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
-          <path d="M0,0 L0,6 L9,3 z" fill="#3b82f6" />
+        <marker id="arrow-black" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+          <path d="M0,0 L0,6 L9,3 z" fill="#111827" />
         </marker>
       </defs>
 
@@ -50,24 +50,24 @@
       <text x="525" y="350" fill="#64748b" font-size="13" font-weight="500" text-anchor="middle">点击[配置项]</text>
 
       <!-- Flow A: Action Sheet (944, 345) -> CC-12-1 (1300, 384) -->
-      <path d="M 944 345 C 1122 345, 1122 384, 1300 384" stroke="#3b82f6" stroke-width="2" fill="none" marker-end="url(#arrow-blue)" />
-      <rect x="1075" y="369" width="100" height="30" fill="#eff6ff" rx="4" />
-      <text x="1125" y="389" fill="#2563eb" font-size="13" font-weight="500" text-anchor="middle">点击[权限设置]</text>
+      <path d="M 944 345 C 1122 345, 1122 384, 1300 384" stroke="#111827" stroke-width="2" fill="none" marker-end="url(#arrow-black)" />
+      <rect x="1075" y="369" width="100" height="30" fill="#f3f4f6" rx="4" />
+      <text x="1125" y="389" fill="#111827" font-size="13" font-weight="500" text-anchor="middle">点击[权限设置]</text>
 
       <!-- Flow A: CC-12-1 (1544, 384) -> Selection (1900, 384) -->
-      <path d="M 1544 384 C 1722 384, 1722 384, 1900 384" stroke="#3b82f6" stroke-width="2" fill="none" marker-end="url(#arrow-blue)" />
-      <rect x="1675" y="369" width="100" height="30" fill="#eff6ff" rx="4" />
-      <text x="1725" y="389" fill="#2563eb" font-size="13" font-weight="500" text-anchor="middle">选择[指定成员]</text>
+      <path d="M 1544 384 C 1722 384, 1722 384, 1900 384" stroke="#111827" stroke-width="2" fill="none" marker-end="url(#arrow-black)" />
+      <rect x="1675" y="369" width="100" height="30" fill="#f3f4f6" rx="4" />
+      <text x="1725" y="389" fill="#111827" font-size="13" font-weight="500" text-anchor="middle">选择[指定成员]</text>
 
       <!-- Flow B (Activity Shortcut): CC-5 (344, 1045) -> Action Sheet (700, 345) -->
-      <path d="M 344 1045 C 522 1045, 522 345, 700 345" stroke="#3b82f6" stroke-width="2" fill="none" marker-end="url(#arrow-blue)" />
-      <rect x="420" y="695" width="120" height="30" fill="#eff6ff" rx="4" />
-      <text x="480" y="715" fill="#2563eb" font-size="13" font-weight="500" text-anchor="middle">团长点击[管理]</text>
+      <path d="M 344 1045 C 522 1045, 522 345, 700 345" stroke="#111827" stroke-width="2" fill="none" marker-end="url(#arrow-black)" />
+      <rect x="420" y="695" width="120" height="30" fill="#f3f4f6" rx="4" />
+      <text x="480" y="715" fill="#111827" font-size="13" font-weight="500" text-anchor="middle">团长点击[管理]</text>
 
       <!-- Flow C (Member Shortcut): CC-14 (344, 1795) -> CC-16-1 (1300, 1795) -->
-      <path d="M 344 1795 C 822 1795, 822 1795, 1300 1795" stroke="#3b82f6" stroke-width="2" fill="none" marker-end="url(#arrow-blue)" />
-      <rect x="725" y="1780" width="120" height="30" fill="#eff6ff" rx="4" />
-      <text x="785" y="1800" fill="#2563eb" font-size="13" font-weight="500" text-anchor="middle">团长点击[管理人员]</text>
+      <path d="M 344 1795 C 822 1795, 822 1795, 1300 1795" stroke="#111827" stroke-width="2" fill="none" marker-end="url(#arrow-black)" />
+      <rect x="725" y="1780" width="120" height="30" fill="#f3f4f6" rx="4" />
+      <text x="785" y="1800" fill="#111827" font-size="13" font-weight="500" text-anchor="middle">团长点击[管理人员]</text>
 
     </svg>
 
@@ -79,7 +79,7 @@
       <div class="w-[375px] h-[600px] bg-white border border-gray-200 rounded-[32px] shadow-2xl overflow-hidden transform scale-[0.65] origin-top-left flex flex-col">
           <div class="h-16 flex items-center px-6 border-b border-gray-100 bg-white shrink-0">
               <i class="ri-arrow-left-s-line text-2xl"></i>
-              <span class="flex-1 text-center font-bold text-xl">管理社团活动</span>
+              <span class="flex-1 text-center font-bold text-xl">社团活动管理</span>
           </div>
           <div class="p-6">
               <div class="text-xl font-bold mb-4 px-2">进行中 (1)</div>
@@ -95,22 +95,22 @@
     </div>
 
     <div class="absolute node-container" style="left: 700px; top: 150px;">
-      <div id="Action-Sheet" class="absolute -top-10 left-0 bg-blue-600 text-white text-sm px-3 py-1 rounded shadow-sm z-10 font-bold">配置属性 Action Sheet</div>
+      <div id="Action-Sheet" class="absolute -top-10 left-0 bg-gray-900 text-white text-sm px-3 py-1 rounded shadow-sm z-10 font-bold">社团活动管理 (Action Sheet)</div>
       <div class="w-[375px] h-[600px] bg-gray-900/40 rounded-[32px] shadow-2xl overflow-hidden transform scale-[0.65] origin-top-left relative">
-          <div class="absolute bottom-0 w-full bg-white rounded-t-3xl p-8 flex flex-col gap-5">
-              <div class="text-2xl font-bold text-gray-900 mb-2">活动配置</div>
-              <div class="flex items-center gap-4 p-5 rounded-2xl bg-blue-50 border border-blue-100">
-                  <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-xl flex items-center justify-center text-2xl"><i class="ri-shield-user-line"></i></div>
+          <div class="absolute bottom-0 w-full bg-white rounded-t-3xl p-8 flex flex-col gap-5 border-t border-gray-200">
+              <div class="text-2xl font-bold text-gray-900 mb-2">正在配置活动</div>
+              <div class="flex items-center gap-4 p-5 rounded-2xl bg-gray-900 text-white shadow-xl">
+                  <div class="w-12 h-12 bg-white/10 text-white rounded-xl flex items-center justify-center text-2xl"><i class="ri-shield-user-line"></i></div>
                   <div class="flex-1 flex flex-col">
-                      <span class="text-lg font-bold text-gray-900 leading-none mb-2">内容权限设置</span>
-                      <span class="text-xs text-blue-500">当前：限内部成员</span>
+                      <span class="text-lg font-bold text-white leading-none mb-2">活动权限设置</span>
+                      <span class="text-xs text-gray-400">当前：仅本社团可见</span>
                   </div>
-                  <i class="ri-arrow-right-s-line text-blue-300 text-2xl"></i>
+                  <i class="ri-arrow-right-s-line text-white text-2xl"></i>
               </div>
-              <div class="flex items-center gap-4 p-5 rounded-2xl">
-                  <div class="w-12 h-12 bg-orange-100 text-orange-600 rounded-xl flex items-center justify-center text-2xl"><i class="ri-survey-line"></i></div>
-                  <div class="flex-1 flex flex-col"><span class="text-lg font-bold text-gray-400">修改关联问卷</span></div>
-                  <i class="ri-arrow-right-s-line text-gray-200 text-2xl"></i>
+              <div class="flex items-center gap-4 p-5 rounded-2xl bg-gray-50 border border-gray-200 opacity-40">
+                  <div class="w-12 h-12 bg-gray-200 text-gray-400 rounded-xl flex items-center justify-center text-2xl"><i class="ri-survey-line"></i></div>
+                  <div class="flex-1 flex flex-col"><span class="text-lg font-bold text-gray-400">问卷配置项</span></div>
+                  <i class="ri-arrow-right-s-line text-gray-100 text-2xl"></i>
               </div>
           </div>
       </div>
@@ -121,8 +121,8 @@
       <div class="w-[375px] h-[720px] bg-white border border-gray-200 rounded-[32px] shadow-2xl overflow-hidden transform scale-[0.65] origin-top-left flex flex-col">
           <div class="h-16 flex items-center px-6 border-b border-gray-100">
               <span class="text-lg text-gray-400">取消</span>
-              <span class="flex-1 text-center font-bold text-xl">可见权限</span>
-              <span class="text-lg font-bold text-blue-600">保存</span>
+              <span class="flex-1 text-center font-bold text-xl">活动权限设置</span>
+              <span class="text-lg font-bold text-gray-900">保存</span>
           </div>
           <div class="p-8 space-y-6">
               <div class="text-xl font-bold text-gray-900 mb-6 leading-tight">通过设置可见性，您可以更灵活地组织不同规模的活动。</div>
@@ -133,41 +133,41 @@
                       <div class="text-xs text-gray-400 mt-1">公开发布，有利于吸粉引流</div>
                   </div>
               </div>
-              <div class="p-5 rounded-2xl border-2 border-blue-500 bg-blue-50 relative">
-                  <i class="ri-user-star-fill text-blue-600 text-2xl absolute left-5 top-6"></i>
+              <div class="p-5 rounded-2xl border-2 border-gray-900 bg-gray-50 relative">
+                  <i class="ri-user-star-fill text-gray-900 text-2xl absolute left-5 top-6"></i>
                   <div class="pl-10">
-                      <div class="text-base font-bold text-blue-900">指定成员可见</div>
-                      <div class="text-xs text-blue-500 mt-1">仅您选中的成员可见，其他人执行彻底隐身逻辑。</div>
-                      <div class="mt-3 flex items-center gap-1 text-blue-700 font-bold text-xs bg-blue-100 w-max px-2 py-1 rounded">
-                          点击选择授权人员 <i class="ri-arrow-right-s-line"></i>
+                      <div class="text-base font-bold text-gray-900">指定成员可见</div>
+                      <div class="text-xs text-gray-400 mt-1">仅您选中的成员可见，其他人执行彻底隐身逻辑。</div>
+                      <div class="mt-3 flex items-center gap-1 text-white font-bold text-xs bg-gray-900 w-max px-2 py-1 rounded shadow-md">
+                          去选择授权成员 <i class="ri-arrow-right-s-line"></i>
                       </div>
                   </div>
-                  <i class="ri-checkbox-circle-fill text-blue-600 text-2xl absolute right-5 top-6"></i>
+                  <i class="ri-checkbox-circle-fill text-gray-900 text-2xl absolute right-5 top-6"></i>
               </div>
           </div>
       </div>
     </div>
 
     <div class="absolute node-container" style="left: 1900px; top: 150px;">
-      <div id="Member-Selection" class="absolute -top-10 left-0 bg-gray-900 text-white text-sm px-3 py-1 rounded shadow-sm z-10">成员授权列表 (技术: 白名单)</div>
+      <div id="Member-Selection" class="absolute -top-10 left-0 bg-gray-900 text-white text-sm px-3 py-1 rounded shadow-sm z-10">选择授权成员</div>
       <div class="w-[375px] h-[720px] bg-white border border-gray-200 rounded-[32px] shadow-2xl overflow-hidden transform scale-[0.65] origin-top-left flex flex-col">
           <div class="h-20 flex items-center px-6 border-b border-gray-100 bg-gray-50">
               <div class="flex-1 flex flex-col">
-                  <span class="text-sm font-bold text-gray-900">选择授权人员</span>
+                  <span class="text-sm font-bold text-gray-900">选择授权成员</span>
                   <span class="text-[10px] text-gray-400 font-normal">已选 2 人</span>
               </div>
-              <span class="bg-gray-900 text-white px-4 py-2 rounded-xl font-bold text-sm">确认</span>
+              <span class="bg-gray-900 text-white px-4 py-2 rounded-xl font-bold text-sm shadow-md">确认 (2)</span>
           </div>
           <div class="p-4 space-y-2">
               <div class="flex items-center gap-4 p-4 border-b border-gray-50">
                   <div class="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center font-bold text-gray-900">王</div>
                   <div class="flex-1 text-base font-bold">王大妈</div>
-                  <i class="ri-checkbox-circle-fill text-blue-600 text-2xl"></i>
+                  <i class="ri-checkbox-circle-fill text-gray-900 text-2xl"></i>
               </div>
               <div class="flex items-center gap-4 p-4 border-b border-gray-50">
                   <div class="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center font-bold text-gray-900">李</div>
                   <div class="flex-1 text-base font-bold">李教员</div>
-                  <i class="ri-checkbox-circle-fill text-blue-600 text-2xl"></i>
+                  <i class="ri-checkbox-circle-fill text-gray-900 text-2xl"></i>
               </div>
           </div>
       </div>
@@ -180,8 +180,8 @@
           <div class="h-16 flex items-center px-6 border-b border-gray-100">
               <i class="ri-arrow-left-s-line text-2xl"></i>
               <span class="flex-1"></span>
-              <div class="flex items-center gap-1 bg-blue-600 text-white px-4 py-1.5 rounded-full text-xs font-bold shadow-md">
-                   <i class="ri-settings-4-fill"></i> 管理
+              <div class="flex items-center gap-1 bg-gray-900 text-white px-4 py-1.5 rounded-full text-xs font-bold shadow-md">
+                   <i class="ri-settings-4-fill"></i> 管理活动
               </div>
           </div>
           <div class="flex-1 p-6 relative">
@@ -201,17 +201,17 @@
     <div class="absolute node-container" style="left: 100px; top: 1600px;">
       <div id="CC-14" class="absolute -top-10 left-0 bg-gray-900 text-white text-sm px-3 py-1 rounded shadow-sm z-10">CC-14 · 社团成员列表</div>
       <div class="w-[375px] h-[600px] bg-white border border-gray-200 rounded-[32px] shadow-2xl overflow-hidden transform scale-[0.65] origin-top-left flex flex-col">
-          <div class="h-16 flex items-center px-6 border-b border-gray-100">
+          <div class="h-16 flex items-center px-6 border-b border-gray-100 shrink-0">
               <i class="ri-arrow-left-s-line text-2xl"></i>
-              <span class="flex-1 text-center font-bold text-xl">成员列表</span>
+              <span class="flex-1 text-center font-bold text-xl">社团成员列表</span>
           </div>
           <div class="m-5 p-5 bg-gray-900 text-white rounded-[24px] flex items-center justify-between shadow-2xl">
               <div class="flex flex-col">
-                  <span class="text-base font-bold">团长管理后台</span>
+                  <span class="text-base font-bold">团长管理卡片</span>
                   <span class="text-[10px] text-gray-500 mt-1">管理审核、设置禁言等</span>
               </div>
               <div class="bg-white text-gray-900 px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-1">
-                  前往管理 <i class="ri-arrow-right-s-line"></i>
+                  去管理 <i class="ri-arrow-right-s-line"></i>
               </div>
           </div>
           <div class="p-6 grayscale opacity-40 space-y-4">
@@ -222,21 +222,21 @@
     </div>
 
     <div class="absolute node-container" style="left: 1300px; top: 1600px;">
-      <div id="CC-16-1" class="absolute -top-10 left-0 bg-blue-600 text-white text-sm px-3 py-1 rounded shadow-sm z-10 font-bold">CC-16-1 · 成员管理门面</div>
+      <div id="CC-16-1" class="absolute -top-10 left-0 bg-gray-900 text-white text-sm px-3 py-1 rounded shadow-sm z-10 font-bold">CC-16-1 · 成员管理-全部成员</div>
       <div class="w-[375px] h-[600px] bg-white border border-gray-200 rounded-[32px] shadow-2xl overflow-hidden transform scale-[0.65] origin-top-left flex flex-col">
-          <div class="h-16 flex items-center px-6 border-b border-gray-100">
+          <div class="h-16 flex items-center px-6 border-b border-gray-100 shrink-0">
               <i class="ri-arrow-left-s-line text-2xl"></i>
-              <span class="flex-1 text-center font-bold text-xl">成员管理</span>
+              <span class="flex-1 text-center font-bold text-xl text-gray-900">成员管理</span>
           </div>
-          <div class="flex border-b border-gray-50">
+          <div class="flex border-b border-gray-50 bg-white">
               <div class="flex-1 py-4 text-center font-bold text-sm border-b-2 border-gray-900">全部成员</div>
               <div class="flex-1 py-4 text-center font-normal text-sm text-gray-400">申请审核 (3)</div>
           </div>
           <div class="p-4">
-              <div class="p-4 border border-gray-100 rounded-2xl flex items-center gap-4">
+              <div class="p-4 border border-gray-100 rounded-2xl flex items-center gap-4 bg-white">
                   <div class="w-12 h-12 bg-gray-100 rounded-full"></div>
                   <div class="flex-1">
-                      <div class="font-bold text-gray-900">李老师</div>
+                      <div class="font-bold text-gray-900">李教员</div>
                       <div class="text-[10px] text-gray-400">入团时间: 2026-03-20</div>
                   </div>
                   <div class="bg-gray-900 text-white px-3 py-1.5 rounded-lg text-xs font-bold">编辑</div>

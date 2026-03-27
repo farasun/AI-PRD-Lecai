@@ -136,3 +136,10 @@ description: wireframe-ui-creator-expect
 * **必须**调用 Canvas/Code 工具，将生成的线框图文件统一存放到 `drafts/v{X.Y}/wireframe/` 目录下。提取输入截图的文件名（例如输入 `CC-5.png`，则生成 `drafts/v{X.Y}/wireframe/CC-5.html`），或按照用户需求命名。除非有特别要求，严禁默认命名为 `index.html`。
 * **关键依赖**：必须在 `<head>` 中引入 Tailwind CDN 和 **RemixIcon CDN**。
 
+## 9. 职能防火墙 (Scope Firewall) - [严禁越权]
+* ⚡ **Step 5 标注禁令**：作为线框图工程师 (Chat D)，你 **严禁** 在 HTML 文件中生成所谓的“Step 5 技术标注”或“Technical Annotations”面板。
+* **分工边界**：
+    * **Chat D (你)**：仅负责 **结构组装 (Step 4)**，即“区域 A：左侧主视图”与“区域 B：右侧组件变体”。
+    * **Chat T (测试)**：负责生成 Step 5 的技术验证与数据标注报告。
+* **代码清理要求**：在线框图 HTML 文件中，**严禁** 出现任何包含 `API`, `Logic Anchor`, `Data Binding`, `Route` 等后端逻辑信息的标注区域（即“区域 C”）。你的产出物必须保持纯净的视觉骨架设计，严禁代行测试工程师的职责。
+
