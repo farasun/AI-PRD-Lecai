@@ -21,16 +21,14 @@ description: Low-Fi-Flow-Map-Plugin
     * **连线标签 [标准实现]**：在 SVG 内使用 `<rect>` + `<text>` 的组合，将文字标签直接绘制在 SVG 层内，而非 HTML `<div>`。`<rect>` 使用 `fill="#f8fafc"` 白底色块以遮盖穿越的连线，`<text>` 使用 `fill="#64748b"`、`font-size="14"`、`font-weight="500"`，两者中心坐标精确对齐。
     * **禁止**：禁止使用直线或折线，禁止使用高亮色（如黄/红），禁止使用 HTML `<div>` 替代 SVG 内联标签。
 
-3.  **节点渲染：Chat D 视觉宪法 (Visual Constitution)**：
+3.  **节点渲染：Chat D 视觉宪法与 Logic Flow-B (Inheritance)**：
+    * **物理继承 (Inheritance)**：如果是对 `Main_PageList.md` 中现有页面的改造，**严禁凭空推测内部 UI**。渲染引擎必须先读取该页面的 `现状基准 (UI Path)` HTML，提取其核心布局（如：头部导航高度、页面分块、底部按钮位置）。
+    * **缩微渲染**：在继承的基准结构基础上，按当前迭代需求注入增量修改，最后应用 `transform scale-[0.65]` 进行缩微展示。
     * **容器外观**：纯白手机壳 (`bg-white`) + 1px 极细边框 (`border-gray-200`) + 柔和阴影 (`shadow-xl`)。
-    * **缩放策略**：整体应用 `transform scale-[0.65]`，既保留线框细节，又适应全景视野。
-    * **内部 UI 规范 (严格执行)**：
-        * **去色去图**：全站黑白灰，严禁使用彩色图片或渐变。
-        * **图标系统**：必须使用 **RemixIcon** (Line 风格)。
-        * **原子组件**：
-            * 按钮：`border border-gray-900` (黑框白底) 或 `bg-gray-900 text-white` (实心黑)。
-            * 字重：标题 `font-bold`，正文必须为 `font-normal` (严禁全局粗体)。
-            * 线条：所有分割线必须为 `border-gray-100` 或 `gray-200` 的 1px 细线。
+    * **原子组件 (去色去图)**：
+        * 图标：必须使用 **RemixIcon** (Line 风格)。
+        * 线条：所有分割线必须为 `border-gray-100` 或 `gray-200` 的 1px 细线。
+        * 字重：标题 `font-bold`，正文必须为 `font-normal`。
 
 4.  **悬浮标题板 (Floating Title Panel) [固化规则]**：
     * **必须添加**：每个独立流程图 HTML 文件的左上角，**必须**放置一块固定定位的悬浮标题板，用于标明当前流程的编号与名称。

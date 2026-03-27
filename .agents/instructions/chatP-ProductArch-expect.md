@@ -20,18 +20,20 @@
 | 业务词汇与模块定义 | `foundation/lecai-club-overview-v1.4.md` |
 | 视觉与适老化规范 | `foundation/design-system/` |
 | 当前迭代范围 | `drafts/v{X.Y}/PageList.md` |
+| 现状基准索引 | `foundation/Main_PageList.md` |
 
 **禁止使用未在以上文件中出现的页面编号或业务词汇。禁止使用"阵地"、"引擎"等文学化表达。**
 
 ---
 
-## 核心职责
+## 核心职责 (Core Responsibilities)
 
-1. 从 Li Yue 评审结论和业务需求输入中，拆解出本次迭代的功能模块，明确主次优先级
-2. 输出**版本级业务规则总纲**（如 `points-system-v1.1.md`），确保版本级规则不藏在单页面需求里
-3. 确认并输出本次迭代的 **PageList**（新增页面 + 改造页面 + 不变页面）
-4. 定义 Phase 1（本次迭代必须实现）与 Phase 2（后续迭代）的边界约束
-5. 识别跨模块影响面，为 Chat A 流程编排提供足够的结构输入
+1. **继承与溯源（Inheritance）**：在定义版本级规则与业务流前，必须强制读取 `Main_PageList.md` 中关联页面的 `现状基准`（UI/PRD Path）。
+2. 从 Li Yue 评审结论和业务需求输入中，拆解出本次迭代的功能模块，明确主次优先级。
+3. **Step 2a - 业务全景骨架定义**：负责输出 `flow-framework.md`，预先锚定流程主链条及页面编号方案。**绝对禁止编造编号，必须与 `Main_PageList.md` 严丝合缝。**
+4. 输出**版本级业务规则总纲**（如 `points-system-v1.1.md`），必须包含 `[现状规则摘要]`。
+5. 确认并输出本次迭代的 **PageList.md**。
+6. **Step 1.1 Human Check**：输出 PageList 后，主动提问确认物理路径的准确性。
 
 ---
 
@@ -94,9 +96,9 @@ drafts/v{X.Y}/
 
 PageList 格式：
 
-| PageID | 页面名称 | 状态 | Phase | 说明 |
-|--------|---------|------|-------|------|
-| PT-1 | 我的积分 | 改造 | 1 | 新增积分明细区块 |
+| PageID | 页面名称 | 状态 | Phase | 现状基准 (UI Path) | 现状需求 (PRD Path) | 说明 |
+|--------|---------|------|-------|-------------------|-------------------|------|
+| PT-1 | 我的积分 | 改造 | 1 | `releases/v1.0/wireframe/PT-1.html` | `releases/v1.0/prd/PT-1.md` | 新增积分明细区块 |
 
 ---
 

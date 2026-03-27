@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CC-14 社团成员列表 - Wireframe</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+</head>
+<body class="bg-gray-200 min-h-screen flex justify-center p-12 overflow-x-auto font-sans">
+
+    <div id="artboard" class="flex flex-row items-start gap-24">
+
+        <!-- 区域 A：主视图 (Left Column) -->
+        <div class="flex flex-col">
+            <h2 class="text-xl font-bold text-gray-900 mb-4">CC-14 社团成员列表 (状态 I：正常态)</h2>
+            <div class="w-[375px] h-auto bg-white shadow-2xl border border-gray-200 relative p-0 overflow-hidden rounded-none pb-20">
+                
+                <!-- Navbar (h-16) -->
+                <div class="h-16 flex items-center px-4 border-b border-gray-100 bg-white sticky top-0 z-10">
+                    <div class="w-10 flex items-center"><i class="ri-arrow-left-s-line text-2xl text-gray-900"></i></div>
+                    <div class="flex-1 text-center font-bold text-gray-900 text-xl tracking-tight">成员列表 (48)</div>
+                    <div class="w-10 text-right"><i class="ri-search-line text-2xl text-gray-900"></i></div>
+                </div>
+
+                <!-- List Area -->
+                <div class="p-6 space-y-2">
+                    <!-- Member Row 1 -->
+                    <div class="flex items-center gap-4 py-4 border-b border-gray-50">
+                        <div class="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center text-gray-400">王</div>
+                        <div class="flex flex-col flex-1">
+                            <span class="text-xl font-bold text-gray-900">王大妈</span>
+                            <span class="text-base text-gray-400">入团时间: 2026-01-01</span>
+                        </div>
+                        <i class="ri-arrow-right-s-line text-xl text-gray-200"></i>
+                    </div>
+                    <!-- Member Row 2 -->
+                    <div class="flex items-center gap-4 py-4 border-b border-gray-50">
+                        <div class="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center text-gray-400">李</div>
+                        <div class="flex flex-col flex-1">
+                            <span class="text-xl font-bold text-gray-900">李老师</span>
+                            <span class="text-base text-gray-400">入团时间: 2026-03-20</span>
+                        </div>
+                        <i class="ri-arrow-right-s-line text-xl text-gray-200"></i>
+                    </div>
+                    <!-- Placeholder Rows -->
+                    <div class="flex items-center gap-4 py-4 opacity-50"><div class="w-12 h-12 bg-gray-50 rounded-full"></div><div class="h-3 w-32 bg-gray-50 rounded-full"></div></div>
+                    <div class="flex items-center gap-4 py-4 opacity-30"><div class="w-12 h-12 bg-gray-50 rounded-full"></div><div class="h-3 w-28 bg-gray-50 rounded-full"></div></div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- 区域 B：组件变体集 (Right Column) -->
+        <div class="flex flex-col gap-10 w-[360px]">
+            <h2 class="text-xl font-bold text-gray-900">多状态展示</h2>
+
+            <!-- Variant: Leader Dashboard Entry -->
+            <div class="flex flex-col">
+                <h3 class="text-lg font-bold text-gray-700 mb-4 pl-3 border-l-4 border-gray-900">状态 II：团长视角 (头部管理板块)</h3>
+                <div class="bg-white p-6 border border-gray-200 solid shadow-md rounded-none">
+                    <div class="border border-gray-100 rounded-3xl overflow-hidden shadow-inner p-6 space-y-4">
+                        
+                        <!-- New Shortcut Entry -->
+                        <div class="p-6 bg-gray-900 text-white rounded-[24px] flex items-center justify-between shadow-2xl">
+                            <div class="flex flex-col">
+                                <span class="text-xl font-bold">班长管理区</span>
+                                <span class="text-base text-gray-400 mt-2 font-normal">快速进行审核、禁言或成员管理</span>
+                            </div>
+                            <div class="bg-white text-gray-900 px-4 py-2 rounded-xl text-lg font-bold flex items-center gap-1 shadow-sm">
+                                去管理 <i class="ri-arrow-right-s-line"></i>
+                            </div>
+                        </div>
+
+                        <!-- Info Label -->
+                        <div class="p-4 bg-gray-50 rounded-2xl border border-gray-200">
+                           <div class="text-lg text-gray-700">您可以在此快速跳转至复杂的管理后台，处理社团行政事务。</div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</body>
+</html>

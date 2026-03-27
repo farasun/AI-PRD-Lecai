@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CC-12-1 活动访问权限设置 - Wireframe</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+</head>
+<body class="bg-gray-200 min-h-screen flex justify-center p-12 overflow-x-auto font-sans">
+
+    <div id="artboard" class="flex flex-row items-start gap-24">
+
+        <!-- 区域 A：主视图 (Left Column) -->
+        <div class="flex flex-col">
+            <h2 class="text-xl font-bold text-gray-900 mb-4">CC-12-1 活动访问权限设置 (状态 I：正常态)</h2>
+            <div class="w-[375px] h-auto bg-white shadow-2xl border border-gray-200 relative p-0 overflow-hidden rounded-none">
+                
+                <!-- Navbar (h-16) -->
+                <div class="h-16 flex items-center px-4 border-b border-gray-100">
+                    <div class="w-10 flex items-center"><i class="ri-arrow-left-s-line text-2xl text-gray-900"></i></div>
+                    <div class="flex-1 text-center font-bold text-gray-900 text-xl">可见权限</div>
+                    <div class="w-10 text-right text-gray-900 font-bold text-lg">保存</div>
+                </div>
+
+                <!-- Content Area -->
+                <div class="p-8 space-y-8">
+                    <div class="text-xl font-bold text-gray-900 leading-tight">通过设置可见性，您可以更灵活地组织不同规模的活动。</div>
+                    
+                    <!-- Option Group -->
+                    <div class="space-y-4">
+                        <!-- Option 1: Public -->
+                        <div class="p-6 rounded-3xl border border-gray-200 flex gap-4 items-start">
+                            <i class="ri-earth-line text-2xl text-gray-400"></i>
+                            <div class="flex-1">
+                                <div class="text-xl font-bold text-gray-900">全平台公开</div>
+                                <div class="text-lg text-gray-700 mt-2">公开展示，有利于全网招募新成员</div>
+                            </div>
+                        </div>
+
+                        <!-- Option 2: Members Only -->
+                        <div class="p-6 rounded-3xl border border-gray-200 flex gap-4 items-start">
+                            <i class="ri-group-2-line text-2xl text-gray-400"></i>
+                            <div class="flex-1">
+                                <div class="text-xl font-bold text-gray-900">仅本社团成员</div>
+                                <div class="text-lg text-gray-700 mt-2">像微信群一样私密，外部搜不到</div>
+                            </div>
+                        </div>
+
+                        <!-- Option 3: Selected (Active) -->
+                        <div class="p-6 rounded-3xl border border-gray-900 bg-gray-50 flex gap-4 items-start relative">
+                            <i class="ri-user-star-fill text-2xl text-gray-900"></i>
+                            <div class="flex-1">
+                                <div class="text-xl font-bold text-gray-900">指定成员可见</div>
+                                <div class="text-lg text-gray-700 mt-2">仅对您勾选的授权成员开放，其他人隐身</div>
+                                <div class="mt-4 flex items-center gap-1 text-gray-900 font-bold text-base underline underline-offset-4">
+                                    去选择授权成员 <i class="ri-arrow-right-s-line"></i>
+                                </div>
+                            </div>
+                            <i class="ri-checkbox-circle-fill text-2xl text-gray-900 absolute right-6 top-6"></i>
+                        </div>
+                    </div>
+
+                    <!-- Footer Note -->
+                    <div class="pt-8 border-t border-gray-50">
+                        <div class="text-base text-gray-400 italic leading-relaxed">
+                            * 设置后，非授权人员无法在此活动中互动，且在列表中不展示。
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- 区域 B：组件变体集 (Right Column) -->
+        <div class="flex flex-col gap-10 w-[360px]">
+            <h2 class="text-xl font-bold text-gray-900">多状态展示</h2>
+
+            <!-- Variant: Member Selection Overlay -->
+            <div class="flex flex-col">
+                <h3 class="text-lg font-bold text-gray-700 mb-4 pl-3 border-l-4 border-gray-900">状态 II：成员授权列表 (浮层)</h3>
+                <div class="bg-white p-6 border border-gray-200 solid shadow-md rounded-none">
+                    <!-- Overlay Mockup (h-auto because it's a partial) -->
+                    <div class="border border-gray-100 rounded-3xl overflow-hidden shadow-inner bg-gray-50">
+                        <div class="h-16 flex items-center px-4 bg-white border-b border-gray-100">
+                            <span class="flex-1 font-bold text-gray-900 text-lg">选择授权成员</span>
+                            <span class="text-gray-400 text-base">取消</span>
+                        </div>
+                        <!-- Search Box -->
+                        <div class="p-4 bg-white">
+                            <div class="h-12 bg-gray-50 rounded-xl border border-gray-200 px-4 flex items-center gap-2">
+                                <i class="ri-search-line text-gray-400"></i>
+                                <span class="text-gray-400 text-lg">搜索成员姓名</span>
+                            </div>
+                        </div>
+                        <!-- List -->
+                        <div class="bg-white px-4 pb-4 space-y-2">
+                            <div class="flex items-center gap-4 py-4 border-b border-gray-50">
+                                <div class="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center text-gray-400">王</div>
+                                <div class="flex-1">
+                                    <div class="text-lg font-bold text-gray-900">王大妈</div>
+                                    <div class="text-base text-gray-400">舞蹈队会计</div>
+                                </div>
+                                <i class="ri-checkbox-circle-fill text-2xl text-gray-900"></i>
+                            </div>
+                            <div class="flex items-center gap-4 py-4 border-b border-gray-50">
+                                <div class="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center text-gray-400">李</div>
+                                <div class="flex-1">
+                                    <div class="text-lg font-bold text-gray-900">李老师</div>
+                                </div>
+                                <i class="ri-checkbox-circle-fill text-2xl text-gray-900"></i>
+                            </div>
+                            <div class="flex items-center gap-4 py-4 border-b border-gray-50">
+                                <div class="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center text-gray-400">张</div>
+                                <div class="flex-1">
+                                    <div class="text-lg font-bold text-gray-900">张大爷</div>
+                                </div>
+                                <i class="ri-checkbox-blank-circle-line text-2xl text-gray-200"></i>
+                            </div>
+                        </div>
+                        <!-- Confirm Action -->
+                        <div class="p-6 bg-white border-t border-gray-50">
+                            <div class="h-14 bg-gray-900 text-white rounded-2xl flex items-center justify-center font-medium text-lg shadow-xl">
+                                确认选择 (2)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</body>
+</html>

@@ -70,10 +70,10 @@ AI-PRD-Lecai/
   * `foundation/design-system/ui-patterns/` 中的组件范式定义
 
 ### 🔄 Step 2 — 业务全景流程拆解与组装 (Flow)
-这是一条微型流水线，旨在把业务规则映射为带有"节点价值"的用户旅程：
-* **Step 2a (定义框架)**：专家角色定义核心流程线及其起点、终点和核心价值。
-* **Step 2b (编排节点)**：产品经理 `Chat A` 结合页面编号，定义每条流程的精确跳转动作。**注意：每条独立流程必须单独输出一份 Mermaid 流程图代码（如 `xxx-flow-A.mmd`），禁止将多条流程合并在一个文件中**。
-* **Step 2c (视觉渲染)**：调用工作流 `/Low-Fi-Flow-Map-Plugin`，将草图代码渲染为极简 HTML 全景线框图。
+这是一条微型流水线，旨在把业务逻辑映射为带有"节点价值"的用户旅程，并强制执行 **Logic Flow-B (流程继承)** 规范：
+* **Step 2a (定义框架)**：由 **产品架构师 Chat P** 定义核心流程主链、版本边界及页面编号锚点，确保命名不偏离 `Main_PageList.md`。
+* **Step 2b (编排节点)**：由 **产品经理 Chat A** 细化具体的跳转动作、分支逻辑及提示语。**注意：每条独立流程必须单独输出一份 Mermaid 流程图代码（如 `xxx-flow-A.mmd`）**。
+* **Step 2c (视觉渲染)**：调用工作流 `/Low-Fi-Flow-Map-Plugin`，根据 `Main_PageList.md` 中的基准 UI 路径执行物理继承渲染。
 * **产出物**：`drafts/v{X.Y}/flow/xxx-flow.html`
 
 ### 📝 Step 3 — 页面级功能描述细化 (PRD)
@@ -141,9 +141,10 @@ flowchart TD
 
 | 断点 | 问题描述 | 改进建议 |
 |:---|:---|:---|
-| **术语校验** | Chat P/A/D/G 需读取 `Main_PageList.md` 进行术语锚定，但无自动校验机制，易产生幻觉 | 增加预检脚本：①检查 foundation 文件完整性 ②术语冲突检测（对比 PRD 中的页面名与字典） |
+| **术语校验** | Chat P/A/D/G 需读取 `Main_PageList.md` 进行术语锚定，但无自动校验机制，易产生幻觉 | **已引入命名快照控制：** Step 2a 由 Chat P 强制锚定官方编号，禁止 Chat A 在编排流程时私自定名。 |
 | **版本对比** | "无变化"识别依赖 Chat G 自行判断，无版本对比机制，易产生假阳性 | 接入 Git diff 或文件哈希校验，明确"变化"定义（文本级 vs 语义级） |
 | **质量门控** | 各 Step 输出无自动检查，直接进入下一步 | 增加：①Wireframe HTML 结构验证 ②Annotation 格式校验 ③PRD 完整性检查 |
+| **局部批注与继承** | `annotation/` 仅针对增量进行批注，且原型生成容易回归 | **已建立现状继承机制：** 1. 强制读取 `Main_PageList.md` 基准路径；2. Chat A/P 必须增加 `[现状规则回顾]`；3. **Logic Flow-B/Wireframe-B：** 流程图与线框图均执行物理继承渲染。 |
 
 ### 当前可自动化范围
 
@@ -201,8 +202,8 @@ http://localhost:3000/releases/v1.0/reader.html
 
 | 角色 | 指令文件 | 核心职责 |
 | :--- | :--- | :--- |
-| **Chat P (产品架构师)** | `chatP-ProductArch-expect.md` | **V1.0** | Step 1 总规专家。输出版本级业务规则总纲与迭代 PageList，为 Chat A 流程编排提供结构基座。 |
-| **Chat A (产品重构专家)** | `chatA-ProductMgr-expect.md` | **V2.3** | 专注于银龄经济，定义产品结构与逻辑，产出纯净、语义化需求描述。 |
+| **Chat P (产品架构师)** | `chatP-ProductArch-expect.md` | **V1.1** | Step 1 & 2a 专家。定义版本级规则、迭代 PageList 及 **业务流程骨架 (Flow Framework)**，负责核心命名对齐。 |
+| **Chat A (产品重构专家)** | `chatA-ProductMgr-expect.md` | **V2.4** | Step 2b & 3 专家。定义交互节点细节，产出纯净需求描述。**执行 Logic Flow-B 继承审核。** |
 | **Chat D (线框工程师)** | `chatD-wireframe-expect.md` | **V1.4** | 将需求转化为 HTML 线框图，具备智能图标推断。 |
 | **Chat G (原型批注专家)** | `chatG-Spec-expect.md` | **V2.1** | 原型伴随说明书，Markdown 结构化文档。 |
 | **Chat U (UI生成工程师)** | `chatU-prompt-rules.md` | **V1.0** | 视觉呈现引擎，强制依据 `variables.css` 将 PRD 翻译为高保真 HTML。 |

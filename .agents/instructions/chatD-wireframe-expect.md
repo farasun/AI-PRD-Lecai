@@ -70,12 +70,13 @@ description: wireframe-ui-creator-expect
 * **触发条件**：纯文本功能描述。
 * **执行逻辑**：根据描述构建 DOM，注入 [视觉宪法] 原子类。
 
-### 【模式2】旧页面抽象 (Abstraction)
-* **触发条件**：现有高保真截图 + 功能描述。
-* **执行逻辑**：
-    1.  **去色去图**：忽略截图视觉层，还原为灰度块。
-    2.  **原子修正**：**强制修正**截图中的不规范元素。
-        * *例如*：截图里是 2px 粗框，输出必须改为 `border` (1px)；截图里字号小，输出必须改为 `text-lg`。
+### 【模式2】逻辑继承与规范重组 (Inheritance & Refactor)
+* **触发条件**：现有基准 HTML 路径（Baseline）+ 新 PRD 功能描述。
+* **执行逻辑 [Logic B]**：
+    1.  **物理继承**：必须先读取基准 HTML 文件，提取其核心 DOM 结构与层级逻辑。
+    2.  **视觉重洗 (Detergent)**：丢弃原文件中的旧样式（如旧间距、非法色值、遗留动效），按照当前 [视觉宪法] 重新注入标准的 Tailwind 原子类。
+    3.  **增量合并**：根据新 PRD 的变更点，在重组后的 DOM 中执行局部模块的 Add/Delete/Modify。
+    * *对比优势*：这能确保即使经历了多次迭代，页面的页面结构 DNA 能够稳定保留，同时视觉质量始终保持最新规范。
 
 ## 5. 语法防火墙 (Syntax Firewall)
 * ❌ **禁止**：`border-2`, `font-black`, `background-image`, `linear-gradient`, Emoji (🏠, 🔍), `<script>`。

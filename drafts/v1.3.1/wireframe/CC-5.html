@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CC-5 社团活动详情 - 现状继承重构版</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <style>
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-200 min-h-screen flex justify-center p-12 overflow-x-auto">
+
+    <div id="artboard" class="flex flex-row items-start gap-24">
+
+        <!-- ============================================================
+             区域 A：主视图 (CC-5 社团活动详情 - 现状继承版)
+             [Inherited from v1.0 + v1.3.1 Logic]
+        ============================================================= -->
+        <div class="flex flex-col">
+            <h2 class="text-xl font-bold text-gray-900 mb-4">CC-5 社团活动详情 (状态 I：正常态 - 团长视角)</h2>
+
+            <div
+                class="w-[375px] h-auto bg-white shadow-2xl border border-gray-200 relative p-0 overflow-hidden rounded-none flex flex-col">
+
+                <!-- 顶部导航 (h-16) [Standardized] -->
+                <div
+                    class="h-16 flex items-center justify-between px-4 border-b border-gray-100 bg-white sticky top-0 z-50">
+                    <div class="flex items-center gap-1 text-gray-900">
+                        <i class="ri-arrow-left-s-line text-2xl"></i>
+                        <span class="text-lg">返回</span>
+                    </div>
+                    <span class="text-xl font-bold text-gray-900">活动详情</span>
+                    
+                    <!-- v1.3.1 New: Leader Management Shortcut -->
+                    <div class="flex items-center gap-1 bg-gray-900 text-white px-3 py-1.5 rounded-full text-sm font-bold shadow-md">
+                        <i class="ri-settings-3-line"></i> 管理活动
+                    </div>
+                </div>
+
+                <!-- 活动标题区与数据/控件 [Inherited] -->
+                <div class="bg-white px-4 py-6 border-b border-gray-100">
+                    <h1 class="text-2xl font-bold text-gray-900">2026年1月23日塔川行</h1>
+
+                    <div class="flex flex-wrap items-center gap-2 mt-3">
+                        <div
+                            class="px-3 py-1 border border-gray-300 rounded-lg bg-white text-gray-700 text-sm font-normal">
+                            作品14
+                        </div>
+                        <div
+                            class="px-3 py-1 border border-gray-300 rounded-lg bg-white text-gray-700 text-sm font-normal">
+                            获赞22
+                        </div>
+                        <!-- v1.3.1 New: Visibility Tag (Leader View) -->
+                        <div
+                            class="px-3 py-1 border border-gray-200 rounded-lg bg-gray-50 text-gray-400 text-sm font-normal italic">
+                            仅本社团可见
+                        </div>
+                    </div>
+
+                    <!-- 搜索与筛选控件 [Inherited] -->
+                    <div class="flex items-center gap-3 mt-6">
+                        <div
+                            class="flex-1 h-12 bg-gray-50 border border-transparent rounded-full flex items-center px-4 text-gray-400">
+                            <i class="ri-search-line mr-2 text-lg"></i>
+                            <span class="text-base font-normal">搜索作品</span>
+                        </div>
+                        <div class="flex items-center gap-1 text-gray-900">
+                            <span class="text-base font-normal">最新</span>
+                            <i class="ri-filter-3-line text-xl"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 瀑布流内容区 [Inherited] -->
+                <div class="bg-gray-50 p-4 min-h-[400px] flex gap-4">
+                    <!-- 左列 -->
+                    <div class="flex-1 flex flex-col gap-4">
+                        <div class="bg-white border border-gray-200 rounded-none overflow-hidden flex flex-col shadow-sm">
+                            <div class="h-40 bg-gray-100 flex items-center justify-center text-gray-300">
+                                <i class="ri-image-2-line text-4xl"></i>
+                            </div>
+                            <div class="px-3 py-2 bg-white">
+                                <div class="text-base font-bold text-gray-900 mb-1 truncate">冰 鱼</div>
+                                <div class="text-sm text-gray-500 font-normal">法拉孙Fara</div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 右列 -->
+                    <div class="flex-1 flex flex-col gap-4">
+                        <div class="bg-white border border-gray-200 rounded-none overflow-hidden flex flex-col shadow-sm">
+                            <div class="h-48 bg-gray-100 flex items-center justify-center text-gray-300">
+                                <i class="ri-image-2-line text-4xl"></i>
+                            </div>
+                            <div class="px-3 py-2 bg-white">
+                                <div class="text-base font-bold text-gray-900 mb-1 truncate">塔川秋意</div>
+                                <div class="text-sm text-gray-500 font-normal">李阿姨</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 底部占位 -->
+                <div class="h-24 bg-gray-50"></div>
+
+                <!-- 底部操作栏 [Inherited] -->
+                <div
+                    class="absolute bottom-0 w-full p-4 bg-white border-t border-gray-100 flex items-center justify-center z-[60] pb-8">
+                    <div
+                        class="w-full h-14 bg-gray-900 rounded-full flex items-center justify-center text-white gap-2 shadow-xl">
+                        <i class="ri-add-line text-2xl mt-0.5"></i>
+                        <span class="text-xl font-medium">上传作品</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================
+             区域 B：组件变体集 [Inherited + v1.3.1 Added]
+        ============================================================= -->
+        <div class="flex flex-col gap-10 w-[360px]">
+            <h2 class="text-xl font-bold text-gray-900">多状态展示</h2>
+
+            <!-- v1.3.1 Added: Trigger Management Action Sheet -->
+            <div class="flex flex-col">
+                <h3 class="text-lg font-bold text-gray-700 mb-4 pl-3 border-l-4 border-gray-900">状态 II：即看即改 (呼起管理 Action Sheet)</h3>
+                <div class="bg-white p-6 border border-gray-200 shadow-md rounded-none">
+                     <div class="border border-gray-100 rounded-3xl overflow-hidden bg-gray-900/10">
+                        <div class="flex flex-col mt-24 bg-white border-t border-gray-200 rounded-t-3xl p-6 space-y-4">
+                            <div class="flex flex-col mb-2">
+                                <span class="text-lg font-bold text-gray-900 leading-none">正在配置活动</span>
+                                <span class="text-sm text-gray-400 mt-2">2026年1月23日塔川行</span>
+                            </div>
+                            <div class="p-4 bg-gray-50 border border-gray-200 rounded-2xl flex items-center gap-4">
+                                <div class="w-10 h-10 bg-gray-100 rounded-xl flex items-center justify-center"><i class="ri-shield-user-line text-xl text-gray-900"></i></div>
+                                <div class="flex-1">
+                                    <div class="text-base font-bold text-gray-900">活动可见权限</div>
+                                    <div class="text-xs text-gray-400">当前：仅本社团可见</div>
+                                </div>
+                                <i class="ri-arrow-right-s-line text-gray-400"></i>
+                            </div>
+                            <div class="pt-2 text-center">
+                                <span class="text-lg font-bold text-gray-400">取消</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- v1.0 Inherited: Empty State -->
+            <div class="flex flex-col opacity-60">
+                <h3 class="text-lg font-bold text-gray-400 mb-4 pl-3 border-l-4 border-gray-200">（继承自 v1.0）状态 III：空状态</h3>
+                <div class="bg-white p-6 border border-gray-200 shadow-md rounded-none">
+                    <div class="h-40 flex flex-col items-center justify-center text-center">
+                        <i class="ri-image-line text-4xl text-gray-200 mb-2"></i>
+                        <p class="text-base text-gray-500 font-normal">暂无作品发布</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+
+</html>
