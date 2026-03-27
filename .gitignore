@@ -65,7 +65,7 @@ manual/**/*.png
 !manual/**/README.md
 !manual/**/input/*.md
 
-# Project Global Ignoring of Large Artifacts
+# Project Global Ignoring of Heavy Artifacts
 **/frames/
 **/*.mp4
 **/*.mov
@@ -75,12 +75,19 @@ manual/**/*.png
 **/*.pdf
 **/*.jpg
 **/*.png
+**/.DS_Store
+
+# Whitelist Sources & PRD Deliverables
 !**/README.md
 !**/*.md
+!**/*.mmd
 !**/*.json
 !**/*.py
 !**/*.js
 !**/*.ts
-!**/*.html
 !**/*.css
+!**/*.html
+!manual/**/input/*.md
+!drafts/v1.2/flow/assets/*.png
+!drafts/v1.2/flow/assets/*.jpg
 

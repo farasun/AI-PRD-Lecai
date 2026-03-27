@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+  <style>
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    .bg-dot-grid {
+      background-image: radial-gradient(circle, #cbd5e1 1px, transparent 1px);
+      background-size: 20px 20px;
+    }
+  </style>
+</head>
+<body class="m-0 p-0 bg-gray-200 no-scrollbar">
+
+  <!-- ① 悬浮标题板 -->
+  <div style="position:fixed;top:24px;left:24px;z-index:50;background:rgba(17,24,39,0.85);backdrop-filter:blur(8px);border-radius:12px;padding:12px 20px;">
+    <div style="font-size:16px;font-weight:700;color:#fff;">社团流程B · 活动权限配置 (+底部操作浮层)</div>
+    <div style="font-size:12px;color:#9ca3af;margin-top:4px;">v1.3 · Action Sheet & UI Enriched · 2026-03-23</div>
+  </div>
+
+  <!-- ② 画布 -->
+  <div class="relative bg-dot-grid w-[2400px] h-[1800px] no-scrollbar font-sans text-gray-900">
+
+    <!-- ③ SVG 连线层 (Clean, No Dashed Lines) -->
+    <svg class="absolute inset-0 w-full h-full pointer-events-none z-0">
+      <defs>
+        <marker id="arrow-gray" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+          <path d="M0,0 L0,6 L9,3 z" fill="#94a3b8" />
+        </marker>
+        <marker id="arrow-blue" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+          <path d="M0,0 L0,6 L9,3 z" fill="#3b82f6" />
+        </marker>
+      </defs>
+      
+      <!-- CC-12 -> Action Sheet -->
+      <path d="M 344 680 C 500 680, 500 680, 698 680" stroke="#94a3b8" stroke-width="2" fill="none" marker-end="url(#arrow-gray)" />
+      <rect x="460" y="665" width="130" height="30" fill="#f8fafc" rx="4" />
+      <text x="525" y="685" fill="#64748b" font-size="14" font-weight="500" text-anchor="middle">点击[配置项]</text>
+
+      <!-- Action Sheet -> CC-12-1 (Permission) Top-Right Path -->
+      <path d="M 944 680 C 1100 680, 1100 380, 1298 380" stroke="#3b82f6" stroke-width="2" fill="none" marker-end="url(#arrow-blue)" />
+      <rect x="1060" y="475" width="130" height="30" fill="#eff6ff" border="1" stroke="#bfdbfe" rx="4" />
+      <text x="1125" y="495" fill="#2563eb" font-size="14" font-weight="500" text-anchor="middle">点击[权限设置]</text>
+
+      <!-- Action Sheet -> CC-12-2 (Questionnaire) Bottom-Right Path -->
+      <path d="M 944 680 C 1100 680, 1100 1080, 1298 1080" stroke="#3b82f6" stroke-width="2" fill="none" marker-end="url(#arrow-blue)" />
+      <rect x="1060" y="935" width="130" height="30" fill="#eff6ff" border="1" stroke="#bfdbfe" rx="4" />
+      <text x="1125" y="955" fill="#2563eb" font-size="14" font-weight="500" text-anchor="middle">点击[修改问卷]</text>
+
+    </svg>
+
+    <!-- ④ 节点容器 -->
+    
+    <!-- CC-12 活动管理 (y=450) -->
+    <div class="absolute" style="left: 100px; top: 450px;">
+      <div id="CC-12" class="absolute -top-10 left-0 bg-gray-900 text-white text-sm px-3 py-1 rounded shadow-sm z-10">CC-12 · 活动管理主门面</div>
+      <div class="w-[375px] h-[720px] bg-white border border-gray-200 rounded-[32px] shadow-2xl overflow-hidden transform scale-[0.65] origin-top-left flex flex-col">
+          <div class="h-16 flex items-center px-6 border-b border-gray-100 bg-white shrink-0">
+              <i class="ri-arrow-left-s-line text-2xl"></i>
+              <span class="flex-1 text-center font-bold text-xl">管理社团活动</span>
+          </div>
+          <div class="p-6 overflow-hidden">
+              <!-- Rule panel from v1.1 -->
+              <div class="p-4 rounded-xl border border-gray-200 bg-gray-50 flex items-start gap-4 mb-8">
+                  <i class="ri-settings-4-line text-xl mt-0.5 text-gray-900"></i>
+                  <div class="text-xs text-gray-500 font-normal leading-relaxed">
+                      在此可对本团活动进行权限隔离及资料回收配置。权限变动将实时同步至成员端。
+                  </div>
+              </div>
+
+              <div class="text-xl font-bold mb-4">进行中 (2)</div>
+              <!-- Activity Management List -->
+              <div class="flex flex-col gap-4">
+                  <!-- Item 1 -->
+                  <div class="p-5 rounded-2xl border border-gray-200 bg-white flex flex-col gap-4 shadow-sm relative overflow-hidden">
+                      <div class="absolute right-0 top-0 w-12 h-12 bg-blue-50 flex items-start justify-end p-2 rounded-bl-3xl">
+                          <i class="ri-shield-user-fill text-blue-400"></i>
+                      </div>
+                      <div class="flex flex-col pr-8">
+                          <span class="text-base font-bold text-gray-900 leading-tight mb-2">kawayi电吹管认证培训师-第一期</span>
+                          <span class="text-xs text-gray-400 font-normal">限内部成员 · 已配置问卷</span>
+                      </div>
+                      <div class="flex gap-2 border-t border-gray-100 pt-3">
+                          <div class="flex-1 h-10 bg-gray-900 text-white rounded-xl flex items-center justify-center text-xs font-bold shadow-md cursor-pointer hover:bg-gray-800 transition-colors">
+                              配置项 <i class="ri-settings-3-fill ml-1"></i>
+                          </div>
+                      </div>
+                  </div>
+                  <!-- Item 2 -->
+                  <div class="p-4 rounded-2xl border border-gray-200 bg-white opacity-60">
+                      <div class="flex justify-between items-center">
+                          <span class="text-sm font-bold">周末经典红歌名曲线上赏析会</span>
+                          <i class="ri-global-line text-xl"></i>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+    </div>
+
+    <!-- CC-12 Action Sheet (y=450) -->
+    <div class="absolute" style="left: 700px; top: 450px;">
+      <div id="Action-Sheet" class="absolute -top-10 left-0 bg-blue-600 text-white text-sm px-3 py-1 rounded shadow-sm z-10 font-bold">CC-12 · 底部操作浮层</div>
+      <div class="w-[375px] h-[720px] bg-gray-900/40 rounded-[32px] shadow-2xl overflow-hidden transform scale-[0.65] origin-top-left relative">
+          
+          <!-- Activity context overlay -->
+          <div class="absolute top-16 left-6 right-6 p-4 bg-white/10 backdrop-blur-sm rounded-2xl border border-white/20">
+              <div class="text-white text-sm font-bold opacity-80 mb-1">正在配置</div>
+              <div class="text-white text-lg font-bold">kawayi电吹管认证培训师-第一期</div>
+          </div>
+
+          <!-- Bottom Sheet -->
+          <div class="absolute bottom-0 w-full bg-white rounded-t-3xl shadow-[0_-10px_40px_rgba(0,0,0,0.1)] flex flex-col">
+              <div class="w-full flex justify-center pt-4 pb-2">
+                  <div class="w-12 h-1.5 bg-gray-200 rounded-full"></div>
+              </div>
+              <div class="px-6 pb-2 pt-2">
+                  <div class="text-xl font-bold text-gray-900">活动配置项</div>
+              </div>
+              
+              <div class="px-4 py-2 flex flex-col gap-2">
+                  <!-- Config Item 1 -->
+                  <div class="flex items-center gap-4 p-4 rounded-2xl active:bg-gray-50 border border-transparent shadow-sm hover:border-gray-100 transition-colors">
+                      <div class="w-12 h-12 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center text-2xl">
+                          <i class="ri-shield-keyhole-line"></i>
+                      </div>
+                      <div class="flex-1 flex flex-col">
+                          <span class="text-base font-bold text-gray-900 border-b border-transparent">活动可见权限</span>
+                          <span class="text-xs text-gray-400 mt-1">当前：限内部成员</span>
+                      </div>
+                      <i class="ri-arrow-right-s-line text-gray-300 text-xl"></i>
+                  </div>
+                  
+                  <!-- Config Item 2 -->
+                  <div class="flex items-center gap-4 p-4 rounded-2xl active:bg-gray-50 border border-transparent shadow-sm hover:border-gray-100 transition-colors">
+                      <div class="w-12 h-12 bg-orange-50 text-orange-600 rounded-xl flex items-center justify-center text-2xl">
+                          <i class="ri-survey-line"></i>
+                      </div>
+                      <div class="flex-1 flex flex-col">
+                          <span class="text-base font-bold text-gray-900">配置师训问卷</span>
+                          <span class="text-xs text-gray-400 mt-1">当前：已关联回顾问卷</span>
+                      </div>
+                      <i class="ri-arrow-right-s-line text-gray-300 text-xl"></i>
+                  </div>
+
+                  <!-- Config Item 3 -->
+                  <div class="flex items-center gap-4 p-4 rounded-2xl active:bg-gray-50">
+                      <div class="w-12 h-12 bg-gray-50 text-gray-400 rounded-xl flex items-center justify-center text-xl">
+                          <i class="ri-close-circle-line"></i>
+                      </div>
+                      <div class="flex-1 flex flex-col">
+                          <span class="text-base font-bold text-gray-600">关闭提前报名</span>
+                      </div>
+                  </div>
+              </div>
+
+              <div class="h-16 flex items-center justify-center text-lg font-bold text-gray-400 border-t border-gray-100 mt-2 hover:bg-gray-50 active:bg-gray-100">取消</div>
+          </div>
+      </div>
+    </div>
+
+
+    <!-- CC-12-1 活动权限配置 (y=150) -->
+    <div class="absolute" style="left: 1300px; top: 150px;">
+      <div id="CC-12-1" class="absolute -top-10 left-0 bg-gray-900 text-white text-sm px-3 py-1 rounded shadow-sm z-10">CC-12-1 · 访问权限设置</div>
+      <div class="w-[375px] h-[720px] bg-white border border-gray-200 rounded-[32px] shadow-2xl overflow-hidden transform scale-[0.65] origin-top-left flex flex-col">
+          <div class="h-16 flex items-center px-6 border-b border-gray-100 bg-white shrink-0">
+              <span class="text-lg text-gray-400">取消</span>
+              <span class="flex-1 text-center font-bold text-xl">权限设置</span>
+              <span class="text-lg font-bold text-blue-600">保存</span>
+          </div>
+          <div class="p-8">
+              <div class="text-lg font-bold text-gray-900 mb-8 leading-snug">谁可以参与本次师训？</div>
+              <div class="space-y-4">
+                  <!-- Option 1: All members (Default) -->
+                  <div class="p-5 rounded-2xl border-2 border-blue-500 bg-blue-50 flex flex-col gap-2 relative transition-all shadow-sm">
+                      <div class="flex items-center gap-3">
+                          <div class="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-600"><i class="ri-group-fill"></i></div>
+                          <span class="text-lg font-bold text-blue-900">全部成员</span>
+                      </div>
+                      <div class="text-xs text-blue-500 font-normal leading-relaxed pl-11">
+                          限本团全部成员参与，外部用户只可见标题，提示需加入社团。<br/>
+                          <span class="inline-block mt-2 bg-blue-100 text-blue-700 px-2 py-0.5 rounded text-[10px] font-bold">默认推荐</span>
+                      </div>
+                      <i class="ri-checkbox-circle-fill text-2xl text-blue-600 absolute right-5 top-5"></i>
+                  </div>
+
+                  <!-- Option 2: Specific Members -->
+                  <div class="p-5 rounded-2xl border border-gray-200 bg-white flex flex-col gap-2 relative opacity-60 hover:opacity-100 transition-all cursor-pointer">
+                      <div class="flex items-center gap-3">
+                          <div class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-600"><i class="ri-user-star-line"></i></div>
+                          <span class="text-lg font-bold text-gray-900">指定成员</span>
+                      </div>
+                      <div class="text-xs text-gray-500 font-normal leading-relaxed pl-11 flex justify-between items-center">
+                          结合名单打卡限制特定人员参与
+                          <div class="flex items-center text-blue-500">
+                              选择人员 <i class="ri-arrow-right-s-line"></i>
+                          </div>
+                      </div>
+                      <i class="ri-checkbox-blank-circle-line text-2xl text-gray-300 absolute right-5 top-5"></i>
+                  </div>
+
+                  <!-- Option 3: Public -->
+                  <div class="p-5 rounded-2xl border border-gray-200 bg-white flex flex-col gap-2 relative opacity-60 hover:opacity-100 transition-all cursor-pointer">
+                      <div class="flex items-center gap-3">
+                          <div class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-600"><i class="ri-earth-line"></i></div>
+                          <span class="text-lg font-bold text-gray-900">全平台公开</span>
+                      </div>
+                      <div class="text-xs text-gray-500 font-normal leading-relaxed pl-11">
+                          可被游客和非社团成员搜索与扫码参与，有利于引流获客。
+                      </div>
+                      <i class="ri-checkbox-blank-circle-line text-2xl text-gray-300 absolute right-5 top-5"></i>
+                  </div>
+              </div>
+          </div>
+          <div class="mt-auto p-8 bg-gray-50 text-[10px] text-gray-400 leading-relaxed italic text-center border-t border-gray-100">
+              * 设置后，已在活动中的作品记录不受影响。
+          </div>
+      </div>
+    </div>
+
+    <!-- CC-12-2 问卷配置 (y=850) -->
+    <div class="absolute" style="left: 1300px; top: 850px;">
+      <div id="CC-12-2" class="absolute -top-10 left-0 bg-gray-900 text-white text-sm px-3 py-1 rounded shadow-sm z-10">CC-12-2 · 手机端问卷配置向导</div>
+      <div class="w-[375px] h-[720px] bg-white border border-gray-200 rounded-[32px] shadow-2xl overflow-hidden transform scale-[0.65] origin-top-left flex flex-col relative">
+          
+          <!-- Banner BG -->
+          <div class="absolute top-0 w-full h-32 bg-orange-50 z-0"></div>
+
+          <div class="h-16 flex items-center px-6 shrink-0 relative z-10">
+              <span class="text-lg text-gray-500 drop-shadow-sm">取消</span>
+              <span class="flex-1 text-center font-bold text-xl text-gray-900 drop-shadow-sm">问卷配置</span>
+              <span class="text-lg font-bold text-orange-600 drop-shadow-md">发布</span>
+          </div>
+
+          <div class="p-6 relative z-10 flex-1 overflow-y-auto no-scrollbar pb-32">
+              <div class="flex justify-between items-center bg-white p-5 rounded-2xl shadow-sm border border-orange-100 mb-8">
+                  <div class="flex flex-col gap-1">
+                      <span class="text-lg font-bold text-gray-900">开启提交认证问卷</span>
+                      <span class="text-xs text-gray-400 font-normal">开启后，用户必须填写问卷才能视为完课。</span>
+                  </div>
+                  <!-- Switch ON (Orange theme) -->
+                  <div class="w-12 h-6 bg-orange-500 rounded-full relative shadow-inner"><div class="absolute right-1 top-1 w-4 h-4 bg-white rounded-full shadow-sm"></div></div>
+              </div>
+              
+              <div class="flex items-center gap-2 mb-4">
+                  <div class="h-4 w-1 bg-orange-500 rounded-full"></div>
+                  <div class="text-base font-bold text-gray-900">问卷内容 (共1题)</div>
+              </div>
+              
+              <!-- Mobile Questionnaire Creator Card -->
+              <div class="bg-gray-50 rounded-2xl p-4 border border-gray-200 shadow-sm relative mb-4 transition-all hover:border-orange-300">
+                  <div class="absolute -left-2 top-6 bg-orange-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-r-md">Q1</div>
+                  
+                  <div class="pl-4">
+                      <!-- Question Title Input -->
+                      <div class="w-full bg-white border border-gray-200 rounded-xl p-3 flex items-center mb-4">
+                          <input type="text" value="请问您对本次课程的满意度是？" class="flex-1 bg-transparent border-none text-sm font-bold text-gray-900 focus:outline-none" />
+                          <div class="text-[10px] text-orange-500 bg-orange-50 px-2 py-1 rounded font-bold ml-2">单选题 <i class="ri-arrow-down-s-line"></i></div>
+                      </div>
+
+                      <!-- Options List -->
+                      <div class="space-y-2 mb-6">
+                          <div class="flex items-center gap-2">
+                              <i class="ri-checkbox-blank-circle-line text-lg text-gray-300"></i>
+                              <div class="flex-1 bg-white border border-gray-100 rounded-lg p-2 text-sm text-gray-700">非常满意</div>
+                              <i class="ri-close-line text-gray-300 text-lg"></i>
+                          </div>
+                          <div class="flex items-center gap-2">
+                              <i class="ri-checkbox-blank-circle-line text-lg text-gray-300"></i>
+                              <div class="flex-1 bg-white border border-gray-100 rounded-lg p-2 text-sm text-gray-700">基本满意</div>
+                              <i class="ri-close-line text-gray-300 text-lg"></i>
+                          </div>
+                          <div class="flex items-center gap-2">
+                              <i class="ri-checkbox-blank-circle-line text-lg text-gray-300"></i>
+                              <div class="flex-1 bg-white border border-gray-100 border-dashed rounded-lg p-2 text-sm text-gray-400">点击添加选项...</div>
+                          </div>
+                      </div>
+
+                      <!-- Question Card Footer Actions -->
+                      <div class="flex justify-between items-center border-t border-gray-200 pt-3">
+                          <div class="flex text-gray-400 text-lg gap-4">
+                              <i class="ri-FileCopy-line hover:text-gray-600 transition-colors"></i>
+                              <i class="ri-delete-bin-line hover:text-red-500 transition-colors"></i>
+                          </div>
+                          <div class="flex items-center gap-2">
+                              <span class="text-xs text-gray-500 font-bold">必答题</span>
+                              <!-- Switch ON logic small -->
+                              <div class="w-8 h-4 bg-gray-900 rounded-full relative"><div class="absolute right-0.5 top-0.5 w-3 h-3 bg-white rounded-full"></div></div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+
+              <!-- Add New Question Button -->
+              <div class="w-full h-14 border border-dashed border-orange-300 bg-orange-50 text-orange-600 rounded-xl flex items-center justify-center font-bold gap-2 cursor-pointer hover:bg-orange-100 transition-colors">
+                  <i class="ri-add-line text-xl"></i> 添加题目
+              </div>
+          </div>
+
+          <!-- Bottom Fixed Action -->
+          <div class="absolute bottom-0 left-0 right-0 p-6 bg-white border-t border-gray-100 shadow-[0_-10px_30px_rgba(0,0,0,0.05)] z-20 flex gap-4">
+              <div class="flex-1 h-14 bg-gray-100 text-gray-600 rounded-2xl flex items-center justify-center font-bold text-lg">预览</div>
+              <div class="flex-[2] h-14 bg-gray-900 text-white rounded-2xl flex items-center justify-center font-bold text-lg shadow-lg">直接发布</div>
+          </div>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>

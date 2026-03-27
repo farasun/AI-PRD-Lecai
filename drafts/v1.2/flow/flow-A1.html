@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+  <style>
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    .bg-dot-grid {
+      background-image: radial-gradient(circle, #cbd5e1 1px, transparent 1px);
+      background-size: 20px 20px;
+    }
+  </style>
+</head>
+<body class="m-0 p-0 bg-gray-200 no-scrollbar">
+
+  <!-- ① 悬浮标题板 -->
+  <div style="position:fixed;top:24px;left:24px;z-index:50;background:rgba(17,24,39,0.85);backdrop-filter:blur(8px);border-radius:12px;padding:12px 20px;">
+    <div style="font-size:16px;font-weight:700;color:#fff;">社团流程A-1 · 参赛发表闭环</div>
+    <div style="font-size:12px;color:#9ca3af;margin-top:4px;">v1.2 · Ad Features Added · 2026-03-23</div>
+  </div>
+
+  <!-- ② 画布 -->
+  <div class="relative bg-dot-grid w-[3600px] h-[2200px] no-scrollbar font-sans text-gray-900">
+
+    <!-- ③ SVG 连线层 -->
+        <svg class="absolute inset-0 w-full h-full pointer-events-none z-0">
+      <defs>
+        <marker id="arrow-gray" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+          <path d="M0,0 L0,6 L9,3 z" fill="#94a3b8" />
+        </marker>
+        <marker id="arrow-purple" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+          <path d="M0,0 L0,6 L9,3 z" fill="#a855f7" />
+        </marker>
+        <marker id="arrow-blue" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+          <path d="M0,0 L0,6 L9,3 z" fill="#3b82f6" />
+        </marker>
+      </defs>
+
+      <!-- CC-4-1 -> CC-4 -->
+      <path d="M 344 320 L 698 320" stroke="#a855f7" stroke-width="2" fill="none" marker-end="url(#arrow-purple)" />
+      <rect x="580" y="305" width="130" height="30" fill="#faf5ff" rx="4" stroke="#e9d5ff" />
+      <text x="645" y="325" fill="#9333ea" font-size="14" font-weight="500" text-anchor="middle">关闭弹窗进入</text>
+
+      <!-- CC-4 -> CC-4-2 -->
+      <path d="M 944 320 L 1298 320" stroke="#3b82f6" stroke-width="2" fill="none" marker-end="url(#arrow-blue)" />
+      <rect x="1170" y="305" width="130" height="30" fill="#eff6ff" rx="4" stroke="#bfdbfe" />
+      <text x="1235" y="325" fill="#2563eb" font-size="14" font-weight="500" text-anchor="middle">点击[赛事]TAB</text>
+
+      <!-- CC-4-2 -> CH-1-5 -->
+      <path d="M 1544 320 L 1898 320" stroke="#3b82f6" stroke-width="2" fill="none" marker-end="url(#arrow-blue)" />
+      <rect x="1770" y="305" width="130" height="30" fill="#eff6ff" rx="4" stroke="#bfdbfe" />
+      <text x="1835" y="325" fill="#2563eb" font-size="14" font-weight="500" text-anchor="middle">点击[赛事卡片]</text>
+
+      <!-- CH-1-5 -> CH-1 -->
+      <path d="M 2144 320 L 2498 320" stroke="#a855f7" stroke-width="2" fill="none" marker-end="url(#arrow-purple)" />
+      <rect x="2370" y="305" width="130" height="30" fill="#faf5ff" rx="4" stroke="#e9d5ff" />
+      <text x="2435" y="325" fill="#9333ea" font-size="14" font-weight="500" text-anchor="middle">关闭弹窗进入</text>
+
+      <!-- CH-1 -> A-2-Modal (Intercept) -->
+      <path d="M 2622 618 L 2622 750 C 2622 850, 2144 850, 2144 898" stroke="#3b82f6" stroke-width="2" stroke-dasharray="4" fill="none" marker-end="url(#arrow-blue)" />
+      <rect x="2180" y="820" width="150" height="30" fill="#eff6ff" rx="4" stroke="#bfdbfe" />
+      <text x="2255" y="840" fill="#2563eb" font-size="14" font-weight="500" text-anchor="middle">未入团点击报名</text>
+
+      <!-- A-2-Modal -> A-2-Success -->
+      <path d="M 1900 1134 L 1544 1134" stroke="#3b82f6" stroke-width="2" fill="none" marker-end="url(#arrow-blue)" />
+      <rect x="1650" y="1115" width="130" height="30" fill="#eff6ff" rx="4" stroke="#bfdbfe" />
+      <text x="1715" y="1135" fill="#2563eb" font-size="14" font-weight="500" text-anchor="middle">加入并自动报名</text>
+
+      <!-- A-2-Success -> CC-7 -->
+      <path d="M 1487 900 C 1487 700, 3222 700, 3222 618" stroke="#3b82f6" stroke-width="2" stroke-dasharray="4" fill="none" marker-end="url(#arrow-blue)" />
+      <rect x="2200" y="685" width="130" height="30" fill="#eff6ff" rx="4" stroke="#bfdbfe" />
+      <text x="2265" y="705" fill="#2563eb" font-size="14" font-weight="500" text-anchor="middle">自动跳转表单</text>
+
+      <!-- CC-7 -> CH-1-1 -->
+      <path d="M 3222 618 L 3222 898" stroke="#3b82f6" stroke-width="2" fill="none" marker-end="url(#arrow-blue)" />
+      <rect x="3160" y="750" width="120" height="30" fill="#eff6ff" rx="4" stroke="#bfdbfe" />
+      <text x="3220" y="770" fill="#2563eb" font-size="14" font-weight="500" text-anchor="middle">上榜/查看瀑布流</text>
+
+      <!-- CH-1-3 -> CC-6 -->
+      <path d="M 3100 1134 C 3100 1400, 2622 1400, 2622 1598" stroke="#3b82f6" stroke-width="2" fill="none" marker-end="url(#arrow-blue)" />
+      <rect x="2700" y="1350" width="140" height="30" fill="#eff6ff" rx="4" stroke="#bfdbfe" />
+      <text x="2770" y="1370" fill="#2563eb" font-size="14" font-weight="500" text-anchor="middle">点击作品进入查看</text>
+    </svg>
+
+    <!-- ④ 节点容器 -->
+
+    <div class="absolute z-10" style="left: 100px; top: 150px;">
+      <div id="CC-4-1" class="absolute -top-10 left-0 bg-purple-600 text-white text-sm px-3 py-1 rounded shadow-sm z-20 font-bold">CC-4-1 · 社团主页-广告弹层</div>
+      <div class="w-[375px] h-[720px] bg-gray-900/60 rounded-[32px] shadow-2xl overflow-hidden transform scale-[0.65] origin-top-left flex items-center justify-center relative">
+          <div class="w-[300px] bg-white rounded-[24px] overflow-hidden flex flex-col items-center shadow-xl border border-purple-100">
+              <div class="w-full h-40 bg-purple-100 flex items-center justify-center relative overflow-hidden">
+                  <img src="assets/kawaii_welfare.png" alt="Welfare" class="absolute inset-0 w-full h-full object-cover z-0">
+              </div>
+              <div class="pt-10 pb-6 px-6 text-center">
+                  <div class="text-xl font-bold mb-2 text-gray-900">kawayi 独家新人福利</div>
+                  <p class="text-xs text-gray-500 mb-6 font-normal">欢迎加入 kawayi 音乐大家庭！<br>立即免费领取专属电吹管音色包及名师曲谱！</p>
+                  <div class="w-full h-12 bg-purple-600 text-white rounded-xl flex items-center justify-center font-bold shadow-md shadow-purple-200">去领取</div>
+              </div>
+          </div>
+          <div class="absolute bottom-32 w-10 h-10 border-2 border-white/50 rounded-full flex items-center justify-center text-white/50 cursor-pointer">
+              <i class="ri-close-line text-xl"></i>
+          </div>
+      </div>
+    </div>
+
+    <div class="absolute z-10" style="left: 700px; top: 150px;">
+      <div id="CC-4" class="absolute -top-10 left-0 bg-gray-900 text-white text-sm px-3 py-1 rounded shadow-sm z-20">CC-4 · 社团主页</div>
+      <div class="w-[375px] h-[720px] bg-white border border-gray-200 rounded-[32px] shadow-2xl overflow-hidden transform scale-[0.65] origin-top-left flex flex-col">
+          <div class="h-16 flex items-center px-6 border-b border-gray-100 bg-white shrink-0 relative z-10">
+              <i class="ri-arrow-left-s-line text-2xl"></i>
+              <span class="flex-1 text-center font-bold text-xl">社团主页</span>
+              <i class="ri-more-fill text-2xl"></i>
+          </div>
+          <div class="flex-1 overflow-y-auto no-scrollbar">
+              <div class="h-40 bg-gray-100 flex items-center justify-center text-gray-300 italic shrink-0">Banner</div>
+              
+              <!-- Ad Banner added here -->
+              <div class="mx-6 mt-4 h-16 bg-purple-50 rounded-xl flex items-center px-4 border border-purple-100 shadow-sm relative overflow-hidden">
+                  <div class="absolute -right-4 -top-4 w-16 h-16 bg-purple-100 rounded-full opacity-50"></div>
+                  <i class="ri-megaphone-fill text-purple-400 text-xl mr-3 relative z-10"></i>
+                  <div class="flex flex-col relative z-10">
+                      <span class="text-purple-800 font-bold text-sm">精选 kawayi 电吹管特惠专区</span>
+                      <span class="text-purple-500 text-[10px]">官方直营，售后无忧 &gt;</span>
+                  </div>
+              </div>
+              
+              <div class="p-6 overflow-hidden">
+                  <div class="text-2xl font-bold mb-1">kawayi音乐</div>
+                  <div class="flex gap-4 text-gray-400 mb-6 text-sm">
+                      <span>128 作品</span><span>56 成员</span>
+                  </div>
+                  <div class="flex gap-3 mb-6">
+                      <div class="flex-1 h-12 border border-gray-900 rounded-xl flex items-center justify-center font-bold">分享</div>
+                      <div class="flex-1 h-12 bg-blue-600 shadow-md shadow-blue-200 text-white rounded-xl flex items-center justify-center font-bold">邀请</div>
+                  </div>
+                  <div class="flex gap-8 border-b border-gray-100 pb-2">
+                      <div class="pb-2 text-gray-400">内容</div>
+                      <div class="pb-2 border-b-2 border-gray-900 font-bold">赛事</div>
+                  </div>
+              </div>
+          </div>
+      </div>
+    </div>
+
+    <div class="absolute z-10" style="left: 1300px; top: 150px;">
+      <div id="CC-4-2" class="absolute -top-10 left-0 bg-gray-900 text-white text-sm px-3 py-1 rounded shadow-sm z-20">CC-4-2 · 社团主页-赛事TAB</div>
+      <div class="w-[375px] h-[720px] bg-white border border-gray-200 rounded-[32px] shadow-2xl overflow-hidden transform scale-[0.65] origin-top-left flex flex-col">
+          <div class="h-16 flex items-center px-6 border-b border-gray-100 shrink-0">
+              <i class="ri-arrow-left-s-line text-2xl"></i>
+              <span class="flex-1 text-center font-bold text-xl">kawayi音乐</span>
+              <i class="ri-more-fill text-2xl"></i>
+          </div>
+          <div class="p-6 overflow-hidden">
+              <div class="flex gap-8 border-b border-gray-100 pb-2 mb-6">
+                  <div class="pb-2 text-gray-400">内容</div>
+                  <div class="pb-2 border-b-2 border-gray-900 font-bold">赛事</div>
+              </div>
+              <div class="border border-gray-200 rounded-2xl overflow-hidden cursor-pointer hover:border-gray-400 transition-colors">
+                  <div class="h-32 bg-gray-100 flex items-center justify-center text-gray-300">Competition</div>
+                  <div class="p-4">
+                      <div class="text-xl font-bold mb-1">2026 kawayi电吹管大赛</div>
+                      <div class="flex justify-between text-gray-400 text-xs">
+                          <span>32人参赛</span><span>进行中</span>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+    </div>
+
+    <div class="absolute z-10" style="left: 1900px; top: 150px;">
+      <div id="CH-1-5" class="absolute -top-10 left-0 bg-purple-600 text-white text-sm px-3 py-1 rounded shadow-sm z-20 font-bold">CH-1-5 · 赛事详情-广告弹层</div>
+      <div class="w-[375px] h-[720px] bg-gray-900/60 rounded-[32px] shadow-2xl overflow-hidden transform scale-[0.65] origin-top-left flex items-center justify-center relative">
+          <div class="w-[300px] bg-white rounded-[24px] overflow-hidden flex flex-col items-center shadow-xl border border-purple-100">
+              <div class="w-full h-40 bg-purple-50 flex items-center justify-center relative overflow-hidden">
+                  <img src="assets/kawaii_coupon.png" alt="Coupon" class="absolute inset-0 w-full h-full object-cover z-0">
+                  <div class="absolute inset-0 bg-gradient-to-t from-purple-900/80 to-transparent flex flex-col justify-end p-3 z-10">
+                      <div class="text-[10px] font-bold text-white/90 uppercase tracking-widest drop-shadow-lg">Sponsored Ad</div>
+                  </div>
+              </div>
+              <div class="pt-6 pb-8 px-6 text-center">
+                  <div class="text-xl font-bold mb-2 text-gray-900">参赛选手专属补贴</div>
+                  <p class="text-xs text-gray-500 mb-8 font-normal">助力 kawayi 电吹管大赛，官方为您提供<br>最高 500 元购机神券，扫码即领。</p>
+                  <div class="w-full h-12 bg-purple-600 text-white rounded-xl flex items-center justify-center font-bold shadow-md shadow-purple-200">一键领取</div>
+              </div>
+          </div>
+          <div class="absolute bottom-24 w-10 h-10 border-2 border-white/50 rounded-full flex items-center justify-center text-white/50 cursor-pointer">
+              <i class="ri-close-line text-xl"></i>
+          </div>
+      </div>
+    </div>
+
+    <div class="absolute z-10" style="left: 2500px; top: 150px;">
+      <div id="CH-1" class="absolute -top-10 left-0 bg-gray-900 text-white text-sm px-3 py-1 rounded shadow-sm z-20">CH-1 · 赛事详情页 (未报)</div>
+      <div class="w-[375px] h-[720px] bg-white border border-gray-200 rounded-[32px] shadow-2xl overflow-hidden transform scale-[0.65] origin-top-left flex flex-col">
+          <div class="h-16 flex items-center px-6 border-b border-gray-100 shrink-0 relative z-10 bg-white">
+              <i class="ri-arrow-left-s-line text-2xl"></i>
+              <span class="flex-1 text-center font-bold text-xl">赛事详情</span>
+              <i class="ri-share-forward-box-line text-xl text-gray-800"></i>
+          </div>
+          <div class="flex-1 overflow-y-auto no-scrollbar">
+              <div class="h-40 bg-gray-100 flex items-center justify-center text-gray-300 shrink-0 text-3xl font-bold">Kawayi Cover</div>
+              <div class="p-6">
+                  <div class="text-2xl font-bold mb-2">2026 kawayi电吹管大赛</div>
+                  <div class="inline-block bg-blue-100 px-3 py-1 rounded text-xs text-blue-600 mb-4 font-bold">官方 · 进行中</div>
+
+                  <!-- Ad Banner added here -->
+                  <div class="w-full h-16 bg-purple-50 rounded-xl flex items-center px-4 border border-purple-100 shadow-sm relative overflow-hidden mb-5">
+                      <div class="absolute -right-4 -top-4 w-16 h-16 bg-purple-100 rounded-full opacity-50"></div>
+                      <i class="ri-megaphone-fill text-purple-400 text-xl mr-3 relative z-10"></i>
+                      <div class="flex flex-col relative z-10">
+                          <span class="text-purple-800 font-bold text-[13px]">kawayi 电吹管参赛专属购机补贴</span>
+                          <span class="text-purple-500 text-[10px]">最高可领500元神券 &gt;</span>
+                      </div>
+                  </div>
+                  
+                  <!-- Tabs Layout -->
+                  <div class="flex border-b border-gray-100 mb-6">
+                      <div class="flex-1 py-3 text-center border-b-2 border-blue-600 text-blue-600 font-bold">介绍</div>
+                      <div class="flex-1 py-3 text-center text-gray-400">排行榜</div>
+                      <div class="flex-1 py-3 text-center text-gray-400">作品展</div>
+                  </div>
+
+                  <div class="text-base text-gray-600 leading-relaxed font-normal mb-8">
+                      用音乐传递快乐，展示您的电吹管风采！本次大赛由 kawayi 官方发起...
+                  </div>
+
+                  <!-- Waterfall Preview -->
+                  <div class="grid grid-cols-2 gap-3 opacity-30 pointer-events-none">
+                      <div class="h-32 bg-gray-100 rounded-xl"></div>
+                      <div class="h-32 bg-gray-100 rounded-xl"></div>
+                  </div>
+              </div>
+          </div>
+          <div class="p-6 border-t border-gray-100 bg-white shrink-0">
+              <div class="h-14 bg-blue-600 text-white shadow-md shadow-blue-200 rounded-2xl flex items-center justify-center text-xl font-bold">参赛报名</div>
+          </div>
+      </div>
+    </div>
+
+    <div class="absolute z-10" style="left: 3100px; top: 150px;">
+      <div id="CC-7" class="absolute -top-10 left-0 bg-gray-900 text-white text-sm px-3 py-1 rounded shadow-sm z-20">CC-7 · 社团提交作品表单</div>
+      <div class="w-[375px] h-[720px] bg-white border border-gray-200 rounded-[32px] shadow-2xl overflow-hidden transform scale-[0.65] origin-top-left flex flex-col">
+          <div class="h-16 flex items-center px-6 border-b border-gray-100 shrink-0">
+              <span class="text-lg text-gray-400">取消</span>
+              <span class="flex-1 text-center font-bold text-xl">提交作品</span>
+          </div>
+          <div class="p-6 flex-1">
+              <div class="w-28 h-28 border border-dashed border-gray-300 rounded-2xl flex flex-col items-center justify-center bg-gray-50 text-gray-400 mb-8">
+                  <i class="ri-add-line text-3xl"></i>
+                  <span class="text-xs">添加照片</span>
+              </div>
+              <div class="border-b border-gray-100 pb-2 mb-6 text-xl font-bold text-gray-300">作品标题(选填)</div>
+              <div class="text-lg text-gray-300 font-normal">分享作品背后的故事...</div>
+          </div>
+          <div class="p-6 border-t border-gray-100 bg-white shrink-0">
+              <button class="w-full h-14 bg-gray-100 text-gray-400 rounded-2xl flex items-center justify-center text-xl font-bold">发布</button>
+          </div>
+      </div>
+    </div>
+
+    <!-- Row 2: Intercept & Share (y=900) -->
+
+    <div class="absolute z-10" style="left: 1300px; top: 900px;">
+      <div id="A-2-Success" class="absolute -top-10 left-0 bg-gray-900 text-white text-sm px-3 py-1 rounded shadow-sm z-20">入团成功反馈</div>
+      <div class="w-[375px] h-[720px] bg-white border border-gray-200 rounded-[32px] shadow-2xl overflow-hidden transform scale-[0.65] origin-top-left flex flex-col items-center">
+          <div class="mt-24 h-14 bg-gray-900 text-white px-8 rounded-full shadow-2xl flex items-center font-bold">
+              <i class="ri-checkbox-circle-fill mr-2 text-xl text-green-400"></i>
+              欢迎加入！已同步报名
+          </div>
+          <div class="w-full mt-10 px-8 opacity-10 pointer-events-none">
+              <div class="h-32 bg-gray-100 rounded-2xl mb-4"></div>
+              <div class="h-6 w-3/4 bg-gray-200 rounded mb-2"></div>
+              <div class="h-16 bg-gray-50 rounded"></div>
+          </div>
+      </div>
+    </div>
+
+    <div class="absolute z-10" style="left: 1900px; top: 900px;">
+      <div id="A-2-Modal" class="absolute -top-10 left-0 bg-gray-900 text-white text-sm px-3 py-1 rounded shadow-sm z-20">一键入团引导弹层</div>
+      <div class="w-[375px] h-[720px] bg-gray-900/40 rounded-[32px] shadow-2xl overflow-hidden transform scale-[0.65] origin-top-left flex items-center justify-center">
+          <div class="w-[300px] bg-white rounded-[24px] p-8 flex flex-col items-center text-center shadow-xl">
+              <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mb-6">
+                  <i class="ri-user-add-line text-3xl text-gray-900"></i>
+              </div>
+              <div class="text-xl font-bold mb-3">加入社团继续报名</div>
+              <p class="text-gray-400 text-sm mb-8 font-normal leading-relaxed">本赛事由“kawayi音乐”社团承办，您的报名作品将自动同步至社团展示，与更多管友交流。</p>
+              <div class="w-full h-14 bg-blue-600 shadow-md shadow-blue-200 text-white rounded-2xl flex items-center justify-center font-bold mb-4">加入并报名</div>
+              <div class="text-gray-400 text-sm font-normal">返回</div>
+          </div>
+      </div>
+    </div>
+
+            <div class="absolute z-10" style="left: 3100px; top: 900px;">
+        <div id="CH-1-3" class="absolute -top-10 left-0 bg-blue-600 text-white text-sm px-3 py-1 rounded shadow-sm z-20 font-bold">CH-1-3 · 赛事详情 (作品瀑布流)</div>
+        <div class="w-[375px] h-[720px] bg-white border border-gray-200 rounded-[32px] shadow-2xl overflow-hidden transform scale-[0.65] origin-top-left flex flex-col relative">
+            <!-- Header (Blue Gradient) -->
+            <div class="h-16 flex items-center justify-between px-4 bg-gradient-to-r from-blue-700 to-blue-500 sticky top-0 z-50 shrink-0">
+                <div class="w-16 flex items-center">
+                    <i class="ri-arrow-left-s-line text-2xl text-white"></i>
+                </div>
+                <span class="text-lg font-bold text-white">赛事详情</span>
+                <div class="w-20 h-8 rounded-full border border-white/30 bg-black/10 flex items-center justify-around px-2 shrink-0">
+                    <i class="ri-more-fill text-white"></i>
+                    <div class="h-4 w-[1px] bg-white/30"></div>
+                    <i class="ri-record-circle-line text-white"></i>
+                </div>
+            </div>
+            
+            <div class="flex-1 overflow-y-auto no-scrollbar bg-gray-50 flex flex-col">
+                <!-- Banner Details -->
+                <div class="bg-gradient-to-b from-blue-600 to-blue-800 px-6 pt-4 pb-8 text-white relative shrink-0">
+                    <div class="text-sm leading-relaxed opacity-90 backdrop-blur-sm shadow-sm font-normal">
+                        乐才成果平台作为官方指定的选拔通道，为老年大学银龄朋友提供展现风采的专场。让您的佳作能更快被评审老师看到，赢取大奖。
+                    </div>
+                </div>
+
+                <!-- Main Tabs (overlap banner slightly) -->
+                <div class="-mt-4 mx-0 bg-white rounded-t-2xl shadow-sm overflow-hidden border-b border-gray-100 shrink-0 z-10">
+                    <div class="flex">
+                        <div class="flex-1 py-4 text-center text-gray-500 text-base font-normal">排行</div>
+                        <div class="flex-1 py-4 text-center text-purple-600 text-base font-bold relative">
+                            <span class="relative z-10">作品</span>
+                            <div class="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-6 h-1 bg-purple-600 rounded-t-md"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sub-Tabs -->
+                <div class="bg-white px-6 py-3 flex gap-6 border-b border-gray-100 shrink-0">
+                    <div class="text-sm text-purple-600 font-bold relative pb-1 border-b-[3px] border-purple-600 inline-block">最新上传</div>
+                    <div class="text-sm text-gray-600 font-normal inline-block">最多点赞</div>
+                </div>
+
+                <!-- Waterfall List -->
+                <div class="p-4 bg-gray-50 flex-1 pb-24">
+                    <div class="columns-2 gap-4">
+                        <!-- 卡片 1 -->
+                        <div class="break-inside-avoid mb-4">
+                            <div class="p-3 rounded-2xl border border-gray-200 bg-white flex flex-col shadow-sm">
+                                <div class="w-full h-32 bg-gray-100 rounded-xl flex items-center justify-center text-gray-400 text-3xl">
+                                    <i class="ri-video-line"></i>
+                                </div>
+                                <div class="mt-3 text-sm font-bold text-gray-800 truncate">《小城故事》吹奏</div>
+                                <div class="mt-1 flex items-center gap-2">
+                                    <div class="w-5 h-5 rounded-full bg-purple-100 flex items-center justify-center text-purple-600 text-xs">
+                                        <i class="ri-user-3-fill"></i>
+                                    </div>
+                                    <span class="text-xs text-gray-500 truncate">王老师</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 卡片 2 -->
+                        <div class="break-inside-avoid mb-4">
+                            <div class="p-3 rounded-2xl border border-gray-200 bg-white flex flex-col shadow-sm">
+                                <div class="w-full h-48 bg-gray-100 rounded-xl flex items-center justify-center text-gray-400 text-3xl">
+                                    <i class="ri-image-line"></i>
+                                </div>
+                                <div class="mt-3 text-sm font-bold text-gray-800 truncate">红歌联唱录像</div>
+                                <div class="mt-1 flex items-center gap-2">
+                                    <div class="w-5 h-5 rounded-full bg-purple-100 flex items-center justify-center text-purple-600 text-xs">
+                                        <i class="ri-user-3-fill"></i>
+                                    </div>
+                                    <span class="text-xs text-gray-500 truncate">李队长</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 卡片 3 -->
+                        <div class="break-inside-avoid mb-4 relative z-10">
+                            <!-- Highlighting this card specifically to show link to CC-6 -->
+                            <div class="absolute -right-2 -top-2 w-6 h-6 bg-red-500 rounded-full border-2 border-white text-white flex items-center justify-center shadow-md animate-bounce">
+                               <i class="ri-hand-coin-line text-[10px]"></i>
+                            </div>
+                            <div class="p-3 rounded-2xl border bg-white flex flex-col shadow-md border-purple-400 ring-2 ring-purple-100 cursor-pointer hover:bg-purple-50 transition-colors">
+                                <div class="w-full h-24 bg-gray-100 rounded-xl flex items-center justify-center text-purple-400 text-3xl">
+                                    <i class="ri-video-fill"></i>
+                                </div>
+                                <div class="mt-3 text-sm font-bold text-gray-900 truncate">冰 鱼 (参赛作品)</div>
+                                <div class="mt-1 flex items-center gap-2">
+                                    <div class="w-5 h-5 rounded-full bg-purple-600 flex items-center justify-center text-white text-xs">
+                                        <i class="ri-user-3-fill"></i>
+                                    </div>
+                                    <span class="text-[10px] text-purple-600 font-bold truncate">法拉孙Fara</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 卡片 4 -->
+                        <div class="break-inside-avoid mb-4">
+                            <div class="p-3 rounded-2xl border border-gray-200 bg-white flex flex-col shadow-sm">
+                                <div class="w-full h-32 bg-gray-100 rounded-xl flex items-center justify-center text-gray-400 text-3xl">
+                                    <i class="ri-music-2-line"></i>
+                                </div>
+                                <div class="mt-3 text-sm font-bold text-gray-800 truncate">初级练习曲</div>
+                                <div class="mt-1 flex items-center gap-2">
+                                    <div class="w-5 h-5 rounded-full bg-purple-100 flex items-center justify-center text-purple-600 text-xs">
+                                        <i class="ri-user-3-fill"></i>
+                                    </div>
+                                    <span class="text-xs text-gray-500 truncate">张老师</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- FAB Floating Action Button -->
+            <div class="absolute bottom-6 right-4 w-[60px] h-[60px] rounded-full bg-gradient-to-br from-purple-400 to-indigo-600 shadow-[0_8px_20px_rgba(168,85,247,0.4)] flex flex-col items-center justify-center text-white border-2 border-white cursor-pointer z-50">
+                <i class="ri-account-circle-line text-2xl leading-none"></i>
+                <span class="text-[9px] font-bold mt-1">我的</span>
+            </div>
+        </div>
+    </div>
+
+<div class="absolute z-10" style="left: 2500px; top: 1600px;">
+        <div id="CC-6" class="absolute -top-10 left-0 bg-gray-900 text-white text-sm px-3 py-1 rounded shadow-sm z-20">CC-6 · 社团作品详情</div>
+        <div class="w-[375px] h-[720px] bg-white border border-gray-200 rounded-[32px] shadow-2xl overflow-hidden transform scale-[0.65] origin-top-left flex flex-col relative">
+            <div class="h-16 flex items-center justify-between px-4 border-b border-gray-100 bg-white sticky top-0 z-50 shrink-0">
+                <div class="flex items-center gap-1 text-gray-900 w-20">
+                    <i class="ri-arrow-left-s-line text-2xl"></i>
+                    <span class="text-lg">返回</span>
+                </div>
+                <span class="text-xl font-bold text-gray-900">作品详情</span>
+                <div class="flex items-center justify-end w-20 space-x-3 text-gray-900">
+                    <i class="ri-more-fill text-2xl"></i>
+                    <i class="ri-record-circle-line text-2xl text-gray-400"></i>
+                </div>
+            </div>
+            <div class="h-14 bg-white flex items-center justify-between px-4 border-b border-gray-100 relative z-10 shrink-0">
+                <div class="flex items-center text-lg font-normal text-gray-900">
+                    <div class="w-8 h-8 bg-gray-200 rounded-full mr-3 flex items-center justify-center">
+                        <i class="ri-group-line text-gray-500"></i>
+                    </div>
+                    kawayi音乐社团
+                </div>
+                <span class="text-gray-900 text-base font-normal flex items-center">
+                    进入社团 <i class="ri-arrow-right-s-line text-xl ml-1 text-gray-400"></i>
+                </span>
+            </div>
+            <div class="flex-1 overflow-y-auto no-scrollbar bg-gray-50 flex flex-col pb-20">
+                <div class="w-full h-64 bg-gray-100 flex flex-col items-center justify-center relative border-b border-gray-200 shrink-0">
+                    <i class="ri-image-2-line text-5xl text-gray-400"></i>
+                    <div class="absolute bottom-4 left-0 w-full flex justify-center space-x-2">
+                        <div class="w-2 h-2 rounded-full bg-gray-900"></div>
+                        <div class="w-2 h-2 rounded-full bg-gray-300"></div>
+                        <div class="w-2 h-2 rounded-full bg-gray-300"></div>
+                    </div>
+                </div>
+                <div class="bg-white p-6 border-b border-gray-100 shrink-0">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="flex items-center">
+                            <div class="w-12 h-12 bg-gray-200 rounded-full mr-3 flex items-center justify-center">
+                                <i class="ri-user-3-line text-gray-500 text-xl"></i>
+                            </div>
+                            <div class="flex flex-col">
+                                <div class="text-lg font-bold text-gray-900">法拉孙Fara</div>
+                                <div class="text-base text-gray-400 font-normal mt-0.5">2026-03-24 11:15</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="border border-gray-200 rounded-xl px-4 py-3 flex items-center justify-between mb-6">
+                        <div class="flex items-center text-lg text-gray-900 font-normal">
+                            <i class="ri-bookmark-line text-gray-500 mr-2 text-xl"></i>
+                            <span>所属的活动：kawayi电吹管大赛</span>
+                        </div>
+                        <i class="ri-arrow-right-s-line text-2xl text-gray-400"></i>
+                    </div>
+                    <h1 class="text-2xl font-bold text-gray-900 mb-3">冰 鱼（参赛作品）</h1>
+                    <p class="text-lg text-gray-700 leading-relaxed font-normal">
+                        今天雾气蒙蒙，但是红叶十分鲜亮，拍了几张给大家欣赏。池塘里的冰鱼非常有生机。感谢支持！
+                    </p>
+                    <div class="flex justify-end mt-2">
+                        <span class="text-base text-gray-500 font-normal flex items-center">
+                            展开 <i class="ri-arrow-down-s-line text-xl ml-1"></i>
+                        </span>
+                    </div>
+                </div>
+                <div class="bg-white p-6 pt-6 shrink-0">
+                    <div class="flex space-x-4 border-b border-gray-100 pb-6 mb-6">
+                        <button class="flex-1 h-14 bg-gray-50 border border-gray-200 rounded-xl flex items-center justify-center text-lg font-normal text-gray-900">
+                            <i class="ri-thumb-up-line mr-2 text-xl"></i> 点赞 2
+                        </button>
+                        <button class="flex-1 h-14 bg-gray-50 border border-gray-200 rounded-xl flex items-center justify-center text-lg font-normal text-gray-900">
+                            <i class="ri-share-forward-line mr-2 text-xl"></i> 分享拉票 0
+                        </button>
+                    </div>
+                    <div class="text-xl font-bold text-gray-900 mb-6">全部评论 (0)</div>
+                    <div class="flex flex-col items-center justify-center py-10">
+                        <span class="text-base text-gray-400 font-normal">已经到底啦</span>
+                    </div>
+                </div>
+            </div>
+            <div class="absolute bottom-0 w-full p-4 bg-white border-t border-gray-200 z-20">
+                <div class="h-14 bg-gray-50 border border-gray-200 rounded-xl px-4 flex items-center">
+                    <span class="text-gray-400 text-lg font-normal">请输入你的评论</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+  </div>
+</body>
+</html>

@@ -1,6 +1,6 @@
 # Antilecai 原型阅读器 & PRD 资产库
 
-> **乐才成果平台 (AI-PRD-Lecai)**：基于行政背书的银发社团社交与“真团购”服务平台。
+> **乐才成果平台 (AI-PRD-Lecai)**：基于行政背书的银发社团社交与"真团购"服务平台。
 > 本项目是一站式原型与规格管理工具，整合了**低保真线框图 + 结构化规格 (Spec) + 业务流程图**，支持全链路术语对齐与一键离线打包。
 
 ---
@@ -32,20 +32,20 @@ AI-PRD-Lecai/
 ### 1. 术语锚定原则 (Terminology Anchor)
 项目所有参与者必须遵循：
 - **页面命名**：强制对齐 `foundation/Main_PageList.md`，禁止自造编号。
-- **业务词汇**：强制对齐 `foundation/lecai-club-overview-v1.4.md`。禁绝“阵地”、“引擎”等文学化表达。
+- **业务词汇**：强制对齐 `foundation/lecai-club-overview-v1.4.md`。禁绝"阵地"、"引擎"等文学化表达。
 
 ### 2. 线框视觉宪法 (Visual Constitution)
 - **极简黑白灰**：禁止使用任何品牌色，依靠灰度 (`bg-gray-200`) 与投影 (`shadow-2xl`) 区分层级。
 - **适老化标准**：强制大间距、1px 细线、常规字重，移除所有非核心业务噪音。
 
-### 3. 修订与“无变化”协议 (No-Change Protocol)
-- 在执行增量修订时，若模块无变动，ChatG 仅输出“本次无变化”，杜绝幻觉补全。
+### 3. 修订与"无变化"协议 (No-Change Protocol)
+- 在执行增量修订时，若模块无变动，ChatG 仅输出"本次无变化"，杜绝幻觉补全。
 
 ---
 
 ## 🎨 标准工作流管线 (Standard Design Pipeline)
 
-基于实际业务流转复盘，每个迭代（如 `drafts/v1.1`）需严格遵循以下 7 步核心管线。此管线体现了从“宏观总规”到“微观界面”的「自顶向下」设计演进逻辑：
+基于实际业务流转复盘，每个迭代（如 `drafts/v1.1`）需严格遵循以下 7 步核心管线。此管线体现了从"宏观总规"到"微观界面"的「自顶向下」设计演进逻辑：
 
 ### 🎯 Step 0 — 专家前置审阅 (Review)
 * **角色**：业务专项专家（如 `li-yue-expert.md`）
@@ -53,6 +53,7 @@ AI-PRD-Lecai/
 * **产出物**：`drafts/v{X.Y}/review/li-yue-review.md`
 
 ### 🗺️ Step 1 — 迭代宏观规划与总规输出 (Foundation & Scope)
+* **角色**：产品架构师 `Chat P`（指令文件：`chatP-ProductArch-expect.md`）
 * **任务**：确定本次迭代的宏观规则机制与页面清单边界。所有的**版本级总规则不要藏在单页面的需求里**，需作为独立总纲存在。
 * **产出物**（直接存放于迭代根目录或 `foundation/`）：
   * 版本业务规则/说明书（如 `points-system-v1.1.md`）
@@ -60,13 +61,13 @@ AI-PRD-Lecai/
   * 页面流程划分框架：`flow/flow-framework.md`
 
 ### 🎨 Step 1c — UI 风格规格定义 (UI Framing)
-* **任务**：在缺少 UI 设计师的情况下，通过“对标研究”固化视觉风格。对标竞品的视觉基因，并在 `foundation/design-system/` 中格式化沉淀风格规则。
+* **任务**：在缺少 UI 设计师的情况下，通过"对标研究"固化视觉风格。对标竞品的视觉基因，并在 `foundation/design-system/` 中格式化沉淀风格规则。
 * **产出物**：
   * `foundation/design-system/style-guide/` 中的规则定义
   * `foundation/design-system/ui-patterns/` 中的组件范式定义
 
 ### 🔄 Step 2 — 业务全景流程拆解与组装 (Flow)
-这是一条微型流水线，旨在把业务规则映射为带有“节点价值”的用户旅程：
+这是一条微型流水线，旨在把业务规则映射为带有"节点价值"的用户旅程：
 * **Step 2a (定义框架)**：专家角色定义核心流程线及其起点、终点和核心价值。
 * **Step 2b (编排节点)**：产品经理 `Chat A` 结合页面编号，定义每条流程的精确跳转动作。**注意：每条独立流程必须单独输出一份 Mermaid 流程图代码（如 `xxx-flow-A.mmd`），禁止将多条流程合并在一个文件中**。
 * **Step 2c (视觉渲染)**：调用工作流 `/Low-Fi-Flow-Map-Plugin`，将草图代码渲染为极简 HTML 全景线框图。
@@ -99,7 +100,7 @@ AI-PRD-Lecai/
 flowchart TD
     %% 人工步骤 - 蓝色
     S0[Step 0: Li Yue]:::manual
-    S1[Step 1: 宏观规划]:::manual
+    S1[Step 1: Chat P/总规]:::manual
     S2[Step 2: Chat A/Flow]:::manual
     S3[Step 3: Chat A/PRD]:::manual
 
@@ -137,7 +138,7 @@ flowchart TD
 
 | 断点 | 问题描述 | 改进建议 |
 |:---|:---|:---|
-| **术语校验** | Chat A/D/G 需读取 `Main_PageList.md` 进行术语锚定，但无自动校验机制，易产生幻觉 | 增加预检脚本：①检查 foundation 文件完整性 ②术语冲突检测（对比 PRD 中的页面名与字典） |
+| **术语校验** | Chat P/A/D/G 需读取 `Main_PageList.md` 进行术语锚定，但无自动校验机制，易产生幻觉 | 增加预检脚本：①检查 foundation 文件完整性 ②术语冲突检测（对比 PRD 中的页面名与字典） |
 | **版本对比** | "无变化"识别依赖 Chat G 自行判断，无版本对比机制，易产生假阳性 | 接入 Git diff 或文件哈希校验，明确"变化"定义（文本级 vs 语义级） |
 | **质量门控** | 各 Step 输出无自动检查，直接进入下一步 | 增加：①Wireframe HTML 结构验证 ②Annotation 格式校验 ③PRD 完整性检查 |
 
@@ -169,6 +170,16 @@ v{X.Y}/
 
 ---
 
+## 💡 V1.2 特色工作流经验 (Best Practices)
+
+在 v1.2 版本的双轨更新中，我们沉淀并验证了以下高效工作流：
+
+- **角色分工协同**：明确使用 **Chat U** 进行高保真 UI 设计与渲染，由 **Chat P** 负责起草产品架构总规，确保"灵魂（架构）"与"皮囊（视觉）"的解耦与高度一致。
+- **文案预热包机制**：引入 `drafts/v1.2/kawayi-copy-v1.2.md` 标准演示文案包。在生成全景流程图（Flow Map）时，Agent 强制遵循此文案包进行"杜撰"，极大地节省了后期手动纠偏文案的时间，实现了"逻辑即演示"。
+- **主题风格文件化**：通过 `drafts/v1.2/flow-color-theme-v1.2.md` 定义展示流程图的配色风格（如紫色调、蓝色调等）。这使得跨文件的 HTML 流程图在视觉感官上保持高度家族化，且易于全局调整。
+
+---
+
 ## 🚀 开发者指南
 
 ### 本地预览 (Dev Mode)
@@ -187,6 +198,7 @@ http://localhost:3000/releases/v1.0/reader.html
 
 | 角色 | 指令文件 | 核心职责 |
 | :--- | :--- | :--- |
+| **Chat P (产品架构师)** | `chatP-ProductArch-expect.md` | **V1.0** | Step 1 总规专家。输出版本级业务规则总纲与迭代 PageList，为 Chat A 流程编排提供结构基座。 |
 | **Chat A (产品重构专家)** | `chatA-ProductMgr-expect.md` | **V2.3** | 专注于银龄经济，定义产品结构与逻辑，产出纯净、语义化需求描述。 |
 | **Chat D (线框工程师)** | `chatD-wireframe-expect.md` | **V1.4** | 将需求转化为 HTML 线框图，具备智能图标推断。 |
 | **Chat G (原型批注专家)** | `chatG-Spec-expect.md` | **V2.1** | 原型伴随说明书，Markdown 结构化文档。 |
@@ -223,7 +235,7 @@ http://localhost:3000/releases/v1.0/reader.html
 ### 下一步行动指南 (Next Steps)
 - [ ] **高保真验证**：选取现有 PRD（如 `drafts/v1.1/prd/PT-2.md` 每日签到），调用新设立的 **Chat U** 配合 `variables.css` 渲染首个全局适老化风格的高保真 HTML 页面。
 - [ ] **架构提纯与微调**：根据首个渲染页面的效果，微调 `variables.css` 与 `chatU-prompt-rules.md`。
-- [ ] **组件模式沉淀**：后续在验证过程中逐步沉淀出如“适老化通用卡片”、“底部操作栏”放入 `ui-patterns`。
+- [ ] **组件模式沉淀**：后续在验证过程中逐步沉淀出如"适老化通用卡片"、"底部操作栏"放入 `ui-patterns`。
 
 ---
 

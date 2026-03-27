@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+  <style>
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    .bg-dot-grid {
+      background-image: radial-gradient(circle, #cbd5e1 1px, transparent 1px);
+      background-size: 20px 20px;
+    }
+  </style>
+</head>
+<body class="m-0 p-0 bg-gray-200 no-scrollbar">
+
+  <!-- ① 悬浮标题板 -->
+  <div style="position:fixed;top:24px;left:24px;z-index:50;background:rgba(17,24,39,0.85);backdrop-filter:blur(8px);border-radius:12px;padding:12px 20px;">
+    <div style="font-size:16px;font-weight:700;color:#fff;">社团流程C-1 · 发布培训内容</div>
+    <div style="font-size:12px;color:#9ca3af;margin-top:4px;">v1.2 · Enriched Low-Fi · 2026-03-23</div>
+  </div>
+
+  <!-- ② 画布 -->
+  <div class="relative bg-dot-grid w-[2400px] h-[1200px] no-scrollbar font-sans text-gray-900">
+
+    <!-- ③ SVG 连线层 -->
+    <svg class="absolute inset-0 w-full h-full pointer-events-none z-0">
+      <defs>
+        <marker id="arrow-gray" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+          <path d="M0,0 L0,6 L9,3 z" fill="#94a3b8" />
+        </marker>
+        <marker id="arrow-blue" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+          <path d="M0,0 L0,6 L9,3 z" fill="#3b82f6" />
+        </marker>
+      </defs>
+      
+      <!-- Big B -> CC-12 -->
+      <path d="M 344 320 C 470 320, 470 320, 698 320" stroke="#3b82f6" stroke-width="2" fill="none" marker-end="url(#arrow-blue)" />
+      <rect x="460" y="305" width="130" height="30" fill="#eff6ff" border="1" stroke="#bfdbfe" rx="4" />
+      <text x="525" y="325" fill="#2563eb" font-size="14" font-weight="500" text-anchor="middle">创建培训活动</text>
+
+      <!-- CC-12 -> CC-5 -->
+      <path d="M 942 320 C 1070 320, 1070 320, 1338 320" stroke="#3b82f6" stroke-width="2" fill="none" marker-end="url(#arrow-blue)" />
+      <rect x="1060" y="305" width="150" height="30" fill="#eff6ff" border="1" stroke="#bfdbfe" rx="4" />
+      <text x="1135" y="325" fill="#2563eb" font-size="14" font-weight="500" text-anchor="middle">发布至社团详情</text>
+
+    </svg>
+
+    <!-- ④ 节点容器 (h-720) -->
+    
+    <!-- Big B External System -->
+    <div class="absolute" style="left: 100px; top: 150px;">
+      <div class="absolute -top-10 left-0 bg-gray-900 text-white text-sm px-3 py-1 rounded shadow-sm z-10">外部业务系统 (kawayi 官方)</div>
+      <div class="w-[375px] h-[720px] bg-gray-50 border border-gray-200 rounded-[32px] shadow-2xl overflow-hidden transform scale-[0.65] origin-top-left flex flex-col">
+          <div class="h-16 flex items-center px-6 border-b border-gray-100 bg-gray-800 text-white shrink-0">
+              <i class="ri-computer-line text-xl mr-2"></i>
+              <span class="font-bold">Kawaii Backend v2.0</span>
+          </div>
+          <div class="p-8 flex-1 flex flex-col items-center justify-center text-center">
+              <div class="w-24 h-24 bg-gray-200 rounded-2xl flex items-center justify-center mb-8">
+                  <i class="ri-add-box-line text-5xl text-gray-400"></i>
+              </div>
+              <div class="text-2xl font-bold text-gray-900 mb-4">创建师训任务</div>
+              <p class="text-sm text-gray-400 font-normal leading-relaxed mb-10">Big B 在此处录入培训规则、考核指标及资料链接，数据将同步至乐才移动端。</p>
+              <div class="w-full h-12 bg-blue-600 text-white rounded-xl flex items-center justify-center font-bold shadow-md shadow-blue-200">同步至平台</div>
+          </div>
+      </div>
+    </div>
+
+    <!-- CC-12 活动管理 (Enriched) -->
+    <div class="absolute" style="left: 700px; top: 150px;">
+      <div id="CC-12" class="absolute -top-10 left-0 bg-gray-900 text-white text-sm px-3 py-1 rounded shadow-sm z-10">CC-12 · 活动管理</div>
+      <div class="w-[375px] h-[720px] bg-white border border-gray-200 rounded-[32px] shadow-2xl overflow-hidden transform scale-[0.65] origin-top-left flex flex-col">
+          <div class="h-16 flex items-center px-6 border-b border-gray-100 bg-white shrink-0">
+              <i class="ri-arrow-left-s-line text-2xl"></i>
+              <span class="flex-1 text-center font-bold text-xl">活动管理</span>
+          </div>
+          <div class="p-6 overflow-hidden">
+              <!-- Rule Banner from v1.1 -->
+              <div class="bg-gray-50 rounded-xl p-4 flex gap-3 mb-6 border border-gray-100">
+                  <i class="ri-information-fill text-xl text-gray-900"></i>
+                  <div class="text-xs font-normal text-gray-500">发布含图且描述超20字的培训内容，可得50积分。</div>
+              </div>
+              
+              <div class="text-lg font-bold mb-4">待发布/配置 (1)</div>
+              <!-- Activity Config Card -->
+              <div class="border border-gray-200 rounded-2xl p-5 mb-6">
+                  <div class="flex justify-between items-start mb-6">
+                      <div class="flex flex-col">
+                          <span class="text-xl font-bold">kawayi电吹管认证培训师</span>
+                          <span class="text-xs text-gray-400 mt-1 uppercase font-bold tracking-widest">Training Mode</span>
+                      </div>
+                      <i class="ri-settings-3-line text-xl"></i>
+                  </div>
+                  <div class="space-y-4 mb-8">
+                      <div class="flex items-center justify-between">
+                          <span class="text-sm font-bold">仅限本团成员可见</span>
+                          <div class="w-10 h-5 bg-orange-500 rounded-full relative"><div class="absolute right-1 top-1 w-3 h-3 bg-white rounded-full"></div></div>
+                      </div>
+                      <div class="flex items-center justify-between">
+                          <span class="text-sm font-bold">关联心得回顾问卷</span>
+                          <div class="w-10 h-5 bg-orange-500 rounded-full relative"><div class="absolute right-1 top-1 w-3 h-3 bg-white rounded-full"></div></div>
+                      </div>
+                  </div>
+                  <div class="h-12 bg-blue-600 text-white rounded-xl flex items-center justify-center font-bold shadow-md shadow-blue-200">立即发布</div>
+              </div>
+          </div>
+      </div>
+    </div>
+
+    <!-- CC-5 培训详情 (Enriched) -->
+        <div class="absolute z-10" style="left: 1340px; top: 150px;">
+      <div id="CC-5" class="absolute -top-10 left-0 bg-gray-900 text-white text-sm px-3 py-1 rounded shadow-sm z-20">CC-5 · 培训详情 (带双提交通道)</div>
+      <div class="w-[375px] h-[720px] bg-white border border-gray-200 rounded-[32px] shadow-2xl overflow-hidden transform scale-[0.65] origin-top-left flex flex-col relative">
+          <!-- Header -->
+          <div class="h-16 flex items-center px-6 border-b border-gray-100 bg-white sticky top-0 z-50 shrink-0">
+              <i class="ri-arrow-left-s-line text-2xl"></i>
+              <span class="flex-1 text-center font-bold text-xl">教学认证中心</span>
+              <i class="ri-more-fill text-2xl"></i>
+          </div>
+          <!-- Body -->
+          <div class="flex-1 overflow-y-auto no-scrollbar bg-gray-50 flex flex-col pb-36">
+              <!-- Poster -->
+              <div class="w-full bg-white border-b border-gray-100 pb-4">
+                  <div class="h-48 bg-gray-100 flex items-center justify-center text-gray-300 italic mb-4">Training Poster</div>
+                  <div class="px-6">
+                      <div class="text-2xl font-bold mb-2">kawayi电吹管认证培训师</div>
+                      <div class="text-sm text-gray-400 font-normal">2026-03-24 · 56人参与 · 12 件作品</div>
+                  </div>
+              </div>
+              
+              <!-- Waterfall Works -->
+              <div class="p-4 bg-gray-50">
+                  <div class="text-lg font-bold mb-4 px-2">认证作品墙</div>
+                  <div class="columns-2 gap-4">
+                      <!-- Card 1 -->
+                      <div class="break-inside-avoid mb-4">
+                          <div class="p-3 rounded-2xl border border-gray-200 bg-white flex flex-col shadow-sm">
+                              <div class="w-full h-32 bg-gray-100 rounded-xl flex items-center justify-center text-gray-400 text-3xl">
+                                  <i class="ri-video-line"></i>
+                              </div>
+                              <div class="mt-3 text-sm font-bold text-gray-800 truncate">培训一期汇报</div>
+                              <div class="mt-1 flex items-center gap-2">
+                                  <div class="w-5 h-5 rounded-full bg-gray-100 flex items-center justify-center text-gray-500 text-xs">
+                                      <i class="ri-user-3-fill"></i>
+                                  </div>
+                                  <span class="text-xs text-gray-500 truncate">张老师</span>
+                              </div>
+                          </div>
+                      </div>
+                      <!-- Card 2 -->
+                      <div class="break-inside-avoid mb-4">
+                          <div class="p-3 rounded-2xl border border-gray-200 bg-white flex flex-col shadow-sm">
+                              <div class="w-full h-48 bg-gray-100 rounded-xl flex items-center justify-center text-gray-400 text-3xl">
+                                  <i class="ri-video-line"></i>
+                              </div>
+                              <div class="mt-3 text-sm font-bold text-gray-800 truncate">第一课练习</div>
+                              <div class="mt-1 flex items-center gap-2">
+                                  <div class="w-5 h-5 rounded-full bg-gray-100 flex items-center justify-center text-gray-500 text-xs">
+                                      <i class="ri-user-3-fill"></i>
+                                  </div>
+                                  <span class="text-xs text-gray-500 truncate">李队长</span>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              
+              <!-- Learning Materials (Moved Down) -->
+              <div class="p-6 bg-white border-t border-gray-100 mt-2">
+                  <div class="text-lg font-bold mb-4 text-gray-800">学习资料专区</div>
+                  <div class="space-y-4">
+                      <div class="bg-gray-50 rounded-xl p-4 flex items-center gap-4 border border-gray-100 cursor-pointer">
+                          <div class="w-10 h-10 bg-white rounded-lg flex items-center justify-center shadow-sm"><i class="ri-file-pdf-line text-xl text-red-500"></i></div>
+                          <div class="flex flex-col flex-1">
+                              <span class="text-sm font-bold text-gray-800">考级大纲与指法图解.pdf</span>
+                              <span class="text-[10px] text-gray-400 font-normal">3.2 MB · 必读</span>
+                          </div>
+                          <i class="ri-download-2-line text-gray-400"></i>
+                      </div>
+                      <div class="bg-gray-50 rounded-xl p-4 flex items-center gap-4 border border-gray-100 cursor-pointer">
+                          <div class="w-10 h-10 bg-white rounded-lg flex items-center justify-center shadow-sm"><i class="ri-play-circle-line text-xl text-blue-500"></i></div>
+                          <div class="flex flex-col flex-1">
+                              <span class="text-sm font-bold text-gray-800">名师吹奏示范课.mp4</span>
+                              <span class="text-[10px] text-gray-400 font-normal">15:20 min · 必修</span>
+                          </div>
+                          <i class="ri-play-fill text-gray-400"></i>
+                      </div>
+                  </div>
+              </div>
+
+          </div>
+          <!-- Bottom actions: 2 buttons -->
+          <div class="absolute bottom-0 left-0 w-full p-4 bg-white/95 backdrop-blur-md border-t border-gray-200 z-20 pb-8">
+              <div class="flex flex-col gap-3">
+                  <div class="w-full h-12 bg-blue-600 text-white rounded-xl flex items-center justify-center font-bold shadow-md shadow-blue-200 relative">
+                      上传认证作品
+                      <div class="absolute right-3 top-3 w-2 h-2 bg-red-500 rounded-full"></div>
+                  </div>
+                  <div class="w-full h-12 bg-orange-50 text-orange-600 border border-orange-200 rounded-xl flex items-center justify-center font-bold relative">
+                      填写教学问卷
+                      <div class="absolute right-3 top-3 w-2 h-2 bg-red-500 rounded-full"></div>
+                  </div>
+              </div>
+          </div>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+  <style>
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    .bg-dot-grid {
+      background-image: radial-gradient(circle, #cbd5e1 1px, transparent 1px);
+      background-size: 20px 20px;
+    }
+  </style>
+</head>
+<body class="m-0 p-0 bg-gray-200 no-scrollbar">
+
+  <!-- ① 悬浮标题板 -->
+  <div style="position:fixed;top:24px;left:24px;z-index:50;background:rgba(17,24,39,0.85);backdrop-filter:blur(8px);border-radius:12px;padding:12px 20px;">
+    <div style="font-size:16px;font-weight:700;color:#fff;">社团流程C-3 · 认证结果与展示 (完整状态链)</div>
+    <div style="font-size:12px;color:#9ca3af;margin-top:4px;">v1.2 · Enriched Low-Fi · 2026-03-24</div>
+  </div>
+
+  <!-- ② 画布 -->
+  <div class="relative bg-dot-grid w-[3200px] h-[1400px] no-scrollbar font-sans text-gray-900">
+
+    <!-- ③ SVG 连线层 -->
+    <svg class="absolute inset-0 w-full h-full pointer-events-none z-0">
+      <defs>
+        <marker id="arrow-gray" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+          <path d="M0,0 L0,6 L9,3 z" fill="#94a3b8" />
+        </marker>
+        <marker id="arrow-blue" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+          <path d="M0,0 L0,6 L9,3 z" fill="#3b82f6" />
+        </marker>
+        <marker id="arrow-orange" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+          <path d="M0,0 L0,6 L9,3 z" fill="#f97316" />
+        </marker>
+        <marker id="arrow-green" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+          <path d="M0,0 L0,6 L9,3 z" fill="#10b981" />
+        </marker>
+      </defs>
+
+      <!-- CC-5-1 -> CC-5-2 (Time Progression / State Change) -->
+      <path d="M 344 684 C 800 684, 800 684, 1298 684" stroke="#9ca3af" stroke-dasharray="4" stroke-width="2" fill="none" marker-end="url(#arrow-gray)" />
+      <rect x="760" y="669" width="130" height="30" fill="#f3f4f6" border="1" stroke="#d1d5db" rx="4" />
+      <text x="825" y="689" fill="#6b7280" font-size="14" font-weight="500" text-anchor="middle">系统状态自动变迁</text>
+
+      <!-- Big B -> CC-5-2 (Backend write) -->
+      <path d="M 944 334 C 1100 334, 1100 684, 1298 684" stroke="#f97316" stroke-width="2" fill="none" marker-end="url(#arrow-orange)" />
+      <rect x="1060" y="450" width="160" height="30" fill="#fff7ed" border="1" stroke="#fed7aa" rx="4" />
+      <text x="1140" y="470" fill="#ea580c" font-size="14" font-weight="500" text-anchor="middle">系统写入「已认证」结果</text>
+
+      <!-- CC-5-2 -> CC-6 (Click Work) -->
+      <path d="M 1544 684 L 1898 684" stroke="#3b82f6" stroke-width="2" fill="none" marker-end="url(#arrow-blue)" />
+      <rect x="1650" y="669" width="160" height="30" fill="#eff6ff" border="1" stroke="#bfdbfe" rx="4" />
+      <text x="1730" y="689" fill="#2563eb" font-size="14" font-weight="500" text-anchor="middle">点击带有徽章的自己作品</text>
+
+      <!-- CC-6 -> CH-2-2 (View Certificate) -->
+      <path d="M 2144 684 L 2498 684" stroke="#10b981" stroke-width="2" fill="none" marker-end="url(#arrow-green)" />
+      <rect x="2250" y="669" width="160" height="30" fill="#ecfdf5" border="1" stroke="#a7f3d0" rx="4" />
+      <text x="2330" y="689" fill="#059669" font-size="14" font-weight="500" text-anchor="middle">点击「查看电子证书」</text>
+
+    </svg>
+
+    <!-- ④ 节点容器 (h-720) -->
+
+    <!-- 卡哇伊评审后台 (External) -->
+    <div class="absolute z-10" style="left: 700px; top: 100px;">
+      <div class="absolute -top-10 left-0 bg-gray-900 text-white text-sm px-3 py-1 rounded shadow-sm z-10">kawayi评审后台 (Big B)</div>
+      <div class="w-[375px] h-[720px] bg-gray-100 border border-gray-200 rounded-[32px] shadow-2xl overflow-hidden transform scale-[0.65] origin-top-left flex flex-col items-center justify-center p-8 text-center italic">
+          <i class="ri-shield-check-line text-6xl text-gray-400 mb-6"></i>
+          <div class="text-xl font-bold text-gray-900 mb-4 not-italic">后台认证评审中心</div>
+          <p class="text-sm text-gray-500 font-normal leading-relaxed not-italic mb-10">这是官方的后台 Web 界面。Big B 审核老师会在这里回看用户的申报视频并给出“通过”结论。状态将被写入数据库。</p>
+          <div class="h-10 px-6 border bg-orange-50 border-orange-500 text-orange-600 rounded-lg flex items-center justify-center font-bold not-italic font-bold shadow-sm">认证评审 ▷ 设为通过！</div>
+      </div>
+    </div>
+
+    <!-- CC-5-1 (Waiting State - Front End) -->
+    <div class="absolute z-10" style="left: 100px; top: 450px;">
+      <div id="CC-5-1" class="absolute -top-10 left-0 bg-yellow-600 text-white text-sm px-3 py-1 rounded shadow-sm z-20">CC-5-1 · 培训详情 (C2结束态/等待评审中)</div>
+      <div class="w-[375px] h-[720px] bg-white border border-gray-200 rounded-[32px] shadow-2xl overflow-hidden transform scale-[0.65] origin-top-left flex flex-col relative opacity-80">
+          <div class="h-16 flex items-center px-6 border-b border-gray-100 bg-white sticky top-0 z-50">
+              <i class="ri-arrow-left-s-line text-2xl"></i><span class="flex-1 text-center font-bold text-xl">教学认证中心</span><i class="ri-more-fill text-2xl"></i>
+          </div>
+          <div class="flex-1 overflow-y-auto no-scrollbar bg-gray-50 flex flex-col pb-24">
+              <div class="w-full bg-white border-b border-gray-100 pb-4">
+                  <div class="h-48 bg-gray-100 flex items-center justify-center text-gray-300 italic mb-4">Training Poster</div>
+                  <div class="px-6">
+                      <div class="text-2xl font-bold mb-2">kawayi电吹管认证培训师</div>
+                      <div class="text-sm text-gray-400 font-normal">2026-03-24 · 56人参与 · 13 件作品</div>
+                  </div>
+              </div>
+              <div class="m-4 bg-gradient-to-br from-yellow-50 to-orange-50 border border-yellow-200 rounded-2xl p-5 shadow-sm">
+                  <div class="flex items-center gap-3 mb-3">
+                      <div class="w-10 h-10 bg-yellow-100 rounded-full flex items-center justify-center"><i class="ri-time-line text-yellow-600 text-xl font-bold"></i></div>
+                      <div class="flex flex-col">
+                          <span class="text-base font-bold text-gray-900">认证审核中</span>
+                          <span class="text-[10px] text-gray-500 font-normal">资料已入库，等待官方发证</span>
+                      </div>
+                  </div>
+              </div>
+              <div class="p-6 bg-white border-t border-gray-100 mt-2 opacity-60">
+                  <div class="text-lg font-bold mb-4 text-gray-800">学习资料专区</div>
+              </div>
+          </div>
+          <div class="absolute bottom-0 w-full p-4 border-t border-gray-200 z-20 pb-6 pointer-events-none bg-white">
+              <div class="w-full h-12 bg-gray-300 text-white rounded-xl flex items-center justify-center font-bold text-lg">当前环节已锁定</div>
+          </div>
+      </div>
+    </div>
+
+    <!-- CC-5-2 (Certified State) -->
+    <div class="absolute z-10" style="left: 1300px; top: 450px;">
+      <div id="CC-5-2" class="absolute -top-10 left-0 bg-green-600 text-white text-sm px-3 py-1 rounded shadow-sm z-20">CC-5-2 · 培训详情 (已认证通过态)</div>
+      <div class="w-[375px] h-[720px] bg-white border border-green-500 ring-4 ring-green-100 rounded-[32px] shadow-2xl overflow-hidden transform scale-[0.65] origin-top-left flex flex-col relative">
+          <!-- Header -->
+          <div class="h-16 flex items-center px-6 border-b border-gray-100 bg-white sticky top-0 z-50 shrink-0">
+              <i class="ri-arrow-left-s-line text-2xl"></i>
+              <span class="flex-1 text-center font-bold text-xl">教学认证中心</span>
+              <i class="ri-more-fill text-2xl"></i>
+          </div>
+          <!-- Body -->
+          <div class="flex-1 overflow-y-auto no-scrollbar bg-gray-50 flex flex-col pb-36">
+              <!-- Poster -->
+              <div class="w-full bg-white border-b border-gray-100 pb-4">
+                  <div class="h-48 bg-gray-100 flex items-center justify-center text-gray-300 italic mb-4">Training Poster</div>
+                  <div class="px-6">
+                      <div class="text-2xl font-bold mb-2">kawayi电吹管认证培训师</div>
+                      <div class="text-sm text-gray-400 font-normal">2026-03-24 · 56人参与 · 13 件作品</div>
+                  </div>
+              </div>
+              
+              <!-- Waterfall Works -->
+              <div class="p-4 bg-gray-50">
+                  <div class="text-lg font-bold mb-4 px-2">认证作品墙</div>
+                  <div class="columns-2 gap-4">
+                      <!-- Certified My Work -->
+                      <div class="break-inside-avoid mb-4 relative z-10">
+                          <!-- Certified Badge Highlighting -->
+                          <div class="absolute -right-2 -top-2 w-8 h-8 bg-gradient-to-br from-yellow-300 to-yellow-500 rounded-full border-2 border-white text-white flex items-center justify-center shadow-md animate-bounce">
+                             <i class="ri-verified-badge-fill text-lg"></i>
+                          </div>
+                          <div class="p-3 rounded-2xl border bg-white flex flex-col shadow-[0_4px_15px_rgba(234,179,8,0.2)] border-yellow-400 cursor-pointer">
+                              <div class="w-full h-32 bg-gray-100 rounded-xl flex items-center justify-center text-yellow-500 text-3xl">
+                                  <i class="ri-video-fill"></i>
+                              </div>
+                              <div class="mt-3 text-sm font-bold text-gray-900 truncate">基础吹奏考核作品</div>
+                              <div class="mt-1 flex items-center gap-2">
+                                  <div class="w-5 h-5 rounded-full bg-green-500 flex items-center justify-center text-white text-xs">
+                                      <i class="ri-user-3-fill"></i>
+                                  </div>
+                                  <span class="text-[10px] text-green-600 font-bold truncate">张爱国 老师</span>
+                              </div>
+                          </div>
+                      </div>
+                      <!-- Card 2 -->
+                      <div class="break-inside-avoid mb-4 opacity-50">
+                          <div class="p-3 rounded-2xl border border-gray-200 bg-white flex flex-col shadow-sm">
+                              <div class="w-full h-48 bg-gray-100 rounded-xl flex items-center justify-center text-gray-400 text-3xl"><i class="ri-video-line"></i></div>
+                              <div class="mt-3 text-sm font-bold text-gray-800 truncate">第一课练习</div>
+                              <div class="mt-1 flex items-center gap-2">
+                                  <div class="w-5 h-5 rounded-full bg-gray-100 flex items-center justify-center text-gray-500 text-xs"><i class="ri-user-3-fill"></i></div>
+                                  <span class="text-xs text-gray-500 truncate">李队长</span>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <!-- Bottom actions: Certified Success -->
+          <div class="absolute bottom-0 left-0 w-full p-4 bg-white/95 border-t border-gray-200 z-20 pb-8">
+              <div class="flex items-center gap-3">
+                  <div class="w-full h-12 bg-green-50 border border-green-200 text-green-600 rounded-xl flex items-center justify-center font-bold shadow-sm relative pointer-events-none">
+                      <i class="ri-medal-fill mr-2 text-xl text-yellow-500"></i>
+                      已获得培训师认证资格
+                  </div>
+              </div>
+          </div>
+      </div>
+    </div>
+
+    <!-- CC-6 作品详情 (Enriched) -->
+    <div class="absolute z-10" style="left: 1900px; top: 450px;">
+      <div id="CC-6" class="absolute -top-10 left-0 bg-gray-900 text-white text-sm px-3 py-1 rounded shadow-sm z-10">CC-6 · 认证作品详情</div>
+      <div class="w-[375px] h-[720px] bg-white border border-gray-200 rounded-[32px] shadow-2xl overflow-hidden transform scale-[0.65] origin-top-left flex flex-col">
+          <div class="h-16 flex items-center px-6 border-b border-gray-100 bg-white shrink-0">
+              <i class="ri-arrow-left-s-line text-2xl"></i>
+              <span class="flex-1 text-center font-bold text-xl">作品详情</span>
+              <i class="ri-more-fill text-2xl"></i>
+          </div>
+          <div class="h-64 bg-gray-900 flex items-center justify-center text-white shrink-0">
+              <i class="ri-play-circle-line text-6xl opacity-30"></i>
+          </div>
+          <div class="p-6 overflow-hidden">
+              <div class="flex items-center gap-2 mb-4">
+                  <span class="bg-gradient-to-r from-yellow-400 to-yellow-600 text-white text-[10px] px-2 py-1 rounded-md font-bold uppercase tracking-widest shadow-sm">认证通过</span>
+                  <div class="text-xl font-bold text-gray-900 truncate">基础吹奏考核作品</div>
+              </div>
+              
+              <!-- Result Block -->
+              <div class="bg-green-50 border border-green-100 rounded-2xl p-5 flex flex-col items-start gap-5 shadow-sm">
+                  <div class="flex items-center gap-3">
+                      <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center border border-green-200 shadow-sm"><i class="ri-award-fill text-2xl text-green-500"></i></div>
+                      <div class="flex flex-col">
+                          <span class="text-base font-bold text-gray-900">官方认证评审已通过！</span>
+                          <span class="text-[10px] text-gray-500 font-normal mt-1">恭喜您获得“初级教学认证”官方资格认定。<br>您的作品将被展示在培训精华墙。</span>
+                      </div>
+                  </div>
+                  <div class="w-full h-10 bg-green-500 shadow-[0_4px_10px_rgba(34,197,94,0.3)] text-white rounded-xl flex items-center justify-center text-sm font-bold cursor-pointer relative overflow-hidden">
+                      <div class="absolute -left-10 top-0 w-8 h-full bg-white/30 skew-x-12 animate-[shimmer_2s_infinite]"></div>
+                      <i class="ri-eye-2-line mr-2"></i>查看我的电子证书
+                  </div>
+              </div>
+          </div>
+      </div>
+    </div>
+
+    <!-- CH-2-2 证书弹层 (Enriched) -->
+    <div class="absolute z-10" style="left: 2500px; top: 450px;">
+      <div id="CH-2-2" class="absolute -top-10 left-0 bg-gray-900 text-white text-sm px-3 py-1 rounded shadow-sm z-10">CH-2-2 · 认证证书全屏预览</div>
+      <div class="w-[375px] h-[720px] bg-gray-900/60 rounded-[32px] shadow-2xl overflow-hidden transform scale-[0.65] origin-top-left flex items-center justify-center">
+          <div class="w-[320px] bg-white rounded-[24px] p-8 flex flex-col items-center shadow-2xl relative">
+              <div class="absolute top-8 right-8"><i class="ri-award-fill text-4xl text-yellow-500 opacity-20"></i></div>
+              
+              <div class="text-lg font-bold text-gray-400 mb-1 tracking-widest uppercase">Official Certificate</div>
+              <div class="text-3xl font-bold mb-8 text-gray-900 text-center">kawayi<br>教学认证证书</div>
+              <div class="w-full h-px bg-gray-200 mb-8"></div>
+              
+              <p class="text-xs text-gray-500 font-normal mb-2">兹证明用户</p>
+              <div class="text-2xl font-bold mb-10 text-gray-900 border-b-2 border-gray-900 pb-2">张爱国 老师</div>
+              
+              <p class="text-[12px] text-gray-600 font-normal mb-8 leading-relaxed px-2 text-justify">
+                  在 kawayi 老年师训计划中圆满完成<br>
+                  <strong class="text-gray-900 text-[13px] block my-2 text-center text-blue-600 bg-blue-50 py-1 rounded-md">“kawayi电吹管认证培训师 (初级)”</strong>
+                  相关系统学习与双轨考核，并达到官方专业要求，特发此证表彰。
+              </p>
+              
+              <div class="w-full flex justify-between items-end mb-10 px-2 mt-4">
+                  <div class="text-left">
+                      <div class="text-[10px] text-gray-400 uppercase font-bold mb-1">Issue Date</div>
+                      <div class="text-sm font-bold font-sans text-gray-800">2026-03-24</div>
+                  </div>
+                  <div class="w-[72px] h-[72px] border-4 border-red-500 rounded-full flex items-center justify-center text-[10px] text-red-500 uppercase font-bold tracking-tighter text-center opacity-80 rotate-[-15deg] shadow-sm">kawayi<br>官方认证章</div>
+              </div>
+              <div class="w-full h-14 bg-[#07c160] shadow-md shadow-green-200 text-white rounded-2xl flex items-center justify-center text-lg font-bold">
+                  <i class="ri-wechat-fill text-2xl mr-2"></i>分享到微信
+              </div>
+          </div>
+      </div>
+    </div>
+
+  </div>
+  <style>
+      @keyframes shimmer {
+          100% { left: 120%; }
+      }
+  </style>
+</body>
+</html>

@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+  <style>
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    .bg-dot-grid {
+      background-image: radial-gradient(circle, #cbd5e1 1px, transparent 1px);
+      background-size: 20px 20px;
+    }
+  </style>
+</head>
+<body class="m-0 p-0 bg-gray-200 no-scrollbar">
+
+  <!-- ① 悬浮标题板 -->
+  <div style="position:fixed;top:24px;left:24px;z-index:50;background:rgba(17,24,39,0.85);backdrop-filter:blur(8px);border-radius:12px;padding:12px 20px;">
+    <div style="font-size:16px;font-weight:700;color:#fff;">社团流程C · 师训认证</div>
+    <div style="font-size:12px;color:#9ca3af;margin-top:4px;">v1.2 · v2 Fixed Missing Node · 2026-03-23</div>
+  </div>
+
+  <!-- ② 画布 -->
+  <div class="relative bg-dot-grid w-[3000px] h-[2200px] no-scrollbar font-sans text-gray-900">
+
+    <!-- ③ SVG 连线层 -->
+    <svg class="absolute inset-0 w-full h-full pointer-events-none z-0">
+      <defs>
+        <marker id="arrow-gray" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+          <path d="M0,0 L0,6 L9,3 z" fill="#94a3b8" />
+        </marker>
+        <marker id="arrow-blue" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+          <path d="M0,0 L0,6 L9,3 z" fill="#3b82f6" />
+        </marker>
+      </defs>
+      
+      <!-- C-1 Publishing (Row 1: y=150) -->
+      <path d="M 344 320 C 470 320, 470 320, 698 320" stroke="#3b82f6" stroke-width="2" fill="none" marker-end="url(#arrow-blue)" />
+      <rect x="460" y="305" width="130" height="30" fill="#eff6ff" border="1" stroke="#bfdbfe" rx="4" />
+      <text x="525" y="325" fill="#2563eb" font-size="14" font-weight="500" text-anchor="middle">创建培训活动</text>
+
+      <path d="M 942 320 C 1070 320, 1070 320, 1338 320" stroke="#3b82f6" stroke-width="2" fill="none" marker-end="url(#arrow-blue)" />
+      <rect x="1063" y="305" width="150" height="30" fill="#eff6ff" border="1" stroke="#bfdbfe" rx="4" />
+      <text x="1138" y="325" fill="#2563eb" font-size="14" font-weight="500" text-anchor="middle">配置资料与权限</text>
+
+      <!-- C-2 Submitting (Row 2: y=800) -->
+      <path d="M 344 970 C 470 970, 470 970, 698 970" stroke="#3b82f6" stroke-width="2" fill="none" marker-end="url(#arrow-blue)" />
+      <rect x="475" y="955" width="130" height="30" fill="#eff6ff" border="1" stroke="#bfdbfe" rx="4" />
+      <text x="540" y="975" fill="#2563eb" font-size="14" font-weight="500" text-anchor="middle">点击[上传作品]</text>
+
+      <path d="M 942 970 C 1070 970, 1070 970, 1338 970" stroke="#3b82f6" stroke-width="2" fill="none" marker-end="url(#arrow-blue)" />
+      <rect x="1080" y="955" width="150" height="30" fill="#eff6ff" border="1" stroke="#bfdbfe" rx="4" />
+      <text x="1155" y="975" fill="#2563eb" font-size="14" font-weight="500" text-anchor="middle">发布并跳转问卷</text>
+
+      <!-- C-3 Result (Row 3: y=1450) -->
+      <path d="M 344 1620 C 470 1620, 470 1620, 698 1620" stroke="#3b82f6" stroke-width="2" fill="none" marker-end="url(#arrow-blue)" />
+      <rect x="460" y="1605" width="150" height="30" fill="#eff6ff" border="1" stroke="#bfdbfe" rx="4" />
+      <text x="535" y="1625" fill="#2563eb" font-size="14" font-weight="500" text-anchor="middle">评审通过写入结果</text>
+
+      <path d="M 942 1620 C 1070 1620, 1070 1620, 1338 1620" stroke="#3b82f6" stroke-width="2" fill="none" marker-end="url(#arrow-blue)" />
+      <rect x="1060" y="1605" width="150" height="30" fill="#eff6ff" border="1" stroke="#bfdbfe" rx="4" />
+      <text x="1135" y="1625" fill="#2563eb" font-size="14" font-weight="500" text-anchor="middle">点击通知进入详情</text>
+
+    </svg>
+
+    <!-- ④ 节点容器 (统一高度 h-720) -->
+    
+    <!-- [C-1] Row 1 -->
+    <div class="absolute" style="left: 100px; top: 150px;">
+      <div class="absolute -top-10 left-0 bg-gray-900 text-white text-sm px-3 py-1 rounded shadow-sm z-10">外部业务系统 (卡哇伊)</div>
+      <div class="w-[375px] h-[720px] bg-gray-50 border border-gray-200 rounded-[32px] shadow-2xl overflow-hidden transform scale-[0.65] origin-top-left flex flex-col items-center justify-center text-center p-8">
+          <i class="ri-computer-line text-6xl text-gray-300 mb-6"></i>
+          <div class="text-xl font-bold text-gray-900 mb-2">卡哇伊工作端</div>
+          <p class="text-sm text-gray-500 font-normal">Big B 发起师训教学计划。</p>
+      </div>
+    </div>
+
+    <div class="absolute" style="left: 700px; top: 150px;">
+      <div id="CC-12-P" class="absolute -top-10 left-0 bg-gray-900 text-white text-sm px-3 py-1 rounded shadow-sm z-10">CC-12 · 活动管理</div>
+      <div class="w-[375px] h-[720px] bg-white border border-gray-200 rounded-[32px] shadow-2xl overflow-hidden transform scale-[0.65] origin-top-left flex flex-col">
+          <div class="h-16 flex items-center px-6 border-b border-gray-100 bg-white shrink-0">
+              <span class="flex-1 text-center font-bold text-xl">新建活动</span>
+          </div>
+          <div class="p-6">
+              <div class="text-sm text-gray-400 mb-2">主题</div>
+              <div class="h-12 border-b border-gray-100 text-lg font-bold mb-6">电吹管初级认证培训</div>
+              <div class="bg-gray-50 rounded-xl p-4 mb-4 text-sm font-bold">
+                  <div class="flex justify-between items-center mb-2">仅成员可见 <div class="w-8 h-4 bg-gray-900 rounded-full"></div></div>
+                  <div class="flex justify-between items-center">心得回顾问卷 <div class="w-8 h-4 bg-gray-900 rounded-full"></div></div>
+              </div>
+          </div>
+          <div class="p-6 border-t border-gray-100 bg-white shrink-0">
+              <div class="h-14 bg-blue-600 shadow-md shadow-blue-200 text-white rounded-xl flex items-center justify-center font-bold">发布</div>
+          </div>
+      </div>
+    </div>
+
+    <div class="absolute" style="left: 1340px; top: 150px;">
+      <div id="CC-5-P" class="absolute -top-10 left-0 bg-gray-900 text-white text-sm px-3 py-1 rounded shadow-sm z-10">CC-5 · 培训活动详情</div>
+      <div class="w-[375px] h-[720px] bg-white border border-gray-200 rounded-[32px] shadow-2xl overflow-hidden transform scale-[0.65] origin-top-left flex flex-col">
+          <div class="h-16 flex items-center px-6 border-b border-gray-100 bg-white shrink-0">
+              <i class="ri-arrow-left-s-line text-2xl"></i>
+              <span class="flex-1 text-center font-bold text-xl">活动详情</span>
+          </div>
+          <div class="p-6">
+              <div class="text-2xl font-bold mb-4">电吹管初级认证培训</div>
+              <div class="bg-gray-100 h-24 rounded-xl flex items-center justify-center text-gray-300 italic mb-6">Course Material</div>
+          </div>
+          <div class="mt-auto p-6 border-t border-gray-100 bg-white shrink-0">
+              <div class="h-14 bg-blue-600 shadow-md shadow-blue-200 text-white rounded-xl flex items-center justify-center font-bold">上传认证作品</div>
+          </div>
+      </div>
+    </div>
+
+    <!-- [C-2] Row 2 -->
+    <div class="absolute" style="left: 100px; top: 800px;">
+      <div id="CC-5-S" class="absolute -top-10 left-0 bg-gray-900 text-white text-sm px-3 py-1 rounded shadow-sm z-10">CC-5 · 培训活动页面</div>
+      <div class="w-[375px] h-[720px] bg-white border border-gray-200 rounded-[32px] shadow-2xl overflow-hidden transform scale-[0.65] origin-top-left flex flex-col">
+          <div class="h-16 flex items-center px-6 border-b border-gray-100 bg-white shrink-0">
+              <i class="ri-arrow-left-s-line text-2xl"></i>
+              <span class="flex-1 text-center font-bold text-xl">活动详情</span>
+          </div>
+          <div class="p-6">
+              <div class="text-2xl font-bold mb-4">电吹管初级认证培训</div>
+              <div class="bg-gray-100 w-full h-32 rounded-xl flex items-center justify-center text-gray-300 mb-6 italic">Material</div>
+          </div>
+          <div class="mt-auto p-6 border-t border-gray-100 bg-white shrink-0">
+              <div class="h-14 bg-blue-600 shadow-md shadow-blue-200 text-white rounded-2xl flex items-center justify-center text-xl font-bold">上传我的作品</div>
+          </div>
+      </div>
+    </div>
+
+    <div class="absolute" style="left: 700px; top: 800px;">
+      <div id="CC-7-S" class="absolute -top-10 left-0 bg-gray-900 text-white text-sm px-3 py-1 rounded shadow-sm z-10">CC-7 · 提交表单</div>
+      <div class="w-[375px] h-[720px] bg-white border border-gray-200 rounded-[32px] shadow-2xl overflow-hidden transform scale-[0.65] origin-top-left flex flex-col">
+          <div class="h-16 flex items-center px-6 border-b border-gray-100 shrink-0">
+              <span class="text-lg">取消</span>
+              <span class="flex-1 text-center font-bold text-xl">提交作品</span>
+          </div>
+          <div class="p-6 flex-1">
+              <div class="w-32 h-32 bg-gray-50 border-dashed border-2 border-gray-200 rounded-2xl flex items-center justify-center mb-6">
+                  <i class="ri-video-line text-4xl text-gray-300"></i>
+              </div>
+              <div class="bg-gray-50 rounded-xl p-4 flex items-center border border-gray-100 font-bold mb-6">
+                  <i class="ri-checkbox-circle-line text-gray-900 mr-2 text-xl"></i> 用于认证提交
+              </div>
+          </div>
+          <div class="p-6 border-t border-gray-100 bg-white shrink-0">
+              <div class="h-14 bg-blue-600 shadow-md shadow-blue-200 text-white rounded-2xl flex items-center justify-center text-xl font-bold">下一步</div>
+          </div>
+      </div>
+    </div>
+
+    <div class="absolute" style="left: 1340px; top: 800px;">
+      <div id="CC-23-S" class="absolute -top-10 left-0 bg-gray-900 text-white text-sm px-3 py-1 rounded shadow-sm z-10">CC-23 · 教学心得问卷</div>
+      <div class="w-[375px] h-[720px] bg-white border border-gray-200 rounded-[32px] shadow-2xl overflow-hidden transform scale-[0.65] origin-top-left flex flex-col">
+          <div class="h-16 flex items-center px-6 border-b border-gray-100 shrink-0">
+              <span class="flex-1 text-center font-bold text-xl">教学心得回顾</span>
+          </div>
+          <div class="p-6 overflow-hidden">
+              <div class="text-xl font-bold mb-6">Q1. 本次学习中最有收获的技巧是？</div>
+              <div class="flex flex-col gap-4">
+                  <div class="h-14 border border-gray-900 rounded-xl flex items-center px-4 font-bold">A. 呼吸控制法</div>
+                  <div class="h-14 border border-gray-100 rounded-xl flex items-center px-4 text-gray-400">B. 指法技巧</div>
+              </div>
+          </div>
+          <div class="mt-auto p-6 bg-white shrink-0">
+              <div class="h-14 bg-blue-600 shadow-md shadow-blue-200 text-white rounded-2xl flex items-center justify-center font-bold">提交心得</div>
+          </div>
+      </div>
+    </div>
+
+    <!-- [C-3] Row 3 -->
+    <div class="absolute" style="left: 100px; top: 1450px;">
+      <div class="absolute -top-10 left-0 bg-gray-900 text-white text-sm px-3 py-1 rounded shadow-sm z-10">卡哇伊评审后台</div>
+      <div class="w-[375px] h-[720px] bg-gray-100 border border-gray-200 rounded-[32px] shadow-2xl overflow-hidden transform scale-[0.65] origin-top-left flex flex-col items-center justify-center p-8 text-center italic">
+          <i class="ri-shield-check-line text-6xl text-gray-400 mb-6"></i>
+          <div class="text-xl font-bold text-gray-900 mb-2 not-italic">认证评审中</div>
+          <p class="text-sm text-gray-500 font-normal not-italic">Big B 同步认证状态至平台。</p>
+      </div>
+    </div>
+
+    <div class="absolute" style="left: 700px; top: 1450px;">
+      <div id="CC-6-R" class="absolute -top-10 left-0 bg-gray-900 text-white text-sm px-3 py-1 rounded shadow-sm z-10">CC-6 · 社团作品详情</div>
+      <div class="w-[375px] h-[720px] bg-white border border-gray-200 rounded-[32px] shadow-2xl overflow-hidden transform scale-[0.65] origin-top-left flex flex-col">
+          <div class="h-16 flex items-center px-6 border-b border-gray-100 bg-white shrink-0">
+              <i class="ri-arrow-left-s-line text-2xl"></i>
+              <span class="flex-1 text-center font-bold text-xl">作品详情</span>
+          </div>
+          <div class="flex-1 bg-gray-900 flex items-center justify-center text-white italic">Video</div>
+          <div class="p-6 bg-white shrink-0">
+              <div class="flex items-center gap-2 mb-4">
+                  <span class="bg-gray-900 text-white text-[10px] px-2 py-1 rounded">官方认证</span>
+                  <div class="text-xl font-bold">我的练习方案</div>
+              </div>
+              <div class="bg-gray-50 rounded-xl p-4 flex items-center">
+                  <i class="ri-award-line text-2xl mr-3 text-gray-900"></i>
+                  <div class="flex-1 font-bold">已获得认证资格！<br><span class="text-xs text-blue-500 font-normal underline">点击查看证书</span></div>
+              </div>
+          </div>
+      </div>
+    </div>
+
+    <div class="absolute" style="left: 1340px; top: 1450px;">
+      <div id="CH-2-2-R" class="absolute -top-10 left-0 bg-gray-900 text-white text-sm px-3 py-1 rounded shadow-sm z-10">CH-2-2 · 证书弹层</div>
+      <div class="w-[375px] h-[720px] bg-gray-900/40 rounded-[32px] shadow-2xl transform scale-[0.65] origin-top-left flex items-center justify-center">
+          <div class="w-[300px] bg-white rounded-3xl p-8 flex flex-col items-center shadow-xl">
+              <div class="text-lg font-bold text-gray-300 mb-1 uppercase tracking-widest">Certificate</div>
+              <div class="text-2xl font-bold mb-6">教学认证证书</div>
+              <div class="w-full h-px bg-gray-100 mb-6"></div>
+              <div class="text-2xl font-bold mb-6">张爱国 老师</div>
+              <p class="text-xs text-gray-400 mb-8 font-normal">获得 “电吹管教学认证 (初级)” 资格</p>
+              <div class="w-full h-14 bg-[#07c160] shadow-md shadow-green-200 text-white rounded-2xl flex items-center justify-center font-bold">分享证书</div>
+          </div>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>
