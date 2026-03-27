@@ -10,7 +10,10 @@
 ```
 AI-PRD-Lecai/
 ├── README.md               ← 项目说明
-├── .agents/                ← Agent 宪法 & 工作流
+├── .agents/                ← Agent 宪法、工作流与本地工具
+│   ├── skills/             ← 项目专属自动化工具 (Local Skills)
+│   │   ├── lecai-manual/   ← 录屏转 Word 手册工具
+│   │   └── lecai-bundler/  ← 原型阅读器单文件打包工具
 ├── foundation/             ← 项目基座（总 PageList、术语表、路线图、设计系统）
 │   ├── design-system/      ← 视觉识别与 UI 设计规范
 │   │   ├── benchmarks/     ← 对标研究与视觉逆向工程
@@ -208,11 +211,20 @@ http://localhost:3000/releases/v1.0/reader.html
 
 ## 🌟 专项专家与工程助手 (Specialized Experts & Tools)
 
-| 角色/插件 | 路径 | 描述 |
+### 1. 专家与插件 (Experts & Plugins)
+
+| 名称 | 路径 | 描述 |
 | :--- | :--- | :--- |
-| **Li Yue (银发经济专家)** | `li-yue-expert.md` | 50-70 岁群体产品架构师。负责 S2B2C 架构规划、荣誉与利益双引擎设计。 |
+| **Li Yue (银发专家)** | `li-yue-expert.md` | 50-70 岁群体产品架构师。负责 S2B2C 架构规划、荣誉与利益双引擎设计。 |
 | **Git Coach (代码专家)** | `git-migration-coach.md` | 资深开发与版本管理。引导项目安全迁移至 GitHub。 |
-| **Low-Fi Flow (全景流程)** | `Low-Fi-Flow-Map-Plugin.md` | 解析 Mermaid 代码，生成 Miro 风格的全景线框流程图。 |
+| **Low-Fi Flow (流程图)** | `Low-Fi-Flow-Map-Plugin.md` | 解析 Mermaid 代码，生成 Miro 风格的全景线框流程图。 |
+
+### 2. 项目专属本地工具 (Local Skills)
+
+| 工具名称 | 触发指令 | 核心职责 |
+| :--- | :--- | :--- |
+| **lecai-manual** | `/lecai-manual` | **录屏转手册**：解析操作视频与字幕，自动生成适老化的 Word 产品手册（大字号、动作导向、友好名称）。 |
+| **lecai-bundler** | `/lecai-bundler` | **单文件打包**：将指定版本（如 `drafts/v1.3.1`）的线框图、功能规格、流程图打包为单个可分享的 HTML 文件。 |
 
 ---
 
