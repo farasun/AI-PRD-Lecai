@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+  <style>
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    /* ⚪ 基础底色层: 画布背景 */
+    .bg-dot-grid {
+      background-image: radial-gradient(circle, #cbd5e1 1px, transparent 1px);
+      background-size: 20px 20px;
+    }
+  </style>
+</head>
+<body class="m-0 p-0 bg-gray-200 no-scrollbar">
+
+  <!-- ① 悬浮标题板 [bg-gray-900 全局锚点] -->
+  <div style="position:fixed;top:24px;left:24px;z-index:50;background:rgba(17,24,39,0.85);backdrop-filter:blur(8px);border-radius:12px;padding:12px 20px;border:1px solid rgba(255,255,255,0.1);">
+    <div style="font-size:16px;font-weight:700;color:#fff;">赛事流程A-1 · 参赛全闭环流程 (V1.2配色版)</div>
+    <div style="font-size:12px;color:#9ca3af;margin-top:4px;">v1.3.2a · Theme: v1.2 Color Standard · 2026-04-03</div>
+  </div>
+
+  <!-- ② 画布 -->
+  <div class="relative bg-dot-grid w-[3000px] h-[1600px] no-scrollbar font-sans text-gray-900 overflow-visible">
+
+    <!-- ③ SVG 连线层 -->
+    <svg class="absolute inset-0 w-full h-full pointer-events-none z-0">
+      <defs>
+        <marker id="arrow-gray" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+          <path d="M0,0 L0,6 L9,3 z" fill="#94a3b8" />
+        </marker>
+        <marker id="arrow-blue" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+          <path d="M0,0 L0,6 L9,3 z" fill="#3b82f6" />
+        </marker>
+        <marker id="arrow-purple" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+          <path d="M0,0 L0,6 L9,3 z" fill="#a855f7" />
+        </marker>
+        <marker id="arrow-green" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+          <path d="M0,0 L0,6 L9,3 z" fill="#07c160" />
+        </marker>
+      </defs>
+
+      <!-- 🔵 主线蓝: CC-4 -> CC-4-2 -->
+      <path d="M 344 414 L 598 414" stroke="#3b82f6" stroke-width="2" fill="none" marker-end="url(#arrow-blue)" />
+      <rect x="420" y="399" width="100" height="30" fill="#eff6ff" rx="4" stroke="#bfdbfe" />
+      <text x="470" y="419" fill="#2563eb" font-size="14" font-weight="500" text-anchor="middle">点击[赛事]TAB</text>
+
+      <!-- 🔵 主线蓝: CC-4-2 -> CC-24 -->
+      <path d="M 844 414 L 1098 414" stroke="#3b82f6" stroke-width="2" fill="none" marker-end="url(#arrow-blue)" />
+      <rect x="920" y="399" width="120" height="30" fill="#eff6ff" rx="4" stroke="#bfdbfe" />
+      <text x="980" y="419" fill="#2563eb" font-size="14" font-weight="500" text-anchor="middle">点击赛事卡片</text>
+
+      <!-- 🔵 -> 🟣 转换连接: CC-24 -> CC-15 (未入社拦截) -->
+      <path d="M 1222 677 C 1222 800, 722 800, 722 898" stroke="#a855f7" stroke-width="2" stroke-dasharray="4" fill="none" marker-end="url(#arrow-purple)" />
+      <rect x="920" y="800" width="140" height="30" fill="#faf5ff" rx="4" stroke="#e9d5ff" />
+      <text x="990" y="820" fill="#9333ea" font-size="14" font-weight="500" text-anchor="middle">未入社点击[参加]</text>
+
+      <!-- 🟣 营销紫: CC-15 -> CC-7 (入社并跳转) -->
+      <path d="M 844 1163 L 1498 1163" stroke="#a855f7" stroke-width="2" fill="none" marker-end="url(#arrow-purple)" />
+      <rect x="1100" y="1148" width="150" height="30" fill="#faf5ff" rx="4" stroke="#e9d5ff" />
+      <text x="1175" y="1168" fill="#9333ea" font-size="14" font-weight="500" text-anchor="middle">加入并一键参赛</text>
+
+      <!-- 🔵 -> 🟣 目标连接: CC-24 -> CC-7 (已入社直连) -->
+      <path d="M 1344 320 C 1500 320, 1500 850, 1622 898" stroke="#a855f7" stroke-width="2" fill="none" marker-end="url(#arrow-purple)" />
+    </svg>
+
+    <!-- Node: CC-4 (社团的主页) -->
+    <div class="absolute" style="left: 100px; top: 150px;">
+      <div id="CC-4" class="absolute -top-10 left-0 bg-gray-900 text-white text-sm px-3 py-1 rounded shadow-sm z-10">CC-4 · 社团的主页</div>
+      <div class="w-[375px] h-[812px] bg-white border border-gray-200 rounded-[40px] shadow-2xl overflow-hidden transform scale-[0.65] origin-top-left flex flex-col">
+          <div class="h-16 flex items-center px-6 border-b border-gray-100 bg-white shadow-sm">
+              <i class="ri-arrow-left-s-line text-2xl"></i>
+              <span class="flex-1 text-center font-bold text-xl">相望于疆湖</span>
+              <i class="ri-more-fill text-2xl"></i>
+          </div>
+          <div class="flex-1 overflow-y-auto no-scrollbar">
+              <div class="h-40 bg-gray-100 flex items-center justify-center text-gray-300 italic shrink-0">Banner</div>
+              <div class="p-6">
+                  <div class="text-2xl font-bold mb-1">相望于疆湖</div>
+                  <div class="flex gap-4 text-gray-400 mb-6 text-sm"><span>128 作品</span><span>56 成员</span></div>
+                  <div class="flex gap-8 border-b border-gray-100 pb-2 mb-4">
+                      <div class="pb-2 border-b-2 border-gray-900 font-bold">内容</div>
+                      <div class="pb-2 text-gray-400">赛事</div>
+                  </div>
+                  <div class="grid grid-cols-2 gap-3 opacity-20"><div class="aspect-square bg-gray-100 rounded-xl"></div><div class="aspect-square bg-gray-100 rounded-xl"></div></div>
+              </div>
+          </div>
+      </div>
+    </div>
+
+    <!-- Node: CC-4-2 (社团主页-赛事TAB) -->
+    <div class="absolute" style="left: 600px; top: 150px;">
+      <div id="CC-4-2" class="absolute -top-10 left-0 bg-gray-900 text-white text-sm px-3 py-1 rounded shadow-sm z-10">CC-4-2 · 社团主页-赛事TAB</div>
+      <div class="w-[375px] h-[812px] bg-white border border-gray-200 rounded-[40px] shadow-2xl overflow-hidden transform scale-[0.65] origin-top-left flex flex-col">
+          <div class="h-16 flex items-center px-6 border-b border-gray-100"><i class="ri-arrow-left-s-line text-2xl"></i><span class="flex-1 text-center font-bold text-xl">相望于疆湖</span></div>
+          <div class="p-6 overflow-y-auto no-scrollbar">
+              <div class="flex gap-8 border-b border-gray-100 pb-2 mb-6"><div class="pb-2 text-gray-400">内容</div><div class="pb-2 border-b-2 border-gray-900 font-bold">赛事</div></div>
+              <div class="border border-blue-400 ring-4 ring-blue-50 rounded-2xl overflow-hidden p-1 shadow-lg bg-white">
+                  <div class="h-32 bg-gray-100 flex items-center justify-center text-gray-400 font-bold">赛事封面图</div>
+                  <div class="p-4">
+                      <div class="text-xl font-bold mb-1">v1.3.2a 社团挑战赛</div>
+                      <div class="flex justify-between text-gray-400 text-sm"><span>32人已参赛</span><span class="text-blue-500 font-bold">进行中</span></div>
+                  </div>
+              </div>
+          </div>
+      </div>
+    </div>
+
+    <!-- Node: CC-24 (社团赛事专属主页) -->
+    <div class="absolute" style="left: 1100px; top: 150px;">
+      <div id="CC-24" class="absolute -top-10 left-0 bg-gray-900 text-white text-sm px-3 py-1 rounded shadow-sm z-10">CC-24 · 社团赛事专属主页</div>
+      <div class="w-[375px] h-[812px] bg-white border border-gray-200 rounded-[40px] shadow-2xl overflow-hidden transform scale-[0.65] origin-top-left flex flex-col relative">
+        <div class="h-16 px-6 border-b flex items-center justify-between bg-white shrink-0 sticky top-0 z-10">
+          <i class="ri-arrow-left-s-line text-2xl"></i><span class="font-bold text-xl">赛事详情</span><i class="ri-share-line text-xl"></i>
+        </div>
+        <div class="flex-1 overflow-y-auto no-scrollbar">
+           <div class="h-44 bg-gray-50 flex flex-col items-center justify-center text-gray-300 font-bold italic shrink-0"><i class="ri-image-fill text-4xl"></i><span>Header Image</span></div>
+           <div class="p-6 pb-0">
+             <div class="text-2xl font-black text-gray-900 mb-2 leading-tight">【相望于疆湖】<br/>电子大奖状争霸赛</div>
+             <div class="inline-flex items-center px-3 py-1 bg-blue-50 text-blue-600 rounded-lg text-sm font-bold mb-6"><i class="ri-medal-fill mr-1"></i> 官方认证 · 进行中</div>
+           </div>
+           <!-- 🔵 主线蓝 Tabs -->
+           <div class="flex border-b border-gray-100 px-6 sticky top-0 bg-white z-10">
+              <div class="flex-1 py-4 text-center font-black border-b-4 border-blue-600 text-blue-600 text-lg">介绍</div>
+              <div class="flex-1 py-4 text-center text-gray-400 text-lg font-bold">排行榜</div>
+              <div class="flex-1 py-4 text-center text-gray-400 text-lg font-bold">作品展</div>
+           </div>
+           <div class="p-6">
+             <div class="text-lg text-gray-600 mb-8 leading-relaxed font-normal">相望于疆湖的各位管友：展现风采的时候到了！</div>
+             <div class="grid grid-cols-2 gap-3 opacity-20"><div class="h-32 bg-gray-100 rounded-xl"></div><div class="h-32 bg-gray-100 rounded-xl"></div></div>
+           </div>
+        </div>
+        <!-- 🔴 主线蓝按钮 -->
+        <div class="p-6 border-t bg-white shrink-0"><div class="h-16 bg-blue-600 text-white rounded-[20px] flex items-center justify-center font-bold text-xl shadow-lg shadow-blue-100">立即参加投稿</div></div>
+      </div>
+    </div>
+
+    <!-- Node: CC-15 (申请加入社团) - 🟣 营销紫风格 -->
+    <div class="absolute" style="left: 600px; top: 900px;">
+      <div id="CC-15" class="absolute -top-10 left-0 bg-gray-900 text-white text-sm px-3 py-1 rounded shadow-sm z-10">CC-15 · 申请加入社团</div>
+      <div class="w-[375px] h-[812px] bg-purple-900/10 rounded-[40px] shadow-2xl overflow-hidden transform scale-[0.65] origin-top-left flex items-center justify-center p-8 backdrop-blur-sm">
+          <div class="w-full bg-white rounded-[32px] p-8 shadow-2xl flex flex-col items-center text-center border border-purple-50">
+            <!-- 🟣 营销紫 icon -->
+            <div class="w-20 h-20 bg-purple-50 rounded-full flex items-center justify-center mb-6 text-purple-600 shadow-inner"><i class="ri-user-star-fill text-4xl"></i></div>
+            <div class="text-2xl font-black mb-4">加入社团代表队<br/>赢取电子奖状！</div>
+            <p class="text-xl text-gray-500 mb-10 leading-relaxed font-normal">加入 <span class="font-bold text-purple-600">“相望于疆湖”</span><br/>即可立即报名并冲刺榜单</p>
+            <!-- 🟣 营销紫高亮按钮 -->
+            <div class="w-full h-16 bg-purple-600 shadow-xl shadow-purple-100 text-white rounded-2xl flex items-center justify-center font-bold text-xl">加入并继续</div>
+            <div class="mt-8 text-gray-300 text-lg hover:text-gray-400">稍后再说</div>
+          </div>
+      </div>
+    </div>
+
+    <!-- Node: CC-7 (发作品) - 🟣 转换闭环风格 -->
+    <div class="absolute" style="left: 1500px; top: 900px;">
+      <div id="CC-7" class="absolute -top-10 left-0 bg-gray-900 text-white text-sm px-3 py-1 rounded shadow-sm z-10">CC-7 · 发作品</div>
+      <div class="w-[375px] h-[812px] bg-[#f8f8f8] border border-gray-200 rounded-[40px] shadow-2xl overflow-hidden transform scale-[0.65] origin-top-left flex flex-col">
+          <div class="h-16 flex items-center px-6 border-b border-gray-100 bg-white sticky top-0 z-10">
+              <span class="text-xl text-gray-500 font-bold">取消</span><span class="flex-1 text-center font-bold text-xl">参赛投稿</span><div class="w-16 h-8 border rounded-full flex items-center justify-around text-gray-300"><i class="ri-more-fill"></i><div class="w-px h-4 bg-gray-100"></div><i class="ri-record-circle-line"></i></div>
+          </div>
+          <div class="flex-1 overflow-y-auto no-scrollbar">
+              <div class="bg-[#fdf9f0] px-6 py-2 text-sm text-gray-600 border-b border-[#f3eace]">作品信息</div>
+              <div class="bg-white p-6 mb-3 border-b border-gray-100">
+                  <div class="text-lg font-black mb-4"><span class="text-red-500 mr-1">*</span>作品上传</div>
+                  <div class="w-28 h-28 border-2 border-dashed border-gray-100 rounded-2xl flex flex-col items-center justify-center text-gray-300"><i class="ri-add-line text-4xl"></i><div class="text-sm font-bold">0/9</div></div>
+              </div>
+              <div class="bg-white px-6 py-4 space-y-6">
+                  <div class="flex items-center justify-between border-b border-gray-50 pb-4"><span class="text-lg font-bold"><span class="text-red-500 mr-1">*</span>作品名称</span><span class="text-gray-300 text-lg">请输入名称</span></div>
+                  <div class="flex items-center justify-between border-b border-gray-50 pb-4"><span class="text-lg font-bold"><span class="text-red-500 mr-1">*</span>所属社团</span><span class="text-gray-900 text-lg font-bold">相望于疆湖</span></div>
+                  <div class="flex items-center justify-between border-b border-gray-100 pb-4">
+                      <span class="text-lg font-bold"><span class="text-red-500 mr-1">*</span>所属活动</span>
+                      <span class="text-purple-600 text-lg font-bold flex items-center bg-purple-50 px-2 py-1 rounded">v1.3.2a挑战赛</span>
+                  </div>
+              </div>
+              <div class="bg-[#fdf9f0] px-6 py-2 text-sm text-gray-600 border-t border-b border-[#f3eace] mt-3">作者信息</div>
+              <div class="bg-white px-6 py-4 mb-6">
+                  <div class="flex items-center justify-between border-b border-gray-50 pb-4 mb-6"><span class="text-lg font-bold"><span class="text-red-500 mr-1">*</span>作者名</span><span class="text-gray-900 text-lg">法拉孙Fara</span></div>
+                  <div class="flex items-center justify-between border-b border-gray-100 pb-4"><span class="text-lg font-bold"><span class="text-red-500 mr-1">*</span>联系电话</span><span class="text-gray-900 text-lg">189****0527</span></div>
+              </div>
+          </div>
+          <!-- 🟣 营销紫按钮: 操作闭环 -->
+          <div class="p-6 bg-white border-t border-gray-100"><div class="w-full h-16 bg-[#9333ea] text-white rounded-[20px] flex items-center justify-center font-bold text-xl shadow-lg shadow-purple-100">提交参赛计划</div></div>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>

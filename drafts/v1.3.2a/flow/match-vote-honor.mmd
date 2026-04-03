@@ -1,0 +1,20 @@
+graph TD
+    Entry[进入 CC-24/CC-6] --> StatusCheck{赛事时间状态?}
+    
+    %% 状态1：进行中
+    StatusCheck -- 进行中 --> VotingView[展示点赞/拉票组件]
+    VotingView --> ActionVote[点击点赞] --> Intercept{入社校验...}
+    Intercept -- 通过 --> VoteCounting[票数实时增加 + 动效]
+    VoteCounting --> RankingUpdate[CC-24 排行榜实时变动]
+    
+    %% 状态2：已截止 (锁定公示)
+    StatusCheck -- 已截止 --> Freeze[互动入口锁定/隐藏]
+    Freeze --> ShowResult[展示固定总榜单]
+    
+    subgraph 荣誉下发逻辑
+        ShowResult --> WinnerPage[进入 top 优胜作品详情 CC-6]
+        WinnerPage --> CertificateLayer["挂载 Layer: 电子大奖状背景<br/>(含团长姓名 + 公章)"]
+        CertificateLayer --> ShareBtn[引导分享: 喜报海报生成]
+    end
+    
+    ShareBtn --> WeChat[微信群社交裂变]

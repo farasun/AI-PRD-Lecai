@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>原型阅读器 · Antilecai</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <style>
+        * {
+            font-family: "Noto Sans SC", -apple-system, "Segoe UI", sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .custom-sb::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        .custom-sb::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .custom-sb::-webkit-scrollbar-thumb {
+            background: #4b5563;
+            border-radius: 3px;
+        }
+
+        /* === Sidebar === */
+        .si {
+            transition: all 0.12s ease;
+        }
+
+        .si:hover {
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .si.active {
+            background: rgba(99, 102, 241, 0.2);
+            color: #a5b4fc;
+            border-right: 2px solid #818cf8;
+        }
+
+        .tg.collapsed .tg-items {
+            display: none;
+        }
+
+        .tg .ga {
+            transition: transform 0.2s;
+        }
+
+        .tg.collapsed .ga {
+            transform: rotate(-90deg);
+        }
+
+        /* === Spec Panel: 极简 Markdown 阅读风格 === */
+        .spec-h1 {
+            font-size: 14px;
+            font-weight: 700;
+            color: #111;
+            border-bottom: 2px solid #e5e7eb;
+            padding-bottom: 8px;
+            margin-bottom: 16px;
+        }
+
+        .spec-sec {
+            margin-bottom: 4px;
+        }
+
+        .spec-sec-header {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            padding: 6px 0;
+            font-size: 13px;
+            font-weight: 700;
+            color: #111;
+        }
+
+        .spec-sec-header:hover {
+            color: #4f46e5;
+        }
+
+        .spec-sec-header .arr {
+            font-size: 12px;
+            color: #9ca3af;
+            transition: transform 0.15s;
+        }
+
+        .spec-sec.open .arr {
+            transform: rotate(90deg);
+        }
+
+        .spec-sec-body {
+            display: none;
+            padding: 0 0 12px 18px;
+        }
+
+        .spec-sec.open .spec-sec-body {
+            display: block;
+        }
+
+        /* 内容区：纯文本风格，方便复制 */
+        .spec-sec-body h3 {
+            font-size: 13px;
+            font-weight: 600;
+            color: #374151;
+            margin: 12px 0 4px;
+        }
+
+        .spec-sec-body h4,
+        .spec-sec-body strong {
+            font-weight: 600;
+            color: #1f2937;
+        }
+
+        .spec-sec-body p {
+            font-size: 12px;
+            color: #4b5563;
+            line-height: 1.7;
+            margin: 3px 0;
+        }
+
+        .spec-sec-body ul,
+        .spec-sec-body ol {
+            font-size: 12px;
+            color: #4b5563;
+            padding-left: 18px;
+            margin: 3px 0;
+        }
+
+        .spec-sec-body li {
+            line-height: 1.65;
+            margin: 2px 0;
+        }
+
+        .spec-sec-body code {
+            background: #f3f4f6;
+            padding: 1px 4px;
+            border-radius: 3px;
+            font-size: 11px;
+            color: #7c3aed;
+        }
+
+        /* 锚点高亮 */
+        .anchor-flash {
+            outline: 3px solid #818cf8;
+            outline-offset: 2px;
+            transition: outline 0.3s;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .spin {
+            animation: spin 0.8s linear infinite;
+        }
+    </style>
+</head>
+
+<body class="h-screen flex flex-col overflow-hidden bg-gray-100">
+
+    <!-- ===== TOP BAR ===== -->
+    <header class="h-11 bg-gray-900 flex items-center justify-between px-4 flex-shrink-0 border-b border-gray-800">
+        <div class="flex items-center gap-3">
+            <i class="ri-layout-masonry-line text-indigo-400 text-lg"></i>
+            <span class="text-white font-semibold text-sm">原型阅读器 <span id="vtag" class="text-indigo-300 ml-1"></span></span>
+            <span class="text-gray-500 text-xs ml-1">Antilecai</span>
+        </div>
+        <button onclick="toggleSpec()" class="text-gray-400 hover:text-white p-1.5 rounded hover:bg-gray-800"
+            title="切换规格面板">
+            <i class="ri-side-bar-line text-base"></i>
+        </button>
+    </header>
+
+    <!-- ===== MAIN LAYOUT ===== -->
+    <div class="flex-1 flex overflow-hidden">
+
+        <!-- LEFT: Sidebar -->
+        <aside class="w-56 bg-gray-900 text-gray-300 flex-shrink-0 flex flex-col border-r border-gray-800">
+            <div class="px-3 py-2.5 border-b border-gray-800">
+                <div class="flex items-center gap-2 text-[10px] text-gray-500 uppercase tracking-widest font-semibold">
+                    <i class="ri-folder-chart-line"></i> <span id="vnav">迭代导航</span>
+                </div>
+            </div>
+            <div id="tree" class="flex-1 overflow-y-auto custom-sb py-1">
+                <div class="flex items-center justify-center py-10"><i
+                        class="ri-loader-4-line text-gray-600 text-xl spin"></i></div>
+            </div>
+        </aside>
+
+        <!-- CENTER: Viewer -->
+        <main class="flex-1 flex flex-col overflow-hidden bg-gray-200">
+            <div class="h-9 bg-white border-b border-gray-200 flex items-center px-4 flex-shrink-0">
+                <span id="vtitle" class="text-xs text-gray-500 font-medium">请选择一个页面</span>
+            </div>
+            <div class="flex-1 overflow-hidden">
+                <iframe id="frame" class="w-full h-full border-none bg-gray-50" src="about:blank"></iframe>
+            </div>
+        </main>
+
+        <!-- RIGHT: Spec Panel -->
+        <aside id="specPanel" class="w-[380px] bg-white border-l border-gray-200 flex-shrink-0 flex flex-col">
+            <div class="h-9 border-b border-gray-200 flex items-center px-4 flex-shrink-0">
+                <i class="ri-file-text-line text-gray-400 mr-2 text-sm"></i>
+                <span id="specTitle" class="text-xs font-semibold text-gray-700">功能规格</span>
+            </div>
+            <div id="specBody" class="flex-1 overflow-y-auto custom-sb px-5 py-4">
+                <div class="text-gray-300 text-xs text-center py-12">选择页面后显示对应规格</div>
+            </div>
+        </aside>
+    </div>
+
+    <!-- DRAWER MASK -->
+    <div id="flowDrawerMask"
+        class="fixed inset-0 bg-slate-900/40 backdrop-blur-[2px] z-40 opacity-0 pointer-events-none transition-opacity duration-300"
+        onclick="closeDrawer()"></div>
+
+    <!-- DRAWER -->
+    <div id="flowDrawer" class="fixed top-0 right-0 h-full bg-white shadow-2xl border-l border-gray-200 flex flex-col"
+        style="width:80%; z-index:50; transform:translateX(100%); transition:transform 0.3s ease;">
+        <div class="h-11 flex items-center justify-between px-4 border-b border-gray-200 flex-shrink-0">
+            <div class="flex items-center gap-2 overflow-hidden">
+                <i class="ri-eye-line text-indigo-500 text-sm flex-shrink-0"></i>
+                <span id="drawerTitle" class="text-sm font-semibold text-gray-800 truncate"></span>
+            </div>
+            <div class="flex items-center gap-2 flex-shrink-0">
+                <button id="drawerGoBtn"
+                    class="text-xs bg-indigo-600 text-white px-3 py-1.5 rounded-md hover:bg-indigo-700 transition-colors whitespace-nowrap">
+                    跳转页面 →
+                </button>
+                <button onclick="closeDrawer()" class="text-gray-400 hover:text-gray-600 p-1">
+                    <i class="ri-close-line text-lg"></i>
+                </button>
+            </div>
+        </div>
+        <iframe id="drawerFrame" class="flex-1 w-full border-none bg-gray-50" src="about:blank"></iframe>
+    </div>
+
+    <script>
+        // ========================================
+        // CONFIG & STATE (Injected by Bundle)
+        // ========================================
+        const BUNDLE = typeof __BUNDLE_MODE__ !== 'undefined';
+        const C = { wire: './wireframe/', spec: './annotation/', flow: './flow/', pl: './PageList.md' };
+        const S = { pages: [], gen: [], pend: [], flows: [], curId: null, specVis: true };
+
+        // ========================================
+        // INIT
+        // ========================================
+        document.addEventListener('DOMContentLoaded', async () => {
+            if (BUNDLE) {
+                document.getElementById('vtag').textContent = window.__BUNDLE_VERSION__ || '';
+                document.getElementById('vnav').textContent = (window.__BUNDLE_VERSION__ || '迭代') + ' 导航';
+            }
+            try {
+                await loadPL();
+                await Promise.all([scanWire(), scanFlow()]);
+                buildTree();
+                if (S.gen.length) selPage(S.gen[0].id);
+                else if (S.flows.length) selFlow(S.flows[0]);
+            } catch (e) {
+                console.error(e);
+                document.getElementById('tree').innerHTML = '<div class="p-3 text-red-400 text-xs">加载失败</div>';
+            }
+        });
+
+        // ========================================
+        // DATA: PageList / Wireframe / Flow
+        // ========================================
+        async function loadPL() {
+            let text = BUNDLE ? window.__PL_DATA__ : await fetch(C.pl).then(r => r.text());
+            for (const line of (text || '').split('\n')) {
+                const cols = line.split('|').map(c => c.trim()).filter(Boolean);
+                if (cols.length < 2 || cols[0].includes('编号') || cols[0].startsWith('---')) continue;
+                const m = cols[0].match(/((?:CC|CH|AC|PT)-[\d]+-?\d*)/);
+                if (m) S.pages.push({ id: m[1], name: cols[1], label: `${m[1]} ${cols[1]}` });
+            }
+        }
+
+        async function scanWire() {
+            if (BUNDLE) {
+                const has = new Set(Object.keys(window.__WIRE_DATA__));
+                const seen = new Set();
+                S.pages.forEach(p => { if (!seen.has(p.id)) { (has.has(p.id) ? S.gen : S.pend).push(p); seen.add(p.id); } });
+            } else {
+                const uids = [...new Set(S.pages.map(p => p.id))];
+                const res = await Promise.allSettled(uids.map(id => fetch(`${C.wire}${id}.html`, { method: 'HEAD' })));
+                const has = new Set();
+                res.forEach((r, i) => { if (r.status === 'fulfilled' && r.value.ok) has.add(uids[i]); });
+                const seen = new Set();
+                S.pages.forEach(p => { if (!seen.has(p.id)) { (has.has(p.id) ? S.gen : S.pend).push(p); seen.add(p.id); } });
+            }
+        }
+
+        async function scanFlow() {
+            if (BUNDLE) {
+                Object.keys(window.__FLOW_DATA__).forEach(name => { if (!S.flows.includes(name)) S.flows.push(name); });
+            } else {
+                try {
+                    const r = await fetch(C.flow); if (!r.ok) return;
+                    const doc = new DOMParser().parseFromString(await r.text(), 'text/html');
+                    doc.querySelectorAll('a').forEach(a => {
+                        let f = (a.getAttribute('href') || '').replace(/\\/g, '/').split('/').pop();
+                        if (f && f.endsWith('.html') && f !== 'index.html') {
+                            const name = f.replace('.html', '');
+                            if (!S.flows.includes(name)) S.flows.push(name);
+                        }
+                    });
+                } catch (e) { }
+            }
+        }
+
+        // ========================================
+        // SIDEBAR
+        // ========================================
+        function buildTree() {
+            const el = document.getElementById('tree'); el.innerHTML = '';
+            if (S.flows.length) el.appendChild(mkGroup('流程图', 'ri-route-line', S.flows.map(name => ({ id: name, lbl: name, tp: 'flow' })), false));
+            el.appendChild(mkGroup(`本次已更新 (${S.gen.length})`, 'ri-checkbox-circle-line', S.gen.map(p => ({ id: p.id, lbl: p.label, tp: 'wire' })), false));
+            if (S.pend.length) el.appendChild(mkGroup(`本次涉及待生成 (${S.pend.length})`, 'ri-time-line', S.pend.map(p => ({ id: p.id, lbl: p.label, tp: 'pend' })), true));
+        }
+
+        function mkGroup(title, ico, items, collapsed) {
+            const g = document.createElement('div'); g.className = `tg ${collapsed ? 'collapsed' : ''} mb-0.5`;
+            const h = document.createElement('div'); h.className = 'flex items-center gap-1.5 px-3 py-1.5 text-[10px] font-semibold text-gray-500 uppercase tracking-wider cursor-pointer hover:text-gray-300';
+            h.innerHTML = `<i class="ri-arrow-down-s-line ga text-xs"></i><i class="${ico} text-xs"></i><span>${title}</span>`;
+            h.onclick = () => g.classList.toggle('collapsed');
+            const b = document.createElement('div'); b.className = 'tg-items';
+            items.forEach(it => {
+                const d = document.createElement('div'); d.className = `si flex items-center gap-2 px-3 py-1 pl-7 text-xs ${it.tp !== 'pend' ? 'cursor-pointer' : 'opacity-35'}`;
+                d.innerHTML = `<i class="${it.tp === 'flow' ? 'ri-flow-chart' : 'ri-file-code-line'} text-[11px]"></i><span class="truncate">${it.lbl}</span>`;
+                if (it.tp !== 'pend') d.onclick = () => it.tp === 'flow' ? selFlow(it.id) : selPage(it.id);
+                d.dataset.id = it.id; d.dataset.tp = it.tp; b.appendChild(d);
+            });
+            g.appendChild(h); g.appendChild(b); return g;
+        }
+
+        // ========================================
+        // SELECTION
+        // ========================================
+        function selPage(id) {
+            S.curId = id;
+            document.querySelectorAll('.si').forEach(e => e.classList.toggle('active', e.dataset.id === id && e.dataset.tp === 'wire'));
+            const fr = document.getElementById('frame');
+            if (BUNDLE) { fr.srcdoc = window.__WIRE_DATA__[id] || ''; } else { fr.src = `${C.wire}${id}.html`; }
+            document.getElementById('vtitle').textContent = S.pages.find(x => x.id === id)?.label || id;
+            document.getElementById('specTitle').textContent = '功能规格';
+            document.getElementById('specPanel').style.display = 'flex';
+            S.specVis = true;
+            fr.onload = () => { injectBus(fr); scanNodes(fr); };
+            loadSpec(id);
+        }
+
+        function selFlow(id) {
+            S.curId = null;
+            closeDrawer();
+            document.querySelectorAll('.si').forEach(e => e.classList.toggle('active', e.dataset.id === id && e.dataset.tp === 'flow'));
+            const fr = document.getElementById('frame');
+            if (BUNDLE) { fr.srcdoc = window.__FLOW_DATA__[id] || ''; } else { fr.src = `${C.flow}${id}.html`; }
+            document.getElementById('vtitle').textContent = `流程图：${id}`;
+            document.getElementById('specTitle').textContent = '流程描述';
+            document.getElementById('specBody').innerHTML = '<div class="text-gray-300 text-xs text-center py-12">待完善</div>';
+            document.getElementById('specPanel').style.display = 'none';
+            S.specVis = false;
+            fr.onload = () => scanNodes(fr);
+        }
+
+        // ========================================
+        // SPEC ENGINE
+        // ========================================
+        async function loadSpec(id) {
+            const el = document.getElementById('specBody');
+            try {
+                let text = BUNDLE ? window.__SPEC_DATA__[id] : await fetch(`${C.spec}${id}.md`).then(r => r.text());
+                if (!text) throw 0;
+                renderSpec(text);
+            } catch (e) { el.innerHTML = '<div class="text-gray-300 text-xs text-center py-10">暂无功能规格</div>'; }
+        }
+
+        function renderSpec(md) {
+            const html = marked.parse(md);
+            const tmp = document.createElement('div'); tmp.innerHTML = html;
+            const body = document.getElementById('specBody'); body.innerHTML = '';
+
+            const h1 = tmp.querySelector('h1');
+            if (h1) {
+                const t = document.createElement('div'); t.className = 'spec-h1'; t.textContent = h1.textContent;
+                body.appendChild(t); h1.remove();
+            }
+
+            const nodes = Array.from(tmp.children);
+            let sec = null, secBody = null;
+            nodes.forEach(node => {
+                if (node.tagName === 'H2') {
+                    sec = document.createElement('div'); sec.className = 'spec-sec open';
+                    const header = document.createElement('div');
+                    header.className = 'spec-sec-header group px-1 flex items-center justify-between';
+                    header.innerHTML = `
+                        <div class="flex items-center gap-1.5 flex-1 cursor-pointer overflow-hidden" onclick="if (!window.getSelection().toString()) this.parentElement.parentElement.classList.toggle('open')">
+                            <i class="ri-arrow-right-s-line arr flex-shrink-0"></i>
+                            <span class="truncate">${node.textContent}</span>
+                        </div>
+                        <button class="flex-shrink-0 opacity-0 group-hover:opacity-100 p-1 text-gray-400 hover:text-indigo-600 transition-all" title="定位到原型" onclick="jumpToUI('${node.textContent.replace(/'/g, "\\'")}')">
+                            <i class="ri-focus-3-line"></i>
+                        </button>
+                    `;
+                    secBody = document.createElement('div'); secBody.className = 'spec-sec-body';
+                    sec.appendChild(header); sec.appendChild(secBody);
+                    sec.dataset.title = node.textContent; body.appendChild(sec);
+                } else if (secBody) {
+                    secBody.appendChild(node);
+                }
+            });
+        }
+
+        // ========================================
+        // ANCHOR: 双向锚点联动
+        // ========================================
+        function jumpToUI(text) {
+            const fr = document.getElementById('frame');
+            fr.contentWindow.postMessage({ type: 'SPEC_CLICK', text: text }, '*');
+        }
+
+        window.addEventListener('message', e => {
+            if (e.data?.type === 'UI_CLICK') syncSpecTo(e.data.text);
+        });
+
+        function getStatusKey(text) {
+            if (!text) return null;
+            const m = text.match(/状态\s*([IVX1234567890ⅠⅡⅢⅣⅤⅥⅦⅧⅨⅩ一二三四五六七八九十]+)/i);
+            if (!m) return null;
+            let val = m[1].toUpperCase().trim();
+            val = val.replace(/Ⅰ/g, 'I').replace(/Ⅱ/g, 'II').replace(/Ⅲ/g, 'III').replace(/Ⅳ/g, 'IV').replace(/Ⅴ/g, 'V');
+            return val;
+        }
+
+        function isMatch(t1, t2) {
+            const k1 = getStatusKey(t1), k2 = getStatusKey(t2);
+            if (k1 && k2 && k1 === k2) return true;
+            const s1 = t1.replace(/^(变体|模块|CC-5|CH-1|AC-1|PT-1|PT-2)[:：\s]*/, '').trim();
+            const s2 = t2.replace(/^(变体|模块|CC-5|CH-1|AC-1|PT-1|PT-2)[:：\s]*/, '').trim();
+            return s1.includes(s2) || s2.includes(s1);
+        }
+
+        function syncSpecTo(text) {
+            const secs = document.querySelectorAll('.spec-sec');
+            for (const sec of secs) {
+                const title = sec.dataset.title || '';
+                if (isMatch(title, text)) {
+                    sec.classList.add('open');
+                    sec.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    sec.classList.add('anchor-flash');
+                    setTimeout(() => sec.classList.remove('anchor-flash'), 2500);
+                    return;
+                }
+            }
+        }
+
+        function injectBus(fr) {
+            try {
+                const doc = fr.contentDocument; if (!doc) return;
+                const s = doc.createElement('script');
+                s.textContent = `
+                    function getStatusKey(text) {
+                        if (!text) return null;
+                        const m = text.match(/状态\\s*([IVX1234567890ⅠⅡⅢⅣⅤⅥⅦⅧⅨⅩ一二三四五六七八九十]+)/i);
+                        if (!m) return null;
+                        let val = m[1].toUpperCase().trim();
+                        val = val.replace(/Ⅰ/g, 'I').replace(/Ⅱ/g, 'II').replace(/Ⅲ/g, 'III').replace(/Ⅳ/g, 'IV').replace(/Ⅴ/g, 'V');
+                        return val;
+                    }
+                    function isMatch(t1, t2) {
+                        const k1 = getStatusKey(t1), k2 = getStatusKey(t2);
+                        if (k1 && k2 && k1 === k2) return true;
+                        const s1 = t1.replace(/^(变体|模块|CC-5|CH-1|AC-1|PT-1|PT-2)[:：\\s]*/, '').trim();
+                        const s2 = t2.replace(/^(变体|模块|CC-5|CH-1|AC-1|PT-1|PT-2)[:：\\s]*/, '').trim();
+                        return s1.includes(s2) || s2.includes(s1);
+                    }
+                    window.addEventListener('message', e => {
+                        if (e.data?.type === 'SPEC_CLICK') {
+                            const text = e.data.text;
+                            const heads = Array.from(document.querySelectorAll('h2, h3'));
+                            const hit = heads.find(h => isMatch(h.textContent, text));
+                            if (hit) {
+                                hit.scrollIntoView({ behavior:'smooth', block:'center' });
+                                hit.style.outline = '3px solid #818cf8';
+                                hit.style.outlineOffset = '3px';
+                                setTimeout(() => hit.style.outline = 'none', 2500);
+                            }
+                        }
+                    });
+                    document.querySelectorAll('h2, h3').forEach(h => {
+                        if (h.textContent.trim().length < 2) return;
+                        h.style.cursor = 'pointer';
+                        h.title = '点击同步查看功能规格';
+                        h.addEventListener('click', () => {
+                            window.parent.postMessage({ type:'UI_CLICK', text: h.textContent }, '*');
+                        });
+                    });
+                `;
+                doc.body.appendChild(s);
+            } catch (e) { }
+        }
+
+        function scanNodes(fr) {
+            try {
+                const doc = fr.contentDocument; if (!doc) return;
+                const ids = new Set(S.gen.map(p => p.id));
+                const isFlowMode = S.curId === null;
+                const enrich = (el, pid) => {
+                    if (el.dataset.linked) return;
+                    el.dataset.linked = '1';
+                    el.style.setProperty('cursor', 'pointer', 'important');
+                    el.style.setProperty('color', '#4f46e5', 'important');
+                    el.style.setProperty('text-decoration', 'underline', 'important');
+                    el.style.setProperty('display', 'inline-flex', 'important');
+                    el.style.setProperty('align-items', 'center', 'important');
+                    el.style.setProperty('gap', '2px', 'important');
+                    el.style.setProperty('margin', '0 2px', 'important');
+                    el.style.setProperty('font-weight', 'bold', 'important');
+                    const ico = doc.createElementNS("http://www.w3.org/2000/svg", "svg");
+                    ico.setAttribute("width", "11"); ico.setAttribute("height", "11"); ico.setAttribute("viewBox", "0 0 24 24");
+                    ico.setAttribute("fill", "none"); ico.setAttribute("stroke", "currentColor"); ico.setAttribute("stroke-width", "3");
+                    ico.innerHTML = '<path d="M15 3h6v6M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M10 14L21 3"/>';
+                    el.prepend(ico);
+                    el.title = isFlowMode ? `预览 ${pid}` : `跳转 ${pid}`;
+                    el.onclick = (e) => { e.stopPropagation(); if (isFlowMode) openDrawer(pid); else window.parent.selPage(pid); };
+                };
+                
+                // 1. Explicit elements by ID
+                doc.querySelectorAll('[id]').forEach(el => { if (ids.has(el.id)) enrich(el, el.id); });
+                
+                // 2. Implicit IDs in text nodes (Refined: Only enrich the ID itself)
+                const walker = doc.createTreeWalker(doc.body, NodeFilter.SHOW_TEXT);
+                let n, textNodes = [];
+                while (n = walker.nextNode()) textNodes.push(n);
+
+                textNodes.forEach(node => {
+                    const regex = /((?:CC|CH|AC|PT)-\d+(?:-\d+)?)/g;
+                    let match, lastIdx = 0;
+                    const parent = node.parentElement;
+                    if (!parent || parent.tagName === 'SCRIPT' || parent.dataset.linked) return;
+
+                    const content = node.textContent;
+                    const fragment = doc.createDocumentFragment();
+                    let hits = false;
+
+                    while ((match = regex.exec(content)) !== null) {
+                        const pid = match[1];
+                        if (!ids.has(pid) || pid === S.curId) continue;
+                        hits = true;
+                        fragment.appendChild(doc.createTextNode(content.substring(lastIdx, match.index)));
+                        const span = doc.createElement('span');
+                        span.textContent = pid;
+                        enrich(span, pid);
+                        fragment.appendChild(span);
+                        lastIdx = regex.lastIndex;
+                    }
+
+                    if (hits) {
+                        fragment.appendChild(doc.createTextNode(content.substring(lastIdx)));
+                        parent.replaceChild(fragment, node);
+                    }
+                });
+            } catch (e) { }
+        }
+
+        function openDrawer(pid) {
+            const page = S.pages.find(x => x.id === pid);
+            document.getElementById('drawerTitle').textContent = page?.label || pid;
+            const dfr = document.getElementById('drawerFrame');
+            if (BUNDLE) dfr.srcdoc = window.__WIRE_DATA__[pid] || ''; else dfr.src = `${C.wire}${pid}.html`;
+            document.getElementById('drawerGoBtn').onclick = () => { closeDrawer(); selPage(pid); };
+            document.getElementById('flowDrawerMask').style.opacity = '1'; document.getElementById('flowDrawerMask').style.pointerEvents = 'auto';
+            document.getElementById('flowDrawer').style.transform = 'translateX(0)';
+            document.addEventListener('keydown', handleEscBtn);
+        }
+
+        function closeDrawer() {
+            document.getElementById('flowDrawerMask').style.opacity = '0'; document.getElementById('flowDrawerMask').style.pointerEvents = 'none';
+            document.getElementById('flowDrawer').style.transform = 'translateX(100%)';
+            document.removeEventListener('keydown', handleEscBtn);
+            setTimeout(() => { document.getElementById('drawerFrame').src = 'about:blank'; }, 300);
+        }
+
+        function handleEscBtn(e) { if (e.key === 'Escape') closeDrawer(); }
+        function toggleSpec() { document.getElementById('specPanel').style.display = (S.specVis = !S.specVis) ? 'flex' : 'none'; }
+    </script>
+</body>
+
+</html>

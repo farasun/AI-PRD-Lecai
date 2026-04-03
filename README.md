@@ -20,6 +20,8 @@ AI-PRD-Lecai/
 │   │   ├── style-guide/    ← 视觉风格指南 (颜色、字体、阴影等)
 │   │   ├── ui-patterns/    ← 界面组件模式 (手机端布局风格)
 │   │   └── assets/         ← 视觉资产 (图标、Logo)
+│   └── roadmap/            ← 产品演进路线图
+│       └── Club-match-phase/ ← 社团赛事 (v1.3.2) 规划与策略
 ├── releases/               ← 已完成迭代（归档只读）
 │   └── v1.0/               ← 社团核心逻辑（CC-5/6/7）
 ├── drafts/                 ← 设计中迭代（活跃工作区）
@@ -54,17 +56,32 @@ AI-PRD-Lecai/
 
 ---
 
-## 🎨 标准工作流管线 (Standard Design Pipeline)
+## 🎨 工作流管线架构 (Workflow Pipelines)
 
-> [!IMPORTANT]
-> **执行入口**：本项目已将此管线全流程脚本化。如需启动新迭代或特定页面的设计流转，请按需调用工作流指令：**`/standard-design-pipeline`**（详见：`.agents/workflows/standard-design-pipeline.md`）。
+本项目目前并存着经典的单轨流水线，以及为了防污染而全新开辟的**实验中双轨制架构**。
 
-基于实际业务流转复盘，每个迭代（如 `drafts/v1.1`）需严格遵循以下 7 步核心管线。此管线体现了从"宏观总规"到"微观界面"的「自顶向下」设计演进逻辑：
+### 🚧 实验中机制：双轨制架构 (Dual-Track Pipelines)
+为了彻底解耦“业务规划边界”与“研发交付执行”，并有效规避前期业务沟通阶段中的大模型幻觉，我们当前正引入并测试两套基于实体文档交接的流程架构：
+
+#### 🗺️ 流程 A：产品路线图规划管线 (Roadmap Planner Flow)
+* **流程入口**：`.agents/workflows/roadmap-planner-flow.md`
+* **配套组件**：`.agents/instructions/roadmap-planner-coordinator.md` (产品规划协调员)
+* **核心职责**：定位为克制的业务需求孵化器。限定于 `foundation/roadmap/` 空间内工作，通过写入实体文件的方式将数据交接给专家组件进行评估，并强制利用“断点挂起”机制等待业务干系人跟进反馈。最终产出标准化的 `master-BRD.md` 和带有颗粒化 User Story 的业务切分方案（如 `iteration-X.md`），不直接干预后续研发步骤。
+
+#### 🏭 流程 B：研发自动化交付管线 (V2 Pipeline)
+此工作流（.agents\workflows\iteration-execution-pipeline-v3.md ）暂缓使用，待修正
+
+---
+
+### 🏛️ 标准设计发布管线 (Standard Legacy Pipeline)
+> **状态变更说明**：自动化工作流（.agents\workflows\standard-design-pipeline.md）暂缓使用
+
+基于早期实际业务流转复盘，若执行单管流，则每个迭代（如 `drafts/v1.1`）需严格遵循以下 7 步。它体现了从"宏观总规"到"微观界面"的「自顶向下」逻辑：
 
 ### 🎯 Step 0 — 专家前置审阅 (Review)
-* **角色**：业务专项专家（如 `li-yue-expert.md`）
+* **角色**：业务专项专家（如 `elder-expert-liyue.md`）
 * **任务**：从银发经济、S2B2C 视角对迭代计划进行审阅，确认激励差异是否合理、是否存在业务遗漏或合规风险。
-* **产出物**：`drafts/v{X.Y}/review/li-yue-review.md`（参考：`.agents/instructions/li-yue-expert.md`）
+* **产出物**：`drafts/v{X.Y}/review/li-yue-review.md`（参考：`.agents/instructions/elder-expert-liyue.md`）
 
 ### 🗺️ Step 1 — 迭代宏观规划与总规输出 (Foundation & Scope)
 * **角色**：产品架构师 `Chat P`（参考：`.agents/instructions/chatP-ProductArch-expect.md`）
@@ -83,8 +100,8 @@ AI-PRD-Lecai/
 ### 🔄 Step 2 — 业务全景流程拆解与组装 (Flow)
 这是一条微型流水线，旨在把业务逻辑映射为带有"节点价值"的用户旅程，并强制执行 **Logic Flow-B (流程继承)** 规范：
 * **Step 2a (定义框架)**：由 **产品架构师 Chat P** 定义核心流程主链、版本边界及页面编号锚点，确保命名不偏离 `Main_PageList.md`。
-* **Step 2b (编排节点)**：由 **产品经理 Chat A** 细化具体的跳转动作、分支逻辑及提示语。**注意：每条独立流程必须单独输出一份 Mermaid 流程图代码（如 `xxx-flow-A.mmd`）**。
-* **Step 2c (视觉渲染)**：调用工作流 `/Low-Fi-Flow-Map-Plugin`，根据 `Main_PageList.md` 中的基准 UI 路径执行物理继承渲染。**注意：禁止在未经授权的情况下跨版本引用其他草案流程图。**
+* **Step 2b (编排节点)**：：由 **产品架构师 Chat P**细化具体的跳转动作、分支逻辑及提示语。**注意：每条独立流程必须单独输出一份 Mermaid 流程图代码（如 `xxx-flow-A.mmd`）**。
+* **Step 2c (视觉渲染)**：：由 **产品架构师 Chat P**调用工作流 `/Low-Fi-Flow-Map-Plugin`，根据 `Main_PageList.md` 中的基准 UI 路径执行物理继承渲染。**注意：禁止在未经授权的情况下跨版本引用其他草案流程图。**
 * **产出物**：`drafts/v{X.Y}/flow/xxx-flow.html`（产出过程中需参考 `chatA-ProductMgr-expect.md`）
 
 ### 📝 Step 3 — 页面级功能描述细化 (PRD)
@@ -236,7 +253,8 @@ http://localhost:3000/releases/v1.0/reader.html
 
 | 名称 | 路径 | 描述 |
 | :--- | :--- | :--- |
-| **Li Yue (银发专家)** | `li-yue-expert.md` | 50-70 岁群体产品架构师。负责 S2B2C 架构规划、荣誉与利益双引擎设计。 |
+| **Li Yue (银发专家)** | `elder-expert-liyue.md` | 50-70 岁群体产品架构师。负责 S2B2C 架构规划、荣誉与利益双引擎设计。 |
+| **Li Yue (审查分身)** | `reviewer-liyue.md` | 在流水线上充当质量门控（Quality Gate），严格执行 0-10 分的风险阻断。 |
 | **Git Coach (代码专家)** | `git-migration-coach.md` | 资深开发与版本管理。引导项目安全迁移至 GitHub。 |
 | **Low-Fi Flow (流程图)** | `Low-Fi-Flow-Map-Plugin.md` | 解析 Mermaid 代码，生成 Miro 风格的全景线框流程图。 |
 
@@ -264,6 +282,12 @@ http://localhost:3000/releases/v1.0/reader.html
 - [x] **CC-3 (我的导航)**：原型与规格完成。
 - [x] **全景流程更新**：完成签到、积分兑换及 1.1 版上传流程映射。
 - [x] **Li Yue 评审**：针对积分激励文案的适老化评审。
+
+### v1.3.2：社团赛事 - B模式 (Roadmap)
+- [ ] **业务目标 (BRD)**：[社团赛事BRD](file:///d:/AntiGravity/AI-PRD-Lecai/foundation/roadmap/Club-match-phase/clube-match-BRD-draft.md) 核心逻辑确认。
+- [ ] **迭代策略 (Phasing)**：[分期策略 v1.3.2](file:///d:/AntiGravity/AI-PRD-Lecai/foundation/roadmap/Club-match-phase/iteration-phasing-strategy-v1.3.2.md) 采取“敏捷验证 -> 自动提效”双阶段策略。
+- [ ] **v1.3.2a (C端闭环)**：聚焦“入社参赛”强卡点、荣誉闭环与后台代建试点。
+- [ ] **v1.3.2b (团长赋能)**：实现团长端自助创赛与“一键办赛”模板库。
 
 ### 下一步行动指南 (Next Steps)
 - [ ] **高保真验证**：选取现有 PRD（如 `drafts/v1.1/prd/PT-2.md` 每日签到），调用新设立的 **Chat U** 配合 `variables.css` 渲染首个全局适老化风格的高保真 HTML 页面。
