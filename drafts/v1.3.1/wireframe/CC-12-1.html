@@ -1,135 +1,151 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CC-12-1 活动权限设置 - Wireframe (v1.3.1 New)</title>
+    <title>CC-12-1 活动权限设置 - v1.3.1</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
 </head>
+
 <body class="bg-gray-200 min-h-screen flex justify-center p-12 overflow-x-auto font-sans">
 
     <div id="artboard" class="flex flex-row items-start gap-24">
 
         <!-- 区域 A：主视图 (Left Column) -->
         <div class="flex flex-col">
-            <h2 class="text-xl font-bold text-gray-900 mb-4">CC-12-1 活动权限设置 (状态 I：正常态)</h2>
-            <div class="w-[375px] h-auto bg-white shadow-2xl border border-gray-200 relative p-0 overflow-hidden rounded-none">
-                
+            <h2 class="text-xl font-bold text-gray-900 mb-4">CC-12-1 谁可以看本活动 (状态 I：正常态)</h2>
+            <div
+                class="w-[375px] h-[812px] bg-white shadow-2xl border border-gray-200 relative p-0 overflow-hidden rounded-none flex flex-col">
+
                 <!-- Navbar (h-16) -->
-                <div class="h-16 flex items-center px-4 border-b border-gray-100">
+                <div class="h-16 flex items-center px-4 border-b border-gray-100 bg-white sticky top-0 z-20">
                     <div class="w-10 flex items-center"><i class="ri-arrow-left-s-line text-2xl text-gray-900"></i></div>
-                    <div class="flex-1 text-center font-bold text-gray-900 text-xl">可见权限</div>
-                    <div class="w-10 text-right text-gray-900 font-bold text-lg">保存</div>
+                    <div class="flex-1 text-center font-bold text-gray-900 text-xl">谁可以看本活动</div>
+                    <div class="w-10"></div>
                 </div>
 
                 <!-- Content Area -->
-                <div class="p-8 space-y-8">
-                    <div class="text-xl font-bold text-gray-900 leading-tight">通过设置可见性，您可以更灵活地组织不同规模的活动。</div>
-                    
+                <div class="p-6 overflow-y-auto flex-1 no-scrollbar">
+                    <div class="text-xl font-bold text-gray-900 leading-tight mb-8">设置活动的公开程度</div>
+
                     <!-- Option Group -->
                     <div class="space-y-4">
                         <!-- Option 1: Public -->
-                        <div class="p-6 rounded-3xl border border-gray-200 flex gap-4 items-start">
-                            <i class="ri-earth-line text-2xl text-gray-400"></i>
+                        <div class="p-6 rounded-3xl border border-gray-100 flex gap-4 items-start relative box-content">
+                            <i class="ri-global-line text-2xl text-gray-300"></i>
                             <div class="flex-1">
-                                <div class="text-xl font-bold text-gray-900">全平台公开</div>
-                                <div class="text-lg text-gray-700 mt-2">公开展示，有利于全网招募新成员</div>
+                                <div class="text-xl font-bold text-gray-400">公开</div>
+                                <div class="text-lg text-gray-400 mt-2">全社会公开，吸引更多人关注、加入。</div>
                             </div>
                         </div>
 
                         <!-- Option 2: Members Only -->
-                        <div class="p-6 rounded-3xl border border-gray-200 flex gap-4 items-start">
-                            <i class="ri-group-2-line text-2xl text-gray-400"></i>
+                        <div class="p-6 rounded-3xl border border-gray-100 flex gap-4 items-start relative box-content">
+                            <i class="ri-group-2-line text-2xl text-gray-300"></i>
                             <div class="flex-1">
-                                <div class="text-xl font-bold text-gray-900">仅本社团成员</div>
-                                <div class="text-lg text-gray-700 mt-2">像微信群一样私密，外部搜不到</div>
+                                <div class="text-xl font-bold text-gray-400">全部成员</div>
+                                <div class="text-lg text-gray-400 mt-2">只有社团成员自己人能看见。</div>
                             </div>
                         </div>
 
                         <!-- Option 3: Selected (Active) -->
-                        <div class="p-6 rounded-3xl border border-gray-900 bg-gray-50 flex gap-4 items-start relative">
-                            <i class="ri-user-star-fill text-2xl text-gray-900"></i>
+                        <div class="p-6 rounded-3xl border-2 border-blue-500 bg-blue-50/30 flex gap-4 items-start relative box-content">
+                            <i class="ri-user-star-fill text-2xl text-blue-500"></i>
                             <div class="flex-1">
-                                <div class="text-xl font-bold text-gray-900">指定成员可见</div>
-                                <div class="text-lg text-gray-700 mt-2">仅对您勾选的授权成员开放，其他人隐身</div>
-                                <div class="mt-4 flex items-center gap-1 text-gray-900 font-bold text-base underline underline-offset-4">
-                                    去选择授权成员 <i class="ri-arrow-right-s-line"></i>
-                                </div>
+                                <div class="text-xl font-bold text-gray-900">指定成员</div>
+                                <div class="text-lg text-gray-700 mt-2">选几位成员，只有他们能看见。</div>
                             </div>
-                            <i class="ri-checkbox-circle-fill text-2xl text-gray-900 absolute right-6 top-6"></i>
+                            <i class="ri-checkbox-circle-fill text-2xl text-blue-500 absolute right-6 top-6"></i>
+                        </div>
+
+                        <!-- Selection Status Row (v1.3.1 Guidance Sync) -->
+                        <div class="flex items-center justify-between px-2 pt-2 pb-6 border-b border-gray-100">
+                            <div class="text-xl font-medium text-gray-900">已选了 0 位成员</div>
+                            <div class="text-blue-500 font-bold text-xl flex items-center gap-1">
+                                + 去选成员
+                            </div>
                         </div>
                     </div>
 
                     <!-- Footer Note -->
-                    <div class="pt-8 border-t border-gray-50">
-                        <div class="text-base text-gray-400 italic leading-relaxed">
-                            * 设置后，非授权人员无法在此活动中互动，且在列表中不展示。
+                    <div class="mt-8 px-2">
+                        <div class="text-base text-gray-400 leading-relaxed italic">
+                            * 设置后，非选定人员将无法在广场看到此活动，请放心地组织社团内部交流。
                         </div>
+                    </div>
+                </div>
+
+                <!-- Bottom Action (v1.3.1 Guidance Sync) -->
+                <div class="p-6 bg-white border-t border-gray-50 pb-10">
+                    <div class="h-16 bg-blue-500 text-white rounded-full flex items-center justify-center text-xl font-bold shadow-xl">
+                        选好了，就这样
                     </div>
                 </div>
 
             </div>
         </div>
 
-        <!-- 区域 B：组件变体集 (Right Column) -->
+        <!-- 区域 B：组件变体层 (Overlay) -->
         <div class="flex flex-col gap-10 w-[360px]">
-            <h2 class="text-xl font-bold text-gray-900">多状态展示</h2>
+            <h2 class="text-xl font-bold text-gray-900 underline underline-offset-8 decoration-4 decoration-blue-500">多状态展示 (浮层)</h2>
 
-            <!-- Variant: Member Selection Overlay -->
             <div class="flex flex-col">
-                <h3 class="text-lg font-bold text-gray-700 mb-4 pl-3 border-l-4 border-gray-900">状态 II：成员授权列表 (浮层)</h3>
-                <div class="bg-white p-6 border border-gray-200 solid shadow-md rounded-none">
+                <h3 class="text-lg font-bold text-gray-600 mb-4 pl-3 border-l-4 border-blue-500">状态 II：选几位成员</h3>
+                <div class="bg-gray-900/10 p-6 border border-gray-100 shadow-md rounded-none">
+                    
                     <!-- Overlay Mockup (h-auto because it's a partial) -->
                     <div class="border border-gray-100 rounded-3xl overflow-hidden shadow-inner bg-gray-50">
                         <div class="h-16 flex items-center px-4 bg-white border-b border-gray-100">
-                            <span class="flex-1 font-bold text-gray-900 text-lg">选择授权成员</span>
+                            <span class="flex-1 font-bold text-gray-900 text-lg">选几位成员</span>
                             <span class="text-gray-400 text-base">取消</span>
                         </div>
-                        <!-- Search Box -->
-                        <div class="p-4 bg-white">
+                        <!-- Search Box (Guidance Sync) -->
+                        <div class="bg-white p-4 pt-0">
                             <div class="h-12 bg-gray-50 rounded-xl border border-gray-200 px-4 flex items-center gap-2">
                                 <i class="ri-search-line text-gray-400"></i>
-                                <span class="text-gray-400 text-lg">搜索成员姓名</span>
+                                <span class="text-gray-400 text-lg">输入名字或手机号后 4 位</span>
                             </div>
                         </div>
                         <!-- List -->
-                        <div class="bg-white px-4 pb-4 space-y-2">
+                        <div class="p-4 pt-0 max-h-[300px] bg-white overflow-hidden">
                             <div class="flex items-center gap-4 py-4 border-b border-gray-50">
-                                <div class="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center text-gray-400">王</div>
+                                <div class="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center text-gray-400 font-bold">王</div>
                                 <div class="flex-1">
                                     <div class="text-lg font-bold text-gray-900">王大妈</div>
                                     <div class="text-base text-gray-400">舞蹈队会计</div>
                                 </div>
-                                <i class="ri-checkbox-circle-fill text-2xl text-gray-900"></i>
+                                <i class="ri-checkbox-circle-fill text-2xl text-blue-500"></i>
                             </div>
                             <div class="flex items-center gap-4 py-4 border-b border-gray-50">
-                                <div class="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center text-gray-400">李</div>
+                                <div class="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center text-gray-400 font-bold">李</div>
                                 <div class="flex-1">
                                     <div class="text-lg font-bold text-gray-900">李老师</div>
                                 </div>
-                                <i class="ri-checkbox-circle-fill text-2xl text-gray-900"></i>
+                                <i class="ri-checkbox-circle-line text-2xl text-gray-200"></i>
                             </div>
-                            <div class="flex items-center gap-4 py-4 border-b border-gray-50">
-                                <div class="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center text-gray-400">张</div>
+                            <div class="flex items-center gap-4 py-4">
+                                <div class="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center text-gray-400 font-bold">张</div>
                                 <div class="flex-1">
                                     <div class="text-lg font-bold text-gray-900">张大爷</div>
                                 </div>
-                                <i class="ri-checkbox-blank-circle-line text-2xl text-gray-200"></i>
+                                <i class="ri-checkbox-circle-fill text-2xl text-blue-500"></i>
                             </div>
                         </div>
-                        <!-- Confirm Action -->
-                        <div class="p-6 bg-white border-t border-gray-50">
-                            <div class="h-14 bg-gray-900 text-white rounded-2xl flex items-center justify-center font-medium text-lg shadow-xl">
-                                确认选择 (2)
+                        <!-- Confirm Action (Guidance Sync) -->
+                        <div class="p-6 bg-white border-t border-gray-50 flex items-center justify-between">
+                            <div class="text-lg font-medium text-gray-900 italic">已选了 2 位成员</div>
+                            <div class="h-14 w-32 bg-blue-500 text-white rounded-full flex items-center justify-center font-bold text-lg shadow-xl">
+                                选好了
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-
         </div>
 
     </div>
 </body>
+
 </html>

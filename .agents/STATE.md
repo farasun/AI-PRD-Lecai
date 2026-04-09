@@ -19,15 +19,15 @@
 
 > **当前迭代号 (Current Iteration):** `v{X.Y}`
 
-| 标准生产工序 (Steps) | 执行专家 | 当前进度状态 | 强制读取/参考的输入 | 产出落盘锚点 |
+| Standard Production Pipeline (Steps) | Executing Expert | Status | Required Input | Output Anchor |
 | :--- | :--- | :--- | :--- | :--- |
-| **Step 1: 业务总规死锁** | `Chat P` | ✅ 已完成 | `.agents/instructions/chatP...expect.md`<br>+ `BRD-draft.md` | `business-rules-v{X.Y}.md` |
-| **🛡️ Quality Gate 1** | `Li Yue`| ✅ 已完成 | `.agents/instructions/reviewer-liyue.md`<br>+ `business-rules.md` | `li-yue-gate1-review.md` |
-| **Step 2a: Flow 框架** | `Chat P` | ✅ 已完成 | `foundation/Main_PageList.md` | `flow/flow-framework.md` |
-| **Step 2b: Flow 节点** | `Chat A` | ✅ 已完成 | `.agents/instructions/chatA...expect.md`<br>+ `flow-framework.md`<br>+ `Main_PageList.md` | `flow/xxx-flow.mmd` |
-| **🛡️ Quality Gate 2** | `Li Yue`| ⏸️ 待审查 | `.agents/instructions/reviewer-liyue.md`<br>+ `xxx-flow.mmd` | `li-yue-gate2-review.md` |
-| **Step 2c: 视觉渲染** | `Plugin` | ⏳ 进行中 | `xxx-flow.mmd` | `flow/xxx-flow.html` |
-| **Step 3: 页面描述 PRD** | `Chat A` | ⏳ 待执行 | `.agents/instructions/chatA...expect.md`<br>+ `xxx-flow.html` | `prd/{PageID}.md` |
-| **Step 4: 线框图生成** | `Chat D` | ⏳ 待执行 | `.agents/instructions/chatD...expect.md`<br>+ `prd/{PageID}.md` | `wireframe/{PageID}.html`|
-| **Step 5: 开发批注** | `Chat G` | ⏳ 待执行 | `.agents/instructions/chatG...expect.md`<br>+ `prd/` & `wireframe/` | `annotation/{PageID}.md`|
-| **Step 6: 原型打包** | `打包器` | ⏳ 待执行 | `drafts/v{X.Y}/` | `dist/单体离线包.html` |
+| **Step 1: Business Logic Lock** | `Chat P` | ✅ Completed | `.agents/instructions/chatP...expect.md`<br>+ `BRD-draft.md` | `business-rules-v{X.Y}.md` |
+| **🛡️ Quality Gate 1** | `Li Yue`| ✅ Completed | `.agents/instructions/reviewer-liyue.md`<br>+ `business-rules.md` | `li-yue-gate1-review.md` |
+| **Step 2a: Flow Framework** | `Chat P` | ✅ Completed | `foundation/Main_PageList.md` | `flow/flow-framework.md` |
+| **Step 2b: Flow Nodes** | `Chat A` | ✅ Completed | `.agents/instructions/chatA...expect.md`<br>+ `flow-framework.md`<br>+ `Main_PageList.md` | `flow/xxx-flow.mmd` |
+| **🛡️ Quality Gate 2** | `Li Yue`| ⏸️ Pending | `.agents/instructions/reviewer-liyue.md`<br>+ `xxx-flow.mmd` | `li-yue-gate2-review.md` |
+| **Step 2c: Visual Rendering** | `Plugin` | ✅ Completed | `xxx-flow.mmd` | `flow/xxx-flow.html` |
+| Step 3: Page PRD | `Chat A` | ✅ Completed | `.agents/instructions/chatA...expect.md`<br>+ `xxx-flow.html` | `prd/{PageID}.md` |
+| Step 4: Wireframe Generation | `Chat D` | ✅ Completed | `.agents/instructions/chatD...expect.md`<br>+ `prd/{PageID}.md` | `wireframe/{PageID}.html`|
+| Step 5: Dev Annotations | `Chat G` | ✅ Completed | `.agents/instructions/chatG...expect.md`<br>+ `prd/` & `wireframe/` | `annotation/{PageID}.md`|
+| **Step 6: Prototype Bundling** | `Bundler` | ⏳ Ready | `drafts/v{X.Y}/` | `dist/Antilecai-v{X.Y}.html` |
