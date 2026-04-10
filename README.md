@@ -5,24 +5,48 @@
 
 ---
 
+> [!CAUTION]
+> ## ⛔ Archive 冻结声明（Agent 必读）
+>
+> `.agents/instructions/achieve/` 目录为**历史废弃归档区**，其中的所有文件均已**停用**，任何 Agent 不得读取、遵守或引用其中的任何规则。
+>
+> **已冻结归档文件清单**：
+> | 文件 | 状态 | 停用原因 |
+> | :--- | :--- | :--- |
+> | `achieve/elder-expert-liyue-workflow.md` | ❌ 已停用 | 与旧协调员工作流强耦合，逻辑过时 |
+> | `achieve/roadmap-planner-coordinator.md` | ❌ 已停用 | 自动化协调机制存在问题，暂停实验 |
+> | `achieve/roadmap-planner-flow.md` | ❌ 已停用 | 自动化协调机制关联流程，暂停实验 |
+> | `achieve/iteration-execution-pipeline-v2.md` | ❌ 已停用 | 已被 v3 替代，v3 同步停用 |
+> | `achieve/iteration-execution-pipeline-v3.md` | ❌ 已停用 | 断点隔离机制仍在优化中，暂停使用 |
+>
+> **当前替代方案**：李越专家角色请使用 `.agents/instructions/elder-expert-liyue.md`（解耦版）。迭代执行管线以 `README.md` 中的【标准工作流管线】为准。
+
+---
+
 ## 📁 目录结构
 
 ```
 AI-PRD-Lecai/
 ├── README.md               ← 项目说明
-├── .agents/                ← Agent 宪法 & 工作流
-├── foundation/             ← 项目基座（总 PageList、术语表、路线图、设计系统）
-│   ├── design-system/      ← 视觉识别与 UI 设计规范
-│   │   ├── benchmarks/     ← 对标研究与视觉逆向工程
-│   │   ├── style-guide/    ← 视觉风格指南 (颜色、字体、阴影等)
-│   │   ├── ui-patterns/    ← 界面组件模式 (手机端布局风格)
-│   │   └── assets/         ← 视觉资产 (图标、Logo)
-├── releases/               ← 已完成迭代（归档只读）
-│   └── v1.0/               ← 社团核心逻辑（CC-5/6/7）
-├── drafts/                 ← 设计中迭代（活跃工作区）
-│   └── v1.1/               ← 积分系统 & 个人中心
-├── scripts/                ← 全局打包工具
-└── dist/                   ← 分发输出
+├── .agents/                ← Agent 宪法与技能库
+│   ├── instructions/       ← 核心提示词与角色定义
+│   │   └── achieve/        ← 已停用的历史指令归档
+│   ├── skills/             ← 封装的 Python 自动化脚本
+│   └── workflows/          ← 流程指引插件 (如 Low-Fi Flow)
+├── foundation/             ← 项目基座（真相来源）
+│   ├── roadmap/            ← 业务路线图与迭代拆解
+│   ├── design-system/      ← 适老化视觉规范与组件范式
+│   ├── Main_PageList.md    ← 全局页面索引（唯一编号源）
+│   └── lecai-club-...md    ← 核心业务术语词典
+├── drafts/                 ← 活跃研发区（迭代中）
+│   ├── v1.3.1/             ← 成员管理与权限
+│   └── v1.3.2a/            ← 赛事 A 模式启动
+├── releases/               ← 已完成迭代
+│   ├── v1.1/               ← 积分系统
+│   └── v1.2/               ← 双轨视觉更新
+├── achieve/                ← 业务归档（已关闭的规划/旧版）
+├── dist/                   ← 打包分发产物 (.html)
+└── scripts/                ← 全局构建与维护工具
 ```
 
 ---
@@ -47,50 +71,52 @@ AI-PRD-Lecai/
 
 基于实际业务流转复盘，每个迭代（如 `drafts/v1.1`）需严格遵循以下 7 步核心管线。此管线体现了从"宏观总规"到"微观界面"的「自顶向下」设计演进逻辑：
 
-### 🎯 Step 0 — 专家前置审阅 (Review)
-* **角色**：业务专项专家（如 `li-yue-expert.md`）
-* **任务**：从银发经济、S2B2C 视角对迭代计划进行审阅，确认激励差异是否合理、是否存在业务遗漏或合规风险。
-* **产出物**：`drafts/v{X.Y}/review/li-yue-review.md`
+### 🎯 Step 1 — 迭代总规与质量门禁 (Foundation & Quality Gate)
+* **强制输入**：当前迭代的业务需求输入件（如 `drafts/v{X.Y}/BRD-draft.md`）
+* **角色协作**：产品架构师 `Chat P`（指令文件：`.agents/instructions/chatP-ProductArch-expect.md`）与银发经济专家 `Li Yue`（指令文件：`.agents/instructions/elder-expert-liyue.md`）。
+* **业务管线**：
+  1. **初稿起草**：Chat P 基于输入的 BRD，输出一份全局视角的迭代整体 PRD 初稿（所有的版本级总规则必须作为独立总纲，不藏在单页面需求里）。
+  2. **质量门禁**：Li Yue 对初稿执行适老化体验与业务边界评审，并输出评审报告，随后**挂起等待人类**。
+  3. **人工确认**：人类查阅专家报告，介入进行反馈拍板。
+  4. **终稿发车**：Chat P 吸收指导意见定稿总纲，产出页面边界清单，并执行指令 `python .agents/skills/lecai-bundler/scripts/bundle.py drafts/v{X.Y} --init` 以预先生成本地的 `reader.html` 预览入口。
+* **产出物**（存放于迭代业务目录内）：
+  * 迭代宏观架构及总干规则：`master-PRD-v{X.Y}.md`
+  * 专属适老与业务审查报告：`review/li-yue-review-v{X.Y}.md`
+  * 版本迭代页面结构清单：`PageList.md` (或更新至全局表)
+  * 预览入口索引：`reader.html`
 
-### 🗺️ Step 1 — 迭代宏观规划与总规输出 (Foundation & Scope)
-* **角色**：产品架构师 `Chat P`（指令文件：`chatP-ProductArch-expect.md`）
-* **任务**：确定本次迭代的宏观规则机制与页面清单边界。所有的**版本级总规则不要藏在单页面的需求里**，需作为独立总纲存在。
-* **产出物**（直接存放于迭代根目录或 `foundation/`）：
-  * 版本业务规则/说明书（如 `points-system-v1.1.md`）
-  * 版本迭代页面清单：`PageList.md` (或更新至根目录总表)
-  * 页面流程划分框架：`flow/flow-framework.md`
-
-### 🎨 Step 1c — UI 风格规格定义 (UI Framing)
+### 🎨 Step 1c — UI 风格规格定义 (UI Framing) [暂未启用]
 * **任务**：在缺少 UI 设计师的情况下，通过"对标研究"固化视觉风格。对标竞品的视觉基因，并在 `foundation/design-system/` 中格式化沉淀风格规则。
 * **产出物**：
   * `foundation/design-system/style-guide/` 中的规则定义
   * `foundation/design-system/ui-patterns/` 中的组件范式定义
 
 ### 🔄 Step 2 — 业务全景流程拆解与组装 (Flow)
-这是一条微型流水线，旨在把业务规则映射为带有"节点价值"的用户旅程：
-* **Step 2a (定义框架)**：专家角色定义核心流程线及其起点、终点和核心价值。
-* **Step 2b (编排节点)**：产品经理 `Chat A` 结合页面编号，定义每条流程的精确跳转动作。**注意：每条独立流程必须单独输出一份 Mermaid 流程图代码（如 `xxx-flow-A.mmd`），禁止将多条流程合并在一个文件中**。
+* **角色**：产品架构师 `Chat P`（指令文件：`.agents/instructions/chatP-ProductArch-expect.md`）
+* **任务**：这是一条微型流水线，旨在把业务规则映射为带有"节点价值"的用户旅程：
+* **Step 2a (定义框架)**：定义核心流程线及其起点、终点和核心价值。
+* **Step 2b (编排节点)**：结合页面编号，定义每条流程的精确跳转动作。**注意：每条独立流程必须单独输出一份 Mermaid 流程图代码（如 `xxx-flow-A.mmd`），禁止将多条流程合并在一个文件中**。
 * **Step 2c (视觉渲染)**：调用工作流 `/Low-Fi-Flow-Map-Plugin`，将草图代码渲染为极简 HTML 全景线框图。
 * **产出物**：`drafts/v{X.Y}/flow/xxx-flow.html`
-
 ### 📝 Step 3 — 页面级功能描述细化 (PRD)
-* **角色**：产品重构专家 `Chat A`
+* **角色**：产品重构专家 `Chat A`（指令文件：`.agents/instructions/chatA-ProductMgr-expect.md`）
 * **任务**：依据上述流程图的网图定位，对每个涉及的单页面展开**详尽的功能需求与信息结构描述**。
 * **产出物**：`drafts/v{X.Y}/prd/{PageID}.md`（如 `PT-1.md`）
 
 ### 🖼️ Step 4 — 低保真线框图生成 (Wireframe)
-* **角色**：线框工程师 `Chat D`
+* **角色**：线框工程师 `Chat D`（指令文件：`.agents/instructions/chatD-WireframeDesigner-expect.md`）
 * **任务**：将单页面 PRD 翻译为符合极简主义宪法（仅用灰度与阴影层级）的适老化 HTML 网页。
 * **产出物**：`drafts/v{X.Y}/wireframe/{PageID}.html`
 
 ### ✍️ Step 5 — 开发伴随批注生成 (Annotation)
-* **角色**：原型批注专家 `Chat G`
+* **角色**：原型批注专家 `Chat G`（指令文件：`.agents/instructions/chatG-PrototypeReviewer-expect.md`）
 * **任务**：剥离界面视觉结构，专注补充底层数据逻辑、接口边界、动效规则、极限值，输出开发专用的结构化 Markdown 说明。
 * **产出物**：`drafts/v{X.Y}/annotation/{PageID}.md`
 
 ### 📦 Step 6 — 组装原型预览引擎 (Reader Integration)
-* **任务**：待所有静态文件与文档生成完毕后，指定大模型通过识别迭代内所有相对路径，将其组装到迭代专属的 `reader.html` 入口中。
-* **注**：未来计划将 `reader.html` 本身的界面组织逻辑抽取为独立的 Agent 模板规则（如 `chatR-Reader-expect.md`），以沉淀阅读能力。
+* **操作**：调用 `lecai-bundler` 技能，通过 `bundle.py` 执行自动化打包。
+* **具体指令**：执行命令 `python .agents/skills/lecai-bundler/scripts/bundle.py drafts/v{X.Y}`
+* **产出物**：在 `dist/` 目录下生成单文件原型包（如 `Antilecai-drafts-v1.3.1.html`）。
 
 ---
 
@@ -158,14 +184,15 @@ flowchart TD
 
 ```text
 v{X.Y}/
-├── reader.html                  ← Step 6 产出 (预览引擎)
-├── PageList.md                  ← Step 1 产出 (页面清单范围)
-├── xxx-system-rules.md (样例)    ← Step 1 产出 (全局业务总规)
-├── review/                      ← Step 0 产出
-├── flow/                        ← Step 2 产出
-├── prd/                         ← Step 3 产出
-├── wireframe/                   ← Step 4 产出
-└── annotation/                  ← Step 5 产出
+├── reader.html                     ← Step 1 初始化 & Step 6 最终打包
+├── PageList.md                     ← Step 1 产出 (页面清单范围)
+├── master-PRD-v{X.Y}.md            ← Step 1 产出 (迭代宏观总规)
+├── review/
+│   └── li-yue-review-v{X.Y}.md     ← Step 1 产出 (质量门禁报告)
+├── flow/                           ← Step 2 产出 (全景流程图)
+├── prd/                            ← Step 3 产出 (单页面功能 PRD)
+├── wireframe/                      ← Step 4 产出 (低保真线框图)
+└── annotation/                     ← Step 5 产出 (开发伴随批注)
 ```
 
 ---
@@ -202,7 +229,7 @@ http://localhost:3000/releases/v1.0/reader.html
 | **Chat A (产品重构专家)** | `chatA-ProductMgr-expect.md` | **V2.3** | 专注于银龄经济，定义产品结构与逻辑，产出纯净、语义化需求描述。 |
 | **Chat D (线框工程师)** | `chatD-wireframe-expect.md` | **V1.4** | 将需求转化为 HTML 线框图，具备智能图标推断。 |
 | **Chat G (原型批注专家)** | `chatG-Spec-expect.md` | **V2.1** | 原型伴随说明书，Markdown 结构化文档。 |
-| **Chat U (UI生成工程师)** | `chatU-prompt-rules.md` | **V1.0** | 视觉呈现引擎，强制依据 `variables.css` 将 PRD 翻译为高保真 HTML。 |
+| **Chat U (UI生成工程师)** | `chatU-UIUEX-expect.md` | **V1.0** | 视觉呈现引擎，强制依据 `variables.css` 将 PRD 翻译为高保真 HTML。 |
 
 ---
 
@@ -210,7 +237,8 @@ http://localhost:3000/releases/v1.0/reader.html
 
 | 角色/插件 | 路径 | 描述 |
 | :--- | :--- | :--- |
-| **Li Yue (银发经济专家)** | `li-yue-expert.md` | 50-70 岁群体产品架构师。负责 S2B2C 架构规划、荣誉与利益双引擎设计。 |
+| **Li Yue (产品专家)** | `elder-expert-liyue.md` ✅ | **V2.0** | 50-70 岁群体产品架构师。负责 S2B2C 架构规划、荣誉与利益双引擎设计、UI 适老化文案建议。评审输出至 `review/` 目录。 |
+| **Li Yue (审查员)** | `reviewer-liyue.md` | **V1.0** | **质量门控（Quality Gate）**。在流水线上执行 0-10 分风险打分制，输出 `[AUTO-PASS]` 或 `[BLOCKED]` 判决，阻断合规风险。 |
 | **Git Coach (代码专家)** | `git-migration-coach.md` | 资深开发与版本管理。引导项目安全迁移至 GitHub。 |
 | **Low-Fi Flow (全景流程)** | `Low-Fi-Flow-Map-Plugin.md` | 解析 Mermaid 代码，生成 Miro 风格的全景线框流程图。 |
 
