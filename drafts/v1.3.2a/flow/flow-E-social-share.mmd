@@ -1,0 +1,20 @@
+graph TD
+    subgraph E-1: 拉票增长流 (AD-A3)
+        E1_Source[CC-6: 作品详情] -- "点击[分享拉票]" --> E1_OS[系统分享组件]
+        E1_OS -- "受邀人点击链接" --> AD-A3[AD-A3: 拉票详情弹窗]
+        AD-A3 -- "关闭/接受助力" --> E1_Landing[CC-6: 作品详情]
+    end
+
+    subgraph E-2: 报名增长流 (AD-A2)
+        E2_Source[CC-26: 赛事主页] -- "点击[分享/邀请]" --> E2_OS[系统分享组件]
+        E2_OS -- "受邀人点击链接" --> AD-A2[AD-A2: 邀请参赛弹窗]
+        AD-A2 -- "关闭/接受邀请" --> E2_Landing[CC-26: 赛事主页]
+    end
+
+    %% 样式美化
+    style AD-A3 fill:#f5f3ff,stroke:#a855f7,stroke-width:2px
+    style AD-A2 fill:#f5f3ff,stroke:#a855f7,stroke-width:2px
+    style E1_Source fill:#fff
+    style E2_Source fill:#fff
+    style E1_Landing fill:#eff6ff
+    style E2_Landing fill:#eff6ff

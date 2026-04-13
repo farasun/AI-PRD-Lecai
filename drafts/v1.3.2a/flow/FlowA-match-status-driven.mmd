@@ -1,0 +1,42 @@
+graph TD
+    %% 控制原点 (S端管控中心)
+    CC31[CC-31 S端赛事管理后台] --> Config[运营配置 4 维度策略<br>1.活动状态 2.投稿及审核<br>3.互动切换 4.结果公示]
+
+    %% 决策矩阵
+    Config --> Matrix{开关/状态组合判定}
+
+    %% T1: 预热中
+    Matrix -- "状态:进行中 <br>+ 投稿:OFF <br>+ 公告:OFF" --> CC26_T1[CC-26 · 预热中：未开启投稿入口]
+    
+    %% T2: 进行中
+    Matrix -- "状态:进行中 <br>+ 投稿:ON <br>+ 互动:ON" --> CC26_T2[CC-26 · 进行中：投稿、点赞、评论全开启]
+    
+    %% T3: 冲刺中
+    Matrix -- "状态:进行中 <br>+ 投稿:OFF <br>+ 互动:ON" --> CC26_T3[CC-26 · 冲刺中：停止投稿，点赞、评论继续]
+    
+    %% T4: 已结束
+    Matrix -- "状态:已结束 <br>+ 互动:OFF <br>+ 公告:ON" --> CC26_T4[CC-26 · 已结束：数据锁定，置顶结果公示]
+
+    %% UI 呈现特性
+    subgraph UI 布局变体
+        CC26_T1 --- D1[首屏展示规则介绍<br>隐藏 '我要参与' 按钮]
+        CC26_T2 --- D2[激活 '我要参与' 固定栏<br>默认选中 '作品列表' TAB]
+        CC26_T3 --- D3[重心切换: 自动跳至排行页<br>默认选中 '排行榜' TAB]
+        CC26_T4 --- D4[锁定数据<br>置顶内容公告 Banner]
+    end
+
+    %% T4 专属交互
+    CC26_T4 -- "点击 公告Banner" --> CC26_Modal[CC-26-Modal: 获奖结果图文喜报]
+    CC26_Modal -- "关闭" --> CC26_T4
+
+    %% 作品详情联动
+    CC26_T2 & CC26_T3 --> CC6_Active[CC-6 作品详情: 互动组件可用]
+    CC26_T4 --> CC6_Frozen[CC-6 作品详情: 互动冻结态]
+    
+    %% 样式类定义
+    classDef page fill:#fff,stroke:#333,stroke-width:2px;
+    classDef modal fill:#f9f9f9,stroke:#666,stroke-dasharray: 5 5;
+    classDef config fill:#e1f5fe,stroke:#01579b;
+    class CC26_T1,CC26_T2,CC26_T3,CC26_T4,CC6_Active,CC6_Frozen page;
+    class CC26_Modal modal;
+    class Config config;

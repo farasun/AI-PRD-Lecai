@@ -21,7 +21,7 @@ sequenceDiagram
 
     Note over S: 1. 赛事筹备
     S->>S: 创建官方赛模式 (mode:A)
-    S->>S: 配置广告位 B-4/B-5/B-8
+    S->>S: 配置广告位 AD-B4/AD-B5/AD-B8
 
     Note over B: 2. 准入与参与
     B->>CH-1: 查看赛事详情
@@ -37,13 +37,13 @@ sequenceDiagram
     S->>CH-5: [聚合] 自动抓取配套活动内容
 
     Note over E: 4. 社交裂变与广告转化
-    E->>AD-B1: 访问邀请链接 (触发 B-1 广告)
-    E->>AD-B2: 访问作品详情 (触发 B-2 广告)
-    E->>AD-B3: 访问花絮相册 (触发 B-3 广告)
+    E->>AD-B1: 访问邀请链接 (触发 AD-B1 广告)
+    E->>AD-B2: 访问作品详情 (触发 AD-B2 广告)
+    E->>AD-B3: 访问花絮相册 (触发 AD-B3 广告)
     E->>CH-1-2: 为社团点赞拉票
 
     Note over S: 5. 荣誉与收官
-    S->>S: 锁定成绩，自动生成电子证书 (B-6)
+    S->>S: 锁定成绩，自动生成电子证书 (AD-B6)
     S->>CC-5: [自动] 配套活动切为归档只读
 ```
 
@@ -88,7 +88,7 @@ flowchart LR
 ```
 
 ### 3.3 广告触达触发逻辑 (Ad Timing)
-定义 AD-B1/B2/B3 独立页面的唤起时机。
+定义 AD-B1/AD-B2/AD-B3 独立页面的唤起时机。
 
 ```mermaid
 sequenceDiagram

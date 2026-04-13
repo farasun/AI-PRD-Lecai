@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <style>
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        .bg-dot-grid {
+            background-image: radial-gradient(circle, #cbd5e1 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+        .phone-shell {
+            width: 375px;
+            height: 812px;
+            background: #fff;
+            border: 1px solid #e5e7eb;
+            border-radius: 40px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transform-origin: top left;
+            transform: scale(0.65);
+        }
+        .web-shell {
+            width: 1000px;
+            height: 700px;
+            background: #fff;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            display: flex;
+            transform-origin: top left;
+            transform: scale(0.65);
+        }
+    </style>
+</head>
+<body class="m-0 p-0 bg-gray-200 no-scrollbar font-sans text-gray-900">
+
+    <!-- ① 悬浮标题板 -->
+    <div style="position:fixed;top:24px;left:24px;z-index:100;background:rgba(17,24,39,0.85);backdrop-filter:blur(8px);border-radius:12px;padding:12px 20px;">
+        <div style="font-size:16px;font-weight:700;color:#fff;">入社参赛转化链 (Flow D)</div>
+        <div style="font-size:12px;color:#9ca3af;margin-top:4px;">v1.3.2a · Low-Fi Flow Map · 2026-04-13</div>
+    </div>
+
+    <!-- ② 画布 -->
+    <div class="relative bg-dot-grid w-[3600px] h-[1600px] no-scrollbar">
+
+        <!-- ③ SVG 连线层 -->
+        <svg class="absolute inset-0 w-full h-full pointer-events-none z-0">
+            <defs>
+                <marker id="arrow-blue" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                    <path d="M0,0 L0,6 L9,3 z" fill="#3b82f6" />
+                </marker>
+                <marker id="arrow-gray" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                    <path d="M0,0 L0,6 L9,3 z" fill="#94a3b8" />
+                </marker>
+            </defs>
+            
+            <!-- CC-26 -> CC-7 (Straight Main Path) -->
+            <path d="M 344 320 L 1498 320" stroke="#3b82f6" stroke-width="2" fill="none" marker-end="url(#arrow-blue)" />
+            <rect x="850" y="305" width="130" height="30" fill="#eff6ff" rx="4" stroke="#bfdbfe" />
+            <text x="915" y="325" fill="#2563eb" font-size="14" font-weight="500" text-anchor="middle">已是社员直接参赛</text>
+
+            <!-- CC-26 -> CC-15 (Intercept Path) -->
+            <path d="M 283 527 L 283 800 C 283 900, 798 900, 798 900" stroke="#3b82f6" stroke-width="2" stroke-dasharray="4" fill="none" marker-end="url(#arrow-blue)" />
+            <rect x="450" y="885" width="130" height="30" fill="#eff6ff" rx="4" stroke="#bfdbfe" />
+            <text x="515" y="905" fill="#2563eb" font-size="14" font-weight="500" text-anchor="middle">非社员点击[参赛]</text>
+
+            <!-- CC-15 -> CC-7 (Re-entry) -->
+            <path d="M 1044 950 C 1200 950, 1498 700, 1498 527" stroke="#3b82f6" stroke-width="2" fill="none" marker-end="url(#arrow-blue)" />
+            <rect x="1250" y="800" width="130" height="30" fill="#eff6ff" rx="4" stroke="#bfdbfe" />
+            <text x="1315" y="820" fill="#2563eb" font-size="14" font-weight="500" text-anchor="middle">入社并自动跳转</text>
+
+            <!-- CC-7 -> CC-31 -->
+            <path d="M 1744 320 L 2198 320" stroke="#3b82f6" stroke-width="2" fill="none" marker-end="url(#arrow-blue)" />
+            <rect x="1900" y="305" width="130" height="30" fill="#eff6ff" rx="4" stroke="#bfdbfe" />
+            <text x="1965" y="325" fill="#2563eb" font-size="14" font-weight="500" text-anchor="middle">提交进入后管待审</text>
+        </svg>
+
+        <!-- ④ 节点布局 -->
+
+        <!-- CC-26: 赛事主页 -->
+        <div class="absolute z-10" style="left: 100px; top: 150px;">
+            <div id="CC-26" class="absolute -top-10 left-0 bg-gray-900 text-white text-sm px-3 py-1 rounded shadow-sm z-20 font-bold">CC-26 · 社团赛事主页</div>
+            <div class="phone-shell">
+                <div class="h-16 flex items-center px-6 border-b border-gray-100 shrink-0 bg-white">
+                    <i class="ri-arrow-left-s-line text-2xl"></i>
+                    <span class="flex-1 text-center font-bold text-xl">赛事详情</span>
+                    <i class="ri-share-forward-box-line text-xl"></i>
+                </div>
+                <div class="flex-1 overflow-y-auto no-scrollbar">
+                    <div class="h-44 bg-blue-50 flex items-center justify-center text-blue-200 text-3xl font-bold shrink-0">Banner</div>
+                    <div class="p-6">
+                        <h1 class="text-2xl font-bold mb-6 italic">投稿已开启</h1>
+                        <div class="flex border-b border-gray-100 mb-6">
+                            <div class="flex-1 py-3 text-center text-gray-400">介绍</div>
+                            <div class="flex-1 py-3 text-center text-gray-400">排行榜</div>
+                            <div class="flex-1 py-3 text-center border-b-2 border-green-600 text-green-600 font-bold">作品展</div>
+                        </div>
+                        <div class="grid grid-cols-2 gap-4 pb-20">
+                            <div class="aspect-square bg-gray-50 rounded-2xl border border-gray-100"></div>
+                            <div class="aspect-square bg-gray-50 rounded-2xl border border-gray-100"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-6 border-t border-gray-100 bg-white shrink-0">
+                    <div class="h-14 bg-blue-600 text-white rounded-2xl flex items-center justify-center text-xl font-bold shadow-xl shadow-blue-100">
+                        <i class="ri-add-circle-fill mr-2 text-2xl"></i> 我要参赛
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CC-15: 成员加入弹窗 (Reference flow-A1 A-2-Modal) -->
+        <div class="absolute z-10" style="left: 800px; top: 800px;">
+            <div id="CC-15" class="absolute -top-10 left-0 bg-gray-900 text-white text-sm px-3 py-1 rounded shadow-sm z-20 font-bold">CC-15 · 业务拦截-加入弹窗</div>
+            <div class="phone-shell relative justify-center items-center bg-gray-900/60 p-8">
+                <div class="w-full bg-white rounded-[32px] p-8 flex flex-col items-center text-center shadow-2xl">
+                    <div class="w-16 h-16 bg-blue-50 rounded-full flex items-center justify-center mb-6">
+                        <i class="ri-user-add-line text-3xl text-blue-600"></i>
+                    </div>
+                    <div class="text-xl font-bold mb-3">加入社团继续报名</div>
+                    <p class="text-gray-400 text-sm mb-8 font-normal leading-relaxed">该赛事由“乐山乐水摄影社”承办。加入社团后，您的作品将自动同步展示并参与评选。</p>
+                    <div class="w-full h-14 bg-blue-600 shadow-md shadow-blue-200 text-white rounded-2xl flex items-center justify-center font-bold mb-4">加入并报名</div>
+                    <div class="text-gray-400 text-sm font-normal">返回</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CC-7: 投稿表单 (Reference flow-A1 CC-7) -->
+        <div class="absolute z-10" style="left: 1500px; top: 150px;">
+            <div id="CC-7" class="absolute -top-10 left-0 bg-gray-900 text-white text-sm px-3 py-1 rounded shadow-sm z-20">CC-7 · 社团提交作品表单</div>
+            <div class="phone-shell">
+                <div class="h-16 flex items-center px-6 border-b border-gray-100 shrink-0 bg-white">
+                    <span class="text-lg text-gray-400">取消</span>
+                    <span class="flex-1 text-center font-bold text-xl">提交作品</span>
+                    <span class="text-lg text-blue-600 font-bold">确认</span>
+                </div>
+                <div class="p-6 flex-1 bg-white">
+                    <div class="w-28 h-28 border border-dashed border-gray-300 rounded-2xl flex flex-col items-center justify-center bg-gray-50 text-gray-400 mb-8">
+                        <i class="ri-add-line text-3xl"></i>
+                        <span class="text-xs">添加照片</span>
+                    </div>
+                    <div class="border-b border-gray-100 pb-2 mb-6 text-xl font-bold text-gray-300">作品标题(选填)</div>
+                    <div class="text-lg text-gray-300 font-normal">分享作品背后的故事...</div>
+                    <div class="mt-auto pt-4 flex items-center justify-between text-gray-400 border-t border-gray-50">
+                        <div class="flex items-center gap-2">
+                           <i class="ri-map-pin-line"></i>
+                           <span class="text-sm">添加地点</span>
+                        </div>
+                        <i class="ri-arrow-right-s-line"></i>
+                    </div>
+                </div>
+                <div class="p-6 border-t border-gray-100 bg-white shrink-0">
+                    <button class="w-full h-14 bg-gray-900 text-white rounded-2xl flex items-center justify-center text-xl font-bold shadow-xl">立即发布</button>
+                    <p class="text-center text-[10px] text-gray-400 mt-2 italic">作品将提交至后台审核</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- CC-31: S端后管审核开关 -->
+        <div class="absolute z-10" style="left: 2200px; top: 150px;">
+            <div id="CC-31" class="absolute -top-10 left-0 bg-red-600 text-white text-sm px-3 py-1 rounded shadow-sm z-20 font-bold">CC-31 · 平台管控中心 (S端)</div>
+            <div class="web-shell">
+                <!-- Sidebar -->
+                <div class="w-64 bg-slate-900 flex flex-col p-6 space-y-4">
+                    <div class="flex items-center gap-3 mb-8">
+                        <div class="w-8 h-8 bg-blue-500 rounded-lg"></div>
+                        <div class="text-white font-bold text-lg">Lecai Admin</div>
+                    </div>
+                    <div class="bg-blue-600/20 text-blue-400 px-4 py-2 rounded-lg font-bold">赛事运营</div>
+                    <div class="text-slate-500 px-4 py-2">社团管理</div>
+                    <div class="text-slate-500 px-4 py-2">用户审核</div>
+                </div>
+                <!-- Main -->
+                <div class="flex-1 bg-slate-50 p-10">
+                    <div class="bg-white rounded-2xl p-8 border border-slate-200">
+                        <h3 class="text-xl font-bold mb-6">迎春杯摄影大赛 - 策略配置</h3>
+                        <div class="space-y-8">
+                            <div class="flex items-center justify-between p-4 bg-red-50 rounded-xl border border-red-100">
+                                <div>
+                                    <div class="font-bold text-red-900">开启投稿审核模式</div>
+                                    <div class="text-xs text-red-700/60 mt-1">开启后作品需经管理员人工审核方可对外展示</div>
+                                </div>
+                                <div class="w-14 h-8 bg-red-500 rounded-full relative">
+                                    <div class="absolute right-1 top-1 w-6 h-6 bg-white rounded-full"></div>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-between p-4 bg-slate-50 rounded-xl border border-slate-100">
+                                <div>
+                                    <div class="font-bold text-slate-800">结果公示开关</div>
+                                    <div class="text-xs text-slate-400 mt-1">关闭时仅展示作品榜单，不显示最终获奖公告</div>
+                                </div>
+                                <div class="w-14 h-8 bg-slate-200 rounded-full relative shadow-inner">
+                                    <div class="absolute left-1 top-1 w-6 h-6 bg-white rounded-full"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>

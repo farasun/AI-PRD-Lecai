@@ -23,7 +23,7 @@ description: Low-Fi-Flow-Map-Plugin
 
 3.  **节点渲染：Chat D 视觉宪法与 Logic Flow-B (Inheritance)**：
     * **物理继承 (Inheritance)**：如果是对 `Main_PageList.md` 中现有页面的改造，**严禁凭空推测内部 UI**。渲染引擎必须先读取该页面的 `现状基准 (UI Path)` HTML，提取其核心布局（如：头部导航高度、页面分块、底部按钮位置）。
-    * **缩微渲染**：在继承的基准结构基础上，按当前迭代需求注入增量修改，最后应用 `transform scale-[0.65]` 进行缩微展示。
+    * **缩微渲染**：在继承的基准结构基础上，按当前迭代需求注入增量修改，最后应用 `transform scale-[0.85]` 进行缩微展示。
     * **容器外观**：纯白手机壳 (`bg-white`) + 1px 极细边框 (`border-gray-200`) + 柔和阴影 (`shadow-xl`)。
     * **原子组件 (去色去图)**：
         * 图标：必须使用 **RemixIcon** (Line 风格)。

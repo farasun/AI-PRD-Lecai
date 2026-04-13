@@ -127,8 +127,8 @@
 
 | 段 | 搭载宿主 | 场景 | 文件 |
 |---|---------|------|------|
-| **Phase A** | v1.3.2a 社团赛事闭环 | 社团赛事（7个广告位）+ 后台底座能力 | [iteration-v1a.md](file:///Users/sunfala/Documents/AntiGravity/AI-PRD-Lecai/foundation/roadmap/advisement/iteration-v1a.md) |
-| **Phase B** | game-for-club iteration-v1 官办赛事 MVP | 官办赛事/团队版（8个广告位）+ 商业价值验证 | [iteration-v1b.md](file:///Users/sunfala/Documents/AntiGravity/AI-PRD-Lecai/foundation/roadmap/advisement/iteration-v1b.md) |
+| **Phase A** | v1.3.2a 社团赛事闭环 | 社团赛事（AD-A1～AD-A7 共 7 个广告位）+ 后台底座能力 | [iteration-v1a.md](file:///Users/sunfala/Documents/AntiGravity/AI-PRD-Lecai/foundation/roadmap/advisement/iteration-v1a.md) |
+| **Phase B** | game-for-club iteration-v1 官办赛事 MVP | 官办赛事/团队版（AD-B1～AD-B8 共 8 个广告位）+ 商业价值验证 | [iteration-v1b.md](file:///Users/sunfala/Documents/AntiGravity/AI-PRD-Lecai/foundation/roadmap/advisement/iteration-v1b.md) |
 
 ### 后续迭代备忘（待排期）
 
