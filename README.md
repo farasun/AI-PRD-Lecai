@@ -73,12 +73,12 @@ AI-PRD-Lecai/
 
 ### 🎯 Step 1 — 迭代总规与质量门禁 (Foundation & Quality Gate)
 * **强制输入**：当前迭代的业务需求输入件（如 `drafts/v{X.Y}/BRD-draft.md`）
-* **角色协作**：产品架构师 `Chat P`（指令文件：`.agents/instructions/chatP-ProductArch-expect.md`）与银发经济专家 `Li Yue`（指令文件：`.agents/instructions/elder-expert-liyue.md`）。
+* **角色协作**：产品架构师 `Chat P`（指令文件：`.agents/instructions/chatP-ProductArch-expect.md`）与银发经济审查员 `Li Yue`（指令文件：`.agents/instructions/reviewer-liyue.md`）。
 * **业务管线**：
   1. **初稿起草**：Chat P 基于输入的 BRD，输出一份全局视角的迭代整体 PRD 初稿（所有的版本级总规则必须作为独立总纲，不藏在单页面需求里）。
-  2. **质量门禁**：Li Yue 对初稿执行适老化体验与业务边界评审，并输出评审报告，随后**挂起等待人类**。
+  2. **质量门禁**：Li Yue 对初稿执行适老化体验与业务边界评审，并撰写评审报告。**【严格约束：审查员绝不允许直接修改 Chat P 编写的 PRD 初稿文件，仅允许输出书面的 review 报告】**，随后**挂起等待人类**。
   3. **人工确认**：人类查阅专家报告，介入进行反馈拍板。
-  4. **终稿发车**：Chat P 吸收指导意见定稿总纲，产出页面边界清单，并执行指令 `python .agents/skills/lecai-bundler/scripts/bundle.py drafts/v{X.Y} --init` 以预先生成本地的 `reader.html` 预览入口。
+  4. **终稿发车**：Chat P 吸收指导意见定稿总纲。**务必在总纲完全定稿后，再去产出迭代的页面边界清单 PageList.md**。同时强约束：**生成清单时，页面名称与编号必须严格以 `foundation/Main_PageList.md` 为唯一基准；若有新增，需遵循现有编号分类顺延，绝对避免冲突**。随后执行指令 `python .agents/skills/lecai-bundler/scripts/bundle.py drafts/v{X.Y} --init` 以预先生成本地的 `reader.html` 预览入口。
 * **产出物**（存放于迭代业务目录内）：
   * 迭代宏观架构及总干规则：`master-PRD-v{X.Y}.md`
   * 专属适老与业务审查报告：`review/li-yue-review-v{X.Y}.md`

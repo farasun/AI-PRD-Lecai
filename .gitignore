@@ -3,6 +3,7 @@
 .agent/
 .vscode/
 .idea/
+.claude/
 .env
 .env.local
 .python-version
@@ -38,8 +39,8 @@ coverage.xml
 dist/
 build/
 out/
-releases/ (only if build artifacts)
-drafts/ (only if temporary docs)
+# releases/
+# drafts/
 
 # Assets & Temp
 page-screenshot/
@@ -75,7 +76,10 @@ manual/**/*.png
 **/*.pdf
 **/*.jpg
 **/*.png
-**/.DS_Store
+**/*.zip
+**/*.7z
+**/*.rar
+**/*.tar.gz
 
 # Whitelist Sources & PRD Deliverables
 !**/README.md

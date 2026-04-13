@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>乐才官方赛事 · 人气参赛流 V1.4</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+    body { font-family: 'Inter', 'Microsoft YaHei', sans-serif; }
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    .bg-dot-grid {
+      background-image: radial-gradient(circle, #cbd5e1 1px, transparent 1px);
+      background-size: 20px 20px;
+    }
+  </style>
+</head>
+<body class="m-0 p-0 bg-gray-200 no-scrollbar">
+
+  <!-- ① 悬浮标题板 -->
+  <div style="position:fixed;top:24px;left:24px;z-index:100;background:rgba(17,24,39,0.85);backdrop-filter:blur(8px);border-radius:12px;padding:12px 20px;">
+    <div style="font-size:16px;font-weight:700;color:#fff;">人气参赛流 · V1.4 官方赛事</div>
+    <div style="font-size:12px;color:#9ca3af;margin-top:4px;">v1.4 · Low-Fi Flow Map · 2026-04-10</div>
+    <div class="mt-3 pt-3 border-t border-gray-700 flex space-x-4">
+      <div class="flex items-center space-x-1.5"><div class="w-2 h-2 bg-blue-500 rounded-full"></div><span class="text-[10px] text-gray-400">常规流转</span></div>
+    </div>
+  </div>
+
+  <!-- ② 画布 -->
+  <div class="relative bg-dot-grid w-[3200px] h-[2000px] no-scrollbar font-sans text-gray-900">
+
+    <!-- ③ SVG 连线层 -->
+    <svg class="absolute inset-0 w-full h-full pointer-events-none z-0">
+      <defs>
+        <marker id="arrow-blue" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+          <path d="M0,0 L0,6 L8,3 z" fill="#3b82f6" />
+        </marker>
+        <marker id="arrow-gray" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+          <path d="M0,0 L0,6 L8,3 z" fill="#94a3b8" />
+        </marker>
+      </defs>
+      
+      <!-- 布局：Row 1 (Y:200), Row 2 (Y:950) -->
+      
+      <!-- 1. CH-1 (100, 200) -> CH-1-3 (600, 200) -->
+      <path d="M 344 464 C 450 464, 450 464, 598 464" stroke="#3b82f6" stroke-width="2.5" marker-end="url(#arrow-blue)" />
+      <rect x="420" y="449" width="100" height="30" fill="#eff6ff" stroke="#bfdbfe" rx="6" />
+      <text x="470" y="469" fill="#2563eb" font-size="14" font-weight="600" text-anchor="middle">浏览参赛作品</text>
+
+      <!-- 2. CH-1-3 (600, 200) -> CH-3 (1100, 200) -->
+      <path d="M 844 464 C 950 464, 950 464, 1098 464" stroke="#3b82f6" stroke-width="2.5" marker-end="url(#arrow-blue)" />
+      <rect x="940" y="449" width="100" height="30" fill="#eff6ff" stroke="#bfdbfe" rx="6" />
+      <text x="990" y="469" fill="#2563eb" font-size="14" font-weight="600" text-anchor="middle">点击[我要投稿]</text>
+
+      <!-- 3. CH-1-3 (600, 200) -> CH-2 (600, 950) -->
+      <!-- Bottom Center CH-1-3: (600+122, 200+528) = (722, 728) -->
+      <path d="M 722 728 C 722 800, 722 850, 722 948" stroke="#3b82f6" stroke-width="2.5" marker-end="url(#arrow-blue)" />
+      <rect x="740" y="820" width="100" height="30" fill="#eff6ff" stroke="#bfdbfe" rx="6" />
+      <text x="790" y="840" fill="#2563eb" font-size="14" font-weight="600" text-anchor="middle">点击单个作品</text>
+    </svg>
+
+    <!-- ④ 节点容器 -->
+
+    <!-- CH-1 · 赛事详情页-整体 -->
+    <div class="absolute" style="left: 100px; top: 200px;">
+      <div id="CH-1" class="absolute -top-10 left-0 bg-gray-900 text-white text-sm px-3 py-1 rounded shadow-sm z-10 flex items-center">
+        CH-1 · 赛事详情页-整体
+        <span class="ml-2 px-1.5 py-0.5 bg-orange-500 text-[10px] font-bold rounded">改造</span>
+      </div>
+      <div class="w-[375px] h-[812px] bg-white border border-gray-200 rounded-[40px] shadow-2xl overflow-hidden transform scale-[0.65] origin-top-left flex flex-col">
+        <!-- 头部对齐 CH-1.png -->
+        <div class="h-14 bg-gradient-to-r from-blue-700 to-blue-500 flex items-center px-6 justify-between text-white">
+          <i class="ri-arrow-left-s-line text-2xl"></i>
+          <span class="font-bold text-lg">赛事详情</span>
+          <div class="w-16 h-7 bg-black/20 rounded-full flex items-center justify-center space-x-2">
+            <i class="ri-more-fill text-xs"></i><span class="opacity-20 text-xs">|</span><i class="ri-close-line text-xs"></i>
+          </div>
+        </div>
+        <div class="flex-1 bg-white overflow-y-auto no-scrollbar">
+           <!-- Banner 还原红版现状 -->
+           <div class="h-44 bg-red-800 relative flex flex-col items-center justify-center p-6 text-white text-center">
+              <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/natural-paper.png')] opacity-20"></div>
+              <div class="text-[10px] opacity-60 uppercase tracking-widest font-black mb-1">2026 Shanghai Championship</div>
+              <h2 class="text-lg font-black leading-tight mb-2">2026上海马年新春摄影大赛</h2>
+              <div class="px-6 py-1.5 bg-orange-400 rounded-lg shadow-lg text-sm font-black text-white">最高5000元奖励</div>
+              <div class="mt-4 flex items-center text-[8px] opacity-50 space-x-2">
+                <i class="ri-map-pin-fill"></i> <span>星光摄影老年大学</span>
+                <span>|</span>
+                <span>3月5日 截止投稿</span>
+              </div>
+           </div>
+           
+           <!-- 内容区 -->
+           <div class="p-6 space-y-4">
+              <div class="flex items-center space-x-2">
+                 <span class="px-2 py-0.5 border border-purple-200 text-purple-600 text-[10px] font-bold rounded bg-purple-50">作品239</span>
+                 <span class="px-2 py-0.5 border border-purple-200 text-purple-600 text-[10px] font-bold rounded bg-purple-50">获赞2271</span>
+              </div>
+              <div class="pt-2 border-b flex justify-around text-sm font-black border-gray-100 text-gray-400">
+                 <span class="pb-2">排行</span>
+                 <span class="pb-2 text-purple-600 border-b-2 border-purple-600">作品</span>
+              </div>
+              <div class="py-4 space-y-4">
+                 <div class="h-10 bg-gray-50 rounded-lg flex items-center px-4 space-x-3">
+                   <i class="ri-search-line text-gray-400"></i>
+                   <span class="text-xs text-gray-300">按作品名、作者名搜索</span>
+                 </div>
+              </div>
+           </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CH-1-3 · 赛事-作品列表 -->
+    <div class="absolute" style="left: 600px; top: 200px;">
+      <div id="CH-1-3" class="absolute -top-10 left-0 bg-gray-900 text-white text-sm px-3 py-1 rounded shadow-sm z-10">CH-1-3 · 赛事-作品列表</div>
+      <div class="w-[375px] h-[812px] bg-white border border-gray-200 rounded-[40px] shadow-2xl overflow-hidden transform scale-[0.65] origin-top-left flex flex-col">
+        <div class="h-14 bg-white border-b flex items-center px-8 font-bold text-lg text-gray-800">
+           赛事作品
+        </div>
+        <div class="flex-1 p-5 grid grid-cols-2 gap-4 bg-gray-50/50 overflow-y-auto no-scrollbar">
+           <!-- 作品项对齐截图实感 -->
+           <div class="bg-white rounded-2xl shadow-sm border overflow-hidden flex flex-col">
+              <div class="h-44 bg-blue-100 relative">
+                 <img src="https://api.dicebear.com/7.x/initials/svg?seed=Dance" class="w-full h-full object-cover opacity-20">
+              </div>
+              <div class="p-3 space-y-1">
+                 <div class="text-xs font-black text-gray-800 line-clamp-1">舞之魂 · 燕郊锦绣河山...</div>
+                 <div class="text-[9px] text-gray-400 font-bold">所属社团: 舞之魂舞蹈社</div>
+              </div>
+           </div>
+           <div class="bg-white rounded-2xl shadow-sm border overflow-hidden flex flex-col">
+              <div class="h-44 bg-green-100 relative">
+                 <img src="https://api.dicebear.com/7.x/initials/svg?seed=Sunset" class="w-full h-full object-cover opacity-20">
+              </div>
+              <div class="p-3 space-y-1">
+                 <div class="text-xs font-black text-gray-800 line-clamp-1">夕阳红 · 心中的歌...</div>
+                 <div class="text-[9px] text-gray-400 font-bold">所属社团: 夕阳红艺术团</div>
+              </div>
+           </div>
+        </div>
+        <div class="p-6 bg-white border-t">
+           <button class="w-full py-5 bg-orange-600 text-white font-black rounded-2xl text-xl shadow-xl shadow-orange-100">我要投稿参赛</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- CH-3 · 赛事提交作品表单 -->
+    <div class="absolute" style="left: 1100px; top: 200px;">
+      <div id="CH-3" class="absolute -top-10 left-0 bg-gray-900 text-white text-sm px-3 py-1 rounded shadow-sm z-10 flex items-center">
+        CH-3 · 赛事提交作品表单
+        <span class="ml-2 px-1.5 py-0.5 bg-orange-500 text-[10px] font-bold rounded">改造</span>
+      </div>
+      <div class="w-[375px] h-[812px] bg-white border border-gray-200 rounded-[40px] shadow-2xl overflow-hidden transform scale-[0.65] origin-top-left flex flex-col">
+        <div class="h-14 bg-white border-b flex items-center px-10 font-bold text-lg">作品投稿</div>
+        <div class="flex-1 p-8 space-y-8">
+            <div class="aspect-video bg-gray-50 border-4 border-dashed rounded-3xl flex flex-col items-center justify-center text-gray-300">
+                <i class="ri-add-circle-fill text-5xl mb-2"></i>
+                <span class="text-xs font-bold uppercase tracking-widest text-gray-400">Upload Media</span>
+            </div>
+            <div class="space-y-3">
+                <label class="text-xs font-black text-gray-400 uppercase tracking-widest">代表社团 (已报名不可更改)</label>
+                <div class="p-5 bg-gray-50 border-2 rounded-2xl flex justify-between items-center text-gray-900 font-bold">
+                    <span>舞之魂舞蹈社</span>
+                    <i class="ri-checkbox-circle-fill text-emerald-500 text-2xl"></i>
+                </div>
+            </div>
+            <div class="p-5 bg-orange-50 text-orange-800 text-xs rounded-2xl border-2 border-orange-100 italic leading-relaxed font-medium">
+                <i class="ri-information-fill mr-1"></i> 您代表“舞之魂舞蹈社”参赛，所有获赞总额将计入该社团的热度排行。
+            </div>
+        </div>
+        <div class="p-8">
+           <button class="w-full py-5 bg-orange-600 text-white font-black rounded-2xl text-xl">确定上架作品</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- CH-2 · 赛事作品详情 -->
+    <div class="absolute" style="left: 600px; top: 950px;">
+      <div id="CH-2" class="absolute -top-10 left-0 bg-gray-900 text-white text-sm px-3 py-1 rounded shadow-sm z-10 flex items-center">
+        CH-2 · 赛事作品详情-图片
+        <span class="ml-2 px-1.5 py-0.5 bg-orange-500 text-[10px] font-bold rounded">改造</span>
+      </div>
+      <div class="w-[375px] h-[812px] bg-white border border-gray-200 rounded-[40px] shadow-2xl overflow-hidden transform scale-[0.65] origin-top-left flex flex-col">
+          <div class="h-14 bg-white flex items-center px-6 justify-between border-b">
+            <i class="ri-arrow-left-s-line text-2xl"></i>
+            <div class="text-[10px] px-3 py-1 bg-orange-50 text-orange-600 rounded-full font-black italic border border-orange-100 uppercase tracking-tighter">Official Contest · Work Detail</div>
+            <i class="ri-more-2-fill text-2xl"></i>
+          </div>
+          <div class="flex-1 overflow-y-auto no-scrollbar">
+            <div class="w-full aspect-[3/4] bg-gray-100 flex items-center justify-center">
+               <i class="ri-image-2-fill text-6xl text-gray-200"></i>
+            </div>
+            <div class="p-8 space-y-6">
+                <div class="flex items-center space-x-4">
+                    <div class="w-14 h-14 bg-gray-200 rounded-2xl shadow-inner"></div>
+                    <div>
+                        <div class="font-black text-lg text-gray-900">王大妈的作品</div>
+                        <div class="text-xs text-blue-600 font-bold flex items-center">
+                           所属社团: 舞之魂舞蹈社 <i class="ri-arrow-right-s-line"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-6 bg-gray-50 rounded-2xl text-2xl font-black italic tracking-tighter text-gray-800">
+                   《燕郊的早晨》
+                </div>
+            </div>
+          </div>
+          <div class="h-32 bg-white border-t p-6 flex items-center space-x-4">
+            <div class="flex-1 h-full bg-orange-600 text-white rounded-2xl flex flex-col items-center justify-center shadow-lg shadow-orange-100 group">
+                <span class="font-black text-xl italic uppercase tracking-tighter">Vote for club</span>
+                <span class="text-[10px] font-bold opacity-60">目前该作品已获 1,234 票</span>
+            </div>
+            <div class="w-24 h-full border-2 border-orange-100 text-orange-600 rounded-2xl flex flex-col items-center justify-center group active:bg-orange-50">
+                <i class="ri-share-forward-fill text-2xl mb-1"></i>
+                <span class="text-[10px] font-black uppercase tracking-widest">Share</span>
+            </div>
+          </div>
+      </div>
+    </div>
+
+          </div>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>
