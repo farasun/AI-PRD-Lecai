@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CC-4-2 社团主页-赛事TAB - 低保真线框图</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
+    <style>
+        body { background-color: #e5e7eb; }
+    </style>
+</head>
+<body class="min-h-screen flex justify-center p-12 overflow-x-auto">
+
+    <div id="artboard" class="flex flex-row items-start gap-24">
+        
+        <!-- Area A: Main View (Tournament List) -->
+        <div class="flex flex-col">
+            <div class="text-xl font-bold text-gray-900 mb-4">CC-4-2 社团主页-赛事TAB (主列表)</div>
+            <div class="w-[375px] bg-white shadow-2xl border border-gray-200 relative p-0 overflow-hidden">
+                
+                <!-- Navbar (Inherited from CC-4) -->
+                <div class="h-16 flex items-center px-4 border-b border-gray-100">
+                    <i class="ri-arrow-left-s-line text-2xl"></i>
+                    <div class="flex-1 text-center font-bold text-gray-900">星光摄影老年大学</div>
+                    <i class="ri-more-fill text-2xl"></i>
+                </div>
+
+                <!-- TAB BAR -->
+                <div class="px-6 border-b border-gray-200 bg-white">
+                    <div class="flex gap-10">
+                        <div class="flex flex-col items-center py-4">
+                            <span class="text-lg font-normal text-gray-400">活动</span>
+                        </div>
+                        <div class="flex flex-col items-center py-4 relative">
+                            <span class="text-xl font-bold text-gray-900">赛事</span>
+                            <div class="absolute bottom-0 w-8 h-1 bg-gray-900 rounded-full"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tournament List -->
+                <div class="px-6 py-8 grid gap-8 h-auto pb-24">
+                    
+                    <!-- Tournament Card 1 (进行中) -->
+                    <div class="bg-white rounded-3xl border border-gray-200 overflow-hidden shadow-lg border-b-4 border-b-gray-900">
+                        <div class="relative">
+                            <div class="aspect-[4/3] bg-gray-100 flex items-center justify-center text-gray-400 tracking-widest">赛事封面图</div>
+                            <!-- Status Label (Top Right) -->
+                            <div class="absolute top-4 right-4 bg-gray-900 text-white px-4 py-2 rounded-xl text-base font-bold flex items-center gap-1">
+                                <div class="w-2 h-2 bg-white rounded-full animate-pulse"></div>
+                                进行中
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <h2 class="text-2xl font-bold text-gray-900 mb-3 leading-tight">2026上海马年新春摄影大赛·乐才专场</h2>
+                            <div class="flex justify-between items-center">
+                                <div class="text-base text-gray-400 flex gap-4">
+                                    <span><i class="ri-group-line align-middle"></i> 1.2万人词</span>
+                                    <span><i class="ri-heart-3-line align-middle"></i> 5.6万赞</span>
+                                </div>
+                                <i class="ri-arrow-right-s-line text-2xl text-gray-400"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tournament Card 2 (已结束) -->
+                    <div class="bg-gray-50 rounded-3xl border border-gray-200 overflow-hidden opacity-75">
+                        <div class="relative grayscale">
+                            <div class="aspect-[4/3] bg-gray-200 flex items-center justify-center text-gray-400 tracking-widest">历史赛事封面</div>
+                            <div class="absolute top-4 right-4 bg-gray-400 text-white px-4 py-2 rounded-xl text-base font-bold">
+                                已结束
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <h2 class="text-2xl font-bold text-gray-400 mb-3 leading-tight">首届“智慧生活”短视频创作大赛</h2>
+                            <div class="flex justify-between items-center">
+                                <div class="text-base text-gray-300">
+                                    3,400人参与 · 1.2w赞
+                                </div>
+                                <i class="ri-arrow-right-s-line text-2xl text-gray-300"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Area B: Component Variants -->
+        <div class="flex flex-col gap-10 w-[360px]">
+            <div class="text-2xl font-bold text-gray-900">多状态展示</div>
+
+            <!-- Variant 1: Card Hover/Focus State Highlight -->
+            <div class="flex flex-col">
+                <div class="text-lg font-bold text-gray-700 mb-4 pl-3 border-l-4 border-gray-900">组件 I：赛事卡片细节</div>
+                <div class="bg-white p-6 border border-gray-200 shadow-md">
+                    <div class="text-base text-gray-400 mb-2">来自：<span class="text-gray-900 font-medium">星光摄影老年大学</span></div>
+                    <div class="h-0.5 bg-gray-100 w-full my-4"></div>
+                    <div class="flex items-center justify-between">
+                        <div class="flex -space-x-2">
+                            <div class="w-8 h-8 rounded-full bg-gray-100 border border-white"></div>
+                            <div class="w-8 h-8 rounded-full bg-gray-200 border border-white"></div>
+                            <div class="w-8 h-8 rounded-full bg-gray-300 border border-white"></div>
+                        </div>
+                        <div class="text-base font-bold text-gray-900">立即前往参赛 <i class="ri-arrow-right-line"></i></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Variant 2: Alternative Empty State -->
+            <div class="flex flex-col">
+                <div class="text-lg font-bold text-gray-700 mb-4 pl-3 border-l-4 border-gray-900">状态 II：空列表引导</div>
+                <div class="bg-white p-8 border border-gray-200 shadow-md flex flex-col items-center justify-center text-center">
+                    <i class="ri-palette-line text-5xl text-gray-200 mb-6"></i>
+                    <p class="text-lg text-gray-400 mb-8 leading-relaxed">主理人还没开启任何赛事<br>先去看看精彩的“活动”吧</p>
+                    <button class="w-full h-14 bg-gray-900 text-white rounded-2xl text-lg font-medium">去活动频道逛逛</button>
+                    <button class="w-full h-14 mt-3 bg-white border border-gray-200 text-gray-400 rounded-2xl text-lg">暂不开启</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>

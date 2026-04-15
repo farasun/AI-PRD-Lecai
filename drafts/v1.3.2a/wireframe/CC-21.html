@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CC-21 社团作品管理 - 低保真线框图</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
+    <style>
+        body { background-color: #e5e7eb; }
+    </style>
+</head>
+<body class="min-h-screen flex justify-center p-12 overflow-x-auto">
+
+    <div id="artboard" class="flex flex-row items-start gap-24">
+        
+        <!-- Area A: Main View (Tournament Filter Active) -->
+        <div class="flex flex-col">
+            <div class="text-xl font-bold text-gray-900 mb-4">CC-21 社团作品管理 (状态 I：赛事筛选)</div>
+            <div class="w-[375px] bg-white shadow-2xl border border-gray-200 relative p-0 overflow-hidden">
+                
+                <!-- Navbar -->
+                <div class="h-16 flex items-center px-4 border-b border-gray-100">
+                    <i class="ri-arrow-left-s-line text-2xl"></i>
+                    <div class="flex-1 text-center font-bold text-gray-900">作品管控</div>
+                    <i class="ri-search-line text-2xl"></i>
+                </div>
+
+                <!-- Filter Area (MODIFIED) -->
+                <div class="px-6 py-4 bg-gray-50 border-b border-gray-100 overflow-x-auto flex gap-3 no-scrollbar">
+                    <span class="whitespace-nowrap px-4 py-2 bg-white border border-gray-200 rounded-full text-base text-gray-400">全部</span>
+                    <span class="whitespace-nowrap px-4 py-2 bg-gray-900 text-white rounded-full text-base font-bold">2026摄影大赛</span>
+                    <span class="whitespace-nowrap px-4 py-2 bg-white border border-gray-200 rounded-full text-base text-gray-400">春日打卡活动</span>
+                </div>
+
+                <!-- Work List -->
+                <div class="p-0 h-auto pb-24">
+                    <!-- List Item 1 -->
+                    <div class="p-6 border-b border-gray-50 flex items-center gap-4">
+                        <div class="w-20 h-20 bg-gray-100 rounded-xl overflow-hidden flex-none">
+                            <div class="w-full h-full bg-gray-200 flex items-center justify-center text-xs text-gray-400">封面</div>
+                        </div>
+                        <div class="flex-1 truncate">
+                            <div class="text-lg font-bold text-gray-900 truncate mb-1">苏州河畔的马年灯会</div>
+                            <div class="text-base text-gray-400">作者：王大叔 · 4,520赞</div>
+                        </div>
+                        <i class="ri-more-fill text-2xl text-gray-400"></i>
+                    </div>
+
+                    <!-- List Item 2 (Blocked Sample) -->
+                    <div class="p-6 border-b border-gray-50 flex items-center gap-4 bg-gray-50 opacity-60">
+                        <div class="w-20 h-20 bg-gray-200 rounded-xl overflow-hidden flex-none grayscale"></div>
+                        <div class="flex-1 truncate">
+                            <div class="text-lg font-bold text-gray-400 truncate mb-1">被屏蔽的作品标题</div>
+                            <div class="text-sm font-bold text-red-500 bg-red-50 inline-block px-2 rounded">已下架</div>
+                        </div>
+                        <i class="ri-more-fill text-2xl text-gray-400"></i>
+                    </div>
+
+                    <!-- List Item 3 -->
+                    <div class="p-6 border-b border-gray-50 flex items-center gap-4">
+                        <div class="w-20 h-20 bg-gray-100 rounded-xl flex-none"></div>
+                        <div class="flex-1 truncate">
+                            <div class="text-lg font-bold text-gray-900 truncate mb-1">龙腾虎跃闹新春</div>
+                            <div class="text-base text-gray-400">作者：李老师 · 890赞</div>
+                        </div>
+                        <i class="ri-more-fill text-2xl text-gray-400"></i>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Area B: Component Variants -->
+        <div class="flex flex-col gap-10 w-[360px]">
+            <div class="text-2xl font-bold text-gray-900">多状态展示</div>
+
+            <!-- Variant 1: Operation Menu (NEW) -->
+            <div class="flex flex-col">
+                <div class="text-lg font-bold text-gray-700 mb-4 pl-3 border-l-4 border-gray-900">组件 I：管理操作菜单</div>
+                <div class="bg-white border border-gray-200 shadow-xl rounded-2xl overflow-hidden">
+                    <div class="p-4 border-b border-gray-100 flex items-center gap-3">
+                         <i class="ri-share-forward-line"></i><span>推荐作品</span>
+                    </div>
+                    <div class="p-4 border-b border-gray-100 flex items-center gap-3">
+                         <i class="ri-edit-line"></i><span>编辑标题</span>
+                    </div>
+                    <!-- NEW ACTION: Force Takedown -->
+                    <div class="p-4 flex items-center gap-3 text-red-500 font-bold">
+                         <i class="ri-close-circle-line"></i><span>强制下架并屏蔽</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Variant 2: Takedown Confirmation Modal -->
+            <div class="flex flex-col">
+                <div class="text-lg font-bold text-gray-700 mb-4 pl-3 border-l-4 border-gray-900">组件 II：下架二次确认</div>
+                <div class="bg-white p-8 border border-gray-200 shadow-md text-center">
+                    <i class="ri-alert-line text-4xl text-red-500 mb-4"></i>
+                    <h4 class="text-xl font-bold text-gray-900 mb-2">确认强制下架？</h4>
+                    <p class="text-base text-gray-400 mb-8">下架后，普通用户将无法在 C 端看到此作品，且该操作不可撤销。</p>
+                    <div class="flex gap-4">
+                        <button class="flex-1 h-12 bg-gray-100 rounded-xl text-gray-700">我再想想</button>
+                        <button class="flex-1 h-12 bg-red-500 text-white rounded-xl font-bold">立即下架</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>

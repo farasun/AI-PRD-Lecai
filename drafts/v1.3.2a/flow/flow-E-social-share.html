@@ -7,270 +7,210 @@
     <style>
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-        /* 工程点阵网格背景 */
+        /* 点阵画布背景 */
         .bg-dot-grid {
             background-image: radial-gradient(circle, #cbd5e1 1px, transparent 1px);
             background-size: 20px 20px;
-        }
-        .phone-shell {
-            width: 375px;
-            height: 812px;
-            background: #fff;
-            border: 1px solid #e5e7eb;
-            border-radius: 40px;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            transform-origin: top left;
-            transform: scale(0.65);
-        }
-        .landing-mask {
-            opacity: 0.6;
-            filter: grayscale(20%);
         }
     </style>
 </head>
 <body class="m-0 p-0 bg-gray-200 no-scrollbar font-sans text-gray-900">
 
-    <!-- ① 悬浮标题板 (Fixed Position) -->
-    <div style="position:fixed;top:24px;left:24px;z-index:100;background:rgba(17,24,39,0.85);backdrop-filter:blur(8px);border-radius:12px;padding:12px 20px;border:1px solid rgba(255,255,255,0.1);box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);">
-        <div style="font-size:16px;font-weight:700;color:#fff;">社交交互与广告转化链路 (Flow E)</div>
-        <div style="font-size:12px;color:#9ca3af;margin-top:4px;">v1.3.2a · Low-Fi Flow Map · 2026-04-13</div>
-        <div class="mt-3 pt-3 border-t border-gray-700 flex space-x-4">
-            <div class="flex items-center space-x-1.5"><div class="w-2 h-2 bg-purple-500 rounded-full"></div><span class="text-[10px] text-gray-400 uppercase font-bold tracking-tighter">Growth Engine</span></div>
-            <div class="flex items-center space-x-1.5"><div class="w-2 h-2 bg-blue-500 rounded-full opacity-30"></div><span class="text-[10px] text-gray-400 uppercase font-bold tracking-tighter">Baseline Page</span></div>
-        </div>
+    <!-- ① 悬浮标题板 -->
+    <div style="position:fixed;top:24px;left:24px;z-index:100;background:rgba(17,24,39,0.85);backdrop-filter:blur(8px);border-radius:12px;padding:12px 20px;">
+        <div style="font-size:16px;font-weight:700;color:#fff;">Flow E · 社交交互与广告转化 (Low-Fi 标准版)</div>
+        <div style="font-size:12px;color:#9ca3af;margin-top:4px;">v1.3.2a · Low-Fi Flow Map · 2026-04-15</div>
     </div>
 
-    <!-- ② 画布 (Extra Large for Scrolling) -->
+    <!-- ② 画布 -->
     <div class="relative bg-dot-grid w-[3200px] h-[2000px] no-scrollbar">
 
-        <!-- ③ SVG 连线层 (Bezier Curved Paths) -->
+        <!-- ③ SVG 连线层 -->
         <svg class="absolute inset-0 w-full h-full pointer-events-none z-0">
             <defs>
-                <marker id="arrow-purple" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
-                    <path d="M0,0 L0,6 L8,3 z" fill="#a855f7" />
+                <marker id="arrow-gray" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                    <path d="M0,0 L0,6 L9,3 z" fill="#94a3b8" />
                 </marker>
             </defs>
 
-            <!-- Row 1: E-1 Chain (AD-A3) -->
-            <!-- 1.1 -> 1.2 -->
-            <path d="M 344 464 C 470 464, 470 464, 598 464" stroke="#a855f7" stroke-width="2.5" fill="none" marker-end="url(#arrow-purple)" />
-            <rect x="420" y="449" width="105" height="30" fill="#f8fafc" rx="4" stroke="#e2e8f0" stroke-width="1" />
-            <text x="472" y="469" fill="#7c3aed" font-size="12" font-weight="700" text-anchor="middle">点击[分享拉票]</text>
+            <!-- Row 1: E-1 Chain -->
+            <path d="M 344 464 L 598 464" stroke="#94a3b8" stroke-width="2" fill="none" marker-end="url(#arrow-gray)" />
+            <rect x="410" y="450" width="120" height="28" fill="#f8fafc" rx="4" />
+            <text x="470" y="469" fill="#64748b" font-size="14" font-weight="500" text-anchor="middle">点击[分享拉票]</text>
 
-            <!-- 1.2 -> 1.3 -->
-            <path d="M 944 464 C 1070 464, 1070 464, 1198 464" stroke="#a855f7" stroke-width="2.5" stroke-dasharray="6,4" fill="none" marker-end="url(#arrow-purple)" />
-            <rect x="1020" y="449" width="105" height="30" fill="#f8fafc" rx="4" stroke="#e2e8f0" stroke-width="1" />
-            <text x="1072" y="469" fill="#7c3aed" font-size="12" font-weight="700" text-anchor="middle">受邀人进入助力</text>
+            <path d="M 944 464 L 1198 464" stroke="#94a3b8" stroke-width="2" fill="none" marker-end="url(#arrow-gray)" />
+            <rect x="1010" y="450" width="120" height="28" fill="#f8fafc" rx="4" />
+            <text x="1070" y="469" fill="#64748b" font-size="14" font-weight="500" text-anchor="middle">受邀人进入助力</text>
 
-            <!-- Row 2: E-2 Chain (AD-A2) -->
-            <!-- 2.1 -> 2.2 -->
-            <path d="M 344 1214 C 470 1214, 470 1214, 598 1214" stroke="#a855f7" stroke-width="2.5" fill="none" marker-end="url(#arrow-purple)" />
-            <rect x="420" y="1199" width="105" height="30" fill="#f8fafc" rx="4" stroke="#e2e8f0" stroke-width="1" />
-            <text x="472" y="1219" fill="#7c3aed" font-size="12" font-weight="700" text-anchor="middle">点击[邀请参赛]</text>
+            <!-- Row 2: E-2 Chain -->
+            <path d="M 344 1214 L 598 1214" stroke="#94a3b8" stroke-width="2" fill="none" marker-end="url(#arrow-gray)" />
+            <rect x="410" y="1200" width="120" height="28" fill="#f8fafc" rx="4" />
+            <text x="470" y="1219" fill="#64748b" font-size="14" font-weight="500" text-anchor="middle">点击[邀请参赛]</text>
 
-            <!-- 2.2 -> 2.3 -->
-            <path d="M 944 1214 C 1070 1214, 1070 1214, 1198 1214" stroke="#a855f7" stroke-width="2.5" stroke-dasharray="6,4" fill="none" marker-end="url(#arrow-purple)" />
-            <rect x="1020" y="1199" width="105" height="30" fill="#f8fafc" rx="4" stroke="#e2e8f0" stroke-width="1" />
-            <text x="1072" y="1219" fill="#7c3aed" font-size="12" font-weight="700" text-anchor="middle">受邀人进入报名</text>
+            <path d="M 944 1214 L 1198 1214" stroke="#94a3b8" stroke-width="2" fill="none" marker-end="url(#arrow-gray)" />
+            <rect x="1010" y="1200" width="120" height="28" fill="#f8fafc" rx="4" />
+            <text x="1070" y="1219" fill="#64748b" font-size="14" font-weight="500" text-anchor="middle">受邀人进入报名</text>
         </svg>
 
-        <!-- ④ 节点容器 (Coordinate Safety: top >= 150px, left >= 100px) -->
+        <!-- ④ 节点容器 -->
 
-        <!-- ==========================================
-             E-1: 拉票增长流 (AD-A3)
-             ========================================== -->
-
-        <!-- 1.1 CC-6 转发页 -->
+        <!-- 1.1 CC-6 (转发源) -->
         <div class="absolute" style="left: 100px; top: 200px;">
-            <div id="CC-6" class="absolute -top-10 left-0 bg-gray-900 text-white text-sm px-3 py-1 rounded shadow-sm z-10 flex items-center font-bold">
-                CC-6 · 社团作品详情 (转发源)
-            </div>
-            <div class="phone-shell">
-                <div class="h-14 flex items-center px-6 border-b border-gray-100 shrink-0">
-                    <i class="ri-arrow-left-s-line text-2xl"></i>
+            <div id="CC-6" class="absolute -top-10 left-0 bg-gray-900 text-white text-sm px-3 py-1 rounded shadow-sm z-10 font-bold">CC-6 · 作品详情 (转发源)</div>
+            <div class="w-[375px] h-[812px] bg-white border border-gray-200 rounded-[40px] shadow-2xl overflow-hidden transform scale-[0.65] origin-top-left flex flex-col relative text-gray-900">
+                <div class="h-16 flex items-center px-6 border-b border-gray-50 shrink-0">
+                    <i class="ri-arrow-left-s-line text-2xl text-gray-400"></i>
                     <span class="flex-1 text-center font-bold">作品详情</span>
-                    <i class="ri-more-fill text-2xl"></i>
+                    <i class="ri-more-fill text-2xl text-gray-400"></i>
                 </div>
-                <div class="flex-1 overflow-y-auto no-scrollbar bg-gray-50 flex flex-col">
-                    <div class="aspect-square bg-white flex flex-col items-center justify-center border-b shadow-inner">
-                        <i class="ri-image-2-line text-5xl text-gray-200"></i>
+                <div class="flex-1 overflow-y-auto no-scrollbar bg-gray-50">
+                    <div class="aspect-square bg-white flex items-center justify-center border-b">
+                        <i class="ri-image-2-line text-5xl text-gray-100"></i>
                     </div>
                     <div class="p-8 bg-white space-y-4">
                         <div class="flex items-center gap-3">
-                            <div class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center"><i class="ri-user-smile-line text-gray-400"></i></div>
-                            <div class="font-bold text-gray-900">法拉孙Fara</div>
+                            <div class="w-10 h-10 rounded-full bg-gray-100 border border-gray-100"></div>
+                            <div class="font-bold text-gray-900">作者用户名</div>
                         </div>
-                        <h1 class="text-2xl font-black text-gray-900 leading-tight">冰 鱼 (参赛作品)</h1>
-                        <p class="text-sm text-gray-500 leading-relaxed font-normal">记录咱们舞之魂社团在公园排练的精美瞬间...</p>
+                        <h1 class="text-2xl font-bold leading-tight uppercase tracking-tight">作品标题内容</h1>
+                        <p class="text-sm text-gray-400 leading-relaxed font-normal italic">作品描述文案，分享生活中的精彩瞬间...</p>
                     </div>
-                    <!-- Interaction Area -->
-                    <div class="mt-auto p-8 border-t bg-white flex space-x-4">
-                        <div class="flex-1 h-14 border border-gray-200 rounded-2xl flex items-center justify-center text-gray-400 font-bold"><i class="ri-thumb-up-line mr-2"></i> 点赞</div>
-                        <div class="flex-1 h-14 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-black shadow-lg shadow-blue-100 relative group">
-                            <i class="ri-share-forward-line mr-2"></i> 分享拉票
-                            <div class="absolute -right-2 -bottom-2 w-6 h-6 bg-red-500 rounded-full border-2 border-white flex items-center justify-center">
-                                <i class="ri-cursor-fill text-[10px] text-white"></i>
-                            </div>
-                        </div>
+                </div>
+                <!-- Interaction Area -->
+                <div class="p-8 border-t bg-white flex gap-4 shrink-0">
+                    <div class="flex-1 h-14 border border-gray-200 rounded-2xl flex items-center justify-center text-gray-400 font-bold italic"><i class="ri-thumb-up-line mr-2"></i> 点赞</div>
+                    <div class="flex-1 h-14 bg-gray-900 text-white rounded-2xl flex items-center justify-center font-bold shadow-xl">
+                        <i class="ri-share-forward-line mr-2"></i> 分享拉票
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- 1.2 AD-A3 广告弹框 (营销重心) -->
+        <!-- 1.2 AD-A3 (拉票详情弹窗) -->
         <div class="absolute" style="left: 600px; top: 200px;">
-            <div id="AD-A3" class="absolute -top-10 left-0 bg-gray-900 text-white text-sm px-3 py-1 rounded shadow-sm z-10 flex items-center font-bold">
-                AD-A3 · 拉票详情弹窗
-                <span class="ml-2 px-1.5 py-0.5 bg-purple-500 text-[10px] font-black rounded uppercase tracking-tighter">Growth</span>
-            </div>
-            <div class="phone-shell border-none shadow-none bg-black/70 flex items-center justify-center p-10">
-                <div class="w-full bg-white rounded-[32px] overflow-hidden flex flex-col shadow-2xl scale-110">
-                    <div class="p-3 bg-red-600 text-white text-[10px] font-black uppercase text-center tracking-widest leading-none">
-                        由泰康人寿提供助力权益鸣谢支持
+            <div id="AD-A3" class="absolute -top-10 left-0 bg-gray-900 text-white text-sm px-3 py-1 rounded shadow-sm z-10 font-bold">AD-A3 · 拉票详情弹窗</div>
+            <div class="w-[375px] h-[812px] bg-gray-900/40 rounded-[44px] shadow-2xl overflow-hidden transform scale-[0.65] origin-top-left flex items-center justify-center relative p-10">
+                <div class="w-full bg-white rounded-[32px] overflow-hidden flex flex-col shadow-2xl border border-gray-100">
+                    <div class="p-3 bg-gray-100 text-gray-400 text-[8px] font-bold uppercase text-center tracking-widest border-b border-gray-200">
+                        由某某品牌提供助力权益鸣谢
                     </div>
-                    <div class="p-10 space-y-8 text-center">
-                        <div class="text-gray-400 text-xs font-black uppercase tracking-widest leading-relaxed">
-                            由 <span class="text-gray-900 border-b-2 border-red-500 italic pb-0.5 font-black">法拉孙Fara</span> 邀请您助力
+                    <div class="p-10 space-y-6 text-center">
+                        <div class="text-[10px] text-gray-400 font-bold uppercase tracking-widest">
+                            由 <span class="text-gray-900 font-black italic underline">用户名</span> 邀请助力
                         </div>
-                        <div class="aspect-square bg-gray-50 rounded-3xl flex flex-col items-center justify-center p-6 border-2 border-red-100 border-dashed relative overflow-hidden">
-                             <i class="ri-heart-pulse-fill text-6xl text-red-50 absolute -bottom-4 -right-4 rotate-12"></i>
-                             <i class="ri-award-fill text-6xl text-gray-100 z-10"></i>
+                        <div class="aspect-square bg-gray-50 rounded-3xl flex flex-col items-center justify-center p-6 border-2 border-dashed border-gray-200">
+                             <i class="ri-award-line text-6xl text-gray-200"></i>
+                             <div class="text-[8px] font-bold text-gray-300 mt-2 tracking-widest uppercase">Match Trophy</div>
                         </div>
                         <div class="space-y-4">
-                            <h2 class="text-xl font-black italic tracking-tighter text-gray-900 uppercase">帮他助力投票 · 冲击马年大奖</h2>
-                            <button class="w-full py-5 bg-orange-600 text-white font-black rounded-3xl text-lg shadow-2xl shadow-orange-100 uppercase tracking-tighter italic">立即助力投票</button>
+                            <h2 class="text-xl font-bold italic tracking-tighter text-gray-900 uppercase leading-snug">帮他助力投票 · 冲刺大奖</h2>
+                            <button class="w-full py-5 bg-gray-900 text-white font-bold rounded-2xl text-lg shadow-xl uppercase tracking-tighter italic">立即助力投票</button>
                         </div>
-                    </div>
-                    <div class="p-4 bg-gray-50 flex items-center justify-center space-x-2">
-                        <i class="ri-shield-check-fill text-emerald-500"></i>
-                        <span class="text-[8px] font-black text-gray-300 italic uppercase italic tracking-widest leading-none">Security Verified Vote System</span>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- 1.3 CC-6 落地页 -->
+        <!-- 1.3 CC-6 (助力完成落地页) -->
         <div class="absolute" style="left: 1200px; top: 200px;">
-            <div id="CC-6-Landing" class="absolute -top-10 left-0 bg-blue-500/20 text-blue-700 text-sm px-3 py-1 rounded shadow-sm z-10 flex items-center font-bold">
-                CC-6 · 落地接续 (助力成功)
-            </div>
-            <div class="phone-shell landing-mask">
-                <div class="h-14 bg-gray-100 shrink-0"></div>
+            <div id="CC-6-Landing" class="absolute -top-10 left-0 bg-gray-900 text-white text-sm px-3 py-1 rounded shadow-sm z-10 font-bold">CC-6 · 落地接续 (助力成功)</div>
+            <div class="w-[375px] h-[812px] bg-white border border-gray-200 rounded-[40px] shadow-2xl overflow-hidden transform scale-[0.65] origin-top-left flex flex-col relative opacity-60">
+                <div class="h-14 bg-gray-50 flex items-center px-6 shrink-0 border-b border-gray-100">
+                   <div class="w-8 h-4 bg-gray-200 rounded-full"></div>
+                </div>
                 <div class="flex-1 bg-white p-8">
                     <div class="h-10 w-48 bg-gray-100 rounded mb-4"></div>
-                    <div class="h-4 w-full bg-gray-50 rounded mb-2"></div>
-                    <div class="h-4 w-2/3 bg-gray-50 rounded mb-8"></div>
-                    <div class="pt-8 border-t border-gray-100">
-                         <div class="text-lg font-bold text-gray-300 mb-6">全部互动 (1,234)</div>
-                         <div class="space-y-6 opacity-30">
-                             <div class="flex gap-3"><div class="w-8 h-8 rounded-full bg-gray-50"></div><div class="h-4 flex-1 bg-gray-50 rounded"></div></div>
-                             <div class="flex gap-3"><div class="w-8 h-8 rounded-full bg-gray-50"></div><div class="h-4 flex-1 bg-gray-50 rounded"></div></div>
+                    <div class="h-3 w-full bg-gray-50 rounded mb-2"></div>
+                    <div class="h-3 w-2/3 bg-gray-50 rounded mb-10"></div>
+                    <div class="pt-8 border-t border-gray-50">
+                         <div class="text-xs font-bold text-gray-300 mb-6 uppercase tracking-widest">Comments (1,234)</div>
+                         <div class="space-y-4 opacity-50">
+                             <div class="flex gap-3"><div class="w-10 h-10 rounded-full bg-gray-100"></div><div class="h-3 flex-1 bg-gray-50 rounded mt-2"></div></div>
+                             <div class="flex gap-3"><div class="w-10 h-10 rounded-full bg-gray-100"></div><div class="h-3 flex-1 bg-gray-50 rounded mt-2"></div></div>
                          </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- ==========================================
-             E-2: 报名增长流 (AD-A2)
-             ========================================== -->
-
-        <!-- 2.1 CC-26 转发页 -->
+        <!-- 2.1 CC-26 (转发源) -->
         <div class="absolute" style="left: 100px; top: 950px;">
-            <div id="CC-26" class="absolute -top-10 left-0 bg-gray-900 text-white text-sm px-3 py-1 rounded shadow-sm z-10 flex items-center font-bold">
-                CC-26 · 社团赛事主页 (转发源)
-            </div>
-            <div class="phone-shell">
-                <div class="h-16 flex items-center px-6 border-b border-gray-100 shrink-0 bg-white shadow-sm">
-                    <i class="ri-arrow-left-s-line text-2xl"></i>
+            <div id="CC-26" class="absolute -top-10 left-0 bg-gray-900 text-white text-sm px-3 py-1 rounded shadow-sm z-10 font-bold">CC-26 · 赛事主页 (转发源)</div>
+            <div class="w-[375px] h-[812px] bg-white border border-gray-200 rounded-[40px] shadow-2xl overflow-hidden transform scale-[0.65] origin-top-left flex flex-col relative text-gray-900">
+                <div class="h-16 flex items-center px-6 border-b border-gray-50 shadow-sm shrink-0">
+                    <i class="ri-arrow-left-s-line text-2xl text-gray-400"></i>
                     <span class="flex-1 text-center font-bold">赛事详情</span>
-                    <i class="ri-share-forward-box-line text-xl"></i>
+                    <i class="ri-share-forward-box-line text-xl text-gray-400"></i>
                 </div>
                 <div class="flex-1 overflow-y-auto no-scrollbar bg-gray-50">
-                    <div class="h-44 bg-gradient-to-br from-blue-700 to-indigo-800 flex flex-col items-center justify-center p-6 text-white text-center">
-                        <div class="text-sm font-black italic bg-white/10 px-3 py-1 rounded-full mb-2">2026 OFFICIAL TOURNAMENT</div>
-                        <div class="text-4xl font-black italic tracking-tighter">迎春杯大奖赛</div>
+                    <div class="h-44 bg-gray-900 flex flex-col items-center justify-center p-6 text-white text-center">
+                        <div class="text-[8px] font-bold italic border border-white/20 px-2 py-0.5 rounded mb-2 tracking-widest">2026 OFFICIAL</div>
+                        <div class="text-3xl font-black italic tracking-tighter uppercase">Win-Spring Cup</div>
                     </div>
                     <div class="p-6 bg-white space-y-6">
-                        <div class="flex border-b border-gray-100 pb-2 mb-6">
-                            <div class="flex-1 py-3 text-center border-b-[3px] border-blue-600 text-blue-600 font-black">赛事详情</div>
+                        <div class="flex border-b border-gray-100 pb-2">
+                            <div class="flex-1 py-3 text-center border-b-[3px] border-gray-900 font-bold">详情规则</div>
                             <div class="flex-1 py-3 text-center text-gray-300">排行榜单</div>
                         </div>
-                        <div class="space-y-4">
+                        <div class="space-y-4 opacity-30">
                             <div class="h-4 bg-gray-100 rounded-full w-full"></div>
                             <div class="h-4 bg-gray-100 rounded-full w-5/6"></div>
-                            <div class="h-4 bg-gray-100 rounded-full w-2/3"></div>
                         </div>
                     </div>
                 </div>
-                <!-- Highlighted Action -->
-                <div class="p-8 border-t bg-white">
-                    <div class="h-14 bg-gray-100 border-2 border-dashed border-gray-200 rounded-2xl flex items-center justify-center text-gray-400 font-bold relative">
+                <div class="p-8 border-t border-gray-100 bg-white shrink-0">
+                    <div class="h-14 bg-gray-50 border-2 border-dashed border-gray-200 rounded-2xl flex items-center justify-center text-gray-400 font-bold italic">
                         <i class="ri-user-follow-line mr-2"></i> 邀请好友参赛
-                        <div class="absolute -right-2 -bottom-2 w-6 h-6 bg-blue-500 rounded-full border-2 border-white flex items-center justify-center">
-                            <i class="ri-cursor-fill text-[10px] text-white"></i>
-                        </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- 2.2 AD-A2 广告弹框 (营销重心) -->
+        <!-- 2.2 AD-A2 (邀请参赛弹窗) -->
         <div class="absolute" style="left: 600px; top: 950px;">
-            <div id="AD-A2" class="absolute -top-10 left-0 bg-gray-900 text-white text-sm px-3 py-1 rounded shadow-sm z-10 flex items-center font-bold">
-                AD-A2 · 邀请参赛弹窗
-                <span class="ml-2 px-1.5 py-0.5 bg-purple-500 text-[10px] font-black rounded uppercase tracking-tighter">Growth</span>
-            </div>
-            <div class="phone-shell border-none shadow-none bg-black/70 flex items-center justify-center p-10">
-                <div class="w-full bg-white rounded-[32px] overflow-hidden flex flex-col shadow-2xl scale-110">
-                    <div class="p-4 bg-blue-700 text-white text-[10px] font-black uppercase text-center tracking-widest leading-none">
-                        泰康之家 · 邀您共赏银发艺术之美
+            <div id="AD-A2" class="absolute -top-10 left-0 bg-gray-900 text-white text-sm px-3 py-1 rounded shadow-sm z-10 font-bold">AD-A2 · 邀请参赛弹窗</div>
+            <div class="w-[375px] h-[812px] bg-gray-900/40 rounded-[44px] shadow-2xl overflow-hidden transform scale-[0.65] origin-top-left flex items-center justify-center relative p-10">
+                <div class="w-full bg-white rounded-[32px] overflow-hidden flex flex-col shadow-2xl border border-gray-100">
+                    <div class="p-4 bg-gray-900 text-white text-[8px] font-bold uppercase text-center tracking-widest border-b border-gray-800">
+                        某某冠名赞助内容
                     </div>
                     <div class="p-10 space-y-8 text-center">
-                        <div class="w-20 h-20 bg-blue-50 rounded-full flex items-center justify-center mx-auto shadow-inner">
-                            <i class="ri-user-star-fill text-blue-600 text-4xl"></i>
+                        <div class="w-20 h-20 bg-gray-50 rounded-full flex items-center justify-center mx-auto border border-gray-100 shadow-inner">
+                            <i class="ri-user-star-line text-gray-400 text-4xl"></i>
                         </div>
                         <div class="space-y-3">
-                            <div class="text-xl font-black text-gray-900 leading-tight">社友喊你来参赛啦</div>
-                            <p class="text-[11px] text-gray-400 font-bold uppercase tracking-widest leading-relaxed px-4">
-                                “加入舞之魂社团战队，共同赢取马年新春豪礼！”
+                            <div class="text-xl font-bold text-gray-900 leading-tight uppercase tracking-tighter italic">Friend Invite</div>
+                            <p class="text-[10px] text-gray-400 font-bold uppercase tracking-widest leading-relaxed italic px-4">
+                                “加入我们的社团战队，共同赢取大奖吧！”
                             </p>
                         </div>
-                        <div class="aspect-video bg-gray-50 border-2 border-dashed border-gray-100 rounded-3xl flex flex-col items-center justify-center text-gray-300">
-                             <i class="ri-trophy-line text-4xl mb-2"></i>
-                             <span class="text-[8px] font-black uppercase tracking-widest">Competition Preview</span>
+                        <div class="aspect-video bg-gray-50 border border-dashed border-gray-200 rounded-2xl flex flex-col items-center justify-center text-gray-200">
+                             <i class="ri-trophy-line text-3xl mb-1"></i>
+                             <span class="text-[8px] font-bold tracking-widest uppercase italic">Spring Competition</span>
                         </div>
-                        <button class="w-full py-5 bg-blue-600 text-white font-black rounded-3xl text-lg shadow-2xl shadow-blue-100 uppercase tracking-tighter italic">接受邀请并参赛</button>
-                    </div>
-                    <div class="p-3 bg-gray-50 text-center">
-                        <span class="text-gray-300 text-[8px] font-black tracking-widest uppercase italic">Sponsored by Taikang Senior Living</span>
+                        <button class="w-full py-5 bg-gray-900 text-white font-bold rounded-2xl text-lg shadow-xl uppercase tracking-tighter italic">接受邀请并参赛</button>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- 2.3 CC-26 落地页 -->
+        <!-- 2.3 CC-26 (引导参赛落地页) -->
         <div class="absolute" style="left: 1200px; top: 950px;">
-            <div id="CC-26-Landing" class="absolute -top-10 left-0 bg-blue-500/20 text-blue-700 text-sm px-3 py-1 rounded shadow-sm z-10 flex items-center font-bold">
-                CC-26 · 落地接续 (引导参赛)
-            </div>
-            <div class="phone-shell landing-mask">
-                <div class="h-16 flex items-center px-6 border-b bg-white shrink-0">
-                    <i class="ri-arrow-left-s-line text-2xl"></i>
-                    <span class="flex-1 text-center font-bold">迎春杯摄影大赛</span>
+            <div id="CC-26-Landing" class="absolute -top-10 left-0 bg-gray-900 text-white text-sm px-3 py-1 rounded shadow-sm z-10 font-bold">CC-26 · 落地接续 (引导参赛)</div>
+            <div class="w-[375px] h-[812px] bg-white border border-gray-200 rounded-[40px] shadow-2xl overflow-hidden transform scale-[0.65] origin-top-left flex flex-col relative opacity-60">
+                <div class="h-16 flex items-center px-6 border-b border-gray-50 shrink-0">
+                    <i class="ri-arrow-left-s-line text-2xl text-gray-300"></i>
+                    <span class="flex-1 text-center font-bold text-gray-300">赛事详情页</span>
                 </div>
-                <div class="flex-1 bg-white p-8 space-y-8">
-                     <div class="h-40 bg-gray-50 rounded-2xl"></div>
+                <div class="flex-1 p-8 space-y-8">
+                     <div class="h-40 bg-gray-50 rounded-2xl border border-gray-100"></div>
                      <div class="grid grid-cols-2 gap-4">
-                        <div class="aspect-square bg-gray-50 rounded-2xl"></div>
-                        <div class="aspect-square bg-gray-50 rounded-2xl"></div>
+                        <div class="aspect-square bg-gray-50 rounded-2xl border border-gray-100"></div>
+                        <div class="aspect-square bg-gray-50 rounded-2xl border border-gray-100"></div>
                      </div>
                 </div>
-                <div class="p-6 border-t bg-white">
-                    <div class="h-14 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-black text-lg">立即报名参赛</div>
+                <div class="p-6 border-t border-gray-100 bg-white shrink-0">
+                    <div class="h-14 bg-gray-300 text-white rounded-2xl flex items-center justify-center font-bold">立即报名参赛</div>
                 </div>
             </div>
         </div>

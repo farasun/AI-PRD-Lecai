@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CC-27 团长赛事管理台 - 低保真线框图</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
+    <style>
+        body { background-color: #e5e7eb; }
+    </style>
+</head>
+<body class="min-h-screen flex justify-center p-12 overflow-x-auto">
+
+    <div id="artboard" class="flex flex-row items-start gap-24">
+        
+        <!-- Area A: Main View (Task Focused) -->
+        <div class="flex flex-col">
+            <div class="text-xl font-bold text-gray-900 mb-4">CC-27 团长赛事管理台 (主看板)</div>
+            <div class="w-[375px] bg-white shadow-2xl border border-gray-200 relative p-0 overflow-hidden">
+                
+                <!-- Navbar -->
+                <div class="h-16 flex items-center px-4 border-b border-gray-100">
+                    <i class="ri-arrow-left-s-line text-2xl"></i>
+                    <div class="flex-1 text-center font-bold text-gray-900">赛事管理</div>
+                </div>
+
+                <!-- Content -->
+                <div class="p-6 space-y-8 pb-32">
+                    
+                    <!-- Dashboard: Status Monitoring -->
+                    <div class="bg-gray-50 p-6 rounded-[32px] border border-gray-100">
+                        <div class="flex items-center justify-between mb-6">
+                            <span class="text-gray-400 font-bold">当前阶段</span>
+                            <span class="bg-gray-900 text-white px-3 py-1 rounded-lg font-bold text-sm tracking-widest">进行中 T2</span>
+                        </div>
+                        <div class="grid grid-cols-3 gap-4 text-center">
+                            <div class="flex flex-col">
+                                <span class="text-xs text-gray-400 mb-1">投稿开关</span>
+                                <span class="text-lg font-bold text-gray-900"><i class="ri-checkbox-circle-line text-gray-900 align-middle"></i> 开启</span>
+                            </div>
+                            <div class="flex flex-col border-x border-gray-200">
+                                <span class="text-xs text-gray-400 mb-1">互动冻结</span>
+                                <span class="text-lg font-bold text-gray-400">未锁定</span>
+                            </div>
+                            <div class="flex flex-col">
+                                <span class="text-xs text-gray-400 mb-1">结果公示</span>
+                                <span class="text-lg font-bold text-gray-400">未开始</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Core Task Card: Review -->
+                    <div class="bg-gray-900 p-8 rounded-[40px] shadow-xl relative overflow-hidden">
+                        <!-- Abstract Pattern -->
+                        <div class="absolute -right-4 -top-4 w-24 h-24 bg-white/5 rounded-full"></div>
+                        
+                        <div class="relative z-10">
+                            <div class="text-white/60 text-lg mb-2">待办审核任务</div>
+                            <div class="text-white text-5xl font-black mb-6">12 <span class="text-2xl font-bold">份</span></div>
+                            <button class="w-full h-16 bg-white text-gray-900 rounded-2xl text-xl font-bold">
+                                立即去审核 <i class="ri-arrow-right-line"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Navigation Links -->
+                    <div class="space-y-4">
+                        <div class="h-20 bg-white border border-gray-200 rounded-2xl flex items-center px-6">
+                            <i class="ri-folders-line text-2xl text-gray-900 mr-4"></i>
+                            <div class="flex-1">
+                                <div class="text-lg font-bold text-gray-900">赛事作品集管理</div>
+                                <div class="text-sm text-gray-400">批量下架或标记违规</div>
+                            </div>
+                            <i class="ri-arrow-right-s-line text-gray-300"></i>
+                        </div>
+                        <div class="h-20 bg-white border border-gray-200 rounded-2xl flex items-center px-6">
+                            <i class="ri-eye-line text-2xl text-gray-900 mr-4"></i>
+                            <div class="flex-1">
+                                <div class="text-lg font-bold text-gray-900">赛事规则预览</div>
+                                <div class="text-sm text-gray-400">查看前端展示效果 (CC-26)</div>
+                            </div>
+                            <i class="ri-arrow-right-s-line text-gray-300"></i>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Footer Tip -->
+                <div class="absolute bottom-6 w-full text-center px-10">
+                    <p class="text-base text-gray-400 italic">如需修改赛事阶段或开关，请前往平台 S 端或联系管理员。</p>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Area B: Component Variants -->
+        <div class="flex flex-col gap-10 w-[360px]">
+            <div class="text-2xl font-bold text-gray-900">多状态展示</div>
+
+            <!-- Variant 1: Empty Task State -->
+            <div class="flex flex-col">
+                <div class="text-lg font-bold text-gray-700 mb-4 pl-3 border-l-4 border-gray-900">状态 II：无待审核任务 (空闲态)</div>
+                <div class="bg-white p-8 border border-gray-200 shadow-md text-center">
+                    <div class="w-20 h-20 bg-gray-50 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="ri-coffee-line text-4xl text-gray-300"></i>
+                    </div>
+                    <p class="text-lg text-gray-400">目前没有任何待审作品，<br>可以休息一会儿啦</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>

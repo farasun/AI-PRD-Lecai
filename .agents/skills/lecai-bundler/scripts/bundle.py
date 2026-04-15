@@ -2,7 +2,12 @@ import os
 import sys
 import json
 import re
+import io
 from pathlib import Path
+
+# Ensure stdout uses UTF-8 to handle emojis and Chinese characters in Windows console
+if sys.stdout.encoding != 'utf-8':
+    sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
 
 def scan_dir(root_path, version_path, subdir, ext):
     """扫描目录并返回文件名与内容的映射"""

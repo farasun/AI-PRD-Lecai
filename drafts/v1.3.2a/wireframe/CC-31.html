@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CC-31 赛事管理-Web端 - 低保真线框图</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
+    <style>
+        body { background-color: #f3f4f6; } /* bg-gray-100 for web bg */
+        .sidebar-item-active { background-color: #111827; color: white; }
+    </style>
+</head>
+<body class="min-h-screen flex overflow-hidden">
+
+    <!-- Sidebar -->
+    <div class="w-64 bg-white border-r border-gray-200 flex flex-col">
+        <div class="h-20 flex items-center px-8 border-b border-gray-100">
+            <div class="w-10 h-10 bg-gray-900 rounded-lg flex items-center justify-center text-white"><i class="ri-government-line text-2xl"></i></div>
+            <span class="ml-3 text-xl font-bold text-gray-900">乐才运营后台</span>
+        </div>
+        <div class="flex-1 py-6">
+            <div class="px-4 space-y-2">
+                <div class="h-12 px-4 flex items-center rounded-xl sidebar-item-active">
+                    <i class="ri-trophy-line mr-3"></i> 赛事运营中心
+                </div>
+                <div class="h-12 px-4 flex items-center rounded-xl text-gray-500 hover:bg-gray-50 cursor-pointer">
+                    <i class="ri-community-line mr-3"></i> 社团主页管理
+                </div>
+                <div class="h-12 px-4 flex items-center rounded-xl text-gray-500 hover:bg-gray-50 cursor-pointer">
+                    <i class="ri-shield-user-line mr-3"></i> 内容质量治理
+                </div>
+                <div class="h-12 px-4 flex items-center rounded-xl text-gray-500 hover:bg-gray-50 cursor-pointer">
+                    <i class="ri-settings-4-line mr-3"></i> 全局系统设置
+                </div>
+            </div>
+        </div>
+        <div class="p-6 border-t border-gray-100 flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-gray-200"></div>
+            <div>
+                <div class="text-sm font-bold text-gray-900">平台管理员-张</div>
+                <div class="text-xs text-gray-400">超级权限</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Workspace -->
+    <div class="flex-1 flex flex-col h-screen overflow-hidden">
+        
+        <!-- Topbar -->
+        <div class="h-20 bg-white border-b border-gray-200 flex items-center justify-between px-10 flex-none">
+            <div class="flex items-center gap-2 text-gray-400">
+                <span>赛事运营中心</span>
+                <i class="ri-arrow-right-s-line"></i>
+                <span class="text-gray-900 font-bold">2026年马年摄影大赛配置</span>
+            </div>
+            <div class="flex gap-4">
+                <button class="h-11 px-6 bg-white border border-gray-200 rounded-xl font-medium text-gray-600">重置更改</button>
+                <button class="h-11 px-6 bg-gray-900 text-white rounded-xl font-bold shadow-lg shadow-gray-200">发布全局配置</button>
+            </div>
+        </div>
+
+        <!-- Scrollable content + Preview -->
+        <div class="flex-1 flex overflow-hidden">
+            
+            <!-- Config Form Area -->
+            <div class="flex-1 p-10 overflow-y-auto space-y-8 bg-gray-50">
+                
+                <!-- Dimension 1: Phase Machine -->
+                <div class="bg-white p-8 rounded-3xl border border-gray-200 shadow-sm">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-1.5 h-6 bg-gray-900 rounded-full"></div>
+                        <h2 class="text-xl font-bold text-gray-900">一、赛事生命周期控制 (Phase)</h2>
+                    </div>
+                    <div class="grid grid-cols-4 gap-4">
+                        <div class="p-5 border-2 border-gray-100 rounded-2xl flex flex-col items-center cursor-pointer hover:border-gray-300">
+                            <span class="text-gray-400 font-bold mb-1">T1</span>
+                            <span class="text-lg font-bold text-gray-400">预热报名中</span>
+                        </div>
+                        <div class="p-5 border-2 border-gray-900 bg-gray-900 rounded-2xl flex flex-col items-center">
+                            <span class="text-white/50 font-bold mb-1">T2</span>
+                            <span class="text-lg font-bold text-white">进行投稿中</span>
+                        </div>
+                        <div class="p-5 border-2 border-gray-100 rounded-2xl flex flex-col items-center cursor-pointer hover:border-gray-300">
+                            <span class="text-gray-400 font-bold mb-1">T3</span>
+                            <span class="text-lg font-bold text-gray-400">投票冲刺中</span>
+                        </div>
+                        <div class="p-5 border-2 border-gray-100 rounded-2xl flex flex-col items-center cursor-pointer hover:border-gray-300">
+                            <span class="text-gray-400 font-bold mb-1">T4</span>
+                            <span class="text-lg font-bold text-gray-400">已结束结算</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dimension 2 & 3: Governance Toggles -->
+                <div class="grid grid-cols-2 gap-8">
+                    <div class="bg-white p-8 rounded-3xl border border-gray-200 shadow-sm">
+                        <div class="flex justify-between items-start mb-6">
+                            <h3 class="text-lg font-bold text-gray-900">二、投稿审核模式 (Audit)</h3>
+                            <div class="w-14 h-8 bg-gray-900 rounded-full flex items-center justify-end px-1"><div class="w-6 h-6 bg-white rounded-full"></div></div>
+                        </div>
+                        <p class="text-sm text-gray-400 leading-relaxed">开启后，所有选手提交的作品需经所属社团团长通过审核后方可在 C 端公开显示。</p>
+                    </div>
+                    <div class="bg-white p-8 rounded-3xl border border-gray-200 shadow-sm">
+                        <div class="flex justify-between items-start mb-6">
+                            <h3 class="text-lg font-bold text-gray-900">三、互动点赞冻结 (Freeze)</h3>
+                            <div class="w-14 h-8 bg-gray-200 rounded-full flex items-center px-1"><div class="w-6 h-6 bg-white rounded-full"></div></div>
+                        </div>
+                        <p class="text-sm text-gray-400 leading-relaxed">开启后，C 端点赞与评论功能将被临时锁定。通常用于 T4 结算期或人工复核期间。</p>
+                    </div>
+                </div>
+
+                <!-- Dimension 4: Result Publicity -->
+                <div class="bg-white p-8 rounded-3xl border border-gray-200 shadow-sm">
+                    <div class="flex items-center justify-between mb-8">
+                        <div class="flex items-center gap-3">
+                            <div class="w-1.5 h-6 bg-gray-900 rounded-full"></div>
+                            <h2 class="text-xl font-bold text-gray-900">四、结果公示控制 (Publicity)</h2>
+                        </div>
+                        <div class="w-14 h-8 bg-gray-200 rounded-full flex items-center px-1 cursor-pointer"><div class="w-6 h-6 bg-white rounded-full shadow-md"></div></div>
+                    </div>
+                    <div class="space-y-6">
+                        <div>
+                            <label class="block text-sm font-bold text-gray-400 mb-2">公示公告标题 (支持适老化文案)</label>
+                            <input type="text" value="马年新春摄影大赛获奖揭晓！" class="w-full h-12 border border-gray-200 rounded-xl px-4 text-gray-900 font-bold bg-gray-50 cursor-not-allowed">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold text-gray-400 mb-2">公示奖励内容配置 (Rich Text Preview)</label>
+                            <div class="w-full h-40 border border-gray-200 rounded-xl p-4 bg-gray-50 text-gray-300 italic flex items-center justify-center">
+                                这里是富文本编辑器占位符...
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Preiview Panel (Mobile Simulator Frame) -->
+            <div class="w-[480px] border-l border-gray-200 bg-white flex flex-col items-center p-10">
+                <div class="text-sm font-bold text-gray-400 mb-8 tracking-widest uppercase">C 端实时预览 (Real-time Preview)</div>
+                <!-- Device Frame Simulator -->
+                <div class="w-[300px] h-[600px] border-[8px] border-gray-900 rounded-[48px] overflow-hidden shadow-2xl relative">
+                    <div class="absolute top-0 left-0 w-full h-full bg-gray-100 flex flex-col">
+                        <!-- Header Placeholder -->
+                        <div class="h-10 bg-white border-b border-gray-100 flex items-center justify-center"><div class="w-12 h-1 bg-gray-200 rounded"></div></div>
+                        <!-- CC-26 Content Mock -->
+                        <div class="flex-1 p-4 bg-white overflow-hidden">
+                            <div class="w-full h-24 bg-gray-200 rounded-xl mb-4 flex items-center justify-center text-[10px] text-gray-400">TOURNAMENT BANNER</div>
+                            <div class="flex gap-2 mb-4">
+                                <span class="bg-gray-900 text-white text-[10px] px-2 py-0.5 rounded">进行中 T2</span>
+                                <div class="w-20 h-3 bg-gray-100 rounded"></div>
+                            </div>
+                            <!-- Mock List -->
+                            <div class="grid grid-cols-2 gap-2">
+                                <div class="aspect-square bg-gray-100 rounded-lg"></div>
+                                <div class="aspect-square bg-gray-100 rounded-lg"></div>
+                            </div>
+                        </div>
+                        <!-- Footer Button Mock -->
+                        <div class="p-4 bg-white border-t border-gray-100">
+                             <div class="h-8 bg-gray-900 rounded-lg flex items-center justify-center text-white text-[10px] font-bold">我要参赛 (已启用)</div>
+                        </div>
+                    </div>
+                </div>
+                <button class="mt-10 text-gray-900 font-bold flex items-center gap-2 hover:underline">
+                    <i class="ri-external-link-line"></i> 在新窗口打开完整预览
+                </button>
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+</html>

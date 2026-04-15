@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CC-4 社团主页 - 低保真线框图</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
+    <style>
+        body { background-color: #e5e7eb; } /* bg-gray-200 */
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="min-h-screen flex justify-center p-12 overflow-x-auto">
+
+    <div id="artboard" class="flex flex-row items-start gap-24">
+        
+        <!-- Area A: Main View (Status I: 正常态 - 活动激活) -->
+        <div class="flex flex-col">
+            <div class="text-xl font-bold text-gray-900 mb-4">CC-4 社团主页 (状态 I：活动激活)</div>
+            <div class="w-[375px] bg-white shadow-2xl border border-gray-200 relative p-0 overflow-hidden">
+                
+                <!-- Navbar -->
+                <div class="h-16 flex items-center px-4 border-b border-gray-100">
+                    <i class="ri-arrow-left-s-line text-2xl"></i>
+                    <div class="flex-1 text-center font-bold text-gray-900">社团主页</div>
+                    <i class="ri-more-fill text-2xl"></i>
+                </div>
+
+                <!-- Content Scroll Area -->
+                <div class="h-auto pb-24">
+                    
+                    <!-- Header Module -->
+                    <div class="relative">
+                        <!-- Cover Image Placeholder -->
+                        <div class="w-full h-48 bg-gray-100 flex items-center justify-center text-gray-400 font-normal tracking-widest text-lg">
+                            社团背景大图 (4:3)
+                        </div>
+                        
+                        <!-- Profile Card overlay -->
+                        <div class="px-6 -mt-12 relative z-10">
+                            <div class="bg-white p-6 rounded-3xl border border-gray-200 shadow-xl">
+                                <div class="flex items-start gap-4 mb-4">
+                                    <!-- Avatar -->
+                                    <div class="w-20 h-20 bg-gray-100 rounded-2xl flex items-center justify-center border border-gray-200">
+                                        <i class="ri-user-3-line text-3xl text-gray-400"></i>
+                                    </div>
+                                    <div class="flex-1">
+                                        <h1 class="text-2xl font-bold text-gray-900 mb-1">星光摄影老年大学</h1>
+                                        <div class="text-base text-gray-400 flex gap-4">
+                                            <span>作品 1,234</span>
+                                            <span>获赞 5.2w</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <p class="text-lg font-normal text-gray-700 mb-6 leading-relaxed">
+                                    发现美好时刻，用镜头记录生活。我们致力于为银发摄影爱好者提供学习与交流的平台。
+                                </p>
+                                <!-- Action Buttons -->
+                                <div class="flex gap-3">
+                                    <button class="flex-1 h-14 bg-white border border-gray-900 text-gray-900 rounded-2xl text-lg font-medium">分享给好友</button>
+                                    <button class="flex-1 h-14 bg-gray-900 text-white rounded-2xl text-lg font-medium">邀请加入</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Members Section -->
+                    <div class="px-6 py-6 flex items-center justify-between">
+                        <div class="flex -space-x-3">
+                            <div class="w-10 h-10 rounded-full bg-gray-100 border-2 border-white"></div>
+                            <div class="w-10 h-10 rounded-full bg-gray-200 border-2 border-white"></div>
+                            <div class="w-10 h-10 rounded-full bg-gray-300 border-2 border-white"></div>
+                        </div>
+                        <div class="text-lg text-gray-700">128位成员 <i class="ri-arrow-right-s-line align-middle"></i></div>
+                    </div>
+
+                    <!-- TAB BAR (新增核心模块) -->
+                    <div class="px-6 border-b border-gray-200 sticky top-16 bg-white z-20">
+                        <div class="flex gap-10">
+                            <!-- Active Tab -->
+                            <div class="flex flex-col items-center py-4 relative">
+                                <span class="text-xl font-bold text-gray-900">活动</span>
+                                <div class="absolute bottom-0 w-8 h-1 bg-gray-900 rounded-full"></div>
+                            </div>
+                            <!-- Inactive Tab -->
+                            <div class="flex flex-col items-center py-4">
+                                <span class="text-lg font-normal text-gray-400">赛事</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Content Feed (Activity) -->
+                    <div class="px-6 py-6 grid gap-6">
+                        <!-- Post Item 1 -->
+                        <div class="border border-gray-100 rounded-3xl overflow-hidden">
+                            <div class="aspect-video bg-gray-100 flex items-center justify-center text-gray-300">作品图/视频封面</div>
+                            <div class="p-4">
+                                <div class="text-xl font-bold text-gray-900 mb-2">晨曦中的苏州河畔</div>
+                                <div class="flex justify-between items-center text-base text-gray-400">
+                                    <span>2小时前</span>
+                                    <div class="flex items-center gap-2">
+                                        <i class="ri-heart-line"></i> 56
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Post Item 2 -->
+                        <div class="border border-gray-100 rounded-3xl overflow-hidden">
+                            <div class="aspect-video bg-gray-100 flex items-center justify-center text-gray-300">作品图/视频封面</div>
+                            <div class="p-4">
+                                <div class="text-xl font-bold text-gray-900 mb-2">夕阳下的老弄堂</div>
+                                <div class="flex justify-between items-center text-base text-gray-400">
+                                    <span>5小时前</span>
+                                    <div class="flex items-center gap-2">
+                                        <i class="ri-heart-line"></i> 128
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Floating Bottom Action -->
+                <div class="absolute bottom-8 right-6">
+                    <button class="w-20 h-20 bg-gray-900 text-white rounded-full shadow-2xl flex flex-col items-center justify-center">
+                        <i class="ri-add-line text-3xl"></i>
+                        <span class="text-sm font-medium">投稿</span>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Area B: Component Variants -->
+        <div class="flex flex-col gap-10 w-[360px]">
+            <div class="text-2xl font-bold text-gray-900">多状态展示</div>
+
+            <!-- Variant 1: Tournament Tab Active -->
+            <div class="flex flex-col">
+                <div class="text-lg font-bold text-gray-700 mb-4 pl-3 border-l-4 border-gray-900">状态 II：赛事激活</div>
+                <div class="bg-white p-6 border border-gray-200 shadow-md">
+                    <!-- Tab Switching Logic Mock -->
+                    <div class="flex gap-10 border-b border-gray-100 mb-6">
+                        <div class="py-4">
+                            <span class="text-lg font-normal text-gray-400">活动</span>
+                        </div>
+                        <div class="py-4 relative">
+                            <span class="text-xl font-bold text-gray-900">赛事</span>
+                            <div class="absolute bottom-0 w-8 h-1 bg-gray-900 rounded-full"></div>
+                        </div>
+                    </div>
+                    <!-- Tournament Placeholder Content -->
+                    <div class="p-8 bg-gray-50 rounded-2xl flex flex-col items-center justify-center text-center">
+                        <i class="ri-medal-fill text-5xl text-gray-200 mb-4"></i>
+                        <p class="text-lg text-gray-400">切换至赛事子列表 (CC-4-2)</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Variant 2: Empty Tournament State -->
+            <div class="flex flex-col">
+                <div class="text-lg font-bold text-gray-700 mb-4 pl-3 border-l-4 border-gray-900">状态 III：空态 (无赛事)</div>
+                <div class="bg-white p-8 border border-gray-200 shadow-md flex flex-col items-center justify-center text-center">
+                    <div class="w-32 h-32 bg-gray-100 rounded-full flex items-center justify-center mb-6">
+                        <i class="ri-inbox-line text-5xl text-gray-300"></i>
+                    </div>
+                    <div class="text-xl font-bold text-gray-900 mb-2">暂无进行中的赛事</div>
+                    <p class="text-lg text-gray-400 mb-8">主理人正在筹备中，敬请期待</p>
+                    <button class="px-8 h-14 bg-white border border-gray-900 text-gray-900 rounded-2xl text-lg font-medium">回到活动流</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>

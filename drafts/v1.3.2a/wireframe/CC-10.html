@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CC-10 管理我的社团 - 低保真线框图</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
+    <style>
+        body { background-color: #e5e7eb; }
+    </style>
+</head>
+<body class="min-h-screen flex justify-center p-12 overflow-x-auto">
+
+    <div id="artboard" class="flex flex-row items-start gap-24">
+        
+        <!-- Area A: Main View (Tournament Entrance Added) -->
+        <div class="flex flex-col">
+            <div class="text-xl font-bold text-gray-900 mb-4">CC-10 管理我的社团 (状态 I：入口新增)</div>
+            <div class="w-[375px] bg-white shadow-2xl border border-gray-200 relative p-0 overflow-hidden">
+                
+                <!-- Navbar -->
+                <div class="h-16 flex items-center px-4 border-b border-gray-100">
+                    <i class="ri-arrow-left-s-line text-2xl"></i>
+                    <div class="flex-1 text-center font-bold text-gray-900">管理中心</div>
+                </div>
+
+                <!-- Scroll Content -->
+                <div class="p-0 h-auto pb-24">
+                    
+                    <!-- Basic Info Group -->
+                    <div class="p-6">
+                        <h3 class="text-base text-gray-400 font-bold mb-4 uppercase tracking-widest">基础管理</h3>
+                        <div class="space-y-4">
+                            <div class="h-16 bg-white border border-gray-100 rounded-2xl flex items-center px-4">
+                                <i class="ri-edit-line text-2xl text-gray-900 mr-4"></i>
+                                <span class="text-lg font-medium flex-1">编辑社团信息</span>
+                                <i class="ri-arrow-right-s-line text-gray-300"></i>
+                            </div>
+                            <div class="h-16 bg-white border border-gray-100 rounded-2xl flex items-center px-4">
+                                <i class="ri-settings-3-line text-2xl text-gray-900 mr-4"></i>
+                                <span class="text-lg font-medium flex-1">社团权限设置</span>
+                                <i class="ri-arrow-right-s-line text-gray-300"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Content & Member Group (MODIFIED) -->
+                    <div class="p-6 pt-0">
+                        <h3 class="text-base text-gray-400 font-bold mb-4 uppercase tracking-widest">内容与成员管理</h3>
+                        <div class="space-y-4">
+                            
+                            <!-- NEW ENTRY: Tournament Management -->
+                            <div class="h-20 bg-white border border-gray-900 rounded-2xl flex items-center px-4 shadow-lg border-l-8 border-l-gray-900">
+                                <i class="ri-trophy-line text-3xl text-gray-900 mr-4"></i>
+                                <div class="flex-1">
+                                    <div class="text-xl font-bold text-gray-900">社团赛事管理</div>
+                                    <div class="text-xs text-gray-400 font-bold bg-gray-100 inline-block px-2 rounded mt-1">NEW</div>
+                                </div>
+                                <!-- Badge/Notification -->
+                                <div class="bg-red-500 text-white min-w-[24px] h-6 rounded-full flex items-center justify-center px-2 text-sm font-bold mr-2">
+                                    12
+                                </div>
+                                <i class="ri-arrow-right-s-line text-gray-900 text-xl"></i>
+                            </div>
+
+                            <div class="h-16 bg-white border border-gray-100 rounded-2xl flex items-center px-4">
+                                <i class="ri-user-follow-line text-2xl text-gray-900 mr-4"></i>
+                                <span class="text-lg font-medium flex-1">成员入社审核</span>
+                                <i class="ri-arrow-right-s-line text-gray-300"></i>
+                            </div>
+                            <div class="h-16 bg-white border border-gray-100 rounded-2xl flex items-center px-4">
+                                <i class="ri-file-list-3-line text-2xl text-gray-900 mr-4"></i>
+                                <span class="text-lg font-medium flex-1">日常投稿审核</span>
+                                <i class="ri-arrow-right-s-line text-gray-300"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Area B: Component Variants -->
+        <div class="flex flex-col gap-10 w-[360px]">
+            <div class="text-2xl font-bold text-gray-900">多状态展示</div>
+
+            <!-- Variant 1: Regular Item Style (No Badge) -->
+            <div class="flex flex-col">
+                <div class="text-lg font-bold text-gray-700 mb-4 pl-3 border-l-4 border-gray-900">组件 I：常规状态 (无待审)</div>
+                <div class="bg-white p-6 border border-gray-200 shadow-md">
+                    <div class="h-16 border border-gray-100 rounded-2xl flex items-center px-4 opacity-60">
+                         <i class="ri-trophy-line text-2xl mr-4"></i>
+                         <span class="text-lg flex-1">社团赛事管理</span>
+                         <i class="ri-arrow-right-s-line"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>

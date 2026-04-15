@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CC-26 社团赛事专属主页 - 低保真线框图</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
+    <style>
+        body { background-color: #e5e7eb; }
+        .tab-sticky { position: sticky; top: 0; z-index: 40; background: white; }
+    </style>
+</head>
+<body class="min-h-screen flex justify-center p-12 overflow-x-auto">
+
+    <div id="artboard" class="flex flex-row items-start gap-24">
+        
+        <!-- Area A: Main View (Status II: 进行态 - 进行中) -->
+        <div class="flex flex-col">
+            <div class="text-xl font-bold text-gray-900 mb-4">CC-26 社团赛事专属主页 (状态 II：进行态)</div>
+            <div class="w-[375px] bg-white shadow-2xl border border-gray-200 relative p-0 overflow-hidden flex flex-col">
+                
+                <!-- Navbar -->
+                <div class="h-16 flex items-center px-4 bg-white/90 backdrop-blur sticky top-0 z-50">
+                    <i class="ri-arrow-left-s-line text-2xl"></i>
+                    <div class="flex-1 text-center font-bold text-gray-900 truncate px-4">摄影大赛专属页</div>
+                    <i class="ri-share-forward-line text-2xl"></i>
+                </div>
+
+                <div class="flex-1 pb-32">
+                    <!-- Tournament Atmosphere Header -->
+                    <div class="relative bg-white pb-6 border-b border-gray-100">
+                        <div class="aspect-video bg-gray-100 flex items-center justify-center text-gray-400 text-lg">赛事宣传大海报 (16:9)</div>
+                        <div class="px-6 mt-6">
+                            <div class="flex items-center gap-2 mb-2">
+                                <span class="bg-gray-900 text-white text-base px-3 py-1 rounded-lg font-bold">进行中</span>
+                                <h1 class="text-2xl font-bold text-gray-900 truncate">2026上海马年新春摄影大赛</h1>
+                            </div>
+                            <div class="text-base text-gray-400 flex gap-4 mb-4">
+                                <span>投稿 234</span>
+                                <span>人气 2.2万赞</span>
+                            </div>
+                            <div class="p-6 bg-gray-50 rounded-2xl border border-gray-100">
+                                <p class="text-lg font-normal text-gray-700 leading-relaxed line-clamp-2">
+                                    寻找上海最有年味的瞬间。无论是老弄堂的红灯笼，还是外滩的烟花灯光秀，欢迎各位“老师头”用您的镜头留下马年新春...
+                                </p>
+                                <div class="text-right mt-2 text-gray-400 font-bold">查看详情 <i class="ri-arrow-down-s-line align-middle"></i></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- TAB BAR -->
+                    <div class="tab-sticky border-b border-gray-200">
+                        <div class="flex px-6 justify-between">
+                            <div class="flex flex-col items-center py-5 relative flex-1">
+                                <span class="text-xl font-bold text-gray-900">作品</span>
+                                <div class="absolute bottom-0 w-8 h-1 bg-gray-900 rounded-full"></div>
+                            </div>
+                            <div class="flex flex-col items-center py-5 flex-1">
+                                <span class="text-lg text-gray-400">排行榜</span>
+                            </div>
+                            <div class="flex flex-col items-center py-5 flex-1">
+                                <span class="text-lg text-gray-400">活动规则</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Work Feed (Waterfall Display) -->
+                    <div class="p-4 grid grid-cols-2 gap-4">
+                        <!-- Single Work Card -->
+                        <div class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+                            <div class="aspect-square bg-gray-100 flex items-center justify-center text-gray-300">作品图</div>
+                            <div class="p-4">
+                                <div class="text-lg font-bold text-gray-900 truncate mb-2">南京路红灯笼</div>
+                                <div class="flex items-center gap-2">
+                                    <div class="w-8 h-8 rounded-full bg-gray-200"></div>
+                                    <span class="text-base text-gray-400 truncate flex-1">王大叔</span>
+                                </div>
+                                <div class="mt-3 flex items-center justify-between">
+                                    <span class="text-base font-bold text-gray-900">1,245赞</span>
+                                    <i class="ri-heart-line text-xl text-gray-300"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Repeat Card 2 -->
+                        <div class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+                            <div class="aspect-square bg-gray-100 flex items-center justify-center text-gray-300">作品图</div>
+                            <div class="p-4">
+                                <div class="text-lg font-bold text-gray-900 truncate mb-2">外滩夜景晨...</div>
+                                <div class="flex items-center gap-2">
+                                    <div class="w-8 h-8 rounded-full bg-gray-200"></div>
+                                    <span class="text-base text-gray-400 truncate flex-1">李阿姨</span>
+                                </div>
+                                <div class="mt-3 flex items-center justify-between">
+                                    <span class="text-base font-bold text-gray-900">988赞</span>
+                                    <i class="ri-heart-3-fill text-xl text-gray-900 animate-pulse"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Footer Operations -->
+                <div class="fixed bottom-0 w-[375px] bg-white border-t border-gray-200 p-6 flex gap-4 shadow-[0_-10px_30px_rgba(0,0,0,0.05)]">
+                    <button class="flex-none w-20 h-16 bg-white border border-gray-900 rounded-2xl flex flex-col items-center justify-center">
+                        <i class="ri-share-box-line text-2xl font-bold"></i>
+                        <span class="text-xs">拉票</span>
+                    </button>
+                    <button class="flex-1 h-16 bg-gray-900 text-white rounded-2xl text-xl font-bold tracking-widest">
+                        我要参赛
+                    </button>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Area B: Component Variants (T1, T3, T4 Special UI) -->
+        <div class="flex flex-col gap-10 w-[360px]">
+            <div class="text-2xl font-bold text-gray-900">多状态展示</div>
+
+            <!-- T4: Ended State - Results Banner -->
+            <div class="flex flex-col">
+                <div class="text-lg font-bold text-gray-700 mb-4 pl-3 border-l-4 border-gray-900">状态 IV：结束态 - 结果公示</div>
+                <div class="bg-white p-0 border border-gray-200 shadow-md overflow-hidden">
+                    <!-- Winner Banner -->
+                    <div class="bg-gray-900 p-6 flex items-center justify-between text-white cursor-pointer hover:bg-black transition-colors">
+                        <div class="flex items-center gap-4">
+                            <i class="ri-trophy-line text-3xl"></i>
+                            <div>
+                                <div class="text-xl font-bold">赛事大奖已揭晓</div>
+                                <div class="text-base text-gray-400">点击查看赛事获奖喜报</div>
+                            </div>
+                        </div>
+                        <i class="ri-arrow-right-s-line text-2xl"></i>
+                    </div>
+                    <!-- Disabled Button -->
+                    <div class="p-6 bg-gray-50 border-t border-gray-100">
+                        <button class="w-full h-14 bg-gray-200 text-gray-400 rounded-xl text-lg font-medium cursor-not-allowed">
+                            赛事已圆满结束
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- T1: Preheat State -->
+            <div class="flex flex-col">
+                <div class="text-lg font-bold text-gray-700 mb-4 pl-3 border-l-4 border-gray-900">状态 I：预热态 - 规则预览</div>
+                <div class="bg-white p-6 border border-gray-200 shadow-md">
+                    <div class="flex gap-4 mb-6">
+                        <div class="w-16 h-16 bg-gray-100 rounded-xl flex items-center justify-center"><i class="ri-time-line text-3xl text-gray-300"></i></div>
+                        <div class="flex-1">
+                            <div class="text-xl font-bold text-gray-900">敬请期待</div>
+                            <div class="text-base text-gray-400">报名/投稿尚未开启</div>
+                        </div>
+                    </div>
+                    <button class="w-full h-16 bg-white border border-gray-900 border-dashed text-gray-400 rounded-2xl text-xl font-bold">
+                        尚未开启
+                    </button>
+                </div>
+            </div>
+
+            <!-- T3: Sprint State - Ranking Focus -->
+            <div class="flex flex-col">
+                <div class="text-lg font-bold text-gray-700 mb-4 pl-3 border-l-4 border-gray-900">状态 III：冲刺态 - 自动选择排行榜</div>
+                <div class="bg-white border border-gray-200 shadow-md">
+                    <div class="flex border-b border-gray-100">
+                        <div class="py-4 flex-1 text-center relative border-b-2 border-gray-900">
+                             <span class="text-lg font-bold text-gray-900">排行榜</span>
+                        </div>
+                        <div class="py-4 flex-1 text-center">
+                             <span class="text-lg text-gray-400">作品</span>
+                        </div>
+                    </div>
+                    <!-- Small Ranking Sample -->
+                    <div class="p-6">
+                        <div class="flex items-center gap-4 py-4 border-b border-gray-50">
+                            <span class="text-2xl font-black text-gray-900 italic w-8">1</span>
+                            <div class="w-12 h-12 bg-gray-100 rounded-full"></div>
+                            <div class="flex-1 font-bold text-gray-900">张大爷</div>
+                            <div class="text-gray-900 font-bold">4,520赞</div>
+                        </div>
+                    </div>
+                    <div class="p-6 bg-gray-900">
+                        <button class="w-full h-14 text-white text-lg font-bold">
+                            去为好友助威点赞 <i class="ri-arrow-right-line"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>

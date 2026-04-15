@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CC-15 成员申请加入弹窗 - 低保真线框图</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
+    <style>
+        body { background-color: #e5e7eb; }
+    </style>
+</head>
+<body class="min-h-screen flex justify-center p-12 overflow-x-auto">
+
+    <div id="artboard" class="flex flex-row items-center justify-center gap-24">
+        
+        <!-- Area A: Main View (Tournament Incentivized Modal) -->
+        <div class="flex flex-col">
+            <div class="text-xl font-bold text-gray-900 mb-4">CC-15 组建战队入社弹窗 (状态 I：赛事激励态)</div>
+            <!-- Handheld Device Look Mask -->
+            <div class="w-[375px] h-[667px] bg-black/20 relative flex items-center justify-center p-6 border border-gray-300">
+                
+                <!-- The Modal -->
+                <div class="w-full bg-white rounded-[40px] shadow-2xl overflow-hidden animate-[bounce_0.5s_ease-out]">
+                    
+                    <!-- Close button -->
+                    <div class="p-6 pb-0 flex justify-end">
+                        <i class="ri-close-line text-3xl text-gray-300"></i>
+                    </div>
+
+                    <div class="p-8 text-center">
+                        <!-- Icon/Visual Header -->
+                        <div class="w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                            <i class="ri-flag-2-line text-5xl text-gray-900"></i>
+                        </div>
+                        
+                        <h2 class="text-2xl font-bold text-gray-900 mb-4">加入战队 · 为荣出战</h2>
+                        
+                        <!-- User Identity Recap -->
+                        <div class="flex items-center justify-center gap-3 p-4 bg-gray-50 rounded-2xl mb-8">
+                            <div class="w-12 h-12 bg-gray-200 rounded-full border-2 border-white"></div>
+                            <span class="text-lg font-bold text-gray-900">摄影爱好者 小李</span>
+                        </div>
+
+                        <!-- Motivation Input -->
+                        <div class="mb-8">
+                            <label class="block text-base text-gray-400 mb-3 text-left pl-3">给主理人的申请留言</label>
+                            <div class="relative">
+                                <textarea class="w-full h-24 bg-white border border-gray-900 rounded-2xl p-4 text-lg resize-none" placeholder="我想加入本社团战队，一起为社团争光！"></textarea>
+                                <!-- Recommendation tag -->
+                                <div class="absolute -bottom-10 left-0 flex gap-2 overflow-x-auto no-scrollbar py-2">
+                                    <span class="whitespace-nowrap bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-base">我想和大家一起学摄影</span>
+                                    <span class="whitespace-nowrap bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-base border border-gray-300">久仰大名</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Action Button -->
+                        <button class="w-full h-16 bg-gray-900 text-white rounded-2xl text-xl font-bold mt-4 shadow-xl shadow-gray-200">
+                            加入战队并参赛
+                        </button>
+                        
+                        <p class="mt-6 text-sm text-gray-400">加入后即可立即上传您的作品</p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Area B: Component Variants -->
+        <div class="flex flex-col gap-10 w-[360px]">
+            <div class="text-2xl font-bold text-gray-900">多状态展示</div>
+
+            <!-- Variant 1: Regular Join State -->
+            <div class="flex flex-col">
+                <div class="text-lg font-bold text-gray-700 mb-4 pl-3 border-l-4 border-gray-900">状态 II：普通入社态 (非赛事拦截)</div>
+                <div class="bg-white p-10 border border-gray-200 shadow-md">
+                    <h3 class="text-2xl font-bold text-gray-900 text-center mb-8">申请加入社团</h3>
+                    <div class="h-14 bg-white border border-gray-300 rounded-xl px-4 flex items-center text-gray-400 mb-8">
+                        输入申请理由...
+                    </div>
+                    <button class="w-full h-14 bg-white border border-gray-900 text-gray-900 rounded-xl text-lg font-bold">
+                        提交申请清单
+                    </button>
+                </div>
+            </div>
+
+            <!-- Variant 2: Quick Feedback Notification -->
+            <div class="flex flex-col">
+                <div class="text-lg font-bold text-gray-700 mb-4 pl-3 border-l-4 border-gray-900">状态 III：成功反馈 (Toast)</div>
+                <div class="bg-gray-900 p-6 rounded-2xl flex items-center gap-4 text-white shadow-2xl">
+                    <i class="ri-checkbox-circle-fill text-2xl text-white"></i>
+                    <p class="text-lg font-bold">加入成功，快去上传作品吧！</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>
