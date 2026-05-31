@@ -82,11 +82,81 @@ export const leaveApprovalScenario: TutorialScenario = {
           navigateTo: 'form',
         },
         {
+          id: 'ch1-cfg1',
+          type: 'gated',
+          narration:
+            '表单基础字段搭完了！现在来**配置选项**。\n\n点击画布里的「**请假类型**」字段选中它，然后在右侧属性面板的选项区点「**+ 添加选项**」，输入「**调休假**」并确认。',
+          target: 'field-select-on-canvas',
+          completeWhen: {
+            event: 'state',
+            stateCheck: (s) =>
+              s.formFields.some(
+                (f) => f.type === 'select' && f.options?.some((o) => o.label === '调休假')
+              ),
+          },
+          hint: '先点击画布中的「请假类型」字段选中它，再在右侧面板找到选项区，点「+ 添加选项」输入调休假。',
+          helpAction: 'add-option-调休假',
+          navigateTo: 'form',
+        },
+        {
+          id: 'ch1-cfg2',
+          type: 'gated',
+          narration: '点击画布里的「**请假起止**」字段，在右侧属性面板打开「**必填**」开关——以后不填就提交不了。',
+          target: 'field-daterange-on-canvas',
+          completeWhen: {
+            event: 'state',
+            stateCheck: (s) => s.formFields.some((f) => f.type === 'daterange' && f.required),
+          },
+          hint: '点击画布里的「请假起止」字段，然后在右侧配置面板勾选「必填」复选框。',
+          helpAction: 'set-daterange-required',
+          navigateTo: 'form',
+        },
+        {
+          id: 'ch1-cfg3',
+          type: 'gated',
+          narration:
+            '再从左侧拖一个「**附件**」字段进来，在右侧属性面板把它的标题改为「**病历附件**」。',
+          target: 'field-attachment',
+          completeWhen: {
+            event: 'state',
+            stateCheck: (s) =>
+              s.formFields.some((f) => f.type === 'attachment' && f.label === '病历附件'),
+          },
+          hint: '从左侧「高级字段」组拖入「附件」字段，然后在右侧属性面板把「字段标题」改为「病历附件」。',
+          helpAction: 'add-attachment-rename',
+          navigateTo: 'form',
+        },
+        {
+          id: 'ch1-cfg4',
+          type: 'gated',
+          narration:
+            '现在做个**字段联动**：让「病历附件」只在请病假时才出现。\n\n点击「病历附件」字段使其被选中，在右侧面板找到「**显隐规则**」区域，设置「当 请假类型 = 病假 时，显示」，然后点「保存规则」。',
+          target: 'open-visibility-rule',
+          completeWhen: {
+            event: 'state',
+            stateCheck: (s) =>
+              s.visibilityRules.some(
+                (r) => r.action === 'show' && r.conditions.some((c) => c.operator === 'eq')
+              ),
+          },
+          hint: '先点击「病历附件」字段，在右侧配置面板中展开「显隐规则」，填写条件后保存。',
+          helpAction: 'add-visibility-rule',
+          navigateTo: 'form',
+        },
+        {
+          id: 'ch1-cfg5',
+          type: 'reveal',
+          narration:
+            '搞定！这就是「**字段联动**」——表单会根据填写内容自动变化。\n\n第 3 章用一遍时，你选「病假」就能看到病历附件自动冒出来。',
+          next: '继续 →',
+          navigateTo: 'form',
+        },
+        {
           id: 'ch1-s7',
           type: 'reveal',
           title: '🎉 表单搭好了！',
           narration:
-            '你刚刚搭出了一张完整的**请假申请表**——\n\n✅ 申请人（成员字段）\n✅ 请假起止（日期区间）\n✅ 请假类型（下拉单选）\n✅ 请假事由（多行文本）\n\n在低代码里，这几步拖拖拽拽，就完成了传统开发需要写几十行数据库字段定义的工作。',
+            '你刚刚搭出了一张完整的**请假申请表**——\n\n✅ 申请人（成员字段）\n✅ 请假起止（日期区间，已设必填）\n✅ 请假类型（含调休假等选项）\n✅ 请假事由（多行文本）\n✅ 病历附件（病假时才显示）\n\n在低代码里，拖拽 + 简单配置，就完成了传统开发需要写几十行代码的工作。',
           next: '进入第 2 章：配流程 →',
           navigateTo: 'form',
         },

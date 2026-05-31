@@ -1,8 +1,8 @@
 export type FieldType =
-  | 'text' | 'textarea' | 'number' | 'amount'
-  | 'radio' | 'checkbox' | 'select' | 'multiselect'
-  | 'date' | 'daterange' | 'time'
-  | 'member' | 'department' | 'attachment' | 'image' | 'location' | 'rating'
+  | 'text' | 'textarea' | 'number' | 'amount' | 'phone' | 'email' | 'richtext'
+  | 'radio' | 'checkbox' | 'select' | 'multiselect' | 'cascade'
+  | 'date' | 'daterange' | 'time' | 'datetime'
+  | 'member' | 'department' | 'attachment' | 'image' | 'location' | 'rating' | 'signature'
   | 'data-link' | 'subtable'
   | 'serial' | 'formula'
   | 'description' | 'divider' | 'section-title';
@@ -10,6 +10,12 @@ export type FieldType =
 export interface FieldOption {
   value: string;
   label: string;
+}
+
+export interface FormulaConfig {
+  expression: string;
+  referencedFields: string[];
+  displayResult: string;
 }
 
 export interface FormField {
@@ -20,6 +26,7 @@ export interface FormField {
   placeholder?: string;
   options?: FieldOption[];
   hint?: string;
+  formulaConfig?: FormulaConfig;
 }
 
 export type NodeType = 'initiator' | 'approval' | 'cc' | 'condition' | 'auto' | 'end';
@@ -57,6 +64,21 @@ export interface DashboardItem {
   id: string;
   reportId: string;
   position: number;
+}
+
+// Visibility rules
+export interface VisibilityCondition {
+  field: string;     // field id
+  operator: 'eq' | 'neq' | 'contains';
+  value: string;     // option value or text
+}
+
+export interface VisibilityRule {
+  id: string;
+  target: string;    // field id that shows/hides
+  action: 'show' | 'hide';
+  logic: 'all' | 'any';
+  conditions: VisibilityCondition[];
 }
 
 export type StepType = 'info-card' | 'spotlight' | 'tooltip' | 'gated' | 'sandbox' | 'branch' | 'reveal';
@@ -110,6 +132,7 @@ export interface AppState {
   // Form designer
   formFields: FormField[];
   selectedFieldId: string | null;
+  visibilityRules: VisibilityRule[];
 
   // Flow designer
   flowNodes: FlowNode[];
@@ -151,6 +174,11 @@ export type AppAction =
   | { type: 'UPDATE_FIELD'; id: string; updates: Partial<FormField> }
   | { type: 'REORDER_FIELDS'; fromIndex: number; toIndex: number }
   | { type: 'SELECT_FIELD'; id: string | null }
+  | { type: 'ADD_OPTION'; fieldId: string; label: string }
+  | { type: 'REMOVE_OPTION'; fieldId: string; value: string }
+  | { type: 'RENAME_OPTION'; fieldId: string; value: string; newLabel: string }
+  | { type: 'ADD_VISIBILITY_RULE'; rule: VisibilityRule }
+  | { type: 'REMOVE_VISIBILITY_RULE'; id: string }
   | { type: 'ADD_FLOW_NODE'; node: FlowNode; afterId: string }
   | { type: 'UPDATE_FLOW_NODE'; id: string; updates: Partial<FlowNode> }
   | { type: 'SELECT_NODE'; id: string | null }

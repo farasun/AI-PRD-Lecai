@@ -1,20 +1,44 @@
 import React from 'react';
 import { useStore } from '../store';
 import { useTutorialTarget } from '../engine/TutorialEngine';
-import { LEAVE_TYPES } from '../data/seed';
+import type { VisibilityCondition } from '../types';
+
+const DEFAULT_FIELDS = [
+  { id: 'member', type: 'member' as const, label: '申请人', required: true, options: undefined as undefined },
+  { id: 'daterange', type: 'daterange' as const, label: '请假起止', required: true, options: undefined as undefined },
+  { id: 'select', type: 'select' as const, label: '请假类型', required: true, options: [
+    { value: '事假', label: '事假' },
+    { value: '病假', label: '病假' },
+    { value: '年假', label: '年假' },
+  ] },
+  { id: 'textarea', type: 'textarea' as const, label: '请假事由', required: false, options: undefined as undefined },
+];
 
 function EmployeeView() {
-  const { formFields, formValues, submissions, isPublished, dispatch } = useStore();
+  const { formFields, formValues, submissions, visibilityRules, dispatch } = useStore();
   const { isTarget: isSubmitTarget, isShaking: isSubmitShaking } = useTutorialTarget('usage-submit-btn');
 
-  const fields = formFields.length > 0
-    ? formFields
-    : [
-        { id: 'member', type: 'member' as const, label: '申请人', required: true },
-        { id: 'daterange', type: 'daterange' as const, label: '请假起止', required: true },
-        { id: 'select', type: 'select' as const, label: '请假类型', required: true },
-        { id: 'textarea', type: 'textarea' as const, label: '请假事由', required: false },
-      ];
+  const fields = formFields.length > 0 ? formFields : DEFAULT_FIELDS;
+
+  function evaluateCondition(c: VisibilityCondition): boolean {
+    const val = formValues[c.field] ?? '';
+    if (c.operator === 'eq') return val === c.value;
+    if (c.operator === 'neq') return val !== c.value;
+    if (c.operator === 'contains') return val.includes(c.value);
+    return false;
+  }
+
+  function isVisible(fieldId: string): boolean {
+    const rules = visibilityRules.filter((r) => r.target === fieldId);
+    if (rules.length === 0) return true;
+    for (const rule of rules) {
+      const met = rule.logic === 'all'
+        ? rule.conditions.every(evaluateCondition)
+        : rule.conditions.some(evaluateCondition);
+      return rule.action === 'show' ? met : !met;
+    }
+    return true;
+  }
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -42,53 +66,132 @@ function EmployeeView() {
         )}
 
         <form onSubmit={handleSubmit} className="p-6 space-y-4">
-          {fields.map((field) => (
+          {fields.filter((field) => isVisible(field.id)).map((field) => (
             <div key={field.id}>
-              <label className="block text-sm font-medium text-gray-700 mb-1.5">
-                {field.label}
-                {field.required && <span className="text-red-500 ml-1">*</span>}
-              </label>
-              {field.type === 'member' && (
-                <div className="flex items-center gap-2 border border-gray-200 rounded-xl px-3 py-2.5 bg-gray-50 cursor-pointer hover:border-blue-300 transition-colors"
-                  onClick={() => dispatch({ type: 'SET_FORM_VALUE', key: field.id, value: formValues[field.id] || '我' })}>
-                  <div className="w-7 h-7 bg-blue-100 rounded-full flex items-center justify-center text-xs font-medium text-blue-700">我</div>
-                  <span className="text-sm text-gray-700">{formValues[field.id] || '我（当前用户）'}</span>
-                </div>
-              )}
-              {field.type === 'daterange' && (
-                <div className="flex gap-2">
-                  <input
-                    type="date"
-                    className="flex-1 border border-gray-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-200"
-                    value={formValues[`${field.id}_start`] ?? '2024-02-01'}
-                    onChange={(e) => dispatch({ type: 'SET_FORM_VALUE', key: `${field.id}_start`, value: e.target.value })}
-                  />
-                  <span className="text-gray-400 py-2.5">至</span>
-                  <input
-                    type="date"
-                    className="flex-1 border border-gray-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-200"
-                    value={formValues[`${field.id}_end`] ?? '2024-02-02'}
-                    onChange={(e) => dispatch({ type: 'SET_FORM_VALUE', key: `${field.id}_end`, value: e.target.value })}
-                  />
-                </div>
-              )}
-              {field.type === 'select' && (
-                <select
-                  className="w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-200 bg-white"
-                  value={formValues[field.id] ?? ''}
-                  onChange={(e) => dispatch({ type: 'SET_FORM_VALUE', key: field.id, value: e.target.value })}
-                >
-                  <option value="">请选择</option>
-                  {LEAVE_TYPES.map((t) => <option key={t} value={t}>{t}</option>)}
-                </select>
-              )}
-              {field.type === 'textarea' && (
-                <textarea
-                  className="w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-200 h-20 resize-none"
-                  placeholder="请输入请假事由..."
-                  value={formValues[field.id] ?? ''}
-                  onChange={(e) => dispatch({ type: 'SET_FORM_VALUE', key: field.id, value: e.target.value })}
-                />
+              {'type' in field && field.type === 'divider' ? (
+                <hr className="border-gray-200" />
+              ) : 'type' in field && field.type === 'section-title' ? (
+                <div className="text-sm font-semibold text-gray-700 border-b border-gray-200 pb-1">{field.label}</div>
+              ) : (
+                <>
+                  <label className="block text-sm font-medium text-gray-700 mb-1.5">
+                    {field.label}
+                    {field.required && <span className="text-red-500 ml-1">*</span>}
+                  </label>
+                  {field.type === 'member' && (
+                    <div className="flex items-center gap-2 border border-gray-200 rounded-xl px-3 py-2.5 bg-gray-50 cursor-pointer hover:border-blue-300 transition-colors"
+                      onClick={() => dispatch({ type: 'SET_FORM_VALUE', key: field.id, value: formValues[field.id] || '我' })}>
+                      <div className="w-7 h-7 bg-blue-100 rounded-full flex items-center justify-center text-xs font-medium text-blue-700">我</div>
+                      <span className="text-sm text-gray-700">{formValues[field.id] || '我（当前用户）'}</span>
+                    </div>
+                  )}
+                  {field.type === 'daterange' && (
+                    <div className="flex gap-2">
+                      <input
+                        type="date"
+                        className="flex-1 border border-gray-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-200"
+                        value={formValues[`${field.id}_start`] ?? '2024-02-01'}
+                        onChange={(e) => dispatch({ type: 'SET_FORM_VALUE', key: `${field.id}_start`, value: e.target.value })}
+                      />
+                      <span className="text-gray-400 py-2.5">至</span>
+                      <input
+                        type="date"
+                        className="flex-1 border border-gray-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-200"
+                        value={formValues[`${field.id}_end`] ?? '2024-02-02'}
+                        onChange={(e) => dispatch({ type: 'SET_FORM_VALUE', key: `${field.id}_end`, value: e.target.value })}
+                      />
+                    </div>
+                  )}
+                  {field.type === 'select' && (
+                    <select
+                      className="w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-200 bg-white"
+                      value={formValues[field.id] ?? ''}
+                      onChange={(e) => dispatch({ type: 'SET_FORM_VALUE', key: field.id, value: e.target.value })}
+                    >
+                      <option value="">请选择</option>
+                      {(field.options ?? []).map((o) => (
+                        <option key={o.value} value={o.value}>{o.label}</option>
+                      ))}
+                    </select>
+                  )}
+                  {field.type === 'textarea' && (
+                    <textarea
+                      className="w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-200 h-20 resize-none"
+                      placeholder="请输入请假事由..."
+                      value={formValues[field.id] ?? ''}
+                      onChange={(e) => dispatch({ type: 'SET_FORM_VALUE', key: field.id, value: e.target.value })}
+                    />
+                  )}
+                  {field.type === 'text' && (
+                    <input
+                      className="w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-200"
+                      placeholder={('placeholder' in field ? field.placeholder : '') || '请输入'}
+                      value={formValues[field.id] ?? ''}
+                      onChange={(e) => dispatch({ type: 'SET_FORM_VALUE', key: field.id, value: e.target.value })}
+                    />
+                  )}
+                  {field.type === 'attachment' && (
+                    <div className="border-2 border-dashed border-gray-200 rounded-xl p-4 text-center text-sm text-gray-400 cursor-pointer hover:border-blue-300 hover:text-blue-400 transition-colors"
+                      onClick={() => dispatch({ type: 'SET_FORM_VALUE', key: field.id, value: '（已上传）' })}>
+                      {formValues[field.id] ? (
+                        <span className="text-green-600">✓ {formValues[field.id]}</span>
+                      ) : (
+                        <span>📎 点击上传附件</span>
+                      )}
+                    </div>
+                  )}
+                  {field.type === 'number' && (
+                    <input
+                      type="number"
+                      className="w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-200"
+                      placeholder="0"
+                      value={formValues[field.id] ?? ''}
+                      onChange={(e) => dispatch({ type: 'SET_FORM_VALUE', key: field.id, value: e.target.value })}
+                    />
+                  )}
+                  {field.type === 'radio' && (
+                    <div className="flex flex-wrap gap-3">
+                      {(field.options ?? []).map((o) => (
+                        <label key={o.value} className="flex items-center gap-1.5 text-sm text-gray-600 cursor-pointer">
+                          <input
+                            type="radio"
+                            name={field.id}
+                            value={o.value}
+                            checked={formValues[field.id] === o.value}
+                            onChange={() => dispatch({ type: 'SET_FORM_VALUE', key: field.id, value: o.value })}
+                          />
+                          {o.label}
+                        </label>
+                      ))}
+                    </div>
+                  )}
+                  {field.type === 'checkbox' && (
+                    <div className="flex flex-wrap gap-3">
+                      {(field.options ?? []).map((o) => (
+                        <label key={o.value} className="flex items-center gap-1.5 text-sm text-gray-600 cursor-pointer">
+                          <input type="checkbox" readOnly />
+                          {o.label}
+                        </label>
+                      ))}
+                    </div>
+                  )}
+                  {field.type === 'rating' && (
+                    <div className="flex gap-1">
+                      {[1,2,3,4,5].map((i) => (
+                        <button
+                          key={i}
+                          type="button"
+                          onClick={() => dispatch({ type: 'SET_FORM_VALUE', key: field.id, value: String(i) })}
+                          className={`text-2xl transition-colors ${
+                            Number(formValues[field.id] ?? 0) >= i ? 'text-yellow-400' : 'text-gray-300'
+                          }`}
+                        >
+                          ★
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                </>
               )}
             </div>
           ))}

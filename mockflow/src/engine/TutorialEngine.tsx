@@ -309,6 +309,7 @@ export function TutorialEngine() {
     store.submissions,
     store.reports,
     store.dashboard,
+    store.visibilityRules,
     tutorialActive,
     currentStepIndex,
     currentChapterIndex,

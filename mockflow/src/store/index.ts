@@ -11,6 +11,7 @@ const initialState: AppState = {
 
   formFields: [],
   selectedFieldId: null,
+  visibilityRules: [],
 
   flowNodes: [...DEFAULT_FLOW_NODES],
   selectedNodeId: null,
@@ -56,6 +57,25 @@ function makeDefaultField(type: FormField['type']): FormField {
     checkbox: '多选',
     multiselect: '下拉多选',
     amount: '金额',
+    phone: '手机号',
+    email: '邮箱',
+    richtext: '富文本',
+    cascade: '级联选择',
+    signature: '签名',
+    datetime: '日期时间',
+    serial: '流水号',
+    formula: '计算公式',
+    location: '定位',
+    'section-title': '分组标题',
+    attachment: '附件',
+    image: '图片',
+    rating: '评分',
+    department: '部门',
+    time: '时间',
+    'data-link': '数据关联',
+    subtable: '子表单',
+    description: '说明文字',
+    divider: '分割线',
   };
   const field: FormField = {
     id: `field-${makeId()}`,
@@ -63,7 +83,7 @@ function makeDefaultField(type: FormField['type']): FormField {
     label: labels[type] ?? type,
     required: type === 'member',
   };
-  if (type === 'select' || type === 'radio' || type === 'multiselect') {
+  if (type === 'select' || type === 'radio' || type === 'multiselect' || type === 'checkbox') {
     field.options = LEAVE_TYPES.map((t) => ({ value: t, label: t }));
   }
   return field;
@@ -101,6 +121,46 @@ function reducer(state: AppState, action: AppAction): AppState {
     }
     case 'SELECT_FIELD':
       return { ...state, selectedFieldId: action.id };
+
+    case 'ADD_OPTION':
+      return {
+        ...state,
+        formFields: state.formFields.map((f) =>
+          f.id === action.fieldId
+            ? { ...f, options: [...(f.options ?? []), { value: makeId(), label: action.label }] }
+            : f
+        ),
+      };
+    case 'REMOVE_OPTION':
+      return {
+        ...state,
+        formFields: state.formFields.map((f) =>
+          f.id === action.fieldId
+            ? { ...f, options: f.options?.filter((o) => o.value !== action.value) }
+            : f
+        ),
+      };
+    case 'RENAME_OPTION':
+      return {
+        ...state,
+        formFields: state.formFields.map((f) =>
+          f.id === action.fieldId
+            ? {
+                ...f,
+                options: f.options?.map((o) =>
+                  o.value === action.value ? { ...o, label: action.newLabel } : o
+                ),
+              }
+            : f
+        ),
+      };
+    case 'ADD_VISIBILITY_RULE':
+      return { ...state, visibilityRules: [...state.visibilityRules, action.rule] };
+    case 'REMOVE_VISIBILITY_RULE':
+      return {
+        ...state,
+        visibilityRules: state.visibilityRules.filter((r) => r.id !== action.id),
+      };
 
     case 'ADD_FLOW_NODE': {
       const nodes = [...state.flowNodes];
@@ -183,6 +243,7 @@ function reducer(state: AppState, action: AppAction): AppState {
       return {
         ...initialState,
         records: [...SEED_RECORDS],
+        visibilityRules: [],
         tutorialActive: true,
         tutorialMode: action.mode,
         currentScenarioId: action.scenarioId,
@@ -452,6 +513,49 @@ export const useStore = create<StoreState>()(
                 reducer(s2, {
                   type: 'ADD_TO_DASHBOARD',
                   item: { id: makeId(), reportId: report.id, position: 0 },
+                })
+              );
+            }
+            break;
+          }
+          case 'add-option-调休假': {
+            const selectField = s.formFields.find((f) => f.type === 'select');
+            if (selectField) {
+              set((s2) => reducer(s2, { type: 'ADD_OPTION', fieldId: selectField.id, label: '调休假' }));
+            }
+            break;
+          }
+          case 'set-daterange-required': {
+            const drField = s.formFields.find((f) => f.type === 'daterange');
+            if (drField) {
+              set((s2) =>
+                reducer(s2, { type: 'UPDATE_FIELD', id: drField.id, updates: { required: true } })
+              );
+            }
+            break;
+          }
+          case 'add-attachment-rename': {
+            const attField = makeDefaultField('attachment');
+            attField.label = '病历附件';
+            set((s2) => reducer(s2, { type: 'ADD_FIELD', field: attField }));
+            break;
+          }
+          case 'add-visibility-rule': {
+            const cur = get();
+            const attField = cur.formFields.find((f) => f.type === 'attachment' && f.label === '病历附件');
+            const selField = cur.formFields.find((f) => f.type === 'select');
+            const bingJiaOpt = selField?.options?.find((o) => o.label === '病假');
+            if (attField && selField && bingJiaOpt) {
+              set((s2) =>
+                reducer(s2, {
+                  type: 'ADD_VISIBILITY_RULE',
+                  rule: {
+                    id: `rule-${makeId()}`,
+                    target: attField.id,
+                    action: 'show',
+                    logic: 'all',
+                    conditions: [{ field: selField.id, operator: 'eq', value: bingJiaOpt.value }],
+                  },
                 })
               );
             }
