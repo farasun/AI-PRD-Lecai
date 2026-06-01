@@ -6,6 +6,7 @@ import { FlowDesigner } from './FlowDesigner';
 import { DataView } from './DataView';
 import { Reports } from './Reports';
 import { UsageEnd } from './UsageEnd';
+import { AiAssistant } from './AiAssistant';
 
 type Tab = 'form' | 'flow' | 'data' | 'reports' | 'usage';
 
@@ -59,7 +60,7 @@ function PublishButton() {
 }
 
 export function AppWorkspace() {
-  const { currentTab, appName, tutorialActive, dispatch } = useStore();
+  const { currentTab, appName, tutorialActive, aiPanelOpen, dispatch } = useStore();
 
   function handleTabClick(tab: Tab) {
     dispatch({ type: 'SET_TAB', tab });
@@ -87,6 +88,18 @@ export function AppWorkspace() {
               引导进行中
             </div>
           )}
+          <button
+            onClick={() => dispatch({ type: 'SET_AI_PANEL', open: !aiPanelOpen })}
+            title="AI 助手 小M"
+            className={`flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-full font-medium transition-all ${
+              aiPanelOpen
+                ? 'bg-indigo-600 text-white'
+                : 'bg-indigo-50 text-indigo-700 hover:bg-indigo-100'
+            }`}
+          >
+            <span className="text-sm">🤖</span>
+            AI 助手
+          </button>
           <PublishButton />
         </div>
       </div>
@@ -122,6 +135,9 @@ export function AppWorkspace() {
         {currentTab === 'reports' && <Reports />}
         {currentTab === 'usage' && <UsageEnd />}
       </div>
+
+      {/* AI Assistant panel (fixed right side overlay) */}
+      <AiAssistant />
     </div>
   );
 }
