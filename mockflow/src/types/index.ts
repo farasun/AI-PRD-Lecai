@@ -18,6 +18,11 @@ export interface FormulaConfig {
   displayResult: string;
 }
 
+export interface DataLinkConfig {
+  linkedTable: string;
+  displayField: string;
+}
+
 export interface FormField {
   id: string;
   type: FieldType;
@@ -27,6 +32,7 @@ export interface FormField {
   options?: FieldOption[];
   hint?: string;
   formulaConfig?: FormulaConfig;
+  dataLinkConfig?: DataLinkConfig;
 }
 
 export type NodeType = 'initiator' | 'approval' | 'cc' | 'condition' | 'auto' | 'end';

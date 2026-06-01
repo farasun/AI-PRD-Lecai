@@ -12,7 +12,7 @@ import { SortableContext, useSortable, verticalListSortingStrategy } from '@dnd-
 import { CSS } from '@dnd-kit/utilities';
 import { useStore } from '../store';
 import { useTutorialTarget } from '../engine/TutorialEngine';
-import type { FormField, FieldType, VisibilityRule, AppAction } from '../types';
+import type { FormField, FieldType, VisibilityRule, AppAction, DataLinkConfig } from '../types';
 
 const FIELD_GROUPS: { group: string; fields: { type: FieldType; label: string; icon: string }[] }[] = [
   {
@@ -23,6 +23,8 @@ const FIELD_GROUPS: { group: string; fields: { type: FieldType; label: string; i
       { type: 'number', label: '数字', icon: '🔢' },
       { type: 'amount', label: '金额', icon: '💰' },
       { type: 'phone', label: '手机号', icon: '📱' },
+      { type: 'email', label: '邮箱', icon: '📧' },
+      { type: 'richtext', label: '富文本', icon: '📄' },
     ],
   },
   {
@@ -563,6 +565,78 @@ function FormulaConfigSection({
   );
 }
 
+const DEMO_TABLES: { id: string; label: string; fields: string[] }[] = [
+  { id: 'employee', label: '员工信息表', fields: ['姓名', '工号', '部门', '职位', '入职日期'] },
+  { id: 'department', label: '部门列表', fields: ['部门名称', '部门编号', '上级部门', '负责人'] },
+  { id: 'project', label: '项目清单', fields: ['项目名称', '项目编号', '负责人', '状态', '截止日期'] },
+  { id: 'customer', label: '客户档案', fields: ['客户名称', '客户编号', '联系人', '联系电话'] },
+];
+
+function DataLinkConfigSection({
+  field,
+  onChange,
+}: {
+  field: FormField;
+  onChange: (updates: Partial<FormField>) => void;
+}) {
+  const config = field.dataLinkConfig;
+  const [table, setTable] = useState(config?.linkedTable ?? '');
+  const [displayField, setDisplayField] = useState(config?.displayField ?? '');
+  const selectedTable = DEMO_TABLES.find((t) => t.id === table);
+
+  function save() {
+    if (!table) return;
+    onChange({ dataLinkConfig: { linkedTable: table, displayField } as DataLinkConfig });
+  }
+
+  return (
+    <div className="space-y-3">
+      <div>
+        <label className="text-xs font-medium text-gray-500 uppercase tracking-wide">关联表单</label>
+        <select
+          className="mt-1 w-full border border-gray-200 rounded-lg px-3 py-2 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-blue-300"
+          value={table}
+          onChange={(e) => { setTable(e.target.value); setDisplayField(''); }}
+        >
+          <option value="">选择关联表单</option>
+          {DEMO_TABLES.map((t) => (
+            <option key={t.id} value={t.id}>{t.label}</option>
+          ))}
+        </select>
+      </div>
+      {selectedTable && (
+        <div>
+          <label className="text-xs font-medium text-gray-500 uppercase tracking-wide">显示字段</label>
+          <select
+            className="mt-1 w-full border border-gray-200 rounded-lg px-3 py-2 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-blue-300"
+            value={displayField}
+            onChange={(e) => setDisplayField(e.target.value)}
+          >
+            <option value="">选择显示字段</option>
+            {selectedTable.fields.map((f) => (
+              <option key={f} value={f}>{f}</option>
+            ))}
+          </select>
+        </div>
+      )}
+      {config?.linkedTable && (
+        <div className="bg-blue-50 rounded-lg px-3 py-2 text-xs text-blue-700">
+          已关联：{DEMO_TABLES.find((t) => t.id === config.linkedTable)?.label}
+          {config.displayField ? ` · 显示「${config.displayField}」` : ''}
+        </div>
+      )}
+      <button
+        onClick={save}
+        disabled={!table}
+        className="w-full text-xs bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 disabled:opacity-40 transition-colors"
+      >
+        保存关联配置
+      </button>
+      <p className="text-xs text-gray-400 text-center">演示态：仅配置展示，不真实查询数据</p>
+    </div>
+  );
+}
+
 function FieldConfigPanel({
   field,
   formFields,
@@ -579,6 +653,7 @@ function FieldConfigPanel({
   const showOptions = OPTION_FIELD_TYPES.includes(field.type as FieldType);
   const showVisibility = !['divider', 'description', 'section-title'].includes(field.type);
   const showFormula = field.type === 'formula';
+  const showDataLink = field.type === 'data-link';
 
   return (
     <div className="p-4 space-y-4">
@@ -618,6 +693,9 @@ function FieldConfigPanel({
       )}
       {showFormula && (
         <FormulaConfigSection field={field} formFields={formFields} onChange={onChange} />
+      )}
+      {showDataLink && (
+        <DataLinkConfigSection field={field} onChange={onChange} />
       )}
       {showVisibility && (
         <VisibilityRuleEditor
