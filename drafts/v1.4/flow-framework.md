@@ -15,7 +15,7 @@
 ```mermaid
 sequenceDiagram
     participant S as 平台后台 (CC-24/25)
-    participant B as 团长 (CH-1/CC-10/CC-12-3)
+    participant B as 团长 (CH-1/CC-10/CC-10-3)
     participant C as 成员 (CH-3/CC-5)
     participant E as 外部用户 (AD-BX)
 
@@ -29,11 +29,11 @@ sequenceDiagram
     S->>S: CC-24 审核资料
     S-->>B: 站内信: 审核通过
     S->>CC-5: [自动] 为该社团创建配套活动
-    B->>CC-12-3: 下载/分发官方邀请函
+    B->>CC-10-3: 下载/分发官方邀请函
 
-    Note over C: 3. 作品与花絮产出
-    C->>CH-3: 提交参赛作品 (校验入社状态)
-    C->>CC-5: 在配套活动上传排练花絮
+    Note over B,C: 3. 作品与花絮产出
+    B->>CH-3: 团长提交参赛作品 (计入成绩)
+    C->>CC-5: 成员在配套活动上传排练花絮 (不计入成绩)
     S->>CH-5: [聚合] 自动抓取配套活动内容
 
     Note over E: 4. 社交裂变与广告转化
@@ -61,11 +61,11 @@ graph TD
     C -- 提交 --> D[S端 CC-24 待审核]
     B -- 是 --> E[查看已报名状态]
     
-    D -- 驳回 --> F[CC-12-3 记录-显示原因]
+    D -- 驳回 --> F[CC-10-3 记录-显示原因]
     F -- 重新提交 --> C
     
     D -- 通过 --> G[站内信通知]
-    G --> H[CC-12-3 记录-更新状态]
+    G --> H[CC-10-3 记录-更新状态]
     H --> I[激活“分享邀请函”入口]
     
     J[CC-10 社团管理] -- 官方赛事磁贴 --> H

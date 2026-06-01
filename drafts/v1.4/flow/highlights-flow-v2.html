@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+  <style>
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    .bg-dot-grid {
+      background-image: radial-gradient(circle, #cbd5e1 1px, transparent 1px);
+      background-size: 20px 20px;
+    }
+  </style>
+</head>
+<body class="m-0 p-0 bg-gray-200 no-scrollbar">
+  <div style="position:fixed;top:24px;left:24px;z-index:50;background:rgba(17,24,39,0.85);backdrop-filter:blur(8px);border-radius:12px;padding:12px 20px;">
+    <div style="font-size:16px;font-weight:700;color:#fff;">官方荣耀赛 · 花絮生命周期流</div>
+    <div style="font-size:12px;color:#9ca3af;margin-top:4px;">v1.5 · Low-Fi Flow Map · 2026-04-27</div>
+  </div>
+  <div class="relative bg-dot-grid w-[3500px] h-[2500px] no-scrollbar font-sans text-gray-900">
+    <svg class="absolute inset-0 w-full h-full pointer-events-none z-0">
+      <defs>
+        <marker id="arrow-gray" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+          <path d="M0,0 L0,6 L9,3 z" fill="#94a3b8" />
+        </marker>
+      </defs>
+      <path d="M 340 360.0 C 440 360.0, 400 360.0, 500 360.0" stroke="#94a3b8" stroke-width="2" fill="none" marker-end="url(#arrow-gray)" />
+      <rect x="368.0" y="345.0" width="104" height="30" fill="#f8fafc" rx="4" />
+      <text x="420.0" y="365.0" fill="#64748b" font-size="14" font-weight="500" text-anchor="middle">系统自动触发</text>
+      <path d="M 740 360.0 C 840 360.0, 800 110.0, 900 110.0" stroke="#94a3b8" stroke-width="2" fill="none" marker-end="url(#arrow-gray)" />
+      <rect x="782.0" y="220.0" width="76" height="30" fill="#f8fafc" rx="4" />
+      <text x="820.0" y="240.0" fill="#64748b" font-size="14" font-weight="500" text-anchor="middle">异步通知</text>
+      <path d="M 740 360.0 C 840 360.0, 800 663.9000000000001, 900 663.9000000000001" stroke="#94a3b8" stroke-width="2" fill="none" marker-end="url(#arrow-gray)" />
+      <rect x="782.0" y="496.95000000000005" width="76" height="30" fill="#f8fafc" rx="4" />
+      <text x="820.0" y="516.95" fill="#64748b" font-size="14" font-weight="500" text-anchor="middle">业务绑定</text>
+      <path d="M 1143.75 663.9000000000001 C 1243.75 663.9000000000001, 1200 663.9000000000001, 1300 663.9000000000001" stroke="#94a3b8" stroke-width="2" fill="none" marker-end="url(#arrow-gray)" />
+      <rect x="1169.875" y="648.9000000000001" width="104" height="30" fill="#f8fafc" rx="4" />
+      <text x="1221.875" y="668.9000000000001" fill="#64748b" font-size="14" font-weight="500" text-anchor="middle">展示参赛标识</text>
+      <path d="M 1140 810.0 C 1240 810.0, 1200 663.9000000000001, 1300 663.9000000000001" stroke="#94a3b8" stroke-width="2" fill="none" marker-end="url(#arrow-gray)" />
+      <rect x="1168.0" y="721.95" width="104" height="30" fill="#f8fafc" rx="4" />
+      <text x="1220.0" y="741.95" fill="#64748b" font-size="14" font-weight="500" text-anchor="middle">上传花絮内容</text>
+      <path d="M 1543.75 663.9000000000001 C 1643.75 663.9000000000001, 1600 663.9000000000001, 1700 663.9000000000001" stroke="#94a3b8" stroke-width="2" fill="none" marker-end="url(#arrow-gray)" />
+      <rect x="1569.875" y="648.9000000000001" width="104" height="30" fill="#f8fafc" rx="4" />
+      <text x="1621.875" y="668.9000000000001" fill="#64748b" font-size="14" font-weight="500" text-anchor="middle">自动汇总作品</text>
+      <path d="M 1943.75 663.9000000000001 C 2043.75 663.9000000000001, 2000 663.9000000000001, 2100 663.9000000000001" stroke="#94a3b8" stroke-width="2" fill="none" marker-end="url(#arrow-gray)" />
+      <rect x="1962.875" y="648.9000000000001" width="118" height="30" fill="#f8fafc" rx="4" />
+      <text x="2021.875" y="668.9000000000001" fill="#64748b" font-size="14" font-weight="500" text-anchor="middle">点击瀑布流卡片</text>
+      <path d="M 2343.75 663.9000000000001 C 2443.75 663.9000000000001, 2400 663.9000000000001, 2500 663.9000000000001" stroke="#94a3b8" stroke-width="2" fill="none" marker-end="url(#arrow-gray)" />
+      <rect x="2355.875" y="648.9000000000001" width="132" height="30" fill="#f8fafc" rx="4" />
+      <text x="2421.875" y="668.9000000000001" fill="#64748b" font-size="14" font-weight="500" text-anchor="middle">触发分享落地广告</text>
+      <path d="M 1140 1160.0 C 1240 1160.0, 1200 663.9000000000001, 1300 663.9000000000001" stroke="#94a3b8" stroke-width="2" fill="none" marker-end="url(#arrow-gray)" />
+      <rect x="1196.0" y="896.95" width="48" height="30" fill="#f8fafc" rx="4" />
+      <text x="1220.0" y="916.95" fill="#64748b" font-size="14" font-weight="500" text-anchor="middle">锁定</text>
+    </svg>
+    <div class="absolute" style="left: 100px; top: 300px;">
+      <div id="Trigger" class="absolute -top-10 left-0 bg-gray-900 text-white text-sm px-3 py-1 rounded shadow-sm z-10 flex items-center whitespace-nowrap">
+        S端赛事报名审核通过
+        
+      </div>
+      <div class="w-[240px] h-[120px] bg-gray-100 border-2 border-gray-300 rounded-xl shadow-md overflow-hidden flex items-center justify-center p-4">
+        
+        <div class="w-full h-full flex flex-col items-center justify-center text-gray-400 bg-gray-50">
+            <i class="ri-instance-line text-4xl mb-2"></i>
+            <span class="px-6 text-center font-bold">S端赛事报名审核通过</span>
+            <div class="mt-4 w-1/2 h-2 bg-gray-200 rounded-full"></div>
+            <div class="mt-2 w-1/3 h-2 bg-gray-200 rounded-full"></div>
+        </div>
+      </div>
+    </div>
+    <div class="absolute" style="left: 500px; top: 300px;">
+      <div id="AutoCreate" class="absolute -top-10 left-0 bg-gray-900 text-white text-sm px-3 py-1 rounded shadow-sm z-10 flex items-center whitespace-nowrap">
+        系统自动创建配套活动
+        
+      </div>
+      <div class="w-[240px] h-[120px] bg-gray-100 border-2 border-gray-300 rounded-xl shadow-md overflow-hidden flex items-center justify-center p-4">
+        
+        <div class="w-full h-full flex flex-col items-center justify-center text-gray-400 bg-gray-50">
+            <i class="ri-instance-line text-4xl mb-2"></i>
+            <span class="px-6 text-center font-bold">系统自动创建配套活动</span>
+            <div class="mt-4 w-1/2 h-2 bg-gray-200 rounded-full"></div>
+            <div class="mt-2 w-1/3 h-2 bg-gray-200 rounded-full"></div>
+        </div>
+      </div>
+    </div>
+    <div class="absolute" style="left: 900px; top: 50px;">
+      <div id="MsgNotify" class="absolute -top-10 left-0 bg-gray-900 text-white text-sm px-3 py-1 rounded shadow-sm z-10 flex items-center whitespace-nowrap">
+        站内信通知
+        
+      </div>
+      <div class="w-[240px] h-[120px] bg-gray-100 border-2 border-gray-300 rounded-xl shadow-md overflow-hidden flex items-center justify-center p-4">
+        
+        <div class="w-full h-full flex flex-col items-center justify-center text-gray-400 bg-gray-50">
+            <i class="ri-instance-line text-4xl mb-2"></i>
+            <span class="px-6 text-center font-bold">站内信通知</span>
+            <div class="mt-4 w-1/2 h-2 bg-gray-200 rounded-full"></div>
+            <div class="mt-2 w-1/3 h-2 bg-gray-200 rounded-full"></div>
+        </div>
+      </div>
+    </div>
+    <div class="absolute" style="left: 900px; top: 400px;">
+      <div id="CC-12" class="absolute -top-10 left-0 bg-gray-900 text-white text-sm px-3 py-1 rounded shadow-sm z-10 flex items-center whitespace-nowrap">
+        CC-12 · 社团活动管理
+        <span class="ml-2 px-1.5 py-0.5 bg-purple-100 text-purple-600 text-[10px] font-bold rounded uppercase">v1.4 改造</span>
+      </div>
+      <div class="w-[375px] h-[812px] bg-white border border-gray-200 rounded-[40px] shadow-2xl overflow-hidden transform scale-[0.65] origin-top-left">
+        
+<div class="flex flex-col h-full bg-white">
+    <div class="h-20 bg-white border-b flex items-center px-10 justify-center relative shrink-0">
+       <i class="ri-arrow-left-s-line text-2xl absolute left-10 text-gray-800"></i>
+       <span class="font-bold text-lg text-gray-800">设置活动</span>
+    </div>
+    <div class="flex-1 bg-gray-50/30 overflow-y-auto no-scrollbar p-6 space-y-6">
+       <div class="p-4 bg-white border border-purple-100 rounded-2xl flex items-center shadow-md relative ring-4 ring-purple-600/10">
+          <div class="absolute top-0 right-0 px-3 py-1 bg-purple-600 text-white text-[9px] font-black uppercase tracking-tighter rounded-bl-xl">Linked to Match</div>
+          <div class="w-16 h-16 bg-gray-100 rounded-lg flex items-center justify-center text-[10px] text-gray-400 font-bold leading-none shrink-0">无封面</div>
+          <div class="ml-4 flex-1 min-w-0">
+             <div class="flex items-center mb-1">
+                <h3 class="font-black text-sm text-gray-900 truncate">【官方赛事】排练花絮集</h3>
+             </div>
+             <p class="text-[9px] text-purple-400 font-bold">系统代建 · 自动同步至赛事</p>
+          </div>
+          <button class="px-3 py-2 bg-purple-50 text-purple-600 rounded-lg text-[10px] font-bold whitespace-nowrap ml-2">管理内容</button>
+       </div>
+       <div class="p-4 bg-white border rounded-xl flex items-center shadow-sm opacity-30">
+          <div class="w-12 h-12 bg-gray-100 rounded-lg shrink-0"></div>
+          <div class="ml-4 flex-1 font-bold text-sm">其他普通活动</div>
+       </div>
+    </div>
+    <div class="h-24 bg-white border-t p-6 shrink-0">
+       <button class="w-full h-full bg-purple-600 text-white font-black rounded-full text-lg shadow-xl shadow-purple-100 tracking-tighter italic">新建活动</button>
+    </div>
+</div>
+
+      </div>
+    </div>
+    <div class="absolute" style="left: 1300px; top: 400px;">
+      <div id="CC-5" class="absolute -top-10 left-0 bg-gray-900 text-white text-sm px-3 py-1 rounded shadow-sm z-10 flex items-center whitespace-nowrap">
+        CC-5 · 社团活动详情
+        <span class="ml-2 px-1.5 py-0.5 bg-purple-100 text-purple-600 text-[10px] font-bold rounded uppercase">v1.4 改造</span>
+      </div>
+      <div class="w-[375px] h-[812px] bg-white border border-gray-200 rounded-[40px] shadow-2xl overflow-hidden transform scale-[0.65] origin-top-left">
+        
+<div class="flex flex-col h-full bg-white">
+    <div class="h-48 bg-purple-800 relative p-6 flex flex-col text-white shrink-0">
+       <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+       <div class="relative z-10 flex justify-between items-center mb-4">
+          <i class="ri-arrow-left-s-line text-2xl"></i>
+          <span class="font-bold text-lg">赛事花絮</span>
+          <i class="ri-more-fill text-2xl"></i>
+       </div>
+       <div class="relative z-10 mt-auto">
+          <h2 class="text-2xl font-black tracking-tighter">【官方赛事】排练花絮集</h2>
+          <div class="mt-3 flex space-x-2">
+             <span class="px-3 py-1 bg-white/20 rounded-lg text-[10px] font-bold border border-white/10 uppercase tracking-widest">Linked Event</span>
+          </div>
+       </div>
+    </div>
+    <div class="flex-1 bg-white overflow-y-auto no-scrollbar">
+        <div class="p-4 bg-purple-50 text-purple-800 text-[10px] border-b border-purple-100 font-bold italic">
+            ★ 此活动由系统自动创建。您上传的花絮将自动出现在赛事官网上。
+        </div>
+        <div class="p-4 grid grid-cols-2 gap-3">
+           <div class="bg-gray-100 rounded-xl aspect-square flex items-center justify-center border-4 border-dashed border-gray-200">
+              <i class="ri-add-line text-4xl text-gray-300"></i>
+           </div>
+           <div class="bg-gray-50 rounded-xl aspect-square"></div>
+        </div>
+    </div>
+    <div class="h-28 bg-white border-t p-6 shrink-0">
+       <button class="w-full h-16 bg-purple-600 text-white font-black rounded-full text-xl shadow-xl shadow-purple-100">+ 上传作品</button>
+    </div>
+</div>
+
+      </div>
+    </div>
+    <div class="absolute" style="left: 900px; top: 750px;">
+      <div id="MemberUpload" class="absolute -top-10 left-0 bg-gray-900 text-white text-sm px-3 py-1 rounded shadow-sm z-10 flex items-center whitespace-nowrap">
+        成员进入社团活动
+        
+      </div>
+      <div class="w-[240px] h-[120px] bg-gray-100 border-2 border-gray-300 rounded-xl shadow-md overflow-hidden flex items-center justify-center p-4">
+        
+        <div class="w-full h-full flex flex-col items-center justify-center text-gray-400 bg-gray-50">
+            <i class="ri-instance-line text-4xl mb-2"></i>
+            <span class="px-6 text-center font-bold">成员进入社团活动</span>
+            <div class="mt-4 w-1/2 h-2 bg-gray-200 rounded-full"></div>
+            <div class="mt-2 w-1/3 h-2 bg-gray-200 rounded-full"></div>
+        </div>
+      </div>
+    </div>
+    <div class="absolute" style="left: 1700px; top: 400px;">
+      <div id="CH-5" class="absolute -top-10 left-0 bg-gray-900 text-white text-sm px-3 py-1 rounded shadow-sm z-10 flex items-center whitespace-nowrap">
+        CH-5 · 赛事-花絮列表
+        <span class="ml-2 px-1.5 py-0.5 bg-purple-100 text-purple-600 text-[10px] font-bold rounded uppercase">v1.5 复用</span>
+      </div>
+      <div class="w-[375px] h-[812px] bg-white border border-gray-200 rounded-[40px] shadow-2xl overflow-hidden transform scale-[0.65] origin-top-left flex flex-col">
+        
+<div class="flex flex-col h-full bg-white">
+    <!-- 顶部导航 -->
+    <div class="h-16 flex items-center justify-between px-4 border-b border-gray-100 bg-white shrink-0">
+        <div class="flex items-center gap-1 text-gray-900">
+            <i class="ri-arrow-left-s-line text-2xl"></i>
+            <span class="text-lg">返回赛事</span>
+        </div>
+        <span class="text-xl font-bold text-gray-900">赛事花絮</span>
+        <div class="w-8 flex justify-end">
+            <i class="ri-more-fill text-2xl text-gray-900"></i>
+        </div>
+    </div>
+
+    <!-- 标题区 -->
+    <div class="bg-white px-4 py-6 border-b border-gray-100">
+        <h1 class="text-2xl font-bold text-gray-900">【官方赛事】排练花絮集</h1>
+        <div class="flex items-center gap-2 mt-3">
+            <div class="px-2 py-0.5 bg-purple-600 text-white text-[10px] font-black uppercase tracking-tighter rounded">Linked to Match</div>
+            <div class="px-3 py-1 border border-gray-300 rounded-lg bg-white text-gray-700 text-sm font-normal">作品239</div>
+        </div>
+        <div class="flex items-center gap-3 mt-6">
+            <div class="flex-1 h-12 bg-gray-50 border border-transparent rounded-full flex items-center px-4 text-gray-400">
+                <i class="ri-search-line mr-2 text-lg"></i>
+                <span class="text-base font-normal">搜索参与社团、作品</span>
+            </div>
+            <div class="flex items-center gap-1 text-gray-900">
+                <i class="ri-filter-3-line text-xl"></i>
+            </div>
+        </div>
+    </div>
+
+    <!-- 瀑布流列表 (复用 CC-5 布局) -->
+    <div class="flex-1 bg-gray-50 p-4 overflow-y-auto no-scrollbar">
+        <div class="flex gap-4">
+            <div class="flex-1 flex flex-col gap-4">
+                <div class="bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm">
+                    <div class="aspect-square bg-gray-100 flex items-center justify-center text-gray-300 relative">
+                        <i class="ri-image-2-line text-4xl"></i>
+                        <div class="absolute bottom-2 left-2 px-2 py-0.5 bg-black/40 text-white text-[8px] rounded">舞之魂社团</div>
+                    </div>
+                    <div class="p-3">
+                        <div class="text-sm font-bold text-gray-900 mb-1">今日加练打卡</div>
+                        <div class="flex items-center gap-1 text-gray-400 text-xs">
+                            <i class="ri-thumb-up-line"></i> <span>24</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm opacity-50">
+                    <div class="aspect-[3/4] bg-gray-100 flex items-center justify-center text-gray-300">
+                        <i class="ri-video-line text-4xl"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="flex-1 flex flex-col gap-4">
+                <div class="bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm">
+                    <div class="aspect-[3/4] bg-gray-100 flex items-center justify-center text-gray-300 relative">
+                        <i class="ri-image-2-line text-4xl"></i>
+                        <div class="absolute bottom-2 left-2 px-2 py-0.5 bg-black/40 text-white text-[8px] rounded">乐享摄影社</div>
+                    </div>
+                    <div class="p-3">
+                        <div class="text-sm font-bold text-gray-900 mb-1">抓拍到一张合照</div>
+                        <div class="flex items-center gap-1 text-gray-400 text-xs">
+                            <i class="ri-thumb-up-line"></i> <span>12</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 底部悬浮按钮 -->
+    <div class="p-4 bg-white border-t border-gray-100 shrink-0 pb-8">
+        <div class="w-full h-14 bg-purple-600 rounded-full flex items-center justify-center text-white gap-2 shadow-xl shadow-purple-100">
+            <i class="ri-add-line text-2xl"></i>
+            <span class="text-lg font-bold">上传花絮作品</span>
+        </div>
+    </div>
+</div>
+
+      </div>
+    </div>
+    <div class="absolute" style="left: 2100px; top: 400px;">
+      <div id="CH-5-1" class="absolute -top-10 left-0 bg-gray-900 text-white text-sm px-3 py-1 rounded shadow-sm z-10 flex items-center whitespace-nowrap">
+        CH-5-1 · 赛事花絮详情
+        <span class="ml-2 px-1.5 py-0.5 bg-purple-100 text-purple-600 text-[10px] font-bold rounded uppercase">v1.5 复用</span>
+      </div>
+      <div class="w-[375px] h-[812px] bg-white border border-gray-200 rounded-[40px] shadow-2xl overflow-hidden transform scale-[0.65] origin-top-left flex flex-col">
+        
+<div class="flex flex-col h-full bg-white">
+    <!-- 顶部导航 -->
+    <div class="h-16 flex items-center justify-between px-4 border-b border-gray-100 bg-white sticky top-0 z-50">
+        <div class="flex items-center gap-1 text-gray-900 w-20">
+            <i class="ri-arrow-left-s-line text-2xl"></i>
+            <span class="text-lg">返回</span>
+        </div>
+        <span class="text-xl font-bold text-gray-900">花絮详情</span>
+        <div class="flex items-center justify-end w-20 space-x-3 text-gray-900">
+            <i class="ri-more-fill text-2xl"></i>
+        </div>
+    </div>
+
+    <!-- 媒体展示区 -->
+    <div class="w-full aspect-square bg-gray-900 flex items-center justify-center relative">
+        <i class="ri-image-2-line text-6xl text-white/20"></i>
+        <div class="absolute bottom-4 left-0 w-full flex justify-center space-x-2">
+            <div class="w-1.5 h-1.5 rounded-full bg-white"></div>
+            <div class="w-1.5 h-1.5 rounded-full bg-white/30"></div>
+        </div>
+    </div>
+
+    <!-- 作者信息 -->
+    <div class="p-6 border-b border-gray-100 bg-white">
+        <div class="flex items-center justify-between mb-6">
+            <div class="flex items-center">
+                <div class="w-12 h-12 bg-gray-100 rounded-full mr-3 flex items-center justify-center">
+                    <i class="ri-user-3-line text-gray-400 text-xl"></i>
+                </div>
+                <div class="flex flex-col">
+                    <div class="text-lg font-bold text-gray-900">法拉孙Fara</div>
+                    <div class="text-xs text-gray-400">2026-04-27 18:22</div>
+                </div>
+            </div>
+            <button class="px-4 py-1.5 border border-purple-600 text-purple-600 rounded-full text-xs font-bold">关注</button>
+        </div>
+
+        <!-- 复用标签组 (CH-5-1 核心变更) -->
+        <div class="space-y-2 mb-6">
+            <div class="bg-gray-50 rounded-xl px-4 py-3 flex items-center justify-between border border-gray-100">
+                <div class="flex items-center text-sm text-gray-900 font-medium">
+                    <i class="ri-trophy-line text-purple-600 mr-3"></i> <span>所属赛事：官方荣誉锦标赛</span>
+                </div>
+                <i class="ri-arrow-right-s-line text-gray-400"></i>
+            </div>
+            <div class="bg-gray-50 rounded-xl px-4 py-3 flex items-center justify-between border border-gray-100">
+                <div class="flex items-center text-sm text-gray-900 font-medium">
+                    <i class="ri-team-line text-purple-600 mr-3"></i> <span>所属社团：相望于疆湖</span>
+                </div>
+                <i class="ri-arrow-right-s-line text-gray-400"></i>
+            </div>
+            <div class="bg-gray-50 rounded-xl px-4 py-3 flex items-center justify-between border border-gray-100">
+                <div class="flex items-center text-sm text-gray-900 font-medium">
+                    <i class="ri-bookmark-line text-purple-600 mr-3"></i> <span>所属活动：【官方赛事】排练花絮集</span>
+                </div>
+                <i class="ri-arrow-right-s-line text-gray-400"></i>
+            </div>
+        </div>
+
+        <!-- 正文 -->
+        <h1 class="text-2xl font-black text-gray-900 mb-3 tracking-tighter">今日加练打卡</h1>
+        <p class="text-lg text-gray-700 leading-relaxed font-normal">
+            大家排练辛苦了！离正式比赛还有一周，冲刺！
+        </p>
+    </div>
+
+    <!-- 底部互动区 -->
+    <div class="flex-1 bg-white p-6 pb-24">
+        <div class="flex space-x-4">
+            <button class="flex-1 h-14 bg-gray-50 border border-gray-100 rounded-2xl flex items-center justify-center text-lg font-bold text-gray-900">
+                <i class="ri-thumb-up-line mr-2"></i> 24
+            </button>
+            <button class="flex-1 h-14 bg-purple-600 border border-purple-500 rounded-2xl flex items-center justify-center text-lg font-bold text-white shadow-lg shadow-purple-100">
+                <i class="ri-share-forward-line mr-2"></i> 分享拉票
+            </button>
+        </div>
+    </div>
+</div>
+
+      </div>
+    </div>
+    <div class="absolute" style="left: 2500px; top: 400px;">
+      <div id="AD-B3" class="absolute -top-10 left-0 bg-gray-900 text-white text-sm px-3 py-1 rounded shadow-sm z-10 flex items-center whitespace-nowrap">
+        AD-B3 · 花絮分享弹窗
+        <span class="ml-2 px-1.5 py-0.5 bg-purple-100 text-purple-600 text-[10px] font-bold rounded uppercase">v1.4 改造</span>
+      </div>
+      <div class="w-[375px] h-[812px] bg-white border border-gray-200 rounded-[40px] shadow-2xl overflow-hidden transform scale-[0.65] origin-top-left">
+        
+<div class="w-full h-full bg-black/70 flex items-center justify-center p-8">
+    <div class="w-full bg-white rounded-[32px] overflow-hidden flex flex-col shadow-2xl">
+        <div class="p-4 bg-purple-600 text-white text-center text-[10px] font-black uppercase tracking-widest">
+            活动公益支持伙伴：泰康养老
+        </div>
+        <div class="p-10 space-y-8 text-center">
+            <div class="space-y-2">
+               <h2 class="text-2xl font-black italic tracking-tighter text-gray-900">美好的瞬间</h2>
+               <p class="text-xs text-gray-400 font-bold uppercase tracking-widest leading-relaxed px-4">分享并见证官方赛事·荣誉锦标赛的精彩瞬间</p>
+            </div>
+            <div class="aspect-video bg-purple-900 rounded-3xl flex flex-col items-center justify-center relative shadow-2xl overflow-hidden group">
+                <div class="absolute inset-0 bg-gradient-to-t from-purple-900 to-transparent opacity-60"></div>
+                <i class="ri-video-chat-fill text-6xl text-white/40 z-10"></i>
+                <div class="absolute bottom-4 left-4 right-4 flex justify-between items-center text-white/60 text-[8px] font-black uppercase tracking-widest">
+                   <span>Honored Video Clip</span>
+                   <span>00:15 HD</span>
+                </div>
+            </div>
+            <button class="w-full py-5 bg-purple-600 text-white font-black rounded-3xl text-lg shadow-2xl shadow-purple-100 uppercase tracking-tighter italic">进入相册浏览详情</button>
+        </div>
+        <div class="p-4 text-center bg-gray-50">
+          <span class="text-gray-300 text-[8px] font-black uppercase tracking-widest italic">Shared by ReadingGuild Pro v1.4</span>
+        </div>
+    </div>
+</div>
+
+      </div>
+    </div>
+    <div class="absolute" style="left: 900px; top: 1100px;">
+      <div id="EndEvent" class="absolute -top-10 left-0 bg-gray-900 text-white text-sm px-3 py-1 rounded shadow-sm z-10 flex items-center whitespace-nowrap">
+        赛事截止/收官
+        
+      </div>
+      <div class="w-[240px] h-[120px] bg-gray-100 border-2 border-gray-300 rounded-xl shadow-md overflow-hidden flex items-center justify-center p-4">
+        
+        <div class="w-full h-full flex flex-col items-center justify-center text-gray-400 bg-gray-50">
+            <i class="ri-instance-line text-4xl mb-2"></i>
+            <span class="px-6 text-center font-bold">赛事截止/收官</span>
+            <div class="mt-4 w-1/2 h-2 bg-gray-200 rounded-full"></div>
+            <div class="mt-2 w-1/3 h-2 bg-gray-200 rounded-full"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

@@ -15,12 +15,12 @@
 - **迭代草稿**：`drafts/v{x.y}/`
 - **发布版本**：`releases/`
 
-### 2. MockFlow（新应用 ★）
-**低代码体验沙盘** —— 一个完整可运行的 React Web 应用，让用户在 30 分钟内体验低代码搭建的完整流程。
-
-**位置**：`mockflow/`  
-**启动**：`cd mockflow && npm run dev`（端口 5173）  
-**需求文档**：`mockflow/FRD.md`
+### 2. MockFlow（临时实验目录 ⚠️）
+**低代码体验沙盘** —— 这是一个临时存放在项目中的 React Web 应用。其主要用于方便 AI 助手（如 Claude Code）进行低代码相关的实验与开发验证，**不属于 PRD 的正式核心资产**。
+- **定位**：实验性项目，随时可移出或归档，切勿与 PRD 主线产生任何强关联逻辑。
+- **位置**：`mockflow/`  
+- **启动**：`cd mockflow && npm run dev`（端口 5173）  
+- **需求文档**：`mockflow/FRD.md`
 
 ---
 
@@ -38,6 +38,7 @@
 - `achieve/` 目录已冻结，任何 Agent 不得读取其中文件（详见 README 顶部警告）。
 - 页面编号/命名严格对齐 `foundation/Main_PageList.md`。
 - MockFlow 应用禁止接入真实后端或生成可部署代码。
+- MockFlow (`mockflow/`) 目录为临时实验性开发使用，与正式 PRD 原型体系完全隔离。
 
 ---
 

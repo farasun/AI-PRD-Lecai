@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+  <style>
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    .bg-dot-grid {
+      background-image: radial-gradient(circle, #cbd5e1 1px, transparent 1px);
+      background-size: 20px 20px;
+    }
+  </style>
+</head>
+<body class="m-0 p-0 bg-gray-200 no-scrollbar">
+  <div style="position:fixed;top:24px;left:24px;z-index:50;background:rgba(17,24,39,0.85);backdrop-filter:blur(8px);border-radius:12px;padding:12px 20px;">
+    <div style="font-size:16px;font-weight:700;color:#fff;">官方荣耀赛 · 报名审核流程</div>
+    <div style="font-size:12px;color:#9ca3af;margin-top:4px;">v1.4 · Low-Fi Flow Map · 2026-04-27</div>
+  </div>
+  <div class="relative bg-dot-grid w-[3500px] h-[2500px] no-scrollbar font-sans text-gray-900">
+    <svg class="absolute inset-0 w-full h-full pointer-events-none z-0">
+      <defs>
+        <marker id="arrow-gray" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+          <path d="M0,0 L0,6 L9,3 z" fill="#94a3b8" />
+        </marker>
+      </defs>
+      <!-- 连线 -->
+      <path d="M 393.75 1013.9 C 543.75 1013.9, 650 1013.9, 800 1013.9" stroke="#94a3b8" stroke-width="2" fill="none" marker-end="url(#arrow-gray)" />
+      <rect x="516.875" y="998.9" width="160" height="30" fill="#f8fafc" rx="4" />
+      <text x="596.875" y="1018.9" fill="#64748b" font-size="14" font-weight="500" text-anchor="middle">团长点击“立即报名”</text>
+
+      <path d="M 1043.75 1013.9 C 1193.75 1013.9, 1300 880.0, 1450 880.0" stroke="#94a3b8" stroke-width="2" fill="none" marker-end="url(#arrow-gray)" />
+      <rect x="1194.875" y="931.95" width="104" height="30" fill="#f8fafc" rx="4" />
+      <text x="1246.875" y="951.95" fill="#64748b" font-size="14" font-weight="500" text-anchor="middle">提交报名表单</text>
+
+      <path d="M 1840.0 880.0 C 1990.0 880.0, 1950 360.0, 2100 360.0" stroke="#94a3b8" stroke-width="2" fill="none" marker-end="url(#arrow-gray)" />
+      <rect x="1911.0" y="605.0" width="118" height="30" fill="#f8fafc" rx="4" />
+      <text x="1970.0" y="625.0" fill="#64748b" font-size="14" font-weight="500" text-anchor="middle">S端管理员拒绝</text>
+
+      <path d="M 1840.0 880.0 C 1990.0 880.0, 1950 810.0, 2100 810.0" stroke="#94a3b8" stroke-width="2" fill="none" marker-end="url(#arrow-gray)" />
+      <rect x="1911.0" y="830.0" width="118" height="30" fill="#f8fafc" rx="4" />
+      <text x="1970.0" y="850.0" fill="#64748b" font-size="14" font-weight="500" text-anchor="middle">S端管理员通过</text>
+
+      <path d="M 1840.0 880.0 C 1990.0 880.0, 1950 1260.0, 2100 1260.0" stroke="#94a3b8" stroke-width="2" fill="none" marker-end="url(#arrow-gray)" />
+      <rect x="1904.0" y="1055.0" width="132" height="30" fill="#f8fafc" rx="4" />
+      <text x="1970.0" y="1075.0" fill="#64748b" font-size="14" font-weight="500" text-anchor="middle">审核通过后台触发</text>
+
+      <path d="M 2340 360.0 C 2490 360.0, 2600 863.9, 2750 863.9" stroke="#94a3b8" stroke-width="2" fill="none" marker-end="url(#arrow-gray)" />
+      <rect x="2479.0" y="596.95" width="132" height="30" fill="#f8fafc" rx="4" />
+      <text x="2545.0" y="616.95" fill="#64748b" font-size="14" font-weight="500" text-anchor="middle">团长查看驳回原因</text>
+
+      <path d="M 2340 810.0 C 2490 810.0, 2600 863.9, 2750 863.9" stroke="#94a3b8" stroke-width="2" fill="none" marker-end="url(#arrow-gray)" />
+      <rect x="2493.0" y="821.95" width="104" height="30" fill="#f8fafc" rx="4" />
+      <text x="2545.0" y="841.95" fill="#64748b" font-size="14" font-weight="500" text-anchor="middle">团长收到喜报</text>
+
+      <path d="M 2871.875 1350 C 2871.875 1250, 2871.875 1227.8, 2871.875 1127.8" stroke="#94a3b8" stroke-width="2" fill="none" marker-end="url(#arrow-gray)" />
+      <rect x="2819.875" y="1223.9" width="104" height="30" fill="#f8fafc" rx="4" />
+      <text x="2871.875" y="1243.9" fill="#64748b" font-size="14" font-weight="500" text-anchor="middle">官方赛事磁贴</text>
+
+      <path d="M 2993.75 863.9 C 3143.75 863.9, 3250 863.9, 3400 863.9" stroke="#94a3b8" stroke-width="2" fill="none" marker-end="url(#arrow-gray)" />
+      <rect x="3137.875" y="848.9" width="118" height="30" fill="#f8fafc" rx="4" />
+      <text x="3196.875" y="868.9" fill="#64748b" font-size="14" font-weight="500" text-anchor="middle">分享参赛邀请函</text>
+
+      <path d="M 2871.875 600 C 2871.875 0, 921.875 150, 921.875 750" stroke="#94a3b8" stroke-width="2" fill="none" marker-end="url(#arrow-gray)" />
+      <rect x="1837.875" y="210.0" width="118" height="30" fill="#f8fafc" rx="4" />
+      <text x="1896.875" y="230.0" fill="#64748b" font-size="14" font-weight="500" text-anchor="middle">修正后重新发起</text>
+    </svg>
+    <div class="absolute" style="left: 150px; top: 750px;">
+      <div id="CH-1" class="absolute -top-10 left-0 bg-gray-900 text-white text-sm px-3 py-1 rounded shadow-sm z-10 flex items-center whitespace-nowrap">
+        CH-1 · 赛事详情页-整体
+        <span class="ml-2 px-1.5 py-0.5 bg-purple-100 text-purple-600 text-[10px] font-bold rounded uppercase">v1.4 改造</span>
+      </div>
+      <div class="w-[375px] h-[812px] bg-white border border-gray-200 rounded-[40px] shadow-2xl overflow-hidden transform scale-[0.65] origin-top-left">
+        
+<div class="flex flex-col h-full">
+    <div class="h-14 bg-gradient-to-r from-purple-700 to-purple-500 flex items-center px-6 justify-between text-white shrink-0">
+      <i class="ri-arrow-left-s-line text-2xl"></i>
+      <span class="font-bold text-lg">赛事详情</span>
+      <div class="w-16 h-7 bg-black/20 rounded-full flex items-center justify-center space-x-2">
+        <i class="ri-more-fill text-xs"></i><span class="opacity-20 text-xs">|</span><i class="ri-close-line text-xs"></i>
+      </div>
+    </div>
+    <div class="flex-1 bg-white overflow-y-auto no-scrollbar">
+       <div class="h-44 bg-purple-800 relative flex flex-col items-center justify-center p-6 text-white text-center">
+          <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/natural-paper.png')] opacity-20"></div>
+          <div class="text-[10px] opacity-60 uppercase tracking-widest font-black mb-1">2026 Shanghai Championship</div>
+          <h2 class="text-lg font-black leading-tight mb-2">2026上海马年新春摄影大赛</h2>
+          <div class="px-6 py-1.5 bg-purple-400 rounded-lg shadow-lg text-sm font-black text-white">最高5000元奖励</div>
+       </div>
+       <div class="p-6 space-y-4">
+          <div class="flex items-center space-x-2">
+             <span class="px-2 py-0.5 border border-purple-200 text-purple-600 text-[10px] font-bold rounded bg-purple-50">作品239</span>
+             <span class="px-2 py-0.5 border border-purple-200 text-purple-600 text-[10px] font-bold rounded bg-purple-50">获赞2271</span>
+          </div>
+          <div class="p-4 bg-purple-600 text-white rounded-2xl flex items-center justify-between shadow-xl">
+             <div>
+                <div class="text-[10px] font-bold opacity-60">NEW ITERATION</div>
+                <div class="font-black">立即报名参赛</div>
+             </div>
+             <i class="ri-arrow-right-circle-fill text-2xl"></i>
+          </div>
+          <div class="pt-2 border-b flex justify-around text-sm font-black border-gray-100 text-gray-400">
+             <span class="pb-2">排行</span>
+             <span class="pb-2 text-purple-600 border-b-2 border-purple-600">作品</span>
+          </div>
+          <div class="py-4 space-y-4">
+             <div class="h-10 bg-gray-50 rounded-lg flex items-center px-4 space-x-3">
+               <i class="ri-search-line text-gray-400"></i>
+               <span class="text-xs text-gray-300">按作品名、作者名搜索</span>
+             </div>
+          </div>
+       </div>
+    </div>
+</div>
+
+      </div>
+    </div>
+    <div class="absolute" style="left: 800px; top: 750px;">
+      <div id="CH-1-5" class="absolute -top-10 left-0 bg-gray-900 text-white text-sm px-3 py-1 rounded shadow-sm z-10 flex items-center whitespace-nowrap">
+        CH-1-5 · 赛事-社团报名
+        <span class="ml-2 px-1.5 py-0.5 bg-purple-600 text-white text-[10px] font-bold rounded uppercase">v1.4 新增</span>
+      </div>
+      <div class="w-[375px] h-[812px] bg-white border border-gray-200 rounded-[40px] shadow-2xl overflow-hidden transform scale-[0.65] origin-top-left">
+        
+<div class="flex flex-col h-full bg-white">
+    <div class="h-14 bg-gray-100 flex items-center px-6 justify-between shrink-0">
+      <div class="w-6 h-6 bg-gray-300 rounded-full"></div>
+      <div class="w-24 h-4 bg-gray-300 rounded-full"></div>
+      <div class="w-6 h-6 bg-gray-300 rounded-full"></div>
+    </div>
+    <div class="flex-1 p-8 space-y-8">
+        <div class="space-y-3">
+            <div class="w-20 h-3 bg-gray-200 rounded"></div>
+            <div class="w-full h-12 bg-gray-50 border-2 border-dashed border-gray-200 rounded-xl flex items-center px-4 text-gray-400 text-xs font-bold">[代表社团名 · 锁定]</div>
+        </div>
+        <div class="space-y-3">
+            <div class="w-24 h-3 bg-gray-200 rounded"></div>
+            <div class="w-full h-24 bg-gray-50 rounded-xl flex items-center justify-center text-gray-300 text-xs font-bold">[领队寄语选择区]</div>
+        </div>
+        <div class="space-y-3">
+            <div class="w-20 h-3 bg-gray-200 rounded"></div>
+            <div class="w-full h-12 bg-gray-100 rounded-xl"></div>
+        </div>
+    </div>
+    <div class="p-8 shrink-0">
+        <div class="w-full h-14 bg-purple-200 rounded-2xl flex items-center justify-center text-purple-500 font-bold">[提交报名申请]</div>
+    </div>
+</div>
+
+      </div>
+    </div>
+    <div class="absolute" style="left: 1450px; top: 750px;">
+      <div id="CC-24" class="absolute -top-10 left-0 bg-gray-900 text-white text-sm px-3 py-1 rounded shadow-sm z-10 flex items-center whitespace-nowrap">
+        CC-24 · 赛事报名审核
+        <span class="ml-2 px-1.5 py-0.5 bg-purple-600 text-white text-[10px] font-bold rounded uppercase">v1.4 新增</span>
+      </div>
+      <div class="w-[600px] h-[400px] bg-white border border-gray-200 rounded-xl shadow-2xl overflow-hidden transform scale-[0.65] origin-top-left flex flex-col">
+        
+<div class="flex flex-col h-full bg-slate-50 font-sans">
+     <div class="h-12 bg-slate-900 text-white flex items-center px-6 justify-between shrink-0">
+       <div class="flex items-center space-x-2">
+         <div class="w-2.5 h-2.5 bg-red-500 rounded-full"></div>
+         <div class="w-2.5 h-2.5 bg-amber-500 rounded-full"></div>
+         <div class="w-2.5 h-2.5 bg-emerald-500 rounded-full"></div>
+         <span class="ml-4 opacity-50 tracking-widest uppercase text-[10px]">Admin Console</span>
+       </div>
+     </div>
+     <div class="flex-1 flex overflow-hidden">
+       <div class="w-32 bg-slate-200 p-4 space-y-2 shrink-0">
+          <div class="p-2 bg-white rounded shadow-sm font-bold border-l-4 border-purple-500 text-[10px]">报名审核</div>
+          <div class="p-2 opacity-30 text-[10px]">证书配置</div>
+       </div>
+       <div class="flex-1 bg-white p-6 overflow-y-auto no-scrollbar">
+          <h1 class="text-xl font-black mb-6 tracking-tighter">赛事报名管理</h1>
+          <div class="p-4 bg-purple-50 rounded-xl mb-6 border border-purple-100">
+             <div class="text-[10px] font-bold text-purple-600 mb-2 uppercase">Pending Audit</div>
+             <div class="flex justify-between items-center">
+                <span class="font-bold text-sm text-purple-900">舞之魂舞蹈社</span>
+                <span class="px-2 py-0.5 bg-purple-200 text-purple-700 rounded text-[10px] font-black">待处理</span>
+             </div>
+          </div>
+          <div class="space-y-4">
+             <div class="text-[10px] font-bold text-gray-400 uppercase">审核操作</div>
+             <textarea class="w-full p-3 bg-gray-50 border rounded-lg text-xs" placeholder="若驳回，请输入原因..."></textarea>
+             <div class="flex gap-2">
+                <button class="flex-1 py-2 border border-gray-200 rounded-lg text-xs font-bold text-gray-400">驳回申请</button>
+                <button class="flex-1 py-2 bg-purple-600 text-white rounded-lg text-xs font-bold">通过并准入</button>
+             </div>
+          </div>
+       </div>
+     </div>
+</div>
+
+      </div>
+    </div>
+    <div class="absolute" style="left: 2100px; top: 300px;">
+      <div id="MsgRefuse" class="absolute -top-10 left-0 bg-gray-900 text-white text-sm px-3 py-1 rounded shadow-sm z-10 flex items-center whitespace-nowrap">
+        站内信通知(驳回)
+        
+      </div>
+      <div class="w-[240px] h-[120px] bg-gray-100 border-2 border-gray-300 rounded-xl shadow-md overflow-hidden flex items-center justify-center p-4">
+        
+        <div class="w-full h-full flex flex-col items-center justify-center text-gray-400 bg-gray-50">
+            <i class="ri-instance-line text-4xl mb-2"></i>
+            <span class="px-6 text-center font-bold">站内信通知(驳回)</span>
+            <div class="mt-4 w-1/2 h-2 bg-gray-200 rounded-full"></div>
+            <div class="mt-2 w-1/3 h-2 bg-gray-200 rounded-full"></div>
+        </div>
+      </div>
+    </div>
+    <div class="absolute" style="left: 2100px; top: 750px;">
+      <div id="MsgPass" class="absolute -top-10 left-0 bg-gray-900 text-white text-sm px-3 py-1 rounded shadow-sm z-10 flex items-center whitespace-nowrap">
+        站内信通知(通过)
+        
+      </div>
+      <div class="w-[240px] h-[120px] bg-gray-100 border-2 border-gray-300 rounded-xl shadow-md overflow-hidden flex items-center justify-center p-4">
+        
+        <div class="w-full h-full flex flex-col items-center justify-center text-gray-400 bg-gray-50">
+            <i class="ri-instance-line text-4xl mb-2"></i>
+            <span class="px-6 text-center font-bold">站内信通知(通过)</span>
+            <div class="mt-4 w-1/2 h-2 bg-gray-200 rounded-full"></div>
+            <div class="mt-2 w-1/3 h-2 bg-gray-200 rounded-full"></div>
+        </div>
+      </div>
+    </div>
+    <div class="absolute" style="left: 2100px; top: 1200px;">
+      <div id="AutoCreate" class="absolute -top-10 left-0 bg-gray-900 text-white text-sm px-3 py-1 rounded shadow-sm z-10 flex items-center whitespace-nowrap">
+        系统自动创建配套活动
+        
+      </div>
+      <div class="w-[240px] h-[120px] bg-gray-100 border-2 border-gray-300 rounded-xl shadow-md overflow-hidden flex items-center justify-center p-4">
+        
+        <div class="w-full h-full flex flex-col items-center justify-center text-gray-400 bg-gray-50">
+            <i class="ri-instance-line text-4xl mb-2"></i>
+            <span class="px-6 text-center font-bold">系统自动创建配套活动</span>
+            <div class="mt-4 w-1/2 h-2 bg-gray-200 rounded-full"></div>
+            <div class="mt-2 w-1/3 h-2 bg-gray-200 rounded-full"></div>
+        </div>
+      </div>
+    </div>
+    <div class="absolute" style="left: 2750px; top: 600px;">
+      <div id="CC-10-3" class="absolute -top-10 left-0 bg-gray-900 text-white text-sm px-3 py-1 rounded shadow-sm z-10 flex items-center whitespace-nowrap">
+        CC-10-3 · 赛事记录中心
+        <span class="ml-2 px-1.5 py-0.5 bg-purple-100 text-purple-600 text-[10px] font-bold rounded uppercase">v1.4 改造</span>
+      </div>
+      <div class="w-[375px] h-[812px] bg-white border border-gray-200 rounded-[40px] shadow-2xl overflow-hidden transform scale-[0.65] origin-top-left">
+        
+<div class="flex flex-col h-full bg-white">
+    <div class="h-20 bg-white border-b flex items-center px-10 font-bold text-xl shrink-0">
+       我的赛事
+    </div>
+    <div class="flex-1 bg-gray-100 p-8 space-y-8 overflow-y-auto no-scrollbar">
+       <div class="bg-white rounded-3xl p-8 border-2 border-purple-500 shadow-xl relative overflow-hidden">
+          <div class="absolute -top-4 -right-4 w-16 h-16 bg-purple-50 rounded-full flex items-center justify-center opacity-30"><i class="ri-award-fill text-4xl text-purple-500"></i></div>
+          <h3 class="font-black text-2xl mb-2 tracking-tighter">第1届官方赛事</h3>
+          <p class="text-[10px] font-bold text-purple-600 uppercase mb-8 tracking-widest flex items-center">
+             <span class="w-1.5 h-1.5 bg-purple-500 rounded-full mr-2 animate-pulse"></span> Status: Approved / 已准入
+          </p>
+          <div class="space-y-3">
+             <button class="w-full py-4 bg-purple-50 text-purple-600 rounded-2xl font-black text-xs border border-purple-100">查看/分享邀请函</button>
+             <button class="w-full py-4 bg-purple-600 text-white rounded-2xl font-black text-xs shadow-lg shadow-purple-200">去稿件上传中心</button>
+          </div>
+       </div>
+       <div class="p-6 bg-white rounded-2xl border border-gray-200 opacity-50">
+          <div class="text-[10px] font-bold text-gray-400 uppercase mb-2">History Records</div>
+          <div class="h-2 bg-gray-100 rounded-full w-3/4 mb-2"></div>
+          <div class="h-2 bg-gray-100 rounded-full w-1/2"></div>
+       </div>
+    </div>
+</div>
+
+      </div>
+    </div>
+    <div class="absolute" style="left: 3400px; top: 600px;">
+      <div id="AD-B1" class="absolute -top-10 left-0 bg-gray-900 text-white text-sm px-3 py-1 rounded shadow-sm z-10 flex items-center whitespace-nowrap">
+        AD-B1 · 邀请参赛落地弹窗
+        <span class="ml-2 px-1.5 py-0.5 bg-purple-100 text-purple-600 text-[10px] font-bold rounded uppercase">v1.4 改造</span>
+      </div>
+      <div class="w-[375px] h-[812px] bg-white border border-gray-200 rounded-[40px] shadow-2xl overflow-hidden transform scale-[0.65] origin-top-left">
+        
+<div class="w-full h-full bg-black/70 flex items-center justify-center p-8">
+    <div class="w-full bg-white rounded-[32px] overflow-hidden flex flex-col shadow-2xl">
+        <div class="p-4 bg-purple-700 text-white text-center text-[10px] font-black uppercase tracking-widest">
+            公益赞助：泰康之家 · 粤园
+        </div>
+        <div class="p-10 space-y-8 text-center">
+            <div class="relative w-24 h-24 mx-auto">
+               <div class="w-full h-full bg-gray-100 rounded-full border-4 border-white shadow-xl flex items-center justify-center overflow-hidden">
+                  <i class="ri-user-star-fill text-purple-300 text-4xl"></i>
+               </div>
+               <div class="absolute -bottom-1 -right-1 bg-purple-600 text-white rounded-full p-2 shadow-lg"><i class="ri-flag-fill text-xs"></i></div>
+            </div>
+            <div class="space-y-2">
+               <div class="text-xl font-black text-gray-900">张大爷</div>
+               <p class="text-[10px] text-gray-400 font-bold uppercase tracking-widest leading-loose">
+                  “快来参加！咱们社团需要你的一份力量，为荣誉而战！”
+               </p>
+            </div>
+            <button class="w-full py-5 bg-purple-600 text-white font-black rounded-3xl text-lg shadow-2xl shadow-purple-100 uppercase tracking-tighter italic">接受并进入赛事</button>
+        </div>
+        <div class="p-4 text-center bg-gray-50">
+           <span class="text-gray-300 text-[8px] font-black tracking-widest uppercase">Join the Championship</span>
+        </div>
+    </div>
+</div>
+
+      </div>
+    </div>
+    <div class="absolute" style="left: 2750px; top: 1350px;">
+      <div id="CC-10" class="absolute -top-10 left-0 bg-gray-900 text-white text-sm px-3 py-1 rounded shadow-sm z-10 flex items-center whitespace-nowrap">
+        CC-10 · 我的社团管理
+        <span class="ml-2 px-1.5 py-0.5 bg-purple-100 text-purple-600 text-[10px] font-bold rounded uppercase">v1.4 改造</span>
+      </div>
+      <div class="w-[375px] h-[812px] bg-white border border-gray-200 rounded-[40px] shadow-2xl overflow-hidden transform scale-[0.65] origin-top-left">
+        
+<div class="flex flex-col h-full bg-white">
+     <div class="h-20 bg-white flex items-center px-10 justify-center relative border-b border-gray-50 shrink-0">
+        <i class="ri-arrow-left-s-line text-2xl absolute left-10"></i>
+        <span class="font-bold text-lg">我的社团管理</span>
+     </div>
+     <div class="flex-1 bg-gray-50/50 p-6 space-y-6 overflow-y-auto no-scrollbar">
+        <div class="space-y-3">
+           <h3 class="text-sm font-bold text-gray-400 px-4 flex justify-between uppercase tracking-widest">Basic</h3>
+           <div class="bg-white rounded-2xl shadow-sm border overflow-hidden">
+              <div class="p-5 border-b flex justify-between items-center"><span class="font-medium">编辑社团信息</span> <i class="ri-arrow-right-s-line text-gray-300"></i></div>
+              <div class="p-5 flex justify-between items-center"><span class="font-medium">社团设置</span> <i class="ri-arrow-right-s-line text-gray-300"></i></div>
+           </div>
+        </div>
+        <div class="space-y-3">
+           <h3 class="text-sm font-bold text-gray-400 px-4 uppercase tracking-widest">Management</h3>
+           <div class="bg-white rounded-2xl shadow-sm border overflow-hidden">
+              <div class="p-5 border-b flex justify-between items-center bg-purple-50 cursor-pointer">
+                <div class="flex items-center"><i class="ri-medal-fill text-purple-500 mr-3 text-xl"></i> <span class="font-black text-purple-900">官方赛事 [v1.4]</span></div>
+                <i class="ri-arrow-right-s-line text-purple-300"></i>
+              </div>
+              <div class="p-5 border-b flex justify-between items-center opacity-40"><span class="font-medium">成员审核</span> <i class="ri-arrow-right-s-line text-gray-300"></i></div>
+              <div class="p-5 flex justify-between items-center bg-purple-50">
+                <span class="font-bold text-purple-900">社团活动 (含赛事花絮)</span> <i class="ri-arrow-right-s-line text-purple-300"></i>
+              </div>
+           </div>
+        </div>
+     </div>
+</div>
+
+      </div>
+    </div>
+  </div>
+</body>
+</html>
