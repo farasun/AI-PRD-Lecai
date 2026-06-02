@@ -33,6 +33,15 @@ export interface FormField {
   hint?: string;
   formulaConfig?: FormulaConfig;
   dataLinkConfig?: DataLinkConfig;
+  aiGenerated?: boolean;
+}
+
+export interface AiMessage {
+  id: string;
+  role: 'user' | 'assistant';
+  text: string;
+  isStreaming?: boolean;
+  timestamp: number;
 }
 
 export type NodeType = 'initiator' | 'approval' | 'cc' | 'condition' | 'auto' | 'end';
@@ -135,6 +144,12 @@ export interface AppState {
   currentTab: 'form' | 'flow' | 'data' | 'reports' | 'dashboard' | 'usage';
   appName: string;
 
+  // AI Assistant
+  aiPanelOpen: boolean;
+  aiMessages: AiMessage[];
+  aiThinking: boolean;
+  aiAutoFillHighlights: string[];
+
   // Form designer
   formFields: FormField[];
   selectedFieldId: string | null;
@@ -209,4 +224,10 @@ export type AppAction =
   | { type: 'COMPLETE_SCENARIO' }
   | { type: 'EXIT_TUTORIAL' }
   | { type: 'TOGGLE_CHAPTER_PANEL' }
-  | { type: 'SET_APP_NAME'; name: string };
+  | { type: 'SET_APP_NAME'; name: string }
+  | { type: 'SET_AI_PANEL'; open: boolean }
+  | { type: 'ADD_AI_MESSAGE'; message: AiMessage }
+  | { type: 'UPDATE_AI_LAST_MESSAGE'; text: string; isStreaming: boolean }
+  | { type: 'SET_AI_THINKING'; value: boolean }
+  | { type: 'CLEAR_AI_MESSAGES' }
+  | { type: 'SET_AI_FILL_HIGHLIGHTS'; fieldIds: string[] };

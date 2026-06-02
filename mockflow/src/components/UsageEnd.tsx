@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useStore } from '../store';
 import { useTutorialTarget } from '../engine/TutorialEngine';
 import type { VisibilityCondition } from '../types';
+import { FILL_PRESETS, APPROVAL_ASSIST } from '../data/ai-scripts';
 
 const DEFAULT_FIELDS = [
   { id: 'member', type: 'member' as const, label: '申请人', required: true, options: undefined as undefined },
@@ -14,9 +15,114 @@ const DEFAULT_FIELDS = [
   { id: 'textarea', type: 'textarea' as const, label: '请假事由', required: false, options: undefined as undefined },
 ];
 
+function AiFillModal({ onClose }: { onClose: () => void }) {
+  const { formFields, dispatch } = useStore();
+  const [step, setStep] = useState<'pick' | 'recognizing' | 'done'>('pick');
+  const [selectedSource, setSelectedSource] = useState<string>('');
+
+  const sources = [
+    { key: 'leave_doc', icon: '📄', label: '请假条.jpg', desc: '上传文档自动识别' },
+    { key: 'leave_voice', icon: '🎙️', label: '我下周一到周三请病假去医院', desc: '语音 / 口语输入' },
+  ];
+
+  async function handleSelect(key: string) {
+    setSelectedSource(key);
+    setStep('recognizing');
+    await new Promise((r) => setTimeout(r, 1800));
+
+    const preset = FILL_PRESETS[key];
+    if (!preset) { setStep('done'); return; }
+
+    // Auto-fill by field type
+    const fieldsToFill = formFields.length > 0 ? formFields : [
+      { id: 'member', type: 'member' as const },
+      { id: 'daterange', type: 'daterange' as const },
+      { id: 'select', type: 'select' as const },
+      { id: 'textarea', type: 'textarea' as const },
+    ];
+
+    for (const f of fieldsToFill) {
+      await new Promise((r) => setTimeout(r, 280));
+      if (f.type === 'member' && preset.member) {
+        dispatch({ type: 'SET_FORM_VALUE', key: f.id, value: preset.member });
+      } else if (f.type === 'select' && preset.select) {
+        dispatch({ type: 'SET_FORM_VALUE', key: f.id, value: preset.select });
+      } else if (f.type === 'daterange') {
+        if (preset.daterange_start) dispatch({ type: 'SET_FORM_VALUE', key: `${f.id}_start`, value: preset.daterange_start });
+        if (preset.daterange_end) dispatch({ type: 'SET_FORM_VALUE', key: `${f.id}_end`, value: preset.daterange_end });
+      } else if (f.type === 'textarea' && preset.textarea) {
+        dispatch({ type: 'SET_FORM_VALUE', key: f.id, value: preset.textarea });
+      }
+    }
+
+    setStep('done');
+  }
+
+  return (
+    <div className="fixed inset-0 z-40 flex items-end sm:items-center justify-center bg-black/40 animate-fade-in">
+      <div className="bg-white rounded-t-2xl sm:rounded-2xl w-full sm:max-w-sm mx-0 sm:mx-4 p-6 animate-slide-up">
+        <div className="flex items-center justify-between mb-4">
+          <div className="flex items-center gap-2">
+            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-indigo-500 flex items-center justify-center text-white font-bold text-sm">M</div>
+            <div>
+              <div className="font-semibold text-gray-900 text-sm">AI 智能填单</div>
+              <div className="text-xs text-gray-400">小M 帮你自动识别并填写</div>
+            </div>
+          </div>
+          <button onClick={onClose} className="text-gray-400 hover:text-gray-600">✕</button>
+        </div>
+
+        {step === 'pick' && (
+          <>
+            <p className="text-sm text-gray-500 mb-4">选择信息来源，小M 将自动抽取关键信息并填入表单：</p>
+            <div className="space-y-3">
+              {sources.map((s) => (
+                <button
+                  key={s.key}
+                  onClick={() => handleSelect(s.key)}
+                  className="w-full text-left p-4 rounded-xl border-2 border-gray-100 hover:border-blue-400 hover:bg-blue-50 transition-all flex items-start gap-3"
+                >
+                  <span className="text-2xl">{s.icon}</span>
+                  <div>
+                    <div className="text-sm font-medium text-gray-800">{s.label}</div>
+                    <div className="text-xs text-gray-400 mt-0.5">{s.desc}</div>
+                  </div>
+                </button>
+              ))}
+            </div>
+          </>
+        )}
+
+        {step === 'recognizing' && (
+          <div className="py-6 text-center">
+            <div className="text-3xl mb-3 animate-spin inline-block">⚙️</div>
+            <div className="font-medium text-gray-800 mb-1">小M 识别中…</div>
+            <div className="text-sm text-gray-400">正在从{selectedSource === 'leave_voice' ? '语音' : '文档'}中抽取请假信息</div>
+          </div>
+        )}
+
+        {step === 'done' && (
+          <div className="py-4 text-center">
+            <div className="text-3xl mb-3">✅</div>
+            <div className="font-semibold text-gray-900 mb-1">已自动填写完毕</div>
+            <p className="text-sm text-gray-500 mb-4">请核对信息，如有不对可直接修改。</p>
+            <button
+              onClick={onClose}
+              className="w-full bg-blue-600 text-white py-2.5 rounded-xl text-sm font-medium hover:bg-blue-700 transition-colors"
+            >
+              好的，继续提交 →
+            </button>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
 function EmployeeView() {
   const { formFields, formValues, submissions, visibilityRules, dispatch } = useStore();
   const { isTarget: isSubmitTarget, isShaking: isSubmitShaking } = useTutorialTarget('usage-submit-btn');
+  const [showAiFill, setShowAiFill] = useState(false);
 
   const fields = formFields.length > 0 ? formFields : DEFAULT_FIELDS;
 
@@ -49,10 +155,21 @@ function EmployeeView() {
 
   return (
     <div className="max-w-lg mx-auto py-8 px-4">
+      {showAiFill && <AiFillModal onClose={() => setShowAiFill(false)} />}
       <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-        <div className="bg-blue-600 px-6 py-4">
-          <h2 className="text-white font-semibold">请假申请</h2>
-          <p className="text-blue-200 text-xs mt-0.5">填写完整后点击提交</p>
+        <div className="bg-blue-600 px-6 py-4 flex items-center justify-between">
+          <div>
+            <h2 className="text-white font-semibold">请假申请</h2>
+            <p className="text-blue-200 text-xs mt-0.5">填写完整后点击提交</p>
+          </div>
+          <button
+            type="button"
+            onClick={() => setShowAiFill(true)}
+            className="flex items-center gap-1.5 bg-white/20 hover:bg-white/30 text-white text-xs px-3 py-1.5 rounded-full transition-all"
+          >
+            <span>🤖</span>
+            AI 智能填单
+          </button>
         </div>
 
         {lastSubmission && (
@@ -212,6 +329,35 @@ function EmployeeView() {
   );
 }
 
+function ApprovalAssistCard({ sub }: { sub: { applicant: string; leaveType: string; dateRange: string } }) {
+  const [open, setOpen] = useState(true);
+  if (!open) return null;
+  return (
+    <div className="bg-indigo-50 border border-indigo-100 rounded-xl p-3 mb-3">
+      <div className="flex items-center justify-between mb-2">
+        <div className="flex items-center gap-1.5 text-xs font-medium text-indigo-700">
+          <span>🤖</span> AI 辅助审批
+        </div>
+        <button onClick={() => setOpen(false)} className="text-indigo-300 hover:text-indigo-500 text-xs">✕</button>
+      </div>
+      <div className="space-y-1.5 text-xs">
+        <div className="flex gap-2">
+          <span className="text-gray-400 flex-shrink-0">摘要：</span>
+          <span className="text-gray-700">{sub.applicant}申请{sub.leaveType} 3 天（{sub.dateRange.replace(' 至 ', '–')}），已附证明材料。</span>
+        </div>
+        <div className="flex gap-2">
+          <span className="text-orange-400 flex-shrink-0">风险：</span>
+          <span className="text-gray-700">{APPROVAL_ASSIST.risk}</span>
+        </div>
+        <div className="flex gap-2">
+          <span className="text-green-500 flex-shrink-0">建议：</span>
+          <span className="text-gray-700 font-medium">{APPROVAL_ASSIST.suggestion}</span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function ManagerView() {
   const { submissions, dispatch } = useStore();
   const pendingItems = submissions.filter((s) => s.status === 'pending');
@@ -234,6 +380,7 @@ function ManagerView() {
         <div className="space-y-3">
           {pendingItems.map((sub) => (
             <div key={sub.id} className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5">
+              <ApprovalAssistCard sub={sub} />
               <div className="flex items-start justify-between mb-3">
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center text-sm font-medium text-blue-700">

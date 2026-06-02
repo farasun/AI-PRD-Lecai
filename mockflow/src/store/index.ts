@@ -9,6 +9,11 @@ const initialState: AppState = {
   currentTab: 'form',
   appName: '请假管理系统',
 
+  aiPanelOpen: false,
+  aiMessages: [],
+  aiThinking: false,
+  aiAutoFillHighlights: [],
+
   formFields: [],
   selectedFieldId: null,
   visibilityRules: [],
@@ -394,6 +399,24 @@ function reducer(state: AppState, action: AppAction): AppState {
       return { ...state, tutorialActive: false, tutorialMode: 'free' };
     case 'TOGGLE_CHAPTER_PANEL':
       return { ...state, chapterPanelOpen: !state.chapterPanelOpen };
+
+    case 'SET_AI_PANEL':
+      return { ...state, aiPanelOpen: action.open };
+    case 'ADD_AI_MESSAGE':
+      return { ...state, aiMessages: [...state.aiMessages, action.message] };
+    case 'UPDATE_AI_LAST_MESSAGE': {
+      const msgs = [...state.aiMessages];
+      if (msgs.length === 0) return state;
+      msgs[msgs.length - 1] = { ...msgs[msgs.length - 1], text: action.text, isStreaming: action.isStreaming };
+      return { ...state, aiMessages: msgs };
+    }
+    case 'SET_AI_THINKING':
+      return { ...state, aiThinking: action.value };
+    case 'CLEAR_AI_MESSAGES':
+      return { ...state, aiMessages: [] };
+    case 'SET_AI_FILL_HIGHLIGHTS':
+      return { ...state, aiAutoFillHighlights: action.fieldIds };
+
     default:
       return state;
   }

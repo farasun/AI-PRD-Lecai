@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useCallback } from 'react';
+import React, { useEffect, useRef, useCallback, useState } from 'react';
 import { useStore } from '../store';
 import { leaveApprovalScenario } from '../data/scenario-leave';
 import type { TutorialStep } from '../types';
@@ -95,72 +95,157 @@ function BranchCard({ step, onChoose }: { step: TutorialStep; onChoose: (id: str
   );
 }
 
+function ExitConfirmDialog({ onConfirm, onCancel }: { onConfirm: () => void; onCancel: () => void }) {
+  return (
+    <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/50 animate-fade-in">
+      <div className="bg-white rounded-2xl shadow-2xl max-w-xs w-full mx-4 p-6 animate-bounce-in text-center">
+        <div className="text-3xl mb-3">🚪</div>
+        <h3 className="font-bold text-gray-900 mb-2">确定退出引导？</h3>
+        <p className="text-sm text-gray-500 mb-5">退出后进度不会丢失，随时可从「章节目录」继续。</p>
+        <div className="flex gap-3">
+          <button onClick={onCancel} className="flex-1 py-2.5 rounded-xl border border-gray-200 text-gray-600 text-sm hover:bg-gray-50 transition-colors">
+            继续引导
+          </button>
+          <button onClick={onConfirm} className="flex-1 py-2.5 rounded-xl bg-red-500 text-white text-sm hover:bg-red-600 transition-colors">
+            退出
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function TooltipBubble({
   step,
   targetEl,
   onNext,
   onHelp,
   onHint,
+  onExit,
 }: {
   step: TutorialStep;
   targetEl: Element | null;
   onNext: () => void;
   onHelp: () => void;
   onHint: () => void;
+  onExit: () => void;
 }) {
-  const rect = targetEl?.getBoundingClientRect();
-  const tooltipRef = useRef<HTMLDivElement>(null);
+  const [hideOverlay, setHideOverlay] = useState(false);
+  const [rect, setRect] = useState<DOMRect | null>(null);
 
-  let top = (rect?.bottom ?? 0) + 12;
-  let left = (rect?.left ?? 0) + (rect?.width ?? 0) / 2;
-  const arrowUp = true;
+  // Recompute rect on target change and on resize/scroll
+  const updateRect = useCallback(() => {
+    if (targetEl) {
+      setRect(targetEl.getBoundingClientRect());
+    } else {
+      setRect(null);
+    }
+  }, [targetEl]);
+
+  useEffect(() => {
+    updateRect();
+    window.addEventListener('resize', updateRect);
+    window.addEventListener('scroll', updateRect, true);
+    return () => {
+      window.removeEventListener('resize', updateRect);
+      window.removeEventListener('scroll', updateRect, true);
+    };
+  }, [updateRect]);
+
+  // Scroll target into view if outside viewport
+  useEffect(() => {
+    if (!targetEl) return;
+    const r = targetEl.getBoundingClientRect();
+    const inView = r.top >= 0 && r.bottom <= window.innerHeight && r.left >= 0 && r.right <= window.innerWidth;
+    if (!inView) {
+      targetEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  }, [targetEl]);
+
+  // Compute tooltip position
+  const padding = 8;
+  const tooltipWidth = 320;
+  let tooltipTop = (rect?.bottom ?? window.innerHeight / 2) + 12;
+  let tooltipLeft = (rect?.left ?? window.innerWidth / 2) + (rect?.width ?? 0) / 2 - tooltipWidth / 2;
+  let arrowBelow = false;
+
+  // Flip above if not enough room below
+  if (tooltipTop + 220 > window.innerHeight && rect) {
+    tooltipTop = rect.top - 220 - 12;
+    arrowBelow = true;
+  }
+
+  tooltipTop = Math.max(padding, Math.min(tooltipTop, window.innerHeight - 220));
+  tooltipLeft = Math.max(padding, Math.min(tooltipLeft, window.innerWidth - tooltipWidth - padding));
 
   return (
     <>
-      {/* Overlay */}
-      <div className="fixed inset-0 z-40 bg-black/40 pointer-events-none" />
-      {/* Spotlight ring */}
-      {rect && (
+      {/* Spotlight-only overlay — single element, no double-darkening */}
+      {rect && !hideOverlay && (
         <div
-          className="fixed z-41 pointer-events-none"
+          className="fixed pointer-events-none"
           style={{
+            zIndex: 9998,
             top: rect.top - 6,
             left: rect.left - 6,
             width: rect.width + 12,
             height: rect.height + 12,
-            borderRadius: 12,
-            boxShadow: '0 0 0 9999px rgba(0,0,0,0.4), 0 0 0 3px rgba(59,130,246,0.8)',
+            borderRadius: 10,
+            boxShadow: '0 0 0 9999px rgba(0,0,0,0.45)',
+            outline: '2px solid #4F8AFF',
+            outlineOffset: 2,
+            transition: 'top 0.3s ease, left 0.3s ease, width 0.3s ease, height 0.3s ease',
           }}
         />
       )}
-      {/* Tooltip */}
+      {!rect && !hideOverlay && (
+        <div className="fixed inset-0 pointer-events-none" style={{ zIndex: 9998, background: 'rgba(0,0,0,0.35)' }} />
+      )}
+
+      {/* Tooltip bubble */}
       <div
-        ref={tooltipRef}
-        className="fixed z-50 animate-slide-up"
-        style={{
-          top: Math.min(top, window.innerHeight - 200),
-          left: Math.max(12, Math.min(left - 160, window.innerWidth - 340)),
-          width: 320,
-        }}
+        className="fixed animate-slide-up"
+        style={{ zIndex: 9999, top: tooltipTop, left: tooltipLeft, width: tooltipWidth }}
       >
-        <div className="bg-white rounded-xl shadow-2xl p-4 border border-blue-100">
-          {arrowUp && (
-            <div
-              className="absolute -top-2 left-1/2 -translate-x-1/2 w-4 h-4 bg-white border-l border-t border-blue-100 rotate-45"
-              style={{ top: -8 }}
-            />
+        <div className="bg-white rounded-xl shadow-2xl p-4 border border-blue-100 relative">
+          {/* Arrow */}
+          {!arrowBelow && (
+            <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-4 h-4 bg-white border-l border-t border-blue-100 rotate-45" />
           )}
-          <p className="text-sm text-gray-700 leading-relaxed mb-3">
+          {arrowBelow && (
+            <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-4 h-4 bg-white border-r border-b border-blue-100 rotate-45" />
+          )}
+
+          {/* Close button */}
+          <button
+            onClick={onExit}
+            className="absolute top-2 right-2 w-5 h-5 flex items-center justify-center text-gray-300 hover:text-gray-500 text-xs rounded"
+            title="退出引导"
+          >
+            ✕
+          </button>
+
+          <p className="text-sm text-gray-700 leading-relaxed mb-3 pr-4">
             {parseNarration(step.narration)}
           </p>
-          <div className="flex gap-2">
-            {step.type === 'spotlight' || step.type === 'tooltip' ? (
-              <button
-                onClick={onNext}
-                className="flex-1 bg-blue-600 text-white text-xs py-2 rounded-lg hover:bg-blue-700 transition-colors"
-              >
-                {step.next ?? '好的 →'}
-              </button>
+
+          <div className="flex flex-wrap gap-1.5">
+            {(step.type === 'spotlight' || step.type === 'tooltip') ? (
+              <>
+                <button
+                  onClick={onNext}
+                  className="flex-1 bg-blue-600 text-white text-xs py-2 rounded-lg hover:bg-blue-700 transition-colors"
+                >
+                  {step.next ?? '好的 →'}
+                </button>
+                <button
+                  onClick={() => setHideOverlay((h) => !h)}
+                  className="px-3 py-2 text-xs text-gray-500 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors"
+                  title={hideOverlay ? '恢复遮罩' : '隐藏遮罩'}
+                >
+                  {hideOverlay ? '🔳' : '🔲'}
+                </button>
+              </>
             ) : (
               <>
                 <button
@@ -174,6 +259,13 @@ function TooltipBubble({
                   className="px-3 py-2 text-xs text-orange-600 bg-orange-50 rounded-lg hover:bg-orange-100 transition-colors"
                 >
                   🤖 帮我做
+                </button>
+                <button
+                  onClick={() => setHideOverlay((h) => !h)}
+                  className="px-3 py-2 text-xs text-gray-500 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors"
+                  title={hideOverlay ? '恢复遮罩' : '隐藏遮罩'}
+                >
+                  {hideOverlay ? '🔳 恢复' : '🔲 隐藏'}
                 </button>
               </>
             )}
@@ -204,7 +296,7 @@ function ProgressBar({
   const progress = ((chapterIndex * 100 + (stepIndex / Math.max(totalSteps - 1, 1)) * 100) / totalChapters).toFixed(0);
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-gray-200 px-4 py-2 flex items-center gap-3 shadow-lg">
+    <div className="fixed bottom-0 left-0 right-0 z-[9997] bg-white border-t border-gray-200 px-4 py-2 flex items-center gap-3 shadow-lg">
       <button
         onClick={onTogglePanel}
         className="text-xs text-blue-600 font-medium hover:underline flex items-center gap-1"
@@ -285,10 +377,21 @@ export function TutorialEngine() {
   } = useStore();
 
   const store = useStore();
+  const [showExitConfirm, setShowExitConfirm] = useState(false);
 
   const scenario = leaveApprovalScenario;
   const chapter = scenario?.chapters[currentChapterIndex];
   const step = chapter?.steps[currentStepIndex];
+
+  // ESC key → exit confirmation
+  useEffect(() => {
+    if (!tutorialActive) return;
+    function handleKeyDown(e: KeyboardEvent) {
+      if (e.key === 'Escape') setShowExitConfirm(true);
+    }
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, [tutorialActive]);
 
   // Watch state changes for gated step completion
   useEffect(() => {
@@ -331,6 +434,12 @@ export function TutorialEngine() {
     (id: string) => dispatch({ type: 'CHOOSE_BRANCH', branchId: id }),
     [dispatch]
   );
+  const handleExitRequest = useCallback(() => setShowExitConfirm(true), []);
+  const handleExitConfirm = useCallback(() => {
+    dispatch({ type: 'EXIT_TUTORIAL' });
+    setShowExitConfirm(false);
+  }, [dispatch]);
+  const handleExitCancel = useCallback(() => setShowExitConfirm(false), []);
 
   if (!tutorialActive || !step || !scenario) return null;
 
@@ -352,6 +461,7 @@ export function TutorialEngine() {
           onNext={handleNext}
           onHelp={handleHelp}
           onHint={handleHint}
+          onExit={handleExitRequest}
         />
       )}
 
@@ -363,13 +473,17 @@ export function TutorialEngine() {
         />
       )}
 
+      {showExitConfirm && (
+        <ExitConfirmDialog onConfirm={handleExitConfirm} onCancel={handleExitCancel} />
+      )}
+
       <ProgressBar
         chapterIndex={currentChapterIndex}
         stepIndex={currentStepIndex}
         totalChapters={scenario.chapters.length}
         totalSteps={totalSteps}
         onTogglePanel={() => dispatch({ type: 'TOGGLE_CHAPTER_PANEL' })}
-        onExit={() => dispatch({ type: 'EXIT_TUTORIAL' })}
+        onExit={handleExitRequest}
       />
     </>
   );

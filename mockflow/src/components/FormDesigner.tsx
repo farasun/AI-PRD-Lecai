@@ -182,6 +182,7 @@ function SortableField({ field, isSelected, onSelect, onDelete }: {
       className={`group relative rounded-xl border-2 p-4 cursor-pointer transition-all
         ${isDragging ? 'opacity-50 shadow-lg' : ''}
         ${isSelected ? 'border-blue-400 bg-blue-50/50' : 'border-transparent bg-white hover:border-gray-300 hover:shadow-sm'}
+        ${field.aiGenerated ? 'animate-ai-appear border-indigo-300 bg-indigo-50/40' : ''}
       `}
       onClick={onSelect}
     >
